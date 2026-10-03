@@ -30,13 +30,27 @@ function toggleMenu() {
 navToggle.addEventListener("click", toggleMenu);
 
 navLinks.forEach((link) => {
-  link.addEventListener("click", closeMenu);
+  link.addEventListener("click", () => {
+    closeMenu();
+    const destination = document.querySelector(link.hash);
+    if (destination) {
+      destination.setAttribute("tabindex", "-1");
+      destination.focus({ preventScroll: true });
+    }
+  });
 });
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && navMenu.classList.contains("is-open")) {
     closeMenu();
+    navToggle.focus();
   }
+});
+
+const mobileNavigation = window.matchMedia("(max-width: 900px)");
+mobileNavigation.addEventListener("change", closeMenu);
+document.addEventListener("click", (event) => {
+  if (!header.contains(event.target)) closeMenu();
 });
 
 function updateHeaderState() {
@@ -68,10 +82,14 @@ if ("IntersectionObserver" in window) {
 
         const activeLink = document.querySelector(`.nav-menu a[href="#${entry.target.id}"]`);
 
-        navLinks.forEach((link) => link.classList.remove("is-active"));
+        navLinks.forEach((link) => {
+          link.classList.remove("is-active");
+          link.removeAttribute("aria-current");
+        });
 
         if (activeLink) {
           activeLink.classList.add("is-active");
+          activeLink.setAttribute("aria-current", "location");
         }
       });
     },
@@ -86,12 +104,7 @@ if ("IntersectionObserver" in window) {
   revealItems.forEach((item) => item.classList.add("is-visible"));
 }
 
-// ============================================================
-// CONFIGURACIÓN DE DIAPOSITIVAS DEL HERO
-// Reemplazar posteriormente por las fotografías horizontales reales.
-// Para usar imágenes reales: llenar "src" con la ruta del archivo
-// y opcionalmente vaciar "background".
-// ============================================================
+// Fotografías actuales del campo y la facultad.
 const AUTOPLAY_DELAY = 5500;
 
 const heroSlides = [
@@ -148,11 +161,13 @@ function initJourneyCarousel() {
   const previousButton = carousel.querySelector("[data-carousel-prev]");
   const nextButton = carousel.querySelector("[data-carousel-next]");
   const status = carousel.querySelector("[data-carousel-status]");
+  const pauseButton = carousel.querySelector("[data-carousel-pause]");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const hasMultipleSlides = heroSlides.length > 1;
   let currentSlide = 0;
   let autoplayTimer;
-  let resumeTimer;
+  let userPaused = reducedMotion.matches;
+  let pointerInside = false;
   let touchStartX = 0;
   let touchStartY = 0;
 
@@ -185,6 +200,7 @@ function initJourneyCarousel() {
       return `
         <figure class="journey-carousel__slide" data-carousel-slide aria-hidden="${index !== 0}">
           ${visual}
+          <figcaption>${escapeCarouselText(slide.label)}</figcaption>
         </figure>`;
     })
     .join("");
@@ -194,8 +210,7 @@ function initJourneyCarousel() {
       (_, index) => `
         <button
           type="button"
-          role="tab"
-          aria-selected="${index === 0}"
+          aria-current="${index === 0 ? "true" : "false"}"
           aria-controls="journeySlides"
           aria-label="Ver diapositiva ${index + 1}"
           data-carousel-dot="${index}"
@@ -216,7 +231,7 @@ function initJourneyCarousel() {
     });
 
     dotButtons.forEach((dot, index) => {
-      dot.setAttribute("aria-selected", String(index === currentSlide));
+      dot.setAttribute("aria-current", String(index === currentSlide));
     });
 
     if (announce) {
@@ -231,7 +246,7 @@ function initJourneyCarousel() {
 
   function startAutoplay() {
     stopAutoplay();
-    if (!hasMultipleSlides || reducedMotion.matches || document.hidden) return;
+    if (!hasMultipleSlides || userPaused || reducedMotion.matches || document.hidden || pointerInside || carousel.contains(document.activeElement)) return;
 
     autoplayTimer = window.setInterval(() => {
       updateSlide(currentSlide + 1);
@@ -240,15 +255,28 @@ function initJourneyCarousel() {
 
   function pauseAfterInteraction() {
     stopAutoplay();
-    window.clearTimeout(resumeTimer);
+    // A manual choice remains on screen until the visitor resumes playback.
+    userPaused = true;
+    updatePauseButton();
+  }
 
-    if (!reducedMotion.matches) {
-      resumeTimer = window.setTimeout(startAutoplay, 10000);
-    }
+  function updatePauseButton() {
+    pauseButton.setAttribute("aria-pressed", String(userPaused));
+    pauseButton.setAttribute("aria-label", userPaused ? "Reanudar reproducción automática" : "Pausar reproducción automática");
+    pauseButton.querySelector("[data-pause-icon]").hidden = userPaused;
+    pauseButton.querySelector("[data-play-icon]").hidden = !userPaused;
   }
 
   previousButton.disabled = !hasMultipleSlides;
   nextButton.disabled = !hasMultipleSlides;
+  pauseButton.disabled = !hasMultipleSlides || reducedMotion.matches;
+  updatePauseButton();
+  pauseButton.addEventListener("click", () => {
+    userPaused = !userPaused;
+    updatePauseButton();
+    if (userPaused) stopAutoplay();
+    else startAutoplay();
+  });
 
   if (!hasMultipleSlides) {
     carousel.setAttribute("aria-label", "Diapositiva del encabezado");
@@ -286,8 +314,14 @@ function initJourneyCarousel() {
     }
   });
 
-  carousel.addEventListener("pointerenter", stopAutoplay);
-  carousel.addEventListener("pointerleave", startAutoplay);
+  carousel.addEventListener("pointerenter", () => {
+    pointerInside = true;
+    stopAutoplay();
+  });
+  carousel.addEventListener("pointerleave", () => {
+    pointerInside = false;
+    startAutoplay();
+  });
   carousel.addEventListener("focusin", stopAutoplay);
   carousel.addEventListener("focusout", (event) => {
     if (!carousel.contains(event.relatedTarget)) startAutoplay();
@@ -320,10 +354,13 @@ function initJourneyCarousel() {
 
   const handleMotionChange = () => {
     if (reducedMotion.matches) {
+      userPaused = true;
       stopAutoplay();
     } else {
       startAutoplay();
     }
+    pauseButton.disabled = !hasMultipleSlides || reducedMotion.matches;
+    updatePauseButton();
   };
 
   if (reducedMotion.addEventListener) {
