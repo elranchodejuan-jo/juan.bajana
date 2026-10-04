@@ -63,7 +63,7 @@ Comprobación rápida de sintaxis: `node --check js/main.js`.
 
 - Cinco tarjetas con una frase completa para problema, descripción y diferencia,
   de 41 a 43 palabras descriptivas por iniciativa, agrupadas según la relación.
-- Retrato de 160 × 180 px en escritorio y 112 × 126 px en móvil, con encuadre CSS
+- Retrato de 160 × 180 px en escritorio y 112 px de ancho en móvil, con encuadre CSS
   sobre la imagen original para reconocer mejor el rostro. Fotografías del
   carrusel más amplias en escritorio; se conservan los cinco archivos originales.
 - Retícula y resplandores estáticos, sin elementos que intercepten clics.
