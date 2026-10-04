@@ -115,6 +115,10 @@ html:not(.js) .site-header { position: static; }
 .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 4vw, 56px); align-items: center; }
 .hero__content, .hero__visual { min-width: 0; }
 .hero h1 { font-size: clamp(2.3rem, 5.5vw, 4.75rem); font-weight: 700; letter-spacing: -0.06em; line-height: 1.08; margin-bottom: var(--space-5); }
+/* The full-name layer reserves its exact font dimensions during typing. */
+.hero__name { display: inline-grid; vertical-align: top; }
+.hero__name > span { grid-area: 1 / 1; white-space: nowrap; }
+.hero__name-space { visibility: hidden; }
 .hero__cursor { color: var(--color-cyan); font-weight: 400; }
 .hero__role { color: var(--color-blue); font-size: clamp(1rem, 1.6vw, 1.25rem); font-weight: 600; }
 .hero__areas { color: var(--color-muted); font: 400 0.75rem/1.7 var(--font-mono); margin-top: var(--space-2); }
@@ -132,7 +136,7 @@ html:not(.js) .site-header { position: static; }
 .journey-carousel__slide { position: relative; flex: 0 0 100%; min-width: 0; }
 .journey-carousel__slide > img, .journey-carousel__slide-bg { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: var(--slide-position, center); }
 .journey-carousel__slide figcaption { position: absolute; left: 16px; right: 16px; bottom: 14px; width: fit-content; max-width: calc(100% - 32px); padding: 6px 10px; background: rgb(11 18 32 / 94%); color: var(--color-text); border-radius: var(--radius-sm); font: 400 0.6875rem/1.6 var(--font-mono); }
-.hero-carousel__controls { display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: 8px 12px; border-bottom: var(--border); }
+.hero-carousel__controls { display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: 8px 12px; }
 .hero-carousel__arrow, .hero-carousel__pause { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; color: var(--color-text); background: transparent; border: 1px solid transparent; border-radius: var(--radius-sm); transition: background var(--duration-fast); }
 .hero-carousel__arrow:hover, .hero-carousel__pause:hover { background: var(--color-hover); }
 .hero-carousel__pause { border-left-color: var(--color-border); border-radius: 0; }
@@ -141,7 +145,7 @@ html:not(.js) .site-header { position: static; }
 .hero-carousel__indicators button { display: grid; place-items: center; width: 32px; height: 44px; padding: 0; border: 0; background: transparent; }
 .hero-carousel__indicators button::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--color-muted); }
 .hero-carousel__indicators button[aria-current="true"]::before { width: 14px; border-radius: 3px; background: var(--color-cyan); }
-.hero-card { display: flex; align-items: center; gap: var(--space-5); padding: var(--space-5); border-top: var(--border); }
+.hero-card { display: flex; align-items: center; gap: var(--space-5); padding: var(--space-5); border-bottom: var(--border); }
 .hero-card__portrait { flex: 0 0 var(--portrait-size); width: var(--portrait-size); height: calc(var(--portrait-size) * 1.125); overflow: hidden; border-radius: var(--radius-sm); background: var(--color-raised); }
 .hero-card__image { width: 100%; height: 100%; object-fit: cover; object-position: 28% 60%; transform: scale(1.35); transform-origin: 28% 58%; }
 .hero-card__copy { display: grid; gap: var(--space-3); min-width: 0; }

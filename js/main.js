@@ -382,4 +382,55 @@ function initJourneyCarousel() {
   startAutoplay();
 }
 
+// A single decorative cycle; the heading's accessible text stays unchanged.
+function initHeroName() {
+  const name = document.querySelector("#inicio-title [data-hero-name]");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (!name || reducedMotion.matches) return;
+
+  const fullName = name.textContent;
+  const characters = Array.from(fullName);
+  const pause = 450;
+  const eraseStep = 40;
+  const typeStep = 70;
+  let timer;
+  let count = characters.length;
+  let finished = false;
+
+  function finish() {
+    finished = true;
+    window.clearTimeout(timer);
+    if (name.textContent !== fullName) name.textContent = fullName;
+    reducedMotion.removeEventListener("change", handleMotionChange);
+  }
+
+  function handleMotionChange() {
+    if (reducedMotion.matches) finish();
+  }
+
+  function erase() {
+    if (finished) return;
+    count -= 1;
+    name.textContent = characters.slice(0, count).join("");
+    timer = window.setTimeout(count > 0 ? erase : type, count > 0 ? eraseStep : typeStep);
+  }
+
+  function type() {
+    if (finished) return;
+    count += 1;
+    name.textContent = characters.slice(0, count).join("");
+    if (count === characters.length) finish();
+    else timer = window.setTimeout(type, typeStep);
+  }
+
+  reducedMotion.addEventListener("change", handleMotionChange);
+  // Wait for the local font so font swapping cannot move the reserved title.
+  Promise.resolve(document.fonts?.ready).then(() => {
+    if (finished) return;
+    if (reducedMotion.matches) finish();
+    else timer = window.setTimeout(erase, pause + eraseStep);
+  });
+}
+
 initJourneyCarousel();
+initHeroName();
