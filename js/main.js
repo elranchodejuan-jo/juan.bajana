@@ -110,6 +110,8 @@ const AUTOPLAY_DELAY = 5500;
 const heroSlides = [
   {
     src: "assets/slide-1.jpg",
+    width: 1024,
+    height: 768,
     alt: "Siluetas de vacas pastando durante un hermoso atardecer anaranjado entre los árboles",
     background: "#07182d",
     position: "center",
@@ -117,6 +119,8 @@ const heroSlides = [
   },
   {
     src: "assets/slide-2.jpg",
+    width: 1024,
+    height: 768,
     alt: "Dos terneros marrones pastando bajo la sombra de unos árboles en un día soleado",
     background: "#0a66c2",
     position: "center",
@@ -124,6 +128,8 @@ const heroSlides = [
   },
   {
     src: "assets/slide-3.jpg",
+    width: 1024,
+    height: 768,
     alt: "Un grupo de vacas y caballos bebiendo agua fresca de un canal rodeado de naturaleza",
     background: "#22c55e",
     position: "center",
@@ -131,6 +137,8 @@ const heroSlides = [
   },
   {
     src: "assets/slide-4.jpg",
+    width: 1024,
+    height: 768,
     alt: "Primer plano de un pequeño ternero de color claro descansando sentado en la tierra seca",
     background: "#f59e0b",
     position: "center",
@@ -138,6 +146,8 @@ const heroSlides = [
   },
   {
     src: "assets/slide-5.jpg",
+    width: 1024,
+    height: 767,
     alt: "Edificio institucional o facultad con parqueo y autos bajo un cielo nublado",
     background: "#38bdf8",
     position: "center",

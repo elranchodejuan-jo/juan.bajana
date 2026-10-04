@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Landing page personal de Juan Bajaña, estudiante de Medicina Veterinaria y creador de proyectos digitales como Suite Vet, Cartilla Digital y CATTLE."
+      content="Juan José Bajaña Chuno, estudiante de Medicina Veterinaria en UTMACH. Proyectos personales y colaboraciones en veterinaria, programación e investigación aplicada."
     />
     <meta name="theme-color" content="#0b1220" />
     <title>Juan Bajaña | Veterinaria, Tecnología y Campo Digital</title>
@@ -15,7 +15,7 @@
     <link rel="icon" type="image/png" sizes="512x512" href="assets/site-icon-512.png" />
     <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="css/styles.css?v=15" />
+    <link rel="stylesheet" href="css/styles.css?v=16" />
   </head>
   <body>
     <a class="skip-link" href="#inicio">Saltar al contenido principal</a>
@@ -86,7 +86,7 @@
                   <div class="journey-carousel__track" id="journeySlides" data-carousel-track aria-live="off">
                     <!-- Primera fotografía disponible también sin JavaScript. -->
                     <figure class="journey-carousel__slide" data-carousel-slide aria-hidden="false">
-                      <img src="assets/slide-1.jpg" alt="Siluetas de vacas pastando durante un hermoso atardecer anaranjado entre los árboles" width="1600" height="900" fetchpriority="high" decoding="async" />
+                      <img src="assets/slide-1.jpg" alt="Siluetas de vacas pastando durante un hermoso atardecer anaranjado entre los árboles" width="1024" height="768" fetchpriority="high" decoding="async" />
                       <figcaption>Atardecer en el campo</figcaption>
                     </figure>
                   </div>
@@ -104,14 +104,18 @@
                 <p class="visually-hidden" data-carousel-status aria-live="polite">Diapositiva 1 de 5</p>
               </div>
               <div class="hero-card">
-                <img src="assets/juan-bajana-perro.jpeg" alt="Juan y su perro" class="hero-card__image" width="80" height="80" />
-                <div class="hero-card__copy"><span class="hero-card__badge">VetTech</span><strong>Veterinaria + Tecnología</strong><span>Foto de Juan</span></div>
+                <div class="hero-card__portrait"><img src="assets/juan-bajana-perro.jpeg" alt="Juan y su perro" class="hero-card__image" width="1600" height="1600" decoding="async" /></div>
+                <div class="hero-card__copy">
+                  <strong>Juan José Bajaña Chuno</strong>
+                  <span class="hero-card__education">Estudiante de Medicina Veterinaria · UTMACH</span>
+                  <span class="hero-card__identity">Veterinaria + Tecnología</span>
+                </div>
               </div>
             </div>
             <div class="hero-card__stats hero__stats" aria-label="Datos clave">
-              <article><strong>3</strong><span>proyectos eje</span></article>
-              <article><strong>360</strong><span>visión animal</span></article>
-              <article><strong>IA</strong><span>datos + campo</span></article>
+              <article><strong>5</strong><span>iniciativas</span></article>
+              <article><strong>3</strong><span>personales</span></article>
+              <article><strong>2</strong><span>colaboraciones</span></article>
             </div>
           </div>
         </div>
@@ -191,116 +195,78 @@
         </div>
       </section>
 
-      <section class="section projects" id="proyectos">
+      <section class="section projects" id="proyectos" aria-labelledby="proyectos-title">
         <div class="container">
           <div class="section-heading reveal">
             <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt">$</span> ls projects/</p>
-            <span class="eyebrow">Mis proyectos</span>
-            <h2>Cada proyecto nace de un problema real</h2>
-            <p>
-              Cada proyecto nace de un problema real y busca convertirse en una
-              herramienta útil para estudiantes, clínicas, tutores y granjas.
-            </p>
+            <span class="eyebrow">Portafolio</span>
+            <h2 id="proyectos-title">Proyectos y colaboraciones</h2>
+            <p>Cinco iniciativas que conectan veterinaria y desarrollo digital: tres proyectos personales y dos colaboraciones institucionales y profesionales.</p>
           </div>
 
-          <div class="project-grid">
+          <div class="project-group" id="proyectos-personales" role="group" tabindex="-1" aria-labelledby="personales-title">
+            <div class="project-group__heading">
+              <h3 id="personales-title">Proyectos personales</h3>
+              <p>Herramientas que desarrollo para el estudio veterinario, el cuidado preventivo y el trabajo en granjas.</p>
+            </div>
+            <div class="project-grid">
             <article class="project-card reveal">
-              <div class="project-card__top">
-                <span class="project-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#book-open"></use></svg></span>
-                <span class="badge">Para estudiantes de Medicina Veterinaria</span>
-              </div>
-              <h3>Suite Vet</h3>
-              <div class="project-card__body">
-                <h4>Problema que resuelve</h4>
-                <p>
-                  Muchos estudiantes tienen información dispersa en apuntes,
-                  PDFs, imágenes, tablas y clases. Suite Vet busca organizar ese
-                  conocimiento en una plataforma práctica, interactiva y útil
-                  para estudiar.
-                </p>
-                <h4>Descripción</h4>
-                <p>
-                  Suite Vet es una herramienta académica pensada para estudiantes
-                  de veterinaria. Integra módulos de estudio, calculadoras, casos
-                  clínicos, farmacología, fisiología, microbiología, nutrición
-                  animal y otras áreas clave de la carrera.
-                </p>
-                <h4>Toque diferencial</h4>
-                <p>
-                  No es solo una app de apuntes. Es una plataforma de estudio
-                  veterinario con herramientas para aprender, calcular, repasar y
-                  aplicar conocimientos en clases.
-                </p>
-              </div>
-              <a class="btn btn--project" href="https://elranchodejuan-jo.github.io/SUITE_VET/" target="_blank" rel="noopener noreferrer" aria-label="Visitar Suite Vet">Visita Suite Vet <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a>
+              <h4 class="project-card__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#book-open"></use></svg> Suite Vet</h4>
+              <dl class="project-card__summary">
+                <div><dt>Problema</dt><dd>El material de estudio queda disperso entre clases, apuntes y archivos.</dd></div>
+                <div><dt>Descripción</dt><dd>Herramientas académicas para estudiar y consultar contenidos de Medicina Veterinaria en un mismo espacio.</dd></div>
+                <div><dt>Diferencia</dt><dd>Reúne consulta, repaso y cálculo con un enfoque veterinario que acompaña el aprendizaje diario en clases.</dd></div>
+              </dl>
             </article>
 
             <article class="project-card reveal">
-              <div class="project-card__top">
-                <span class="project-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#clipboard-list"></use></svg></span>
-                <span class="badge">Para clínicas veterinarias y tutores</span>
-              </div>
-              <h3>Cartilla Digital</h3>
-              <div class="project-card__body">
-                <h4>Problema que resuelve</h4>
-                <p>
-                  Las cartillas físicas se pierden, se dañan o se olvidan.
-                  Además, muchas clínicas necesitan organizar mejor sus registros
-                  preventivos, vacunas, desparasitaciones y controles.
-                </p>
-                <h4>Descripción</h4>
-                <p>
-                  Cartilla Digital es una plataforma para clínicas veterinarias
-                  que permite registrar pacientes, tutores, vacunas,
-                  desparasitaciones, controles preventivos y próximos eventos de
-                  salud. También permite que el tutor acceda a la información de
-                  su mascota de forma digital.
-                </p>
-                <h4>Toque diferencial</h4>
-                <p>
-                  Convierte la cartilla tradicional en un sistema digital moderno,
-                  con historial organizado, códigos QR, vista para tutores,
-                  recordatorios y mejor control preventivo.
-                </p>
-              </div>
-              <a class="btn btn--project" href="https://elranchodejuan-jo.github.io/Cartilla_Digital/" target="_blank" rel="noopener noreferrer" aria-label="Visitar Cartilla Digital">Visita Cartilla Digital <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a>
+              <h4 class="project-card__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#clipboard-list"></use></svg> Cartilla Digital</h4>
+              <dl class="project-card__summary">
+                <div><dt>Problema</dt><dd>Los registros preventivos de las mascotas son difíciles de conservar y consultar.</dd></div>
+                <div><dt>Descripción</dt><dd>Una cartilla digital para organizar el historial preventivo y mantener la información disponible.</dd></div>
+                <div><dt>Diferencia</dt><dd>Facilita compartir información entre la clínica y el tutor para dar continuidad al cuidado de la mascota.</dd></div>
+              </dl>
+              <a class="project-link" href="https://cartilladigital.vetjb.com" target="_blank" rel="noopener noreferrer">Ver Cartilla Digital <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a>
             </article>
 
             <article class="project-card reveal">
-              <div class="project-card__top">
-                <span class="project-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#tractor"></use></svg></span>
-                <span class="badge">Para granjas porcinas y bovinas</span>
-              </div>
-              <h3>Ecosistema CATTLE</h3>
-              <div class="project-card__body">
-                <h4>Problema que resuelve</h4>
-                <p>
-                  Muchas granjas manejan la información productiva en cuadernos,
-                  hojas sueltas o archivos de Excel desordenados. Esto dificulta
-                  controlar animales, producción, reproducción, sanidad, costos y
-                  decisiones.
-                </p>
-                <h4>Descripción</h4>
-                <p>
-                  CATTLE es un ecosistema de soluciones digitales para el manejo
-                  animal en granjas. Su objetivo es organizar la información
-                  productiva, sanitaria, reproductiva y económica de los animales
-                  mediante herramientas adaptadas al campo.
-                </p>
-                <ul class="project-card__list">
-                  <li>CATTLE Porcinos: gestión para granjas porcinas.</li>
-                  <li>CATTLE Bovinos: visión futura para ganadería bovina.</li>
-                </ul>
-                <h4>Toque diferencial</h4>
-                <p>
-                  CATTLE busca integrar identificación animal, registros
-                  digitales, análisis estadístico, finanzas, inteligencia
-                  artificial y tecnología NFC para mejorar el manejo en campo.
-                </p>
-              </div>
-              <!-- Reemplazar href="#" con el enlace real de CATTLE. -->
-              <a class="btn btn--project" href="#" aria-label="Visitar CATTLE">Visita CATTLE <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a>
+              <h4 class="project-card__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#tractor"></use></svg> Ecosistema CATTLE</h4>
+              <dl class="project-card__summary">
+                <div><dt>Problema</dt><dd>La información dispersa de la granja dificulta el seguimiento individual de los animales.</dd></div>
+                <div><dt>Descripción</dt><dd>Gestión digital de animales, sanidad y producción para organizar el trabajo de la granja.</dd></div>
+                <div><dt>Diferencia</dt><dd>Integra fichas individuales e identificación NFC para consultar y registrar información durante el trabajo en campo.</dd></div>
+              </dl>
+              <a class="project-link" href="https://cattle.vetjb.com" target="_blank" rel="noopener noreferrer">Ver CATTLE <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a>
             </article>
+            </div>
+          </div>
+
+          <div class="project-group" id="colaboraciones" role="group" tabindex="-1" aria-labelledby="colaboraciones-title">
+            <div class="project-group__heading">
+              <h3 id="colaboraciones-title">Colaboraciones institucionales y profesionales</h3>
+              <p>Iniciativas en las que participo o colaboro mediante desarrollo digital, junto a las organizaciones que las impulsan.</p>
+            </div>
+            <div class="project-grid project-grid--collaborations">
+            <article class="project-card reveal">
+              <h4 class="project-card__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#book-open"></use></svg> SIPA UTMACH</h4>
+              <dl class="project-card__summary">
+                <div><dt>Problema</dt><dd>Las actividades y los contenidos del semillero necesitan una presencia digital organizada.</dd></div>
+                <div><dt>Descripción</dt><dd>Portal institucional de investigación en producción animal que acerca el trabajo del semillero a su comunidad.</dd></div>
+                <div><dt>Diferencia</dt><dd>Conecta investigación, eventos y divulgación en una misma experiencia para consultar y compartir sus contenidos.</dd></div>
+              </dl>
+              <a class="project-link" href="https://sipautmach.com" target="_blank" rel="noopener noreferrer">Ver portal SIPA <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a>
+            </article>
+
+            <article class="project-card reveal">
+              <h4 class="project-card__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#clipboard-list"></use></svg> CEDIVETS</h4>
+              <dl class="project-card__summary">
+                <div><dt>Problema</dt><dd>La información sobre los servicios diagnósticos necesita ser clara y fácil de consultar.</dd></div>
+                <div><dt>Descripción</dt><dd>Desarrollo del sitio web y del catálogo digital del laboratorio, disponible como vista previa.</dd></div>
+                <div><dt>Diferencia</dt><dd>Organiza 43 estudios con búsqueda, filtros y fichas individuales para facilitar la consulta de cada servicio.</dd></div>
+              </dl>
+              <a class="project-link" href="https://elranchodejuan-jo.github.io/cedivets-web/" target="_blank" rel="noopener noreferrer">Ver vista previa <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a>
+            </article>
+            </div>
           </div>
         </div>
       </section>
@@ -312,10 +278,11 @@
             <span class="eyebrow">Ecosistema</span>
             <h2 id="ecosistema-title">Un ecosistema veterinario digital en crecimiento</h2>
             <p>
-              Suite Vet forma al estudiante. Cartilla Digital digitaliza la
-              clínica. CATTLE transforma la gestión de granjas. Juntos
-              representan una visión: unir veterinaria, tecnología, datos e
-              innovación para resolver problemas reales.
+              Suite Vet, Cartilla Digital y CATTLE son mis tres proyectos
+              personales: aprendizaje veterinario, cuidado preventivo y gestión
+              de granjas. El portafolio reúne además dos colaboraciones,
+              SIPA UTMACH y CEDIVETS, en las que aporto desarrollo digital a
+              iniciativas institucionales y profesionales.
             </p>
             <div class="ecosystem-flow" aria-label="Flujo del ecosistema">
               <span>Suite Vet</span>
@@ -423,25 +390,9 @@
             </div>
 
             <ul class="contact-links" aria-label="Enlaces de contacto">
-              <li>
-                <span>Correo</span>
-                <a href="mailto:bajanajuan710@gmail.com">bajanajuan710@gmail.com</a>
-              </li>
-              <li>
-                <span>GitHub</span>
-                <!-- Reemplazar href="#" con el enlace real de GitHub. -->
-                <a href="#">Placeholder editable</a>
-              </li>
-              <li>
-                <span>LinkedIn</span>
-                <!-- Reemplazar href="#" con el enlace real de LinkedIn. -->
-                <a href="#">Placeholder editable</a>
-              </li>
-              <li>
-                <span>Redes</span>
-                <!-- Reemplazar href="#" con el enlace real de Instagram u otra red. -->
-                <a href="#">Placeholder editable</a>
-              </li>
+              <li><span>Correo</span><a href="mailto:bajanajuan710@gmail.com">bajanajuan710@gmail.com</a></li>
+              <li><span>GitHub</span><a href="https://github.com/elranchodejuan-jo" target="_blank" rel="noopener noreferrer">elranchodejuan-jo</a></li>
+              <li><span>ORCID</span><a href="https://orcid.org/0009-0009-2980-7194" target="_blank" rel="noopener noreferrer">0009-0009-2980-7194</a></li>
             </ul>
           </div>
         </div>
@@ -449,12 +400,47 @@
     </main>
 
     <footer class="site-footer">
-      <div class="container site-footer__inner">
-        <p>© 2026 Juan Bajaña. Veterinaria, tecnología y campo digital.</p>
-        <p>Creado con visión, propósito y ganas de transformar el futuro veterinario.</p>
+      <div class="container">
+        <div class="site-footer__grid">
+          <div class="site-footer__identity">
+            <a class="brand__mark" href="#inicio" aria-label="Juan José Bajaña Chuno: volver al inicio">JB<span>_</span></a>
+            <p class="site-footer__name">Juan José Bajaña Chuno</p>
+            <p>Estudiante de Medicina Veterinaria · UTMACH</p>
+            <p>Veterinaria, programación e investigación aplicada.</p>
+          </div>
+          <nav class="site-footer__column" aria-label="Secciones del sitio">
+            <h2>Explorar</h2>
+            <ul>
+              <li><a href="#inicio">Inicio</a></li>
+              <li><a href="#sobre-mi">Sobre mí</a></li>
+              <li><a href="#mision-vision">Misión y visión</a></li>
+              <li><a href="#galeria">Galería</a></li>
+            </ul>
+          </nav>
+          <nav class="site-footer__column" aria-label="Portafolio">
+            <h2>Portafolio</h2>
+            <ul>
+              <li><a href="#proyectos-personales">Proyectos personales</a></li>
+              <li><a href="#colaboraciones">Colaboraciones</a></li>
+              <li><a href="#contacto">Contacto</a></li>
+            </ul>
+          </nav>
+          <div class="site-footer__column">
+            <h2>Conectar</h2>
+            <ul>
+              <li><a href="mailto:bajanajuan710@gmail.com">bajanajuan710@gmail.com</a></li>
+              <li><a href="https://github.com/elranchodejuan-jo" target="_blank" rel="noopener noreferrer">GitHub <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a></li>
+              <li><a href="https://orcid.org/0009-0009-2980-7194" target="_blank" rel="noopener noreferrer">ORCID <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="site-footer__bottom">
+          <p>© 2026 Juan José Bajaña Chuno</p>
+          <a href="#inicio"><span aria-hidden="true">$ cd ~</span> Volver al inicio <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a>
+        </div>
       </div>
     </footer>
 
-    <script src="js/main.js?v=4"></script>
+    <script src="js/main.js?v=5"></script>
   </body>
 </html>
