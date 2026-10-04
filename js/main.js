@@ -5,7 +5,7 @@ const header = document.querySelector("#siteHeader");
 const navToggle = document.querySelector(".nav-toggle");
 const navMenu = document.querySelector("#navMenu");
 const navLinks = document.querySelectorAll(".nav-menu a");
-const revealItems = document.querySelectorAll(".reveal");
+const revealItems = document.querySelectorAll("main .section:not(.hero)");
 const sections = document.querySelectorAll("main section[id]");
 
 function closeMenu() {
@@ -61,11 +61,22 @@ updateHeaderState();
 window.addEventListener("scroll", updateHeaderState, { passive: true });
 
 if ("IntersectionObserver" in window) {
+  const revealMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
+          if (!revealMotion.matches) {
+            const content = entry.target.querySelector(":scope > .container");
+            const finish = () => {
+              entry.target.classList.remove("is-visible");
+              content.removeEventListener("animationend", finish);
+              content.removeEventListener("animationcancel", finish);
+            };
+            content.addEventListener("animationend", finish);
+            content.addEventListener("animationcancel", finish);
+            entry.target.classList.add("is-visible");
+          }
           revealObserver.unobserve(entry.target);
         }
       });
@@ -432,5 +443,117 @@ function initHeroName() {
   });
 }
 
+// Sharing is always a visitor action; native completion does not prove delivery.
+function initHeroShare() {
+  const root = document.querySelector("[data-share]");
+  if (!root) return;
+  const button = root.querySelector("[data-share-button]");
+  const options = root.querySelector("[data-share-options]");
+  const panel = root.querySelector("#sharePanel");
+  const close = root.querySelector("[data-share-close]");
+  const copy = root.querySelector("[data-share-copy]");
+  const url = root.querySelector("#shareUrl");
+  const status = root.querySelector("[data-share-status]");
+  const data = {
+    title: "Juan Bajaña | Veterinaria y tecnología.",
+    text: "Conoce mis proyectos de veterinaria, programación e investigación.",
+    url: "https://vetjb.com/",
+  };
+  let sharing = false;
+  let copying = false;
+  let returnFocus = options;
+
+  function setExpanded(expanded) {
+    button.setAttribute("aria-expanded", String(expanded));
+    options.setAttribute("aria-expanded", String(expanded));
+  }
+
+  function closePanel(restoreFocus = false) {
+    panel.hidden = true;
+    setExpanded(false);
+    if (restoreFocus) returnFocus.focus({ preventScroll: true });
+  }
+
+  function openPanel(origin, message = "Comparte este enlace.") {
+    returnFocus = origin;
+    status.textContent = message;
+    panel.hidden = false;
+    setExpanded(true);
+    url.focus();
+    url.select();
+  }
+
+  button.addEventListener("click", async () => {
+    if (sharing) return;
+    if (typeof navigator.share !== "function") {
+      if (panel.hidden) openPanel(button);
+      else closePanel();
+      return;
+    }
+    closePanel();
+    sharing = true;
+    button.disabled = true;
+    button.setAttribute("aria-busy", "true");
+    try {
+      // Call directly from this click, before any awaited operation.
+      await navigator.share(data);
+    } catch (error) {
+      if (error?.name !== "AbortError") {
+        openPanel(button, "Puedes copiar el enlace o seleccionarlo para compartirlo.");
+      }
+    } finally {
+      sharing = false;
+      button.disabled = false;
+      button.removeAttribute("aria-busy");
+    }
+  });
+
+  options.addEventListener("click", () => {
+    if (panel.hidden) openPanel(options);
+    else closePanel();
+  });
+  close.addEventListener("click", () => closePanel(true));
+  url.addEventListener("click", () => url.select());
+  copy.addEventListener("click", async () => {
+    if (copying) return;
+    copying = true;
+    copy.disabled = true;
+    copy.setAttribute("aria-busy", "true");
+    status.textContent = "";
+    try {
+      if (typeof navigator.clipboard?.writeText !== "function") throw new Error("Clipboard unavailable");
+      // This new click supplies its own user activation.
+      await navigator.clipboard.writeText(data.url);
+      status.textContent = "Enlace copiado";
+    } catch {
+      status.textContent = "Selecciona el enlace y cópialo manualmente.";
+      if (!panel.hidden) {
+        url.focus();
+        url.select();
+      }
+    } finally {
+      copying = false;
+      copy.disabled = false;
+      copy.removeAttribute("aria-busy");
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !panel.hidden) {
+      event.preventDefault();
+      closePanel(true);
+    }
+  });
+  document.addEventListener("click", (event) => {
+    if (!root.contains(event.target)) closePanel();
+  });
+
+  // Enable controls only after their handlers are attached; no-JS keeps the link.
+  for (const control of [button, options, close, copy]) control.disabled = false;
+  root.querySelector("[data-share-static]").hidden = true;
+  root.querySelector("[data-share-action]").hidden = false;
+}
+
 initJourneyCarousel();
 initHeroName();
+initHeroShare();

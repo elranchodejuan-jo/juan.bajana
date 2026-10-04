@@ -15,7 +15,7 @@
     <link rel="icon" type="image/png" sizes="512x512" href="assets/site-icon-512.png" />
     <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="css/styles.css?v=17" />
+    <link rel="stylesheet" href="css/styles.css?v=18" />
   </head>
   <body>
     <a class="skip-link" href="#inicio">Saltar al contenido principal</a>
@@ -37,17 +37,17 @@
           aria-expanded="false"
           aria-controls="navMenu"
         >
-          <span class="nav-toggle__open"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#menu"></use></svg></span>
-          <span class="nav-toggle__close"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#x"></use></svg></span>
+          <span class="nav-toggle__open"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#menu"></use></svg></span>
+          <span class="nav-toggle__close"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#x"></use></svg></span>
         </button>
 
         <ul class="nav-menu" id="navMenu">
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#sobre-mi">Sobre mí</a></li>
-          <li><a href="#mision-vision">Misión y Visión</a></li>
-          <li><a href="#proyectos">Proyectos</a></li>
-          <li><a href="#galeria">Galería</a></li>
-          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="#inicio" aria-label="Inicio"><span class="terminal-path" aria-hidden="true">~/inicio</span></a></li>
+          <li><a href="#sobre-mi" aria-label="Sobre mí"><span class="terminal-path" aria-hidden="true">~/perfil</span></a></li>
+          <li><a href="#mision-vision" aria-label="Misión y Visión"><span class="terminal-path" aria-hidden="true">~/propósito</span></a></li>
+          <li><a href="#proyectos" aria-label="Proyectos"><span class="terminal-path" aria-hidden="true">~/proyectos</span></a></li>
+          <li><a href="#galeria" aria-label="Galería"><span class="terminal-path" aria-hidden="true">~/galería</span></a></li>
+          <li><a href="#contacto" aria-label="Contacto"><span class="terminal-path" aria-hidden="true">~/contacto</span></a></li>
         </ul>
       </nav>
     </header>
@@ -56,7 +56,7 @@
       <section class="hero section" id="inicio" tabindex="-1" aria-labelledby="inicio-title">
         <div class="container hero__grid">
           <div class="hero__content reveal">
-            <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt">juan@vetjb:~$</span> whoami</p>
+            <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt"><span class="terminal-user">juan</span>@<span class="terminal-host">vetjb</span>:<span class="terminal-path">~</span><span class="terminal-symbol">$</span></span> <span class="terminal-exec">whoami</span></p>
             <h1 id="inicio-title">
               <span class="visually-hidden">Juan Bajaña</span>
               <span class="hero__name" aria-hidden="true">
@@ -78,10 +78,27 @@
               veterinario digital.
             </p>
             <div class="hero__actions" aria-label="Acciones principales">
-              <a class="btn btn--primary" href="#proyectos"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#folder"></use></svg> Ver mis proyectos</a>
-              <a class="btn btn--ghost" href="#contacto"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#mail"></use></svg> Contactarme</a>
+              <a class="btn btn--primary" href="#proyectos"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#folder"></use></svg> Ver mis proyectos</a>
+              <a class="btn btn--ghost" href="#contacto"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#mail"></use></svg> Contactarme</a>
+              <div class="hero__share" data-share>
+                <div class="share-action" data-share-action hidden>
+                  <button class="btn btn--ghost" type="button" data-share-button aria-expanded="false" aria-controls="sharePanel" disabled><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#share-2"></use></svg> Compartir</button>
+                  <button class="share-options" type="button" data-share-options aria-label="Opciones para copiar enlace" aria-expanded="false" aria-controls="sharePanel" disabled><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#chevron-right"></use></svg></button>
+                </div>
+                <a class="btn btn--ghost share-static" href="https://vetjb.com/" data-share-static>https://vetjb.com/</a>
+                <div class="share-panel" id="sharePanel" role="group" aria-label="Compartir el sitio" hidden>
+                  <div class="share-panel__heading">
+                    <strong>Compartir enlace</strong>
+                    <button class="share-close" type="button" data-share-close aria-label="Cerrar opciones para compartir" disabled><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#x"></use></svg></button>
+                  </div>
+                  <label for="shareUrl">Enlace del sitio</label>
+                  <input id="shareUrl" type="url" value="https://vetjb.com/" readonly spellcheck="false" />
+                  <button class="btn btn--ghost share-panel__copy" type="button" data-share-copy disabled>Copiar enlace</button>
+                  <p class="share-panel__status" data-share-status role="status" aria-live="polite" aria-atomic="true"></p>
+                </div>
+              </div>
             </div>
-            <span class="eyebrow hero__discipline">Veterinaria aplicada + tecnología real</span>
+            <span class="eyebrow hero__discipline"><span class="terminal-symbol" aria-hidden="true">//</span> Veterinaria aplicada + tecnología real</span>
           </div>
 
           <div class="hero__visual reveal">
@@ -94,7 +111,7 @@
                   <span class="hero-card__identity">Veterinaria + Tecnología</span>
                 </div>
               </div>
-              <div class="terminal-window__bar"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#terminal"></use></svg> <span>Campo y aprendizaje</span></div>
+              <div class="terminal-window__bar"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#terminal"></use></svg> <span>Campo y aprendizaje</span></div>
               <div class="journey-carousel hero__carousel" data-journey-carousel role="region" aria-roledescription="carrusel" aria-label="Fotografías del campo y la facultad" tabindex="0">
                 <div class="journey-carousel__viewport">
                   <div class="journey-carousel__track" id="journeySlides" data-carousel-track aria-live="off">
@@ -106,13 +123,13 @@
                   </div>
                 </div>
                 <div class="hero-carousel__controls">
-                  <button class="hero-carousel__arrow" type="button" data-carousel-prev aria-label="Diapositiva anterior" disabled><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#chevron-left"></use></svg></button>
+                  <button class="hero-carousel__arrow" type="button" data-carousel-prev aria-label="Diapositiva anterior" disabled><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#chevron-left"></use></svg></button>
                   <div class="hero-carousel__indicators" data-carousel-dots role="group" aria-label="Seleccionar diapositiva">
                     <button type="button" aria-current="true" aria-controls="journeySlides" aria-label="Ver diapositiva 1" disabled></button>
                   </div>
-                  <button class="hero-carousel__arrow" type="button" data-carousel-next aria-label="Siguiente diapositiva" disabled><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#chevron-right"></use></svg></button>
+                  <button class="hero-carousel__arrow" type="button" data-carousel-next aria-label="Siguiente diapositiva" disabled><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#chevron-right"></use></svg></button>
                   <button class="hero-carousel__pause" type="button" data-carousel-pause aria-label="Pausar reproducción automática" aria-pressed="false" disabled>
-                    <span data-pause-icon><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#pause"></use></svg></span><span data-play-icon hidden><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#play"></use></svg></span>
+                    <span data-pause-icon><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#pause"></use></svg></span><span data-play-icon hidden><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#play"></use></svg></span>
                   </button>
                 </div>
                 <p class="visually-hidden" data-carousel-status aria-live="polite">Diapositiva 1 de 5</p>
@@ -130,8 +147,8 @@
       <section class="section about" id="sobre-mi">
         <div class="container section-grid section-grid--about">
           <div class="section-copy reveal">
-            <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt">$</span> cat about.txt</p>
-            <span class="eyebrow">Sobre mí</span>
+            <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt"><span class="terminal-symbol">$</span></span> <span class="terminal-exec">cat</span> <span class="terminal-path">perfil.md</span></p>
+            <span class="eyebrow"><span class="terminal-symbol" aria-hidden="true">//</span> Sobre mí</span>
             <h2>Una visión veterinaria que también se construye con código</h2>
             <p>
               Soy Juan Bajaña, estudiante de Medicina Veterinaria en la
@@ -145,22 +162,22 @@
 
           <div class="feature-grid reveal">
             <article class="feature-card">
-              <span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#paw-print"></use></svg></span>
+              <span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#paw-print"></use></svg></span>
               <h3>Medicina Veterinaria</h3>
               <p>Formación enfocada en salud animal, producción y aprendizaje aplicado.</p>
             </article>
             <article class="feature-card">
-              <span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#code-xml"></use></svg></span>
+              <span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#code-xml"></use></svg></span>
               <h3>Soluciones digitales</h3>
               <p>Herramientas pensadas para ordenar información y volverla útil.</p>
             </article>
             <article class="feature-card">
-              <span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#tractor"></use></svg></span>
+              <span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#tractor"></use></svg></span>
               <h3>Campo y animales</h3>
               <p>Enfoque en clínicas, tutores, estudiantes y sistemas productivos.</p>
             </article>
             <article class="feature-card">
-              <span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#chart-no-axes-combined"></use></svg></span>
+              <span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#chart-no-axes-combined"></use></svg></span>
               <h3>Datos e innovación</h3>
               <p>Interés en IA, NFC, estadística y sistemas de gestión veterinaria.</p>
             </article>
@@ -171,14 +188,14 @@
       <section class="section mission" id="mision-vision">
         <div class="container">
           <div class="section-heading reveal">
-            <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt">$</span> cat propósito.txt</p>
-            <span class="eyebrow">Misión y Visión</span>
+            <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt"><span class="terminal-symbol">$</span></span> <span class="terminal-exec">cat</span> <span class="terminal-path">propósito.md</span></p>
+            <span class="eyebrow"><span class="terminal-symbol" aria-hidden="true">//</span> Misión y Visión</span>
             <h2>Herramientas con propósito para una veterinaria más conectada</h2>
           </div>
 
           <div class="mission-grid">
             <article class="mission-card reveal">
-              <span class="mission-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#code-xml"></use></svg></span>
+              <span class="mission-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#code-xml"></use></svg></span>
               <h3>Misión</h3>
               <p>
                 Desarrollar herramientas digitales accesibles, prácticas y útiles
@@ -188,7 +205,7 @@
               </p>
             </article>
             <article class="mission-card mission-card--dark reveal">
-              <span class="mission-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#paw-print"></use></svg></span>
+              <span class="mission-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#paw-print"></use></svg></span>
               <h3>Visión</h3>
               <p>
                 Construir un ecosistema tecnológico veterinario que conecte la
@@ -204,20 +221,21 @@
       <section class="section projects" id="proyectos" aria-labelledby="proyectos-title">
         <div class="container">
           <div class="section-heading reveal">
-            <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt">$</span> ls projects/</p>
-            <span class="eyebrow">Portafolio</span>
+            <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt"><span class="terminal-symbol">$</span></span> <span class="terminal-exec">ls</span> <span class="terminal-path">proyectos/</span></p>
+            <span class="eyebrow"><span class="terminal-symbol" aria-hidden="true">//</span> Portafolio</span>
             <h2 id="proyectos-title">Proyectos y colaboraciones</h2>
             <p>Cinco iniciativas que conectan veterinaria y desarrollo digital: tres proyectos personales y dos colaboraciones institucionales y profesionales.</p>
           </div>
 
           <div class="project-group" id="proyectos-personales" role="group" tabindex="-1" aria-labelledby="personales-title">
             <div class="project-group__heading">
+              <span class="project-group__path terminal-path" aria-hidden="true">./personales/</span>
               <h3 id="personales-title">Proyectos personales</h3>
               <p>Herramientas que desarrollo para el estudio veterinario, el cuidado preventivo y el trabajo en granjas.</p>
             </div>
             <div class="project-grid">
             <article class="project-card reveal">
-              <h4 class="project-card__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#book-open"></use></svg> Suite Vet</h4>
+              <h4 class="project-card__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#book-open"></use></svg> Suite Vet</h4>
               <dl class="project-card__summary">
                 <div><dt>Problema</dt><dd>El material de estudio queda disperso entre clases, apuntes y archivos.</dd></div>
                 <div><dt>Descripción</dt><dd>Herramientas académicas para estudiar y consultar contenidos de Medicina Veterinaria en un mismo espacio.</dd></div>
@@ -226,51 +244,52 @@
             </article>
 
             <article class="project-card reveal">
-              <h4 class="project-card__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#clipboard-list"></use></svg> Cartilla Digital</h4>
+              <h4 class="project-card__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#clipboard-list"></use></svg> Cartilla Digital</h4>
               <dl class="project-card__summary">
                 <div><dt>Problema</dt><dd>Los registros preventivos de las mascotas son difíciles de conservar y consultar.</dd></div>
                 <div><dt>Descripción</dt><dd>Una cartilla digital para organizar el historial preventivo y mantener la información disponible.</dd></div>
                 <div><dt>Diferencia</dt><dd>Facilita compartir información entre la clínica y el tutor para dar continuidad al cuidado de la mascota.</dd></div>
               </dl>
-              <a class="project-link" href="https://cartilladigital.vetjb.com" target="_blank" rel="noopener noreferrer">Ver Cartilla Digital <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a>
+              <a class="project-link" href="https://cartilladigital.vetjb.com" target="_blank" rel="noopener noreferrer">Ver Cartilla Digital <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#arrow-up-right"></use></svg></a>
             </article>
 
             <article class="project-card reveal">
-              <h4 class="project-card__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#tractor"></use></svg> Ecosistema CATTLE</h4>
+              <h4 class="project-card__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#tractor"></use></svg> Ecosistema CATTLE</h4>
               <dl class="project-card__summary">
                 <div><dt>Problema</dt><dd>La información dispersa de la granja dificulta el seguimiento individual de los animales.</dd></div>
                 <div><dt>Descripción</dt><dd>Gestión digital de animales, sanidad y producción para organizar el trabajo de la granja.</dd></div>
                 <div><dt>Diferencia</dt><dd>Integra fichas individuales e identificación NFC para consultar y registrar información durante el trabajo en campo.</dd></div>
               </dl>
-              <a class="project-link" href="https://cattle.vetjb.com" target="_blank" rel="noopener noreferrer">Ver CATTLE <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a>
+              <a class="project-link" href="https://cattle.vetjb.com" target="_blank" rel="noopener noreferrer">Ver CATTLE <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#arrow-up-right"></use></svg></a>
             </article>
             </div>
           </div>
 
           <div class="project-group" id="colaboraciones" role="group" tabindex="-1" aria-labelledby="colaboraciones-title">
             <div class="project-group__heading">
+              <span class="project-group__path terminal-path" aria-hidden="true">./colaboraciones/</span>
               <h3 id="colaboraciones-title">Colaboraciones institucionales y profesionales</h3>
               <p>Iniciativas en las que participo o colaboro mediante desarrollo digital, junto a las organizaciones que las impulsan.</p>
             </div>
             <div class="project-grid project-grid--collaborations">
             <article class="project-card reveal">
-              <h4 class="project-card__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#book-open"></use></svg> SIPA UTMACH</h4>
+              <h4 class="project-card__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#book-open"></use></svg> SIPA UTMACH</h4>
               <dl class="project-card__summary">
                 <div><dt>Problema</dt><dd>Las actividades y los contenidos del semillero necesitan una presencia digital organizada.</dd></div>
                 <div><dt>Descripción</dt><dd>Portal institucional de investigación en producción animal que acerca el trabajo del semillero a su comunidad.</dd></div>
                 <div><dt>Diferencia</dt><dd>Conecta investigación, eventos y divulgación en una misma experiencia para consultar y compartir sus contenidos.</dd></div>
               </dl>
-              <a class="project-link" href="https://sipautmach.com" target="_blank" rel="noopener noreferrer">Ver portal SIPA <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a>
+              <a class="project-link" href="https://sipautmach.com" target="_blank" rel="noopener noreferrer">Ver portal SIPA <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#arrow-up-right"></use></svg></a>
             </article>
 
             <article class="project-card reveal">
-              <h4 class="project-card__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#clipboard-list"></use></svg> CEDIVETS</h4>
+              <h4 class="project-card__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#clipboard-list"></use></svg> CEDIVETS</h4>
               <dl class="project-card__summary">
                 <div><dt>Problema</dt><dd>La información sobre los servicios diagnósticos necesita ser clara y fácil de consultar.</dd></div>
                 <div><dt>Descripción</dt><dd>Desarrollo del sitio web y del catálogo digital del laboratorio, disponible como vista previa.</dd></div>
                 <div><dt>Diferencia</dt><dd>Organiza 43 estudios con búsqueda, filtros y fichas individuales para facilitar la consulta de cada servicio.</dd></div>
               </dl>
-              <a class="project-link" href="https://elranchodejuan-jo.github.io/cedivets-web/" target="_blank" rel="noopener noreferrer">Ver vista previa <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a>
+              <a class="project-link" href="https://elranchodejuan-jo.github.io/cedivets-web/" target="_blank" rel="noopener noreferrer">Ver vista previa <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#arrow-up-right"></use></svg></a>
             </article>
             </div>
           </div>
@@ -280,8 +299,8 @@
       <section class="section ecosystem" aria-labelledby="ecosistema-title">
         <div class="container">
           <div class="ecosystem-panel reveal">
-            <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt">$</span> cat ecosistema.txt</p>
-            <span class="eyebrow">Ecosistema</span>
+            <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt"><span class="terminal-symbol">$</span></span> <span class="terminal-exec">cat</span> <span class="terminal-path">ecosistema.md</span></p>
+            <span class="eyebrow"><span class="terminal-symbol" aria-hidden="true">//</span> Ecosistema</span>
             <h2 id="ecosistema-title">Un ecosistema veterinario digital en crecimiento</h2>
             <p>
               Suite Vet, Cartilla Digital y CATTLE son mis tres proyectos
@@ -292,9 +311,9 @@
             </p>
             <div class="ecosystem-flow" aria-label="Flujo del ecosistema">
               <span>Suite Vet</span>
-              <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-right"></use></svg>
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#arrow-right"></use></svg>
               <span>Cartilla Digital</span>
-              <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-right"></use></svg>
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#arrow-right"></use></svg>
               <span>CATTLE</span>
             </div>
             <strong>Educación veterinaria + salud animal + producción animal + tecnología</strong>
@@ -305,34 +324,34 @@
       <section class="section gallery" id="galeria">
         <div class="container">
           <div class="section-heading reveal">
-            <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt">$</span> ls fotografías/</p>
-            <span class="eyebrow">Galería</span>
+            <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt"><span class="terminal-symbol">$</span></span> <span class="terminal-exec">ls</span> <span class="terminal-path">fotografías/</span></p>
+            <span class="eyebrow"><span class="terminal-symbol" aria-hidden="true">//</span> Galería</span>
             <h2>Imágenes para mostrar la historia, el campo y los avances</h2>
           </div>
 
           <div class="gallery-grid">
             <figure class="gallery-item gallery-item--large reveal">
-              <div role="img" aria-label="Espacio para foto personal"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#image"></use></svg><span>Foto personal</span></div>
+              <div role="img" aria-label="Espacio para foto personal"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#image"></use></svg><span>Foto personal</span></div>
               <figcaption>Juan Bajaña</figcaption>
             </figure>
             <figure class="gallery-item reveal">
-              <div role="img" aria-label="Espacio para foto en campo con animales"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#image"></use></svg><span>Campo y animales</span></div>
+              <div role="img" aria-label="Espacio para foto en campo con animales"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#image"></use></svg><span>Campo y animales</span></div>
               <figcaption>Experiencia en campo</figcaption>
             </figure>
             <figure class="gallery-item reveal">
-              <div role="img" aria-label="Espacio para captura de Suite Vet"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#image"></use></svg><span>Suite Vet</span></div>
+              <div role="img" aria-label="Espacio para captura de Suite Vet"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#image"></use></svg><span>Suite Vet</span></div>
               <figcaption>Herramienta académica</figcaption>
             </figure>
             <figure class="gallery-item reveal">
-              <div role="img" aria-label="Espacio para captura de Cartilla Digital"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#image"></use></svg><span>Cartilla Digital</span></div>
+              <div role="img" aria-label="Espacio para captura de Cartilla Digital"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#image"></use></svg><span>Cartilla Digital</span></div>
               <figcaption>Gestión clínica</figcaption>
             </figure>
             <figure class="gallery-item reveal">
-              <div role="img" aria-label="Espacio para mockup de CATTLE"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#image"></use></svg><span>CATTLE</span></div>
+              <div role="img" aria-label="Espacio para mockup de CATTLE"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#image"></use></svg><span>CATTLE</span></div>
               <figcaption>Gestión de granjas</figcaption>
             </figure>
             <figure class="gallery-item reveal">
-              <div role="img" aria-label="Espacio para prototipos y avances"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#image"></use></svg><span>Prototipos y avances</span></div>
+              <div role="img" aria-label="Espacio para prototipos y avances"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#image"></use></svg><span>Prototipos y avances</span></div>
               <figcaption>Ideas en desarrollo</figcaption>
             </figure>
           </div>
@@ -342,8 +361,8 @@
       <section class="section timeline" aria-labelledby="camino-title">
         <div class="container">
           <div class="section-heading reveal">
-            <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt">$</span> cat camino.txt</p>
-            <span class="eyebrow">Mi camino</span>
+            <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt"><span class="terminal-symbol">$</span></span> <span class="terminal-exec">cat</span> <span class="terminal-path">camino.md</span></p>
+            <span class="eyebrow"><span class="terminal-symbol" aria-hidden="true">//</span> Mi camino</span>
             <h2 id="camino-title">Una ruta construida entre aprendizaje, animales y tecnología</h2>
           </div>
 
@@ -380,8 +399,8 @@
         <div class="container">
           <div class="contact-panel reveal">
             <div>
-              <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt">$</span> cat contacto.txt</p>
-              <span class="eyebrow">Contacto</span>
+              <p class="terminal-command" aria-hidden="true"><span class="terminal-prompt"><span class="terminal-symbol">$</span></span> <span class="terminal-exec">cat</span> <span class="terminal-path">contacto.md</span></p>
+              <span class="eyebrow"><span class="terminal-symbol" aria-hidden="true">//</span> Contacto</span>
               <h2>Construyamos algo con propósito</h2>
               <p>
                 Estoy abierto a seguir aprendiendo, colaborar, presentar mis
@@ -391,7 +410,7 @@
             </div>
 
             <div class="contact-actions">
-              <a class="btn btn--primary" href="mailto:bajanajuan710@gmail.com"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#mail"></use></svg> Escríbeme</a>
+              <a class="btn btn--primary" href="mailto:bajanajuan710@gmail.com"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#mail"></use></svg> Escríbeme</a>
               <a class="btn btn--ghost btn--light" href="#proyectos">Ver proyectos</a>
             </div>
 
@@ -415,38 +434,38 @@
             <p>Veterinaria, programación e investigación aplicada.</p>
           </div>
           <nav class="site-footer__column" aria-label="Secciones del sitio">
-            <h2>Explorar</h2>
+            <h2><span class="terminal-symbol" aria-hidden="true">//</span> Explorar</h2>
             <ul>
-              <li><a href="#inicio">Inicio</a></li>
-              <li><a href="#sobre-mi">Sobre mí</a></li>
-              <li><a href="#mision-vision">Misión y visión</a></li>
-              <li><a href="#galeria">Galería</a></li>
+              <li><a href="#inicio"><span class="terminal-path" aria-hidden="true">./</span>Inicio</a></li>
+              <li><a href="#sobre-mi"><span class="terminal-path" aria-hidden="true">./</span>Sobre mí</a></li>
+              <li><a href="#mision-vision"><span class="terminal-path" aria-hidden="true">./</span>Misión y visión</a></li>
+              <li><a href="#galeria"><span class="terminal-path" aria-hidden="true">./</span>Galería</a></li>
             </ul>
           </nav>
           <nav class="site-footer__column" aria-label="Portafolio">
-            <h2>Portafolio</h2>
+            <h2><span class="terminal-symbol" aria-hidden="true">//</span> Portafolio</h2>
             <ul>
-              <li><a href="#proyectos-personales">Proyectos personales</a></li>
-              <li><a href="#colaboraciones">Colaboraciones</a></li>
-              <li><a href="#contacto">Contacto</a></li>
+              <li><a href="#proyectos-personales"><span class="terminal-path" aria-hidden="true">./</span>Proyectos personales</a></li>
+              <li><a href="#colaboraciones"><span class="terminal-path" aria-hidden="true">./</span>Colaboraciones</a></li>
+              <li><a href="#contacto"><span class="terminal-path" aria-hidden="true">./</span>Contacto</a></li>
             </ul>
           </nav>
           <div class="site-footer__column">
-            <h2>Conectar</h2>
+            <h2><span class="terminal-symbol" aria-hidden="true">//</span> Conectar</h2>
             <ul>
               <li><a href="mailto:bajanajuan710@gmail.com">bajanajuan710@gmail.com</a></li>
-              <li><a href="https://github.com/elranchodejuan-jo" target="_blank" rel="noopener noreferrer">GitHub <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a></li>
-              <li><a href="https://orcid.org/0009-0009-2980-7194" target="_blank" rel="noopener noreferrer">ORCID <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a></li>
+              <li><a href="https://github.com/elranchodejuan-jo" target="_blank" rel="noopener noreferrer">GitHub <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#arrow-up-right"></use></svg></a></li>
+              <li><a href="https://orcid.org/0009-0009-2980-7194" target="_blank" rel="noopener noreferrer">ORCID <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#arrow-up-right"></use></svg></a></li>
             </ul>
           </div>
         </div>
         <div class="site-footer__bottom">
           <p>© 2026 Juan José Bajaña Chuno</p>
-          <a href="#inicio"><span aria-hidden="true">$ cd ~</span> Volver al inicio <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#arrow-up-right"></use></svg></a>
+          <a href="#inicio"><span class="terminal-command terminal-command--inline" aria-hidden="true"><span class="terminal-prompt"><span class="terminal-symbol">$</span></span> <span class="terminal-exec">cd</span> <span class="terminal-path">~</span></span> Volver al inicio <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg?v=2#arrow-up-right"></use></svg></a>
         </div>
       </div>
     </footer>
 
-    <script src="js/main.js?v=6"></script>
+    <script src="js/main.js?v=7"></script>
   </body>
 </html>
