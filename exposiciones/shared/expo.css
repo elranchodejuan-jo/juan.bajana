@@ -1,0 +1,379 @@
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/inter-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/jetbrains-mono-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+}
+
+/* This stylesheet belongs only to the exhibition surface. The landing page
+   and reveal.js's internal layout never share its resets or theme tokens. */
+body.expo-app {
+  --expo-bg: #0b1220;
+  --expo-surface: #111e30;
+  --expo-raised: #182a3e;
+  --expo-text: #edf3fb;
+  --expo-muted: #b5c6da;
+  --expo-accent: #67d9ee;
+  --expo-accent-soft: #173641;
+  --expo-border: #354c66;
+  --expo-success: #9fe0b1;
+  --expo-warning: #f1c77a;
+  --expo-danger: #ffb2ae;
+  --expo-shadow: 0 18px 65px rgb(0 0 0 / 22%);
+  --expo-body-font: "Inter", Arial, sans-serif;
+  --expo-mono-font: "JetBrains Mono", Consolas, monospace;
+  --expo-toolbar-height: 64px;
+  --expo-navigation-height: 56px;
+  color-scheme: dark;
+  margin: 0;
+  background: var(--expo-bg);
+  color: var(--expo-text);
+  font: 400 17px/1.65 var(--expo-body-font);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+body.expo-app[data-theme="light"] {
+  --expo-bg: #f8fafc;
+  --expo-surface: #ffffff;
+  --expo-raised: #edf3f8;
+  --expo-text: #132237;
+  --expo-muted: #465e76;
+  --expo-accent: #08677b;
+  --expo-accent-soft: #e0f3f6;
+  --expo-border: #afc1d1;
+  --expo-success: #24623a;
+  --expo-warning: #805410;
+  --expo-danger: #a43231;
+  --expo-shadow: 0 18px 65px rgb(34 59 84 / 8%);
+  color-scheme: light;
+}
+body.expo-app[data-subject="genetica"] { --expo-accent: #b7b0ff; --expo-accent-soft: #282442; }
+body.expo-app[data-subject="genetica"][data-theme="light"] { --expo-accent: #5744a1; --expo-accent-soft: #eeeafa; }
+body.expo-app *, body.expo-app *::before, body.expo-app *::after { box-sizing: border-box; }
+body.expo-app [hidden] { display: none !important; }
+body.expo-app :where(h1, h2, h3, h4, p, figure) { margin: 0; }
+body.expo-app :where(h1, h2, h3, h4) { color: var(--expo-text); font-family: var(--expo-body-font); font-weight: 600; line-height: 1.12; letter-spacing: -.035em; text-wrap: balance; }
+body.expo-app a { color: var(--expo-accent); text-underline-offset: .22em; }
+body.expo-app :where(button, input, select, textarea) { font: inherit; color: inherit; }
+body.expo-app :where(button, select, summary, label:has(input[type="radio"])) { cursor: pointer; }
+body.expo-app :where(button, input, select, textarea) { max-width: 100%; }
+body.expo-app :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible { outline: 3px solid var(--expo-accent); outline-offset: 4px; }
+body.expo-app button:disabled { opacity: .45; cursor: default; }
+body.expo-app :where(img, svg) { max-width: 100%; }
+body.expo-app img { display: block; height: auto; }
+body.expo-app :where(.icon, .expo-icon) { width: 20px; height: 20px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+body.expo-app :where(.visually-hidden, .expo-visually-hidden) { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+body.expo-app :where(.skip-link, .expo-skip) { position: fixed; top: 12px; left: 16px; z-index: 200; padding: 10px 16px; background: var(--expo-text); color: var(--expo-bg); transform: translateY(-160%); }
+body.expo-app :where(.skip-link, .expo-skip):focus { transform: translateY(0); }
+body.expo-app .expo-wrap { width: min(1200px, calc(100% - 64px)); margin-inline: auto; }
+body.expo-app .expo-site-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 80px; padding: 12px max(32px, calc((100% - 1200px) / 2)); border-bottom: 1px solid var(--expo-border); }
+body.expo-app .expo-site-header > .expo-wrap { min-height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+body.expo-app :where(.expo-brand, .expo-site-header .brand) { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--expo-text); font-weight: 600; }
+body.expo-app :where(.expo-brand-mark, .brand__mark) { color: var(--expo-accent); font: 500 26px/1 var(--expo-mono-font); letter-spacing: -.08em; }
+body.expo-app .expo-brand { font: 500 26px/1 var(--expo-mono-font); letter-spacing: -.08em; gap: 0; }
+body.expo-app .expo-brand > span { color: var(--expo-accent); }
+body.expo-app .expo-site-header nav { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; }
+body.expo-app .expo-site-header nav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--expo-muted); text-decoration: none; }
+body.expo-app .expo-site-header nav a:hover { color: var(--expo-accent); }
+body.expo-app .expo-eyebrow { display: block; color: var(--expo-accent); font: 500 13px/1.5 var(--expo-mono-font); letter-spacing: .09em; text-transform: uppercase; margin-bottom: 15px; }
+body.expo-app .expo-hero { padding-block: clamp(48px, 7vw, 88px) 42px; max-width: 960px; }
+body.expo-app .expo-hero h1 { font-size: clamp(38px, 5.5vw, 68px); max-width: 20ch; }
+body.expo-app .expo-hero p { color: var(--expo-muted); max-width: 68ch; margin-top: 22px; font-size: clamp(18px, 2vw, 21px); }
+body.expo-app .expo-catalog-tools { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, .5fr); gap: 20px; padding: 24px 0 32px; border-top: 1px solid var(--expo-border); }
+body.expo-app label { display: block; }
+body.expo-app .expo-catalog-tools label { font-size: 14px; color: var(--expo-muted); }
+body.expo-app :where(input[type="search"], input[type="number"], input[type="url"], input[type="text"], select, textarea) { width: 100%; min-height: 48px; border: 1px solid var(--expo-border); border-radius: 6px; background: var(--expo-surface); padding: 10px 13px; }
+body.expo-app .expo-catalog-tools :where(input, select) { margin-top: 7px; }
+body.expo-app .expo-catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; padding-bottom: 48px; }
+body.expo-app .expo-card { min-width: 0; background: var(--expo-surface); border: 1px solid var(--expo-border); border-radius: 12px; overflow: hidden; }
+body.expo-app .expo-card figure { background: #eaf2f6; }
+body.expo-app .expo-card figure img { width: 100%; aspect-ratio: 16 / 10; object-fit: contain; }
+body.expo-app .expo-card-copy { padding: 30px; }
+body.expo-app .expo-card h2 { font-size: clamp(27px, 3vw, 38px); margin-bottom: 17px; }
+body.expo-app .expo-card p { color: var(--expo-muted); margin-top: 14px; }
+body.expo-app .expo-card :where(.expo-author, small) { color: var(--expo-muted); font-size: 13px; }
+body.expo-app .expo-card:only-child { grid-column: 1 / -1; display: grid; grid-template-columns: 1.1fr 1fr; }
+body.expo-app .expo-card:only-child figure { display: grid; align-items: center; }
+body.expo-app .expo-card:only-child .expo-card-copy { padding: clamp(24px, 4vw, 48px); }
+body.expo-app .expo-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 24px; }
+body.expo-app .expo-button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 46px; padding: 10px 17px; border: 1px solid var(--expo-border); border-radius: 6px; background: var(--expo-surface); color: var(--expo-text); text-decoration: none; font-size: 14px; font-weight: 500; line-height: 1.4; }
+body.expo-app .expo-button:hover { background: var(--expo-raised); border-color: var(--expo-accent); }
+body.expo-app .expo-button-primary { background: var(--expo-accent); border-color: var(--expo-accent); color: var(--expo-bg); }
+body.expo-app .expo-button-primary:hover { background: var(--expo-text); color: var(--expo-bg); }
+body.expo-app .expo-subject-links { display: flex; gap: 16px; flex-wrap: wrap; padding-block: 28px 48px; border-top: 1px solid var(--expo-border); }
+body.expo-app .expo-subject-links a { min-height: 44px; display: inline-flex; align-items: center; gap: 10px; }
+body.expo-app .expo-empty { border-left: 3px solid var(--expo-accent); background: var(--expo-surface); padding: 24px 28px; margin-block: 20px 48px; }
+body.expo-app .expo-empty p { color: var(--expo-muted); margin-top: 10px; }
+body.expo-app .expo-catalog > .expo-empty { grid-column: 1 / -1; }
+body.expo-app .expo-footer { border-top: 1px solid var(--expo-border); padding-block: 28px; color: var(--expo-muted); font-size: 13px; }
+body.expo-app .expo-small { color: var(--expo-muted); font-size: 13px; line-height: 1.5; }
+body.expo-app [data-catalog-count] { margin-bottom: 16px; }
+body.expo-app .expo-author { font-size: 16px; line-height: 1.5; margin: 22px 0 18px; }
+body.expo-app .expo-author > span { color: var(--expo-muted); }
+body.expo-app .expo-caution { border-left: 2px solid var(--expo-warning); padding-left: 16px; margin-top: 20px; font-size: 14px; line-height: 1.5; color: var(--expo-muted); }
+
+/* Controls remain at viewport scale while reveal.js scales its 1280×720 canvas. */
+body.expo-app .expo-toolbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 8px 16px; min-height: 64px; padding: 8px 24px; border-bottom: 1px solid var(--expo-border); background: var(--expo-bg); }
+body.expo-app .expo-toolbar :where(.expo-toolbar-actions, .expo-toolbar-group, .expo-toolbar-modes, .expo-mode-switch) { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+body.expo-app .expo-toolbar > .expo-actions { margin-top: 0; gap: 7px; justify-content: flex-end; }
+body.expo-app .expo-toolbar .expo-present-only { display: inline-flex; align-items: center; gap: 7px; }
+body.expo-app .expo-back { display: inline-flex; align-items: center; gap: 8px; flex: 0 0 auto; font-size: 14px; text-decoration: none; }
+body.expo-app .expo-toolbar :where(a, button) { min-height: 44px; }
+body.expo-app .expo-toolbar .expo-button { padding: 8px 12px; font-size: 13px; }
+body.expo-app .expo-toolbar :where([aria-pressed="true"], [aria-current="true"], .is-active) { background: var(--expo-accent-soft); border-color: var(--expo-accent); color: var(--expo-accent); }
+body.expo-app .expo-toolbar-title { color: var(--expo-muted); font: 400 12px/1.5 var(--expo-mono-font); }
+body.expo-app .expo-navigation { display: flex; align-items: center; gap: 16px; justify-content: center; min-height: var(--expo-navigation-height); padding: 6px 24px; background: var(--expo-bg); border-top: 1px solid var(--expo-border); }
+body.expo-app .expo-navigation .expo-button { min-height: 44px; padding: 8px 14px; }
+body.expo-app :where(.expo-progress, #expo-progress) { width: min(240px, 25vw); height: 4px; accent-color: var(--expo-accent); background: var(--expo-border); }
+body.expo-app :where(.expo-position, #expo-position) { color: var(--expo-muted); font: 400 12px/1.4 var(--expo-mono-font); }
+body.expo-app [data-progress] { min-width: 68px; color: var(--expo-muted); font: 400 12px/1.4 var(--expo-mono-font); text-align: center; }
+body.expo-app progress { appearance: none; border: 0; }
+body.expo-app progress::-webkit-progress-bar { background: var(--expo-border); }
+body.expo-app progress::-webkit-progress-value { background: var(--expo-accent); }
+body.expo-app progress::-moz-progress-bar { background: var(--expo-accent); }
+
+/* Content is readable HTML first; the presentation is an enhancement. */
+body.expo-app #expo-deck { color: var(--expo-text); font: inherit; }
+body.expo-app .expo-scene { text-align: left; scroll-margin-top: 90px; }
+body.expo-app .expo-scene-heading { margin-bottom: 28px; }
+body.expo-app .expo-scene-heading h2 { font-size: clamp(30px, 4vw, 44px); }
+body.expo-app .expo-lead { color: var(--expo-muted); line-height: 1.45; margin-top: 16px; }
+body.expo-app .expo-scene-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: 40px; align-items: start; }
+body.expo-app .expo-scene-grid > * { min-width: 0; }
+body.expo-app .expo-points { padding-left: 1.2em; margin: 0; }
+body.expo-app .expo-points li { padding-left: .15em; margin-bottom: .7em; }
+body.expo-app .expo-points li::marker { color: var(--expo-accent); }
+body.expo-app .expo-scene-copy p + p { margin-top: 1em; }
+body.expo-app .expo-figure { position: relative; min-width: 0; }
+body.expo-app .expo-figure img { width: 100%; max-height: 460px; object-fit: contain; border: 1px solid var(--expo-border); border-radius: 10px; background: #f6f9fb; }
+body.expo-app .expo-figure :where(figcaption, .expo-figure-caption) { font-size: 13px; line-height: 1.5; color: var(--expo-muted); margin-top: 10px; }
+body.expo-app .expo-figure > button { position: absolute; top: 10px; right: 10px; min-width: 44px; min-height: 44px; padding: 9px; border: 1px solid var(--expo-border); border-radius: 5px; color: var(--expo-text); background: var(--expo-bg); }
+body.expo-app .expo-comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+body.expo-app .expo-comparison article { border-top: 3px solid var(--expo-accent); padding: 24px 24px 26px; background: var(--expo-surface); }
+body.expo-app .expo-comparison article + article { border-color: var(--expo-warning); }
+body.expo-app .expo-comparison h3 { font-size: 25px; margin-bottom: 18px; }
+body.expo-app .expo-comparison p + p { margin-top: 14px; }
+body.expo-app .expo-process { counter-reset: expo-step; list-style: none; padding: 0; margin: 0; display: grid; gap: 18px; }
+body.expo-app .expo-process li { counter-increment: expo-step; position: relative; padding-left: 60px; min-height: 44px; }
+body.expo-app .expo-process li::before { content: counter(expo-step, decimal-leading-zero); position: absolute; left: 0; top: 1px; color: var(--expo-accent); font: 500 20px/1.5 var(--expo-mono-font); }
+body.expo-app .expo-equation { padding: 20px 24px; margin-block: 22px; background: var(--expo-accent-soft); border-left: 3px solid var(--expo-accent); font-size: 24px; line-height: 1.5; overflow-wrap: anywhere; }
+body.expo-app .expo-study-only { padding-top: 25px; margin-top: 30px; border-top: 1px solid var(--expo-border); color: var(--expo-muted); }
+body.expo-app .expo-study-only :where(h3, h4) { margin-bottom: 14px; }
+body.expo-app .expo-study-only p + p { margin-top: 14px; }
+body.expo-app .expo-study-only summary { min-height: 44px; color: var(--expo-text); font-weight: 600; }
+body.expo-app .expo-study-index { width: min(1200px, calc(100% - 64px)); margin: 24px auto 0; padding-top: 16px; }
+body.expo-app .expo-study-index ol { padding-left: 1.5em; columns: 2; gap: 36px; }
+body.expo-app .expo-study-index li { break-inside: avoid; }
+body.expo-app .expo-study-index a { display: inline-flex; align-items: center; min-height: 44px; padding-block: 5px; }
+body.expo-app .expo-sources { margin-top: 22px; color: var(--expo-muted); font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+body.expo-app aside.notes { display: none; }
+body.expo-app .expo-references { padding-left: 1.4em; }
+body.expo-app .expo-references li { padding-left: .2em; margin-bottom: 18px; font-size: 15px; overflow-wrap: anywhere; }
+body.expo-app .expo-callout { border-left: 3px solid var(--expo-accent); padding: 16px 22px; margin-top: 22px; background: var(--expo-accent-soft); }
+
+/* Exercises use the same components in both modes. */
+body.expo-app .expo-simulator { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); gap: 40px; }
+body.expo-app .expo-simulator :where(.expo-simulator-controls, .expo-controls, .expo-sim-controls) { display: grid; gap: 20px; }
+body.expo-app .expo-sim-controls { grid-template-columns: minmax(0, 1fr) 130px; align-content: start; align-items: center; }
+body.expo-app .expo-sim-controls :where(input[type="range"], #sim-error, .expo-actions) { grid-column: 1 / -1; }
+body.expo-app .expo-sim-controls .expo-actions { margin-top: 0; gap: 8px; }
+body.expo-app #sim-error:empty { display: none; }
+body.expo-app .expo-simulator label { font-weight: 500; margin-bottom: 6px; }
+body.expo-app .expo-simulator input[type="range"] { width: 100%; min-height: 44px; padding: 0; accent-color: var(--expo-accent); }
+body.expo-app .expo-simulator input[type="number"] { max-width: 130px; font-family: var(--expo-mono-font); }
+body.expo-app .expo-simulator :where(.expo-control-row, .expo-input-row) { display: flex; gap: 18px; align-items: center; }
+body.expo-app .expo-simulator :where(.expo-simulator-result, .expo-simulator-output, .expo-output, .expo-sim-result) { display: flex; flex-direction: column; justify-content: center; padding: 26px; background: var(--expo-accent-soft); border-radius: 10px; }
+body.expo-app #sim-ph { display: block; font: 500 clamp(56px, 8vw, 90px)/1.1 var(--expo-mono-font); letter-spacing: -.06em; color: var(--expo-accent); margin-block: 12px; }
+body.expo-app .expo-simulator :where(.expo-model-note, small) { font-size: 13px; line-height: 1.55; color: var(--expo-muted); }
+body.expo-app .expo-presets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+body.expo-app :where(.expo-error, #sim-error) { color: var(--expo-danger); font-size: 14px; margin-top: 8px; }
+body.expo-app [aria-invalid="true"] { border-color: var(--expo-danger); }
+body.expo-app .expo-case-data { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 18px; }
+body.expo-app .expo-case-data :where(th, td) { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--expo-border); }
+body.expo-app .expo-case-data th { background: var(--expo-raised); font-weight: 600; }
+body.expo-app .expo-case-data td { font-family: var(--expo-mono-font); }
+body.expo-app .expo-case-data caption { color: var(--expo-muted); text-align: left; font: 400 13px/1.5 var(--expo-mono-font); margin-bottom: 9px; }
+body.expo-app .expo-case fieldset { min-width: 0; border: 0; margin: 0; padding: 0; }
+body.expo-app .expo-case legend { padding: 0; font-weight: 600; line-height: 1.3; }
+body.expo-app .expo-case .expo-small { margin-top: 12px; }
+body.expo-app [data-case-status] { width: 100%; color: var(--expo-muted); font-size: 14px; line-height: 1.4; }
+body.expo-app [data-case-status]:empty { display: none; }
+body.expo-app .expo-choices { display: grid; gap: 10px; margin: 18px 0; }
+body.expo-app .expo-choices label { display: flex; align-items: start; gap: 12px; min-height: 48px; padding: 12px 15px; border: 1px solid var(--expo-border); border-radius: 6px; font-size: 17px; line-height: 1.5; background: var(--expo-surface); }
+body.expo-app .expo-choices label:has(input:checked) { border-color: var(--expo-accent); background: var(--expo-accent-soft); }
+body.expo-app .expo-choices input { flex: 0 0 auto; width: 20px; height: 20px; margin: 3px 0 0; accent-color: var(--expo-accent); }
+body.expo-app .expo-feedback { border-left: 3px solid var(--expo-accent); background: var(--expo-accent-soft); padding: 15px 20px; margin-top: 18px; font-size: 16px; line-height: 1.55; }
+body.expo-app .expo-feedback[data-correct="false"] { border-color: var(--expo-warning); }
+body.expo-app .expo-case-steps { display: grid; gap: 18px; margin-top: 22px; }
+body.expo-app .expo-case-steps article { padding-left: 22px; border-left: 2px solid var(--expo-accent); }
+body.expo-app .expo-case-steps h3 { font-size: 20px; margin-bottom: 9px; }
+body.expo-app .expo-case-steps p { color: var(--expo-muted); }
+body.expo-app .expo-quiz fieldset { min-width: 0; padding: 24px 0; margin: 0; border: 0; border-bottom: 1px solid var(--expo-border); }
+body.expo-app .expo-quiz legend { font-size: 21px; font-weight: 600; padding: 0; max-width: 100%; }
+body.expo-app .expo-quiz-navigation { display: flex; gap: 15px; align-items: center; margin-top: 15px; }
+body.expo-app [data-quiz-position] { color: var(--expo-muted); font: 400 14px/1.4 var(--expo-mono-font); }
+
+/* Native dialogs keep browser focus trapping and Escape support. */
+body.expo-app dialog.expo-dialog { width: min(720px, calc(100% - 32px)); max-height: calc(100dvh - 48px); padding: 28px; border: 1px solid var(--expo-border); border-radius: 12px; color: var(--expo-text); background: var(--expo-surface); box-shadow: var(--expo-shadow); overflow: auto; }
+body.expo-app dialog.expo-dialog::backdrop { background: rgb(4 10 20 / 78%); }
+body.expo-app .expo-dialog h2 { font-size: 27px; margin: 0 44px 22px 0; }
+body.expo-app .expo-dialog :where(.expo-dialog-close, [data-dialog-close]) { float: right; min-width: 44px; min-height: 44px; margin: -8px -8px 8px 12px; }
+body.expo-app .expo-dialog ol { padding-left: 1.5em; }
+body.expo-app .expo-dialog li { margin: 3px 0; }
+body.expo-app .expo-dialog li a { display: inline-flex; align-items: center; min-height: 44px; padding-block: 8px; }
+body.expo-app .expo-dialog :where(canvas, #expo-qr) { display: block; width: min(240px, 100%); height: auto; padding: 14px; margin: 20px auto; background: white; }
+body.expo-app :where(.expo-dialog[data-dialog="figure"], #expo-figure-dialog, .expo-dialog-figure) { width: min(1200px, calc(100% - 32px)); }
+body.expo-app .expo-dialog img { width: 100%; max-height: calc(100dvh - 180px); object-fit: contain; background: #f6f9fb; border-radius: 6px; }
+body.expo-app .expo-dialog figcaption { margin-top: 14px; font-size: 14px; color: var(--expo-muted); }
+
+body.expo-app[data-mode="estudiar"] #expo-deck { display: block; width: min(1200px, calc(100% - 64px)); height: auto; margin-inline: auto; overflow: visible; }
+body.expo-app[data-mode="estudiar"] #expo-deck > .slides { position: static; width: auto !important; height: auto !important; transform: none !important; perspective: none; text-align: left; }
+body.expo-app[data-mode="estudiar"] #expo-deck .expo-scene { position: relative; display: block !important; width: auto; height: auto; min-height: 0; padding: 60px 0; border-bottom: 1px solid var(--expo-border); opacity: 1 !important; visibility: visible !important; transform: none !important; }
+body.expo-app[data-mode="estudiar"] .expo-present-only { display: none !important; }
+body.expo-app[data-mode="estudiar"] .expo-navigation { position: sticky; bottom: 0; z-index: 25; }
+body.expo-app[data-mode="estudiar"] .fragment { opacity: 1 !important; visibility: visible !important; transform: none !important; }
+
+body.expo-app[data-mode="presentar"] { height: 100dvh; overflow: hidden; }
+body.expo-app[data-mode="presentar"] :where(.expo-site-header, .expo-footer, .expo-study-only) { display: none !important; }
+body.expo-app[data-mode="presentar"] .expo-toolbar { position: fixed; inset: 0 0 auto; height: auto; }
+body.expo-app[data-mode="presentar"] #expo-deck { position: fixed; left: 0; right: 0; top: var(--expo-toolbar-height); bottom: var(--expo-navigation-height); width: 100%; height: calc(100dvh - var(--expo-toolbar-height) - var(--expo-navigation-height)); font: 400 32px/1.35 var(--expo-body-font); }
+body.expo-app[data-mode="presentar"] #expo-deck .expo-scene { height: 720px; padding: 36px 48px; background: var(--expo-bg); }
+body.expo-app[data-mode="presentar"] .expo-scene-heading { margin-bottom: 24px; }
+body.expo-app[data-mode="presentar"] .expo-scene-heading h2 { font-size: 52px; line-height: 1.1; }
+body.expo-app[data-mode="presentar"] .expo-eyebrow { font-size: 16px; margin-bottom: 14px; }
+body.expo-app[data-mode="presentar"] .expo-lead { font-size: 28px; line-height: 1.3; margin-top: 16px; }
+body.expo-app[data-mode="presentar"] .expo-scene-grid { gap: 36px; }
+body.expo-app[data-mode="presentar"] .expo-points li { margin-bottom: .65em; }
+body.expo-app[data-mode="presentar"] .expo-figure img { max-height: 270px; }
+body.expo-app[data-mode="presentar"] .expo-figure figcaption { font-size: 16px; line-height: 1.4; }
+body.expo-app[data-mode="presentar"] .expo-sources { font-size: 16px; line-height: 1.4; margin-top: 18px; }
+body.expo-app[data-mode="presentar"] .expo-comparison { gap: 30px; }
+body.expo-app[data-mode="presentar"] .expo-comparison h3 { font-size: 34px; }
+body.expo-app[data-mode="presentar"] .expo-comparison article { padding: 24px; }
+body.expo-app[data-mode="presentar"] .expo-comparison p { font-size: 30px; }
+body.expo-app[data-mode="presentar"] .expo-process { gap: 22px; }
+body.expo-app[data-mode="presentar"] .expo-process li::before { font-size: 25px; }
+body.expo-app[data-mode="presentar"] .expo-equation { font-size: 32px; padding: 18px 22px; margin-block: 18px; }
+body.expo-app[data-mode="presentar"] .expo-button { font-size: 18px; min-height: 48px; }
+body.expo-app[data-mode="presentar"] .expo-toolbar .expo-button, body.expo-app[data-mode="presentar"] .expo-navigation .expo-button { font-size: 13px; min-height: 44px; }
+body.expo-app[data-mode="presentar"] #expo-deck .expo-scene[data-layout="cover"] { padding-block: 32px; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="cover"] h2 { font-size: 64px; max-width: none; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="cover"] .expo-lead { font-size: 28px; max-width: none; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="cover"] .expo-scene-heading { margin-bottom: 20px; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="cover"] .expo-scene-grid { align-items: center; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="cover"] .expo-figure img { max-height: 220px; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="cover"] .expo-figure figcaption { display: none; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="cover"] .expo-author { font-size: 18px; line-height: 1.4; margin: 12px 0 10px; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="cover"] .expo-author br { display: none; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="cover"] .expo-author span::before { content: " · "; }
+body.expo-app[data-mode="presentar"] .expo-simulator { gap: 36px; font-size: 27px; }
+body.expo-app[data-mode="presentar"] .expo-simulator :where(.expo-simulator-controls, .expo-controls, .expo-sim-controls) { gap: 12px; }
+body.expo-app[data-mode="presentar"] .expo-small { font-size: 17px; }
+body.expo-app[data-mode="presentar"] .expo-caution { font-size: 17px; line-height: 1.4; margin-top: 16px; }
+body.expo-app[data-mode="presentar"] .expo-sim-result .expo-equation { font-size: 26px; padding: 0; border: 0; }
+body.expo-app[data-mode="presentar"] #sim-ph { font-size: 96px; }
+body.expo-app[data-mode="presentar"] .expo-simulator :where(.expo-model-note, small) { font-size: 17px; }
+body.expo-app[data-mode="presentar"] .expo-case-data { font-size: 26px; margin-block: 12px; }
+body.expo-app[data-mode="presentar"] .expo-case-data :where(th, td) { padding: 9px 14px; }
+body.expo-app[data-mode="presentar"] .expo-case-data caption { font-size: 16px; }
+body.expo-app[data-mode="presentar"] .expo-case .expo-actions { gap: 8px; margin-top: 16px; }
+body.expo-app[data-mode="presentar"] .expo-case [data-case-status] { font-size: 16px; }
+body.expo-app[data-mode="presentar"] .expo-choices label { font-size: 27px; padding: 12px 16px; line-height: 1.3; }
+body.expo-app[data-mode="presentar"] .expo-choices input { margin-top: 5px; width: 23px; height: 23px; }
+body.expo-app[data-mode="presentar"] .expo-feedback { font-size: 23px; line-height: 1.35; }
+body.expo-app[data-mode="presentar"] .expo-case-steps h3 { font-size: 28px; }
+body.expo-app[data-mode="presentar"] .expo-case-steps p { font-size: 27px; }
+body.expo-app[data-mode="presentar"] .expo-quiz legend { font-size: 30px; }
+body.expo-app[data-mode="presentar"] .expo-quiz fieldset { padding: 8px 0 16px; }
+body.expo-app[data-mode="presentar"] .expo-references { max-height: 420px; overflow-y: auto; padding-right: 16px; }
+body.expo-app[data-mode="presentar"] .expo-references li { font-size: 21px; line-height: 1.4; }
+body.expo-app[data-mode="presentar"] .expo-navigation { position: fixed; inset: auto 0 0; height: var(--expo-navigation-height); z-index: 30; }
+body.expo-app[data-receiver="true"] :where(.expo-toolbar, .expo-navigation, .expo-site-header, .expo-skip, .expo-study-index) { display: none !important; }
+body.expo-app[data-receiver="true"] #expo-deck { inset: 0; width: 100vw; height: 100dvh; }
+
+@media (max-width: 900px) {
+  body.expo-app .expo-wrap, body.expo-app[data-mode="estudiar"] #expo-deck, body.expo-app .expo-study-index { width: calc(100% - 40px); }
+  body.expo-app .expo-site-header { min-height: 72px; padding-inline: 20px; }
+  body.expo-app .expo-site-header > .expo-wrap { min-height: 72px; }
+  body.expo-app .expo-site-header nav { gap: 4px 12px; font-size: 12px; }
+  body.expo-app .expo-catalog { grid-template-columns: 1fr; }
+  body.expo-app .expo-card:only-child { grid-template-columns: 1fr; }
+  body.expo-app .expo-card:only-child figure img { max-height: 400px; }
+  body.expo-app[data-mode="estudiar"] .expo-scene-grid { grid-template-columns: 1fr; gap: 28px; }
+  body.expo-app .expo-toolbar { padding-inline: 12px; gap: 8px; }
+  body.expo-app .expo-toolbar-title { display: none; }
+  body.expo-app .expo-toolbar .expo-button { padding-inline: 9px; font-size: 12px; }
+}
+@media (max-width: 600px) {
+  body.expo-app { font-size: 16px; --expo-toolbar-height: 112px; }
+  body.expo-app .expo-site-header > .expo-wrap { padding-block: 12px; align-items: flex-start; gap: 15px; }
+  body.expo-app .expo-site-header nav { justify-content: flex-end; }
+  body.expo-app .expo-site-header { gap: 10px; }
+  body.expo-app .expo-site-header nav { gap: 4px 10px; }
+  body.expo-app .expo-site-header > .expo-button { font-size: 12px; padding-inline: 10px; }
+  body.expo-app .expo-brand { font-size: 24px; }
+  body.expo-app .expo-hero { padding-top: 40px; }
+  body.expo-app .expo-hero h1 { font-size: 39px; }
+  body.expo-app .expo-catalog-tools { grid-template-columns: 1fr; gap: 16px; }
+  body.expo-app .expo-card-copy, body.expo-app .expo-card:only-child .expo-card-copy { padding: 24px; }
+  body.expo-app .expo-actions { gap: 10px; }
+  body.expo-app .expo-actions .expo-button { flex-grow: 1; }
+  body.expo-app .expo-toolbar { flex-wrap: wrap; justify-content: center; align-content: center; min-height: 112px; }
+  body.expo-app .expo-toolbar > :where(.expo-toolbar-actions, .expo-toolbar-group) { justify-content: center; }
+  body.expo-app .expo-toolbar > .expo-actions { justify-content: center; }
+  body.expo-app .expo-toolbar .expo-back { font-size: 12px; }
+  body.expo-app .expo-toolbar .expo-present-only { flex-wrap: wrap; justify-content: center; }
+  body.expo-app .expo-navigation { padding-inline: 10px; gap: 10px; }
+  body.expo-app .expo-navigation .expo-button { padding-inline: 10px; }
+  body.expo-app :where(.expo-progress, #expo-progress) { width: 50px; }
+  body.expo-app[data-mode="estudiar"] .expo-scene { padding-block: 42px; scroll-margin-top: 130px; }
+  body.expo-app[data-mode="estudiar"] :where(.expo-comparison, .expo-simulator) { grid-template-columns: 1fr; gap: 22px; }
+  body.expo-app[data-mode="estudiar"] .expo-comparison article { padding: 22px; }
+  body.expo-app .expo-study-index ol { columns: 1; }
+  body.expo-app .expo-equation { font-size: 19px; padding: 15px; }
+  body.expo-app .expo-case-data { font-size: 14px; }
+  body.expo-app .expo-case-data :where(th, td) { padding: 9px 7px; }
+  body.expo-app .expo-process li { padding-left: 42px; }
+  body.expo-app dialog.expo-dialog { padding: 22px; max-height: calc(100dvh - 32px); }
+  body.expo-app .expo-dialog h2 { font-size: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.expo-app *, body.expo-app *::before, body.expo-app *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+@media print {
+  body.expo-app, body.expo-app[data-mode="presentar"] { --expo-bg: #fff; --expo-surface: #fff; --expo-raised: #f0f3f5; --expo-text: #172330; --expo-muted: #394e60; --expo-accent: #08677b; --expo-accent-soft: #eef7f8; --expo-border: #b5c3cf; height: auto !important; overflow: visible !important; background: white !important; color: #172330 !important; font-size: 11pt; }
+  body.expo-app :where(.expo-site-header, .expo-toolbar, .expo-navigation, .expo-footer, .skip-link, .expo-skip, .expo-present-only, dialog, button, .expo-figure > button, .expo-simulator input, .expo-simulator select, .expo-quiz-navigation) { display: none !important; }
+  body.expo-app #expo-deck, body.expo-app[data-mode="presentar"] #expo-deck, body.expo-app[data-mode="estudiar"] #expo-deck { position: static !important; width: 100% !important; height: auto !important; margin: 0 !important; overflow: visible !important; font: 400 11pt/1.45 var(--expo-body-font) !important; }
+  body.expo-app #expo-deck > .slides { position: static !important; width: 100% !important; height: auto !important; transform: none !important; perspective: none !important; text-align: left !important; }
+  body.expo-app #expo-deck .expo-scene { position: static !important; display: block !important; width: 100% !important; height: auto !important; min-height: 0 !important; padding: 16pt 0 !important; opacity: 1 !important; visibility: visible !important; transform: none !important; break-before: page; border: none !important; }
+  body.expo-app #expo-deck .expo-scene:first-child { break-before: auto; }
+  body.expo-app #expo-deck .expo-scene h2 { font-size: 25pt !important; }
+  body.expo-app #expo-deck .expo-scene h3 { font-size: 15pt !important; }
+  body.expo-app #expo-deck .expo-eyebrow { font-size: 9pt; }
+  body.expo-app #expo-deck :where(.expo-lead, .expo-comparison p, .expo-case-steps p, .expo-choices label, .expo-quiz legend, .expo-simulator, .expo-feedback) { font-size: 11pt !important; }
+  body.expo-app #expo-deck :where(.expo-sources, .expo-figure figcaption, .expo-references li) { font-size: 9pt !important; }
+  body.expo-app #expo-deck .expo-equation { font-size: 16pt !important; }
+  body.expo-app #expo-deck .expo-scene-grid { gap: 24pt; }
+  body.expo-app #expo-deck .expo-figure img { max-height: 250pt; }
+  body.expo-app #expo-deck .expo-figure figcaption { display: block !important; }
+  body.expo-app #expo-deck .expo-study-only { display: block !important; padding-top: 14pt; margin-top: 18pt; }
+  body.expo-app #expo-deck .expo-references { max-height: none; overflow: visible; }
+  body.expo-app #expo-deck .expo-case-data { font-size: 11pt; }
+  body.expo-app #sim-ph { font-size: 44pt !important; }
+  body.expo-app :where(.fragment, .expo-quiz fieldset, .expo-case-steps article, .expo-feedback) { opacity: 1 !important; visibility: visible !important; transform: none !important; }
+  body.expo-app :where(figure, .expo-comparison article, fieldset, .expo-case-steps article) { break-inside: avoid; }
+  body.expo-app a { color: #08677b; text-decoration: underline; }
+}
+
+/* Static study content remains readable when scripting is disabled. */
+html:not(.expo-js) body.expo-app button,
+html:not(.expo-js) body.expo-app [data-catalog-search],
+html:not(.expo-js) body.expo-app .expo-toolbar { display: none; }

@@ -1,0 +1,1008 @@
+{
+  "schemaVersion": 1,
+  "id": "fisiopatologia-equilibrio-acido-base",
+  "subject": "fisiopatologia",
+  "slug": "equilibrio-acido-base",
+  "title": "Fisiopatología del equilibrio ácido-base",
+  "summary": "Una lectura veterinaria del pH: mecanismos, gasometría y dos casos para razonar.",
+  "language": "es",
+  "audience": "Estudiantes de Medicina Veterinaria",
+  "reviewedOn": "2026-10-17",
+  "provenance": "Adaptación del informe académico de este proyecto y consulta de las fuentes enumeradas. Los casos y valores del simulador son construcciones didácticas, no datos de pacientes.",
+  "scope": "Fundamentos fisiopatológicos e interpretación educativa; sin prescripción, dosificación ni protocolos de tratamiento.",
+  "references": [
+    {
+      "id": 1,
+      "citation": "Cornell University. Overview [Internet]. eClinPath; [citado 17 oct 2026].",
+      "url": "https://eclinpath.com/chemistry/acid-base/overview/",
+      "accessed": "2026-10-17",
+      "type": "Recurso universitario veterinario",
+      "scope": "Definiciones de pH, acidemia, alcalemia, acidosis y alcalosis."
+    },
+    {
+      "id": 2,
+      "citation": "Baquero-Parrado JR. Consideraciones clínicas y regulación del equilibrio ácido-base en ganado bovino. Rev UDCA Actual Divulg Cient. 2008;11(2):85-100.",
+      "doi": "10.31910/rudca.v11.n2.2008.626",
+      "url": "https://doi.org/10.31910/rudca.v11.n2.2008.626",
+      "consultedUrl": "https://revistas.udca.edu.co/index.php/ruadc/article/download/626/599",
+      "accessed": "2026-10-17",
+      "type": "Revisión técnica veterinaria en español",
+      "scope": "Fundamentos tradicionales, Henderson–Hasselbalch y enfoque de iones fuertes en bovinos. No se utiliza como guía terapéutica actual."
+    },
+    {
+      "id": 3,
+      "citation": "Cornell University. Response to disturbances [Internet]. eClinPath; [citado 17 oct 2026].",
+      "url": "https://eclinpath.com/chemistry/acid-base/compensation/",
+      "accessed": "2026-10-17",
+      "type": "Recurso universitario veterinario",
+      "scope": "Amortiguación, compensación, tiempo de respuesta y limitaciones entre especies."
+    },
+    {
+      "id": 4,
+      "citation": "Cornell University. Types of disturbances [Internet]. eClinPath; [citado 17 oct 2026].",
+      "url": "https://eclinpath.com/chemistry/acid-base/types-of-disturbances/",
+      "accessed": "2026-10-17",
+      "type": "Recurso universitario veterinario",
+      "scope": "Clasificación de trastornos metabólicos, respiratorios y mixtos."
+    },
+    {
+      "id": 5,
+      "citation": "Cornell University. Physiology [Internet]. eClinPath; [citado 17 oct 2026].",
+      "url": "https://eclinpath.com/chemistry/kidney/physiology/",
+      "accessed": "2026-10-17",
+      "type": "Recurso universitario veterinario",
+      "scope": "Recuperación renal de bicarbonato, amoniogénesis y excreción neta de ácido."
+    },
+    {
+      "id": 6,
+      "citation": "Cornell University. Bicarbonate [Internet]. eClinPath; [citado 17 oct 2026].",
+      "url": "https://eclinpath.com/chemistry/acid-base/chemistry-tests/bicarbonate/",
+      "accessed": "2026-10-17",
+      "type": "Recurso universitario veterinario",
+      "scope": "Interpretación de HCO₃⁻ y mecanismos de alteraciones metabólicas."
+    },
+    {
+      "id": 7,
+      "citation": "Braun U, Nuss K, Reif S, Hilbe M, Gerspach C. Left and right displaced abomasum and abomasal volvulus: comparison of clinical, laboratory and ultrasonographic findings in 1982 dairy cows. Acta Vet Scand. 2022;64:40.",
+      "doi": "10.1186/s13028-022-00656-9",
+      "url": "https://doi.org/10.1186/s13028-022-00656-9",
+      "consultedUrl": "https://link.springer.com/article/10.1186/s13028-022-00656-9",
+      "accessed": "2026-10-17",
+      "type": "Estudio retrospectivo original",
+      "scope": "Alteraciones abomasales y coexistencia de mecanismos acidificantes y alcalinizantes; datos clínicos de 1988–2016."
+    },
+    {
+      "id": 8,
+      "citation": "Cornell University. Laboratory detection [Internet]. eClinPath; [citado 17 oct 2026].",
+      "url": "https://eclinpath.com/chemistry/acid-base/laboratory-detection/",
+      "accessed": "2026-10-17",
+      "type": "Recurso universitario veterinario",
+      "scope": "Muestra, medición, gasometría e interpretación contextual."
+    },
+    {
+      "id": 9,
+      "citation": "Cornell University. Anion gap [Internet]. eClinPath; [citado 17 oct 2026].",
+      "url": "https://eclinpath.com/chemistry/acid-base/chemistry-tests/anion-gap/",
+      "accessed": "2026-10-17",
+      "type": "Recurso universitario veterinario",
+      "scope": "Fórmula, aniones no medidos, efecto de albúmina y limitaciones de la brecha aniónica."
+    },
+    {
+      "id": 10,
+      "citation": "Jung Y, Ku JY, Kim B, Kim Y, Park KM, Baek J, et al. Determining lactate concentrations in Korean indigenous calves and evaluating its role as a predictor for acidemia in calf diarrhea. BMC Vet Res. 2024;20:373.",
+      "doi": "10.1186/s12917-024-04235-0",
+      "url": "https://doi.org/10.1186/s12917-024-04235-0",
+      "consultedUrl": "https://link.springer.com/article/10.1186/s12917-024-04235-0",
+      "accessed": "2026-10-17",
+      "type": "Investigación original",
+      "scope": "L- y D-lactato en terneros Hanwoo; clasificación de acidemia venosa y límites de la inferencia clínica."
+    },
+    {
+      "id": 11,
+      "citation": "Burgos RA, Manosalva C, Alarcón P, Navarro M, Quiroga J, Morán G, et al. The D-lactate enigma: exploring the inflammatory influence of D-lactate in cattle. Front Vet Sci. 2024;11:1509399.",
+      "doi": "10.3389/fvets.2024.1509399",
+      "url": "https://doi.org/10.3389/fvets.2024.1509399",
+      "consultedUrl": "https://www.frontiersin.org/journals/veterinary-science/articles/10.3389/fvets.2024.1509399/full",
+      "accessed": "2026-10-17",
+      "type": "Revisión científica",
+      "scope": "Fermentación, D-lactato y mecanismos en bovinos; evidencia mecanística que no demuestra por sí sola una etiología individual."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "inicio",
+      "title": "Fisiopatología del equilibrio ácido-base",
+      "summary": "Objetivo: relacionar mecanismos ácido-base con resultados y contexto veterinario.",
+      "bullets": [
+        "¿Un pH dentro del intervalo descarta un trastorno?",
+        "Explora, interpreta y comprueba tus hipótesis."
+      ],
+      "notes": "Abrir con la pregunta clínica y recoger hipótesis. Al finalizar se volverá a ella mediante la autoevaluación.",
+      "layout": "cover",
+      "explanation": "La concentración de H⁺ influye en la función celular. El pH resume un resultado; para explicar su causa hay que conectar metabolismo, pulmones y riñones.",
+      "references": [
+        1
+      ],
+      "figure": "/exposiciones/assets/figuras/bicarbonato.svg",
+      "figure_alt": "Relación bicarbonato CO₂",
+      "caption": "Una relación entre base, ventilación y función renal."
+    },
+    {
+      "id": "ph-y-procesos",
+      "title": "Proceso y resultado no son lo mismo",
+      "summary": "Acidosis y alcalosis describen procesos. Acidemia y alcalemia describen el pH.",
+      "bullets": [
+        "Acidosis: tendencia a disminuir el pH.",
+        "Alcalosis: tendencia a aumentarlo.",
+        "Procesos opuestos pueden ocultarse en el resultado."
+      ],
+      "comparison": [
+        {
+          "title": "Acidemia / alcalemia",
+          "text": "pH inferior / superior al intervalo aplicable."
+        },
+        {
+          "title": "Acidosis / alcalosis",
+          "text": "Mecanismo acidificante / alcalinizante."
+        }
+      ],
+      "notes": "Pedir que se distinga la palabra que nombra el proceso de la que describe el resultado. Evitar asignar un intervalo humano a todas las especies.",
+      "layout": "compare",
+      "explanation": "La interpretación depende de especie, edad, muestra y laboratorio. Un valor dentro del intervalo no demuestra que todos los mecanismos sean normales: sus efectos pueden contrarrestarse.",
+      "references": [
+        1
+      ]
+    },
+    {
+      "id": "bicarbonato-co2",
+      "title": "Una relación entre base y CO₂",
+      "figureId": "sistema-bicarbonato",
+      "summary": "El sistema bicarbonato conecta la amortiguación química con la eliminación pulmonar de CO₂.",
+      "bullets": [
+        "HCO₃⁻ / CO₂ disuelto determina el pH del modelo.",
+        "Amortiguar limita un cambio; no elimina por sí solo toda la carga."
+      ],
+      "equation": "CO₂ + H₂O ⇌ H₂CO₃ ⇌ H⁺ + HCO₃⁻",
+      "notes": "Seguir las flechas reversibles. La relación didáctica 20:1 corresponde a HCO₃⁻ frente a CO₂ disuelto, no frente a PCO₂.",
+      "layout": "figure",
+      "explanation": "Henderson–Hasselbalch relaciona pH, bicarbonato y CO₂. La hemoglobina, las proteínas y los fosfatos también participan en la amortiguación; sus efectos no están representados de forma independiente en el simulador.",
+      "references": [
+        2,
+        3
+      ],
+      "figure": "/exposiciones/assets/figuras/bicarbonato.svg",
+      "figure_alt": "Una relación entre base y CO₂",
+      "caption": "Esquema funcional original. Relaciones fisiológicas simplificadas."
+    },
+    {
+      "id": "regulacion-pulmonar",
+      "title": "Ventilar modifica la PCO₂",
+      "figureId": "regulacion-pulmonar",
+      "summary": "La ventilación alveolar controla la eliminación de CO₂ respecto de su producción.",
+      "bullets": [
+        "Menor ventilación efectiva: tendencia a retener CO₂.",
+        "Mayor ventilación efectiva: tendencia a eliminar CO₂.",
+        "Taquipnea no equivale siempre a hiperventilación alveolar."
+      ],
+      "notes": "Aclarar la condición del esquema: producción de CO₂ comparable. Evitar concluir que una respiración rápida garantiza PCO₂ baja.",
+      "layout": "figure",
+      "explanation": "Si se mantiene la producción de CO₂, una caída de ventilación alveolar eleva la PCO₂. La frecuencia respiratoria aislada no describe el volumen útil ventilado; por eso debe interpretarse con la gasometría.",
+      "references": [
+        4
+      ],
+      "figure": "/exposiciones/assets/figuras/pulmon.svg",
+      "figure_alt": "Ventilar modifica la PCO₂",
+      "caption": "Esquema funcional original. Relaciones fisiológicas simplificadas."
+    },
+    {
+      "id": "regulacion-renal",
+      "title": "El riñón conserva base y elimina ácido",
+      "figureId": "regulacion-renal",
+      "summary": "Recuperar bicarbonato filtrado y generar bicarbonato nuevo son funciones distintas.",
+      "bullets": [
+        "Reabsorción: evita perder HCO₃⁻ existente.",
+        "Excreción neta de ácido: NH₄⁺ y ácido titulable.",
+        "La respuesta cambia con el tiempo y la función renal."
+      ],
+      "notes": "Separar conservación de una base ya filtrada de reposición de base. El dibujo representa funciones, no una anatomía renal exacta de una especie.",
+      "layout": "figure",
+      "explanation": "La amoniogénesis renal utiliza glutamina. El amonio y los tampones urinarios permiten excretar ácido; esta eliminación neta repone bicarbonato en sangre. En la alcalosis también puede aumentar la excreción renal de bicarbonato, si las condiciones de volumen y electrolitos lo permiten.",
+      "references": [
+        5
+      ],
+      "figure": "/exposiciones/assets/figuras/renal.svg",
+      "figure_alt": "El riñón conserva base y elimina ácido",
+      "caption": "Esquema funcional original. Relaciones fisiológicas simplificadas."
+    },
+    {
+      "id": "trastornos-metabolicos",
+      "title": "Dos direcciones metabólicas",
+      "summary": "La pérdida de base y la pérdida de ácido producen tendencias diferentes.",
+      "bullets": [
+        "Acidosis: HCO₃⁻ disminuye en el patrón tradicional.",
+        "Alcalosis: HCO₃⁻ aumenta en el patrón tradicional.",
+        "La causa y el contexto deciden la interpretación."
+      ],
+      "comparison": [
+        {
+          "title": "Acidosis metabólica",
+          "text": "Acumulación de ácidos, pérdida de base o menor excreción renal."
+        },
+        {
+          "title": "Alcalosis metabólica",
+          "text": "Pérdida o secuestro de HCl; ciertos aportes de base."
+        }
+      ],
+      "notes": "Contrastar diarrea y enfermedad abomasal. Identificar el material perdido o secuestrado antes de asociar una etiqueta con el síntoma.",
+      "layout": "compare",
+      "explanation": "Un HCO₃⁻ bajo también puede acompañar la adaptación a una alcalosis respiratoria. En bovinos, el secuestro de contenido abomasal favorece alcalosis hipoclorémica; si se altera la perfusión puede añadirse acidosis. No todo vómito ni toda diarrea producen un patrón único.",
+      "references": [
+        6,
+        7
+      ]
+    },
+    {
+      "id": "trastornos-respiratorios",
+      "title": "El cambio primario puede ser el CO₂",
+      "summary": "La acidosis respiratoria retiene CO₂; la alcalosis respiratoria lo elimina en exceso respecto de su producción.",
+      "bullets": [
+        "PCO₂ alta: favorece descenso del pH.",
+        "PCO₂ baja: favorece aumento del pH."
+      ],
+      "comparison": [
+        {
+          "title": "Acidosis respiratoria",
+          "text": "Ejemplo: hipoventilación por depresión respiratoria u obstrucción."
+        },
+        {
+          "title": "Alcalosis respiratoria",
+          "text": "Ejemplo: hiperventilación por dolor, excitación o hipoxemia."
+        }
+      ],
+      "notes": "Presentar los ejemplos como posibilidades. En el caso canino se conoce una secuencia temporal que ayuda a interpretar los números.",
+      "layout": "compare",
+      "explanation": "La misma PCO₂ puede representar un proceso primario o una respuesta secundaria. Para decidirlo hay que observar bicarbonato, pH e historia; el nombre de una enfermedad respiratoria no sustituye esa evaluación.",
+      "references": [
+        4
+      ]
+    },
+    {
+      "id": "compensacion-mixtos",
+      "title": "Compensar no significa resolver",
+      "summary": "Una respuesta secundaria atenúa el cambio; un trastorno mixto reúne procesos primarios.",
+      "bullets": [
+        "Metabólico primario: cambia la ventilación.",
+        "Respiratorio primario: amortiguación inicial y adaptación renal posterior.",
+        "La magnitud esperada depende de especie y duración."
+      ],
+      "comparison": [
+        {
+          "title": "Respuesta compensadora",
+          "text": "Reduce el efecto de una alteración primaria sobre el pH."
+        },
+        {
+          "title": "Trastorno mixto",
+          "text": "Dos o más procesos primarios; pueden sumar u oponer efectos."
+        }
+      ],
+      "notes": "Comparar cuadros recientes y persistentes sin convertir horas concretas en reglas universales. Un pH cercano al basal tampoco prueba curación.",
+      "layout": "compare",
+      "explanation": "La respuesta ventilatoria comienza antes que la adaptación renal completa. En una acidosis respiratoria reciente, un pequeño aumento de HCO₃⁻ puede proceder de amortiguación: no prueba adaptación renal crónica. Las ecuaciones de compensación caninas no se trasladan automáticamente a terneros.",
+      "references": [
+        3
+      ]
+    },
+    {
+      "id": "lectura-gasometria",
+      "title": "Leer la gasometría en orden",
+      "summary": "Comenzar por muestra y contexto; terminar integrando los resultados.",
+      "bullets": [
+        "Identificar especie, muestra arterial o venosa y condiciones de obtención.",
+        "Comparar el pH con el criterio aplicable.",
+        "Relacionar PCO₂ y HCO₃⁻ con el cambio del pH.",
+        "Valorar respuesta, electrolitos y explicaciones alternativas."
+      ],
+      "steps": [
+        "Identificar especie, muestra arterial o venosa y condiciones de obtención.",
+        "Comparar el pH con el criterio aplicable.",
+        "Relacionar PCO₂ y HCO₃⁻ con el cambio del pH.",
+        "Valorar respuesta, electrolitos y explicaciones alternativas."
+      ],
+      "notes": "Distinguir medidas de cálculos. No usar un valor de brecha aniónica como diagnóstico de acidosis láctica.",
+      "layout": "steps",
+      "explanation": "El gasómetro mide pH y PCO₂; suele calcular bicarbonato. El aire y la demora pueden alterar resultados. La PO₂ venosa no sustituye a la arterial para evaluar oxigenación pulmonar. La brecha aniónica se calcula aquí como (Na⁺ + K⁺) − (Cl⁻ + HCO₃⁻). Se compara con el intervalo del laboratorio para esa fórmula. Una elevación orienta a aniones no medidos, sin identificar cuál; la albúmina baja puede enmascararla.",
+      "references": [
+        8,
+        9
+      ],
+      "equation": "AG = (Na⁺ + K⁺) − (Cl⁻ + HCO₃⁻)"
+    },
+    {
+      "id": "simulador",
+      "title": "Cambia dos entradas; observa una salida",
+      "summary": "El pH es una salida calculada del modelo, no un tercer control independiente.",
+      "bullets": [
+        "Aumentar HCO₃⁻ con PCO₂ fija eleva el pH.",
+        "Aumentar PCO₂ con HCO₃⁻ fijo reduce el pH."
+      ],
+      "notes": "Modificar una entrada cada vez. Después mantener la proporción de ambas: un pH parecido puede coexistir con valores alejados del punto inicial.",
+      "layout": "simulator",
+      "explanation": "El modelo usa pH = 6,1 + log₁₀[HCO₃⁻/(0,03 × PCO₂)]. Son constantes aproximadas a 37 °C: pK aparente 6,1 y solubilidad de CO₂ 0,03 mmol·L⁻¹·mmHg⁻¹. No corrige temperatura, diferencias de especie, proteínas ni otros iones. Con 24 mmol/L y 40 mmHg se obtiene 7,401. Este punto es una referencia matemática, no un intervalo veterinario. Una gasometría real opera de modo distinto: mide pH y PCO₂ y habitualmente calcula HCO₃⁻.",
+      "references": [
+        2,
+        8
+      ]
+    },
+    {
+      "id": "ternero-diarrea",
+      "title": "Ternero con diarrea",
+      "summary": "Bovino · 12 días · caso didáctico",
+      "layout": "case",
+      "case": {
+        "id": "ternero-diarrea",
+        "title": "Ternero con diarrea",
+        "species": "Bovino",
+        "age": "12 días",
+        "status": "Escenario construido para enseñanza",
+        "history": "Diarrea acuosa de 24 horas, menor ingestión de leche y debilidad. Se obtiene la muestra al iniciar la evaluación. No se ha identificado el agente causal.",
+        "sample": "Sangre venosa yugular; valores expresados a 37 °C para este ejercicio.",
+        "dataProvenance": "Valores sintéticos matemáticamente coherentes. No corresponden a un paciente ni se tomaron de una tabla de resultados publicada.",
+        "values": {
+          "pH": "7,15",
+          "PCO₂": "30 mmHg",
+          "HCO₃⁻": "10 mmol/L",
+          "Na⁺": "135 mmol/L",
+          "K⁺": "4,8 mmol/L",
+          "Cl⁻": "102 mmol/L"
+        },
+        "criterion": "Para nombrar acidemia en este ejercicio se utiliza el criterio pH venoso <7,35 aplicado por Jung et al. a terneros Hanwoo con diarrea. Es una clasificación del estudio, no un intervalo validado para todas las razas, edades o analizadores.",
+        "question": "¿Qué interpretación está mejor sustentada?",
+        "options": [
+          {
+            "label": "Acidosis metabólica; causa por caracterizar.",
+            "feedback": "El pH bajo y el HCO₃⁻ reducido apoyan un proceso metabólico acidificante. La causa exacta y la adecuación de la respuesta requieren más información."
+          },
+          {
+            "label": "Alcalosis respiratoria como única explicación.",
+            "feedback": "La PCO₂ baja no explica por sí sola la acidemia; debe relacionarse con el bicarbonato marcadamente reducido y el contexto."
+          },
+          {
+            "label": "Acidosis por D-lactato demostrada.",
+            "feedback": "No se midió D-lactato. Ni el pH ni la brecha identifican por sí solos el anión responsable."
+          }
+        ],
+        "steps": [
+          {
+            "title": "Resultado del pH",
+            "text": "7,15 cumple el criterio de acidemia seleccionado para el ejercicio."
+          },
+          {
+            "title": "Componente principal",
+            "text": "HCO₃⁻ de 10 mmol/L, acidemia y diarrea apoyan acidosis metabólica."
+          },
+          {
+            "title": "Dirección de la respuesta",
+            "text": "Una disminución de PCO₂ atenúa el descenso del pH. No se usa una ecuación canina para decidir si 30 mmHg es una compensación bovina adecuada."
+          },
+          {
+            "title": "Cálculo y límite",
+            "text": "AG = (135 + 4,8) − (102 + 10) = 27,8 mmol/L. Hace falta el intervalo del laboratorio y el contexto proteico para clasificarla; no demuestra lactacidemia."
+          },
+          {
+            "title": "Lo que falta",
+            "text": "Considerar pérdidas digestivas, perfusión y fermentación. Diferenciar L-lactato de D-lactato y no inferir el agente causal a partir de la gasometría."
+          }
+        ],
+        "math": {
+          "phUnrounded": 7.145757490560675,
+          "anionGap": 27.8,
+          "hhExpression": "6,1 + log₁₀[10/(0,03 × 30)]",
+          "anionExpression": "(135 + 4,8) − (102 + 10)"
+        },
+        "references": [
+          3,
+          6,
+          9,
+          10,
+          11
+        ],
+        "correct": 0,
+        "short_history": "Diarrea, menor ingestión de leche y debilidad."
+      },
+      "explanation": "Para nombrar acidemia en este ejercicio se utiliza el criterio pH venoso <7,35 aplicado por Jung et al. a terneros Hanwoo con diarrea. Es una clasificación del estudio, no un intervalo validado para todas las razas, edades o analizadores. En terneros con diarrea pueden coexistir pérdidas digestivas, alteración de perfusión y absorción de productos de fermentación. El lactato no reemplaza la gasometría. El D-lactato tiene vías y orígenes distintos del L-lactato, y exige evaluación específica.",
+      "notes": "Leer la muestra y los antecedentes antes de responder. Todos los resultados fueron elegidos para el ejercicio; no provienen de historias clínicas.",
+      "references": [
+        3,
+        6,
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "id": "perro-hipoventilacion",
+      "title": "Perro con hipoventilación aguda",
+      "summary": "Canino · Adulto · caso didáctico",
+      "layout": "case",
+      "case": {
+        "id": "perro-hipoventilacion",
+        "title": "Perro con hipoventilación aguda",
+        "species": "Canino",
+        "age": "Adulto",
+        "status": "Escenario construido para enseñanza",
+        "history": "Durante anestesia, disminuye la ventilación alveolar. A los 20 minutos se obtiene una gasometría arterial. En este escenario se dispone de una medición previa para comparar.",
+        "sample": "Sangre arterial antes y durante el episodio; valores expresados a 37 °C para este ejercicio.",
+        "dataProvenance": "Ambos paneles son sintéticos. El valor previo es un punto de comparación del mismo caso, no un intervalo poblacional canino.",
+        "baseline": [
+          {
+            "id": "ph",
+            "label": "pH previo",
+            "value": 7.4,
+            "unit": ""
+          },
+          {
+            "id": "pco2",
+            "label": "PCO₂ previa",
+            "value": 40,
+            "unit": "mmHg"
+          },
+          {
+            "id": "bicarbonate",
+            "label": "HCO₃⁻ previo",
+            "value": 24,
+            "unit": "mmol/L"
+          }
+        ],
+        "values": {
+          "pH previo": "7,4",
+          "PCO₂ previa": "40 mmHg",
+          "HCO₃⁻ previo": "24 mmol/L",
+          "pH actual": "7,28",
+          "PCO₂ actual": "60 mmHg",
+          "HCO₃⁻ actual": "27 mmol/L"
+        },
+        "criterion": "Se interpreta la secuencia conocida de hipoventilación, aumento de PCO₂ y descenso de pH. No se presenta un rango de referencia universal.",
+        "question": "¿Qué proceso explica mejor el cambio reciente?",
+        "options": [
+          {
+            "label": "Acidosis respiratoria aguda por retención de CO₂.",
+            "feedback": "La PCO₂ aumentó mientras cayó el pH y se documentó menor ventilación alveolar. La secuencia apoya el mecanismo respiratorio."
+          },
+          {
+            "label": "Alcalosis metabólica primaria.",
+            "feedback": "Un aumento discreto de HCO₃⁻ puede acompañar la amortiguación de un cambio respiratorio agudo. No explica el descenso de pH como proceso único."
+          },
+          {
+            "label": "Compensación renal crónica completa.",
+            "feedback": "Veinte minutos y estos valores no demuestran adaptación renal crónica; el tiempo y la evolución importan."
+          }
+        ],
+        "steps": [
+          {
+            "title": "Cambio del pH",
+            "text": "El pH pasó de 7,40 a 7,28: la dirección del cambio es acidificante."
+          },
+          {
+            "title": "Cambio primario compatible",
+            "text": "PCO₂ de 40 a 60 mmHg junto a hipoventilación: retención de CO₂, compatible con acidosis respiratoria."
+          },
+          {
+            "title": "Respuesta reciente",
+            "text": "El HCO₃⁻ discretamente mayor es compatible con amortiguación inicial. No debe llamarse compensación renal completa."
+          },
+          {
+            "title": "Límites de la conclusión",
+            "text": "Los datos no identifican por sí solos la causa de hipoventilación ni cuantifican la oxigenación; no se proporcionó PaO₂."
+          }
+        ],
+        "math": {
+          "phUnrounded": 7.276091259055681,
+          "baselinePhUnrounded": 7.401029995663981,
+          "hhExpression": "6,1 + log₁₀[27/(0,03 × 60)]"
+        },
+        "references": [
+          1,
+          3,
+          4,
+          8
+        ],
+        "correct": 0,
+        "short_history": "Hipoventilación durante anestesia. Cambio en 20 minutos."
+      },
+      "explanation": "Se interpreta la secuencia conocida de hipoventilación, aumento de PCO₂ y descenso de pH. No se presenta un rango de referencia universal.",
+      "notes": "Leer la muestra y los antecedentes antes de responder. Todos los resultados fueron elegidos para el ejercicio; no provienen de historias clínicas.",
+      "references": [
+        1,
+        3,
+        4,
+        8
+      ]
+    },
+    {
+      "id": "autoevaluacion",
+      "title": "¿Qué puedes concluir y qué falta?",
+      "summary": "Comprueba el razonamiento, no solo la etiqueta del trastorno.",
+      "bullets": [
+        "El pH expresa un resultado.",
+        "La causa exige contexto y análisis conjunto.",
+        "La compensación no equivale a curación."
+      ],
+      "notes": "Volver a la pregunta inicial. Pedir una explicación breve antes de mostrar la retroalimentación y acceder a la bibliografía cuando se quiera profundizar.",
+      "layout": "quiz",
+      "explanation": "La autoevaluación recupera los mecanismos y limitaciones explicados. Cada respuesta incluye una razón y permite volver al apartado correspondiente. El resultado se calcula únicamente en este navegador.",
+      "references": []
+    },
+    {
+      "id": "conclusiones",
+      "title": "Interpretar es conectar mecanismos",
+      "summary": "El pH es el inicio de la pregunta clínica.",
+      "layout": "closing",
+      "bullets": [
+        "Integra pH, PCO₂, HCO₃⁻, electrolitos e historia.",
+        "Reconoce la compensación y sus límites por especie.",
+        "Un pH dentro del intervalo no descarta procesos opuestos."
+      ],
+      "references": [
+        1,
+        3,
+        8
+      ],
+      "notes": "Volver a la pregunta de apertura y solicitar una explicación del grupo."
+    },
+    {
+      "id": "referencias",
+      "title": "Fuentes para seguir estudiando",
+      "summary": "Bibliografía Vancouver · consultada el 17 de octubre de 2026.",
+      "layout": "references",
+      "notes": "Las citas de cada apartado enlazan a estas referencias y sus fuentes originales.",
+      "references": []
+    }
+  ],
+  "simulator": {
+    "id": "modelo-henderson-hasselbalch",
+    "formula": "pH = 6,1 + log₁₀[HCO₃⁻ / (0,03 × PCO₂)]",
+    "constants": {
+      "pK": 6.1,
+      "co2Solubility": 0.03,
+      "temperatureC": 37,
+      "solubilityUnit": "mmol·L⁻¹·mmHg⁻¹"
+    },
+    "inputs": [
+      {
+        "id": "bicarbonate",
+        "label": "HCO₃⁻",
+        "unit": "mmol/L",
+        "min": 4,
+        "max": 48,
+        "step": 0.5,
+        "default": 24
+      },
+      {
+        "id": "pco2",
+        "label": "PCO₂",
+        "unit": "mmHg",
+        "min": 10,
+        "max": 100,
+        "step": 1,
+        "default": 40
+      }
+    ],
+    "output": {
+      "id": "ph",
+      "label": "pH calculado",
+      "decimals": 2,
+      "editable": false
+    },
+    "notice": "Simulación educativa simplificada. No sustituye la interpretación clínica veterinaria",
+    "limits": "Los límites de los controles son límites del ejercicio, no intervalos fisiológicos ni umbrales clínicos. No hay compensación automática ni simulación del tiempo. Las constantes son aproximadas a 37 °C y no específicas de una especie.",
+    "interpretationRules": {
+      "baseline": {
+        "bicarbonate": 24,
+        "pco2": 40,
+        "ph": 7.401029995663981
+      },
+      "comparisonTolerance": 0.005,
+      "below": "pH menor que el punto didáctico inicial. Identifica qué entrada produce esa tendencia.",
+      "near": "pH cercano al punto didáctico inicial. Esto no demuestra que las entradas o el estado clínico sean normales.",
+      "above": "pH mayor que el punto didáctico inicial. Identifica qué entrada produce esa tendencia.",
+      "forbiddenInference": "No asignar diagnóstico, especie, grado clínico, pronóstico ni tratamiento a partir de las dos entradas."
+    },
+    "validation": {
+      "rejectEmpty": true,
+      "rejectNonFinite": true,
+      "rejectNonNumeric": true,
+      "rejectOutOfRange": true,
+      "showErrorInsteadOfResult": true,
+      "errorMessage": "Introduce números dentro de los límites indicados. No se calcula pH con datos inválidos."
+    },
+    "presets": [
+      {
+        "id": "punto-inicial",
+        "label": "Punto didáctico inicial",
+        "bicarbonate": 24,
+        "pco2": 40,
+        "expectedPh": 7.401029995663981,
+        "explanation": "Referencia matemática para comparar cambios; no representa un intervalo veterinario."
+      },
+      {
+        "id": "menos-bicarbonato",
+        "label": "Menor bicarbonato",
+        "bicarbonate": 12,
+        "pco2": 40,
+        "expectedPh": 7.1,
+        "explanation": "Con PCO₂ fija, reducir bicarbonato disminuye el pH calculado."
+      },
+      {
+        "id": "mas-co2",
+        "label": "Mayor CO₂",
+        "bicarbonate": 24,
+        "pco2": 60,
+        "expectedPh": 7.2249387366083,
+        "explanation": "Con bicarbonato fijo, aumentar PCO₂ disminuye el pH calculado."
+      },
+      {
+        "id": "proporcion-conservada",
+        "label": "Proporción conservada",
+        "bicarbonate": 36,
+        "pco2": 60,
+        "expectedPh": 7.401029995663981,
+        "explanation": "La misma relación produce el mismo pH; el cálculo no decide si existe compensación o un trastorno mixto."
+      },
+      {
+        "id": "ternero-caso",
+        "label": "Valores del ternero",
+        "bicarbonate": 10,
+        "pco2": 30,
+        "expectedPh": 7.145757490560675,
+        "explanation": "Valores construidos para el caso venoso; interpretar con sus antecedentes."
+      },
+      {
+        "id": "perro-caso",
+        "label": "Valores del perro",
+        "bicarbonate": 27,
+        "pco2": 60,
+        "expectedPh": 7.276091259055681,
+        "explanation": "Valores construidos para el caso arterial agudo; el modelo no determina la duración."
+      }
+    ],
+    "testTolerance": {
+      "calculationAbsolute": 1e-10,
+      "displayAbsolute": 0.005
+    },
+    "references": [
+      2,
+      8
+    ]
+  },
+  "cases": [
+    {
+      "id": "ternero-diarrea",
+      "title": "Ternero con diarrea",
+      "species": "Bovino",
+      "age": "12 días",
+      "status": "Escenario construido para enseñanza",
+      "history": "Diarrea acuosa de 24 horas, menor ingestión de leche y debilidad. Se obtiene la muestra al iniciar la evaluación. No se ha identificado el agente causal.",
+      "sample": "Sangre venosa yugular; valores expresados a 37 °C para este ejercicio.",
+      "dataProvenance": "Valores sintéticos matemáticamente coherentes. No corresponden a un paciente ni se tomaron de una tabla de resultados publicada.",
+      "values": [
+        {
+          "id": "ph",
+          "label": "pH",
+          "value": 7.15,
+          "unit": "",
+          "role": "Resultado sintético, redondeado a dos decimales"
+        },
+        {
+          "id": "pco2",
+          "label": "PCO₂",
+          "value": 30,
+          "unit": "mmHg"
+        },
+        {
+          "id": "bicarbonate",
+          "label": "HCO₃⁻",
+          "value": 10,
+          "unit": "mmol/L"
+        },
+        {
+          "id": "sodium",
+          "label": "Na⁺",
+          "value": 135,
+          "unit": "mmol/L"
+        },
+        {
+          "id": "potassium",
+          "label": "K⁺",
+          "value": 4.8,
+          "unit": "mmol/L"
+        },
+        {
+          "id": "chloride",
+          "label": "Cl⁻",
+          "value": 102,
+          "unit": "mmol/L"
+        }
+      ],
+      "criterion": "Para nombrar acidemia en este ejercicio se utiliza el criterio pH venoso <7,35 aplicado por Jung et al. a terneros Hanwoo con diarrea. Es una clasificación del estudio, no un intervalo validado para todas las razas, edades o analizadores.",
+      "question": "¿Qué interpretación está mejor sustentada?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Acidosis metabólica en el contexto de diarrea; falta caracterizar sus componentes.",
+          "correct": true,
+          "feedback": "El pH bajo y el HCO₃⁻ reducido apoyan un proceso metabólico acidificante. La causa exacta y la adecuación de la respuesta requieren más información."
+        },
+        {
+          "id": "b",
+          "text": "Alcalosis respiratoria primaria como única explicación.",
+          "correct": false,
+          "feedback": "La PCO₂ baja no explica por sí sola la acidemia; debe relacionarse con el bicarbonato marcadamente reducido y el contexto."
+        },
+        {
+          "id": "c",
+          "text": "Acidosis por D-lactato demostrada con estos resultados.",
+          "correct": false,
+          "feedback": "No se midió D-lactato. Ni el pH ni la brecha identifican por sí solos el anión responsable."
+        }
+      ],
+      "steps": [
+        {
+          "id": "ph",
+          "title": "1. Resultado del pH",
+          "text": "7,15 cumple el criterio de acidemia seleccionado para el ejercicio.",
+          "references": [
+            10
+          ]
+        },
+        {
+          "id": "primario",
+          "title": "2. Componente principal",
+          "text": "HCO₃⁻ de 10 mmol/L, acidemia y diarrea apoyan acidosis metabólica.",
+          "references": [
+            6,
+            10
+          ]
+        },
+        {
+          "id": "respuesta",
+          "title": "3. Dirección de la respuesta",
+          "text": "Una disminución de PCO₂ atenúa el descenso del pH. No se usa una ecuación canina para decidir si 30 mmHg es una compensación bovina adecuada.",
+          "references": [
+            3
+          ]
+        },
+        {
+          "id": "brecha",
+          "title": "4. Cálculo y límite",
+          "text": "AG = (135 + 4,8) − (102 + 10) = 27,8 mmol/L. Hace falta el intervalo del laboratorio y el contexto proteico para clasificarla; no demuestra lactacidemia.",
+          "references": [
+            9
+          ]
+        },
+        {
+          "id": "etiologia",
+          "title": "5. Lo que falta",
+          "text": "Considerar pérdidas digestivas, perfusión y fermentación. Diferenciar L-lactato de D-lactato y no inferir el agente causal a partir de la gasometría.",
+          "references": [
+            10,
+            11
+          ]
+        }
+      ],
+      "math": {
+        "phUnrounded": 7.145757490560675,
+        "anionGap": 27.8,
+        "hhExpression": "6,1 + log₁₀[10/(0,03 × 30)]",
+        "anionExpression": "(135 + 4,8) − (102 + 10)"
+      },
+      "references": [
+        3,
+        6,
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "id": "perro-hipoventilacion",
+      "title": "Perro con hipoventilación aguda",
+      "species": "Canino",
+      "age": "Adulto",
+      "status": "Escenario construido para enseñanza",
+      "history": "Durante anestesia, disminuye la ventilación alveolar. A los 20 minutos se obtiene una gasometría arterial. En este escenario se dispone de una medición previa para comparar.",
+      "sample": "Sangre arterial antes y durante el episodio; valores expresados a 37 °C para este ejercicio.",
+      "dataProvenance": "Ambos paneles son sintéticos. El valor previo es un punto de comparación del mismo caso, no un intervalo poblacional canino.",
+      "baseline": [
+        {
+          "id": "ph",
+          "label": "pH previo",
+          "value": 7.4,
+          "unit": ""
+        },
+        {
+          "id": "pco2",
+          "label": "PCO₂ previa",
+          "value": 40,
+          "unit": "mmHg"
+        },
+        {
+          "id": "bicarbonate",
+          "label": "HCO₃⁻ previo",
+          "value": 24,
+          "unit": "mmol/L"
+        }
+      ],
+      "values": [
+        {
+          "id": "ph",
+          "label": "pH actual",
+          "value": 7.28,
+          "unit": ""
+        },
+        {
+          "id": "pco2",
+          "label": "PCO₂ actual",
+          "value": 60,
+          "unit": "mmHg"
+        },
+        {
+          "id": "bicarbonate",
+          "label": "HCO₃⁻ actual",
+          "value": 27,
+          "unit": "mmol/L"
+        }
+      ],
+      "criterion": "Se interpreta la secuencia conocida de hipoventilación, aumento de PCO₂ y descenso de pH. No se presenta un rango de referencia universal.",
+      "question": "¿Qué proceso explica mejor el cambio reciente?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Acidosis respiratoria aguda compatible con retención de CO₂.",
+          "correct": true,
+          "feedback": "La PCO₂ aumentó mientras cayó el pH y se documentó menor ventilación alveolar. La secuencia apoya el mecanismo respiratorio."
+        },
+        {
+          "id": "b",
+          "text": "Alcalosis metabólica primaria porque HCO₃⁻ subió a 27.",
+          "correct": false,
+          "feedback": "Un aumento discreto de HCO₃⁻ puede acompañar la amortiguación de un cambio respiratorio agudo. No explica el descenso de pH como proceso único."
+        },
+        {
+          "id": "c",
+          "text": "Compensación renal completa que demuestra un proceso crónico.",
+          "correct": false,
+          "feedback": "Veinte minutos y estos valores no demuestran adaptación renal crónica; el tiempo y la evolución importan."
+        }
+      ],
+      "steps": [
+        {
+          "id": "ph",
+          "title": "1. Cambio del pH",
+          "text": "El pH pasó de 7,40 a 7,28: la dirección del cambio es acidificante.",
+          "references": [
+            1
+          ]
+        },
+        {
+          "id": "primario",
+          "title": "2. Cambio primario compatible",
+          "text": "PCO₂ de 40 a 60 mmHg junto a hipoventilación: retención de CO₂, compatible con acidosis respiratoria.",
+          "references": [
+            4
+          ]
+        },
+        {
+          "id": "respuesta",
+          "title": "3. Respuesta reciente",
+          "text": "El HCO₃⁻ discretamente mayor es compatible con amortiguación inicial. No debe llamarse compensación renal completa.",
+          "references": [
+            3
+          ]
+        },
+        {
+          "id": "limites",
+          "title": "4. Límites de la conclusión",
+          "text": "Los datos no identifican por sí solos la causa de hipoventilación ni cuantifican la oxigenación; no se proporcionó PaO₂.",
+          "references": [
+            8
+          ]
+        }
+      ],
+      "math": {
+        "phUnrounded": 7.276091259055681,
+        "baselinePhUnrounded": 7.401029995663981,
+        "hhExpression": "6,1 + log₁₀[27/(0,03 × 60)]"
+      },
+      "references": [
+        1,
+        3,
+        4,
+        8
+      ]
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Un pH dentro del intervalo de referencia significa que…",
+      "options": [
+        "No puede existir ningún trastorno ácido-base.",
+        "Hay que revisar PCO₂, HCO₃⁻ y el contexto.",
+        "El paciente está completamente compensado y recuperado."
+      ],
+      "correct": 1,
+      "feedback": "Los efectos de procesos opuestos pueden contrarrestarse. El pH es el resultado conjunto, no una prueba de ausencia de procesos. La recuperación no se demuestra con el pH aislado.",
+      "references": [
+        1,
+        4
+      ]
+    },
+    {
+      "question": "En el simulador, si HCO₃⁻ permanece fijo y aumenta PCO₂, ¿qué ocurre con el pH?",
+      "options": [
+        "Aumenta.",
+        "Disminuye.",
+        "No cambia."
+      ],
+      "correct": 1,
+      "feedback": "Aumenta el denominador y disminuye la relación de la ecuación. Con bicarbonato fijo, más CO₂ disuelto reduce el pH calculado. Para conservar el pH debe conservarse la proporción, no solo una entrada.",
+      "references": [
+        2
+      ]
+    },
+    {
+      "question": "¿Qué distingue recuperar bicarbonato de generar bicarbonato nuevo?",
+      "options": [
+        "Son dos nombres de exactamente el mismo balance.",
+        "La excreción neta de ácido permite reponer bicarbonato.",
+        "Todo bicarbonato nuevo procede de los pulmones."
+      ],
+      "correct": 1,
+      "feedback": "Recuperar lo filtrado conserva base; excretar ácido neto repone base. Es diferente de evitar la pérdida urinaria del bicarbonato que ya existía. La ventilación controla CO₂; la función renal participa en el balance de base.",
+      "references": [
+        5
+      ]
+    },
+    {
+      "question": "Una brecha aniónica elevada demuestra…",
+      "options": [
+        "Que el único ácido acumulado es lactato.",
+        "Una diferencia aumentada de aniones no medidos respecto de cationes no medidos.",
+        "Que la sangre perdió electroneutralidad."
+      ],
+      "correct": 1,
+      "feedback": "La brecha no identifica un anión específico. Su causa requiere investigar el contexto, sin ignorar albúmina y método. La electroneutralidad se conserva; el panel no mide todos los iones.",
+      "references": [
+        9
+      ]
+    },
+    {
+      "question": "¿Cómo interpretar una regla de compensación desarrollada en perros al evaluar un ternero?",
+      "options": [
+        "Aplicarla como si fuera universal.",
+        "Suponer que cualquier PCO₂ baja es una compensación adecuada.",
+        "Reconocer la limitación y buscar criterios bovinos y contexto."
+      ],
+      "correct": 2,
+      "feedback": "La respuesta y los criterios no se trasladan automáticamente entre especies. La dirección del cambio por sí sola no determina su adecuación cuantitativa. La dirección de una respuesta orienta, pero no acredita su adecuación cuantitativa.",
+      "references": [
+        3
+      ]
+    }
+  ],
+  "subjectLabel": "Fisiopatología",
+  "authors": [
+    "Juan José Bajaña Chuno"
+  ],
+  "status": "published",
+  "cover": "/exposiciones/assets/figuras/bicarbonato.svg",
+  "resources": [
+    {
+      "label": "Informe académico · Word",
+      "path": "/exposiciones/assets/descargas/informe-equilibrio-acido-base.docx"
+    },
+    {
+      "label": "Respaldo estático · PDF",
+      "path": "/exposiciones/assets/descargas/equilibrio-acido-base.pdf"
+    }
+  ]
+}
