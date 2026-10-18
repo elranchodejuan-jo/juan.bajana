@@ -1,0 +1,571 @@
+{
+  "schemaVersion": 1,
+  "id": "genetica-cromosomas-y-determinacion-sexual",
+  "subject": "genetica",
+  "subjectLabel": "Genética",
+  "slug": "cromosomas-y-determinacion-sexual",
+  "title": "Cromosomas sexuales, diferenciación sexual y sistemas básicos de determinación sexual en animales",
+  "summary": "Comparación de cromosomas, redes gonadales y señales ambientales con ejemplos veterinarios.",
+  "language": "es",
+  "audience": "Estudiantes de Medicina Veterinaria",
+  "authors": [
+    "Juan José Bajaña Chuno"
+  ],
+  "status": "published",
+  "reviewedOn": "2026-10-17",
+  "cover": "/exposiciones/assets/figuras/genetica/determinacion-sexual/portada.svg",
+  "cover_alt": "Cromosomas, desarrollo gonadal y diversidad de sistemas animales.",
+  "provenance": "Síntesis bibliográfica del informe y PowerPoint preparados para este tema, con comprobación de las fuentes citadas. No presenta experimentos ni pacientes del estudiante.",
+  "scope": "Fundamentos de desarrollo sexual y comparación de sistemas animales; ejemplos bibliográficos veterinarios, sin diagnóstico automático ni recomendaciones de incubación.",
+  "academicContext": {
+    "institution": "Universidad Técnica de Machala",
+    "faculty": "Facultad de Ciencias Agropecuarias",
+    "degree": "Medicina Veterinaria",
+    "course": "Genética y Mejoramiento Animal",
+    "semester": "Quinto",
+    "parallel": "A",
+    "period": "2026-2",
+    "workType": "Investigación bibliográfica"
+  },
+  "scenes": [
+    {
+      "id": "inicio",
+      "title": "Cromosomas sexuales, diferenciación sexual y sistemas básicos de determinación sexual en animales",
+      "summary": "De las señales cromosómicas y ambientales al desarrollo gonadal y sus aplicaciones veterinarias.",
+      "bullets": [
+        "¿Todos los animales determinan el sexo de la misma manera?",
+        "Distinguir niveles. Comparar mecanismos. Interpretar ejemplos."
+      ],
+      "explanation": "Objetivo: relacionar constitución cromosómica, determinación gonadal y diferenciación sexual. Esta revisión bibliográfica compara sistemas animales y sus límites; no presenta una práctica ni mediciones del estudiante. Genética y Mejoramiento Animal · Quinto A · 2026-2 · Facultad de Ciencias Agropecuarias, Universidad Técnica de Machala.",
+      "notes": "Abrir con la pregunta y recoger dos ejemplos del grupo. Anticipar que el modelo mamífero permite empezar, pero no explica por sí solo todos los animales. Las tres perspectivas de portada organizan el recorrido.",
+      "references": [
+        1
+      ],
+      "layout": "cover",
+      "figure": "/exposiciones/assets/figuras/genetica/determinacion-sexual/portada.svg",
+      "figure_alt": "Tres perspectivas: cromosomas, redes del desarrollo y diversidad genética o ambiental.",
+      "caption": "Figura original para VETJB. Síntesis conceptual, no cariotipo."
+    },
+    {
+      "id": "niveles-del-desarrollo",
+      "title": "Tres niveles que debemos distinguir",
+      "summary": "Cromosomas, gónadas y fenotipo aportan información diferente.",
+      "bullets": [
+        "Constitución cromosómica: complemento sexual.",
+        "Identidad gonadal: tejido y organización.",
+        "Fenotipo: conductos, genitales y caracteres somáticos."
+      ],
+      "explanation": "La determinación gonadal orienta la diferenciación del primordio; las señales tisulares contribuyen después al fenotipo. Sus relaciones pueden divergir. El aspecto externo, por sí solo, no demuestra cariotipo, tejido gonadal ni aptitud reproductiva.",
+      "notes": "Pedir un ejemplo del dato necesario para evaluar cada nivel: estudio cromosómico, evaluación del tejido y examen anatómico. El esquema ordena conceptos, no diagnostica a un animal.",
+      "references": [
+        1
+      ],
+      "layout": "figure",
+      "figure": "/exposiciones/assets/figuras/genetica/determinacion-sexual/niveles-desarrollo-sexual.svg",
+      "figure_alt": "Tres niveles relacionados: constitución cromosómica, identidad gonadal y fenotipo; su correspondencia no es absoluta.",
+      "caption": "Figura 1. Elaboración propia basada en la referencia 1. Relaciones simplificadas."
+    },
+    {
+      "id": "cromosomas-y-gametos",
+      "title": "Cromosomas sexuales y tipos de gametos",
+      "summary": "La heterogametia cambia entre mamíferos domésticos y aves.",
+      "bullets": [
+        "XX/XY: macho heterogamético.",
+        "ZZ/ZW: hembra heterogamética.",
+        "Muchos genes del desarrollo sexual son autosómicos."
+      ],
+      "explanation": "Homogametia indica un solo tipo de complemento sexual en los gametos; heterogametia, dos. Los autosomas son los demás cromosomas y también contienen reguladores del desarrollo. Las letras designan complementos, no formas exclusivas de cromosomas duplicados.",
+      "notes": "Seguir cada progenitor hasta sus gametos. Preguntar quién aporta X o Y y quién aporta Z o W. No confundir heterogametia con heterocigosis de cualquier gen.",
+      "references": [
+        1,
+        2
+      ],
+      "layout": "figure",
+      "figure": "/exposiciones/assets/figuras/genetica/determinacion-sexual/gametos-xx-xy-zz-zw.svg",
+      "figure_alt": "La hembra XX aporta X y el macho XY aporta X o Y; el macho ZZ aporta Z y la hembra ZW aporta Z o W.",
+      "caption": "Figura 2. Elaboración propia; patrones de referencia de mamíferos domésticos y aves."
+    },
+    {
+      "id": "cruces-cromosomicos",
+      "title": "Explora las combinaciones cromosómicas",
+      "summary": "Un cuadro de Punnett muestra posibilidades, no destinos individuales.",
+      "bullets": [
+        "Selecciona XX/XY o ZZ/ZW.",
+        "Identifica el origen de cada cromosoma."
+      ],
+      "explanation": "En el modelo ideal hay dos resultados equiprobables: XX y XY en mamíferos domésticos; ZZ y ZW en aves. Probabilidades teóricas bajo segregación y fecundación equivalentes. No garantizan una proporción exacta en una camada ni permiten predecir el sexo de un individuo.",
+      "notes": "Invitar a elegir una casilla antes de revelar el resultado. Si aparecen gametos idénticos en filas o columnas repetidas, aclarar que se duplican para representar combinaciones, no nuevos tipos de gametos. El modelo supone fecundación y segregación equivalentes.",
+      "references": [
+        1,
+        2
+      ],
+      "layout": "default"
+    },
+    {
+      "id": "gonada-bipotencial",
+      "title": "El punto de partida: una gónada bipotencial",
+      "summary": "Las células somáticas y germinales cumplen funciones distintas.",
+      "bullets": [
+        "La cresta genital organiza el primordio gonadal.",
+        "Las células de soporte acompañan a las germinales.",
+        "Bipotencial no significa ovario maduro."
+      ],
+      "explanation": "El primordio reúne células somáticas de soporte y del estroma con células germinales precursoras de gametos. Las redes de regulación orientan su organización. Las células germinales no se convierten en Sertoli: son linajes diferentes.",
+      "notes": "Recuperar la distinción entre tejido de soporte y células precursoras de gametos. No asignar al esquema semanas humanas ni un calendario común a todas las especies domésticas.",
+      "references": [
+        1,
+        3
+      ],
+      "layout": "figure",
+      "figure": "/exposiciones/assets/figuras/genetica/determinacion-sexual/gonada-bipotencial.svg",
+      "figure_alt": "La gónada bipotencial reúne células somáticas de soporte y estroma con células germinales; son linajes diferentes.",
+      "caption": "Figura 3. Elaboración propia. Organización celular simplificada y sin escala temporal."
+    },
+    {
+      "id": "via-testicular",
+      "title": "Vía testicular: una red reguladora",
+      "summary": "En el modelo mamífero típico, SRY favorece la activación de SOX9.",
+      "bullets": [
+        "SOX9 contribuye a la diferenciación de Sertoli.",
+        "La regulación depende del tejido y del contexto."
+      ],
+      "explanation": "SRY participa en el inicio de la red testicular; SOX9 integra regulación y mantenimiento de la línea de soporte. Intervienen otros genes y elementos reguladores. La cadena resumida no equivale a una secuencia universal para todos los vertebrados.",
+      "notes": "Leer las conexiones como relaciones funcionales. Distinguir un regulador transcripcional de una hormona. No transformar la selección de componentes en una predicción clínica: el explorador ilustra relaciones respaldadas.",
+      "references": [
+        1,
+        3,
+        4,
+        5
+      ],
+      "layout": "default"
+    },
+    {
+      "id": "via-ovarica",
+      "title": "La vía ovárica es activa",
+      "summary": "Desarrollo y mantenimiento requieren regulación coordinada.",
+      "bullets": [
+        "RSPO1, WNT4 y β-catenina participan en la vía.",
+        "FOXL2 contribuye a la identidad ovárica."
+      ],
+      "explanation": "El ovario se desarrolla mediante programas activos, no por ausencia de organización. En ratones adultos, eliminar Foxl2 experimentalmente indujo reprogramación de células somáticas ováricas y expresión de genes testiculares. Esa intervención no demuestra cambio sexual espontáneo normal en hembras domésticas.",
+      "notes": "Contrastar desarrollo inicial y mantenimiento posterior. Nombrar explícitamente la especie y la intervención del estudio de Uhlenhaut. La red está resumida y no asigna a cada componente una función idéntica en todas las especies.",
+      "references": [
+        3,
+        4,
+        5
+      ],
+      "layout": "default"
+    },
+    {
+      "id": "hormonas-y-conductos",
+      "title": "Una señal, un tejido y un efecto",
+      "summary": "AMH, testosterona y DHT cumplen funciones diferentes.",
+      "bullets": [
+        "Sertoli → AMH → regresión de Müller.",
+        "Leydig → testosterona → derivados de Wolff.",
+        "Conversión local a DHT → genitales externos y próstata."
+      ],
+      "explanation": "Los conductos de Müller originan componentes del tracto femenino y los de Wolff, componentes del tracto masculino. La DHT se forma por acción local de 5α-reductasa sobre testosterona. La respuesta requiere tejidos y receptores funcionales. El desarrollo del tracto femenino no exige atribuir al ovario fetal una acción hormonal universal.",
+      "notes": "Elegir primero la señal y después seguir origen, diana y efecto. AMH no sustituye a los andrógenos. Distinguir conversión hormonal de regulación génica; evitar extrapolar tiempos gestacionales entre especies.",
+      "references": [
+        1
+      ],
+      "layout": "default"
+    },
+    {
+      "id": "comparacion-de-sistemas",
+      "title": "Cinco sistemas, distintas señales",
+      "summary": "El patrón de un grupo no debe imponerse a todos los animales.",
+      "bullets": [
+        "Compara señal, ejemplo y límite.",
+        "Heterogametia solo donde corresponde."
+      ],
+      "explanation": "XX/XY y ZZ/ZW distinguen complementos sexuales; XX/X0 incluye ausencia de un segundo cromosoma sexual. En abeja melífera, ploidía y csd se relacionan; en determinados reptiles, la temperatura influye durante un periodo sensible. Son modelos de referencia y no inventarios de todas las excepciones.",
+      "notes": "Pedir que el grupo identifique qué variable cambia entre sistemas. No describir ZZ/ZW como SRY invertido, ni forzar etiquetas X/Y en haplodiploidía o determinación térmica.",
+      "references": [
+        1,
+        2,
+        6,
+        7,
+        8
+      ],
+      "layout": "default"
+    },
+    {
+      "id": "aves-y-dmrt1",
+      "title": "En pollo, la dosis de DMRT1 importa",
+      "summary": "La identidad gonadal y los rasgos somáticos no son equivalentes.",
+      "bullets": [
+        "Patrón habitual: macho ZZ; hembra ZW.",
+        "DMRT1 está ligado al cromosoma Z.",
+        "La evidencia experimental distingue gónada y soma."
+      ],
+      "explanation": "En el estudio de Ioannidis y colaboradores, pollos ZZ con una sola copia funcional de DMRT1 desarrollaron ovarios, aunque conservaron una apariencia adulta masculina. El resultado apoya un papel de dosis génica en la determinación gonadal del pollo y evidencia autonomía de ciertos rasgos somáticos.",
+      "notes": "Aclarar que se trata de una modificación experimental, no de un patrón normal de cría. No afirmar que el cromosoma W sea un interruptor ovárico universal ni que todo rasgo sexual dependa exclusivamente de hormonas gonadales.",
+      "references": [
+        2
+      ],
+      "layout": "compare",
+      "comparison": [
+        {
+          "title": "Patrón cromosómico",
+          "text": "ZZ: dos cromosomas Z. ZW: un Z y un W."
+        },
+        {
+          "title": "Evidencia en pollo",
+          "text": "Reducir DMRT1 funcional puede cambiar el destino gonadal sin feminizar todos los rasgos somáticos."
+        }
+      ]
+    },
+    {
+      "id": "sistema-xx-x0",
+      "title": "XX/X0: el cero tiene significado",
+      "summary": "En algunos insectos, X0 indica un único cromosoma sexual X.",
+      "bullets": [
+        "Hembra XX; macho X0 en el patrón de referencia.",
+        "0 significa ausencia, no un cromosoma O.",
+        "Los autosomas mantienen condición diploide."
+      ],
+      "explanation": "El macho puede formar gametos con X o sin cromosoma sexual. La ausencia de un segundo cromosoma sexual no convierte al organismo entero en haploide: el número de juegos autosómicos debe distinguirse del número de cromosomas sexuales.",
+      "notes": "Escribir X más cero y pedir que se explique el símbolo. Comparar este sistema con la haplodiploidía siguiente: en ella cambia el número de juegos cromosómicos completos. No generalizar XX/X0 a todos los insectos.",
+      "references": [
+        6
+      ],
+      "layout": "compare",
+      "comparison": [
+        {
+          "title": "XX",
+          "text": "Dos cromosomas sexuales X; patrón femenino de referencia."
+        },
+        {
+          "title": "X0",
+          "text": "Un X y ausencia del segundo cromosoma sexual; patrón masculino de referencia."
+        }
+      ]
+    },
+    {
+      "id": "haplodiploidia",
+      "title": "Abeja melífera: la ploidía no lo explica todo",
+      "summary": "El estado del locus csd permite entender los machos diploides.",
+      "bullets": [
+        "Haploide: un juego cromosómico, n.",
+        "Diploide: dos juegos, 2n.",
+        "En csd importa si los alelos son diferentes."
+      ],
+      "explanation": "En Apis mellifera, la hemicigosis de csd acompaña el desarrollo masculino haploide. La heterocigosis de csd favorece el femenino; la homocigosis permite machos diploides. Por tanto, un huevo fecundado no garantiza una hembra. El mecanismo concreto no se extrapola a todos los himenópteros.",
+      "notes": "Definir hemicigosis como una sola copia alélica, heterocigosis como alelos distintos y homocigosis como iguales. La figura explica determinación sexual, no castas, rendimiento ni aptitud reproductiva de la colonia.",
+      "references": [
+        7
+      ],
+      "layout": "figure",
+      "figure": "/exposiciones/assets/figuras/genetica/determinacion-sexual/haplodiploidia-csd.svg",
+      "figure_alt": "Tres posibilidades en abeja melífera: haploide hemicigoto macho, diploide heterocigoto hembra y diploide homocigoto macho.",
+      "caption": "Figura 4. Elaboración propia basada en la referencia 7. Modelo introductorio de Apis mellifera."
+    },
+    {
+      "id": "temperatura",
+      "title": "Temperatura: el patrón depende del mecanismo",
+      "summary": "M = macho; F = hembra, al aumentar la temperatura relativa.",
+      "bullets": [
+        "MF, FM y FMF son patrones conceptuales.",
+        "Importan especie, periodo sensible y exposición."
+      ],
+      "explanation": "MF representa predominio masculino en el extremo relativamente bajo y femenino en el alto; FM invierte ese orden; FMF presenta predominio femenino en extremos y masculino en una región intermedia. Esquema conceptual de patrones térmicos. No representa datos de una especie ni establece temperaturas de incubación.",
+      "notes": "Recorrer la escala relativa y describir las regiones de transición sin porcentajes ni grados Celsius. La interacción no predice resultados de cría. Algunos reptiles tienen determinación genética y no todos comparten estos patrones.",
+      "references": [
+        8
+      ],
+      "layout": "default"
+    },
+    {
+      "id": "diversidad-en-peces",
+      "title": "Peces: diversidad desde el inicio y durante la vida",
+      "summary": "Determinación inicial y cambio sexual son procesos distintos.",
+      "bullets": [
+        "Hay múltiples sistemas genéticos y efectos ambientales.",
+        "Protandria: macho → hembra.",
+        "Protoginia: hembra → macho."
+      ],
+      "explanation": "En teleósteos, los cromosomas sexuales pueden parecerse morfológicamente y los mecanismos varían entre linajes. Algunas especies cambian de sexo durante la vida en relación con señales sociales, tamaño u otras condiciones; muchas no lo hacen. Las dos direcciones del esquema no implican mecanismos moleculares simétricos.",
+      "notes": "Separar las preguntas: cómo se establece inicialmente la gónada y si puede reorganizarse después. No usar peces como sinónimo de cambio sexual universal ni asignar un mismo gen determinante a todos.",
+      "references": [
+        9,
+        10
+      ],
+      "layout": "figure",
+      "figure": "/exposiciones/assets/figuras/genetica/determinacion-sexual/cambio-sexual-peces.svg",
+      "figure_alt": "Determinación inicial diversa; en algunas especies la protandria va de macho a hembra y la protoginia de hembra a macho.",
+      "caption": "Figura 5. Elaboración propia. Procesos de especies distintas; sin cronología ni especie simulada."
+    },
+    {
+      "id": "freemartinismo",
+      "title": "Freemartinismo: integrar antecedentes y pruebas",
+      "summary": "¿Ser cogemela de un macho basta para confirmar el síndrome?",
+      "bullets": [
+        "La conexión vascular fetal permite intercambio.",
+        "Puede existir quimerismo sanguíneo XX/XY.",
+        "El antecedente orienta; no confirma por sí solo."
+      ],
+      "explanation": "No todas las hembras cogemelas de un macho son freemartin. Una conexión vascular fetal puede permitir intercambio de células y señales que alteran el desarrollo reproductivo. Hallar dos líneas celulares en sangre no significa reemplazar los cromosomas de todos los tejidos. La evaluación combina antecedentes, anatomía y pruebas pertinentes.",
+      "notes": "Solicitar una respuesta antes de abrir la explicación. Es un ejemplo bibliográfico bovino, no un paciente del estudiante. Diferenciar la sospecha por gemelaridad de la evidencia de quimerismo y de la caracterización del aparato reproductor.",
+      "references": [
+        11
+      ],
+      "layout": "figure",
+      "figure": "/exposiciones/assets/figuras/genetica/determinacion-sexual/freemartinismo-bovino.svg",
+      "figure_alt": "Conexión vascular entre fetos bovinos de distinto sexo: intercambio de células y señales, posible quimerismo sanguíneo y alteraciones reproductivas.",
+      "caption": "Figura 6. Elaboración propia basada en la referencia 11. Esquema funcional, no anatomía a escala."
+    },
+    {
+      "id": "desarrollo-sexual-canino",
+      "title": "Ejemplo canino: XX y SRY negativo",
+      "summary": "Un hallazgo cromosómico no describe todo el desarrollo sexual.",
+      "bullets": [
+        "Se ha documentado tejido testicular u ovotesticular.",
+        "El aspecto externo no identifica la causa molecular.",
+        "Las variantes de SOX9 no explican todos los casos."
+      ],
+      "explanation": "Nowacka-Woszuk y colaboradores estudiaron perros con 78,XX y ausencia de SRY. Sus resultados no permiten atribuir todos los casos a una única alteración de SOX9. La caracterización se apoya en métodos citogenéticos, moleculares e histológicos; una asociación no basta para demostrar una causa universal.",
+      "notes": "Clasificar cada dato por el método que lo sustenta. Pedir qué información faltaría si solo se conocieran los genitales externos. No inventar un paciente, tratamiento ni historia clínica, y no confundir asociación con causalidad.",
+      "references": [
+        12
+      ],
+      "layout": "compare",
+      "comparison": [
+        {
+          "title": "Documentado en la bibliografía",
+          "text": "Complemento 78,XX; SRY negativo; tejido testicular u ovotesticular en animales estudiados."
+        },
+        {
+          "title": "Requiere pruebas específicas",
+          "text": "Tejido gonadal, constitución cromosómica y mecanismo molecular no se deducen solo del aspecto externo."
+        }
+      ]
+    },
+    {
+      "id": "autoevaluacion",
+      "title": "Comprueba tus explicaciones",
+      "summary": "Cinco preguntas para conectar mecanismos y límites.",
+      "bullets": [
+        "Los niveles del desarrollo se relacionan y pueden divergir.",
+        "Los sistemas animales son diversos.",
+        "La interpretación veterinaria necesita contexto y pruebas."
+      ],
+      "explanation": "Conclusiones: la constitución cromosómica, la gónada y el fenotipo son niveles distintos. Genes y ambiente intervienen de manera específica según el grupo. Los ejemplos veterinarios requieren integrar evidencias y reconocer lo que aún no puede inferirse.",
+      "notes": "Volver a la pregunta inicial. Antes de evaluar, pedir una razón breve para cada respuesta. El resultado sirve para identificar conceptos por repasar; no es una evaluación clínica ni se envía a un servidor.",
+      "references": [
+        1,
+        2,
+        7,
+        8,
+        12
+      ],
+      "layout": "quiz"
+    },
+    {
+      "id": "referencias-y-materiales",
+      "title": "Referencias y materiales académicos",
+      "summary": "12 fuentes verificadas · consulta: 17 de octubre de 2026.",
+      "bullets": [
+        "Bibliografía Vancouver y fuentes originales.",
+        "Informe Word y presentación PowerPoint."
+      ],
+      "explanation": "Investigación bibliográfica narrativa preparada para Genética y Mejoramiento Animal, UTMACH. Figuras conceptuales originales para VETJB; no se reutilizan ilustraciones externas. Las fuentes se citan como evidencia, sin atribuir a sus autores revisión o aval de esta exposición. El informe y el PowerPoint descargables conservan sus archivos originales.",
+      "notes": "Usar los enlaces numerados para comprobar afirmaciones. En modo Estudiar se muestra la bibliografía completa con URL visible. Las descargas amplían el contenido; la web mantiene una numeración propia por primera aparición.",
+      "references": [],
+      "layout": "references"
+    }
+  ],
+  "references": [
+    {
+      "id": 1,
+      "key": "unam-desarrollo-2021",
+      "citation": "Díaz-Hernández V, Marquez Y, Merchant-Larios H. Desarrollo embrionario y diferenciación sexual. En: Reproducción de los animales domésticos [Internet]. México: Universidad Nacional Autónoma de México; 2021 [citado 17 oct 2026].",
+      "url": "https://reproduccionanimalesdomesticos.fmvz.unam.mx/libro/capitulo1/autores.html",
+      "accessed": "2026-10-17",
+      "type": "Libro universitario veterinario",
+      "scope": "Niveles del desarrollo, gónada bipotencial y diferenciación hormonal mamífera."
+    },
+    {
+      "id": 2,
+      "key": "ioannidis-dmrt1-2021",
+      "citation": "Ioannidis J, Taylor G, Zhao D, Liu L, Idoko-Akoh A, Gong D, et al. Primary sex determination in birds depends on DMRT1 dosage, but gonadal sex does not determine adult secondary sex characteristics. Proc Natl Acad Sci U S A. 2021;118(10):e2020909118.",
+      "url": "https://doi.org/10.1073/pnas.2020909118",
+      "accessed": "2026-10-17",
+      "type": "Estudio experimental en pollo",
+      "scope": "Heterogametia ZW y efecto de dosis funcional de DMRT1 sobre la gónada; límites somáticos."
+    },
+    {
+      "id": 3,
+      "key": "ridnik-regulacion-2021",
+      "citation": "Ridnik M, Schoenfelder S, Gonen N. Cis-Regulatory Control of Mammalian Sex Determination. Sex Dev. 2021;15(5-6):317-334.",
+      "url": "https://doi.org/10.1159/000519244",
+      "accessed": "2026-10-17",
+      "type": "Revisión de biología del desarrollo",
+      "scope": "Regulación de SRY/SOX9 y redes de determinación gonadal mamífera."
+    },
+    {
+      "id": 4,
+      "key": "nicol-ovario-2022",
+      "citation": "Nicol B, Estermann MA, Yao HHC, Mellouk N. Becoming female: Ovarian differentiation from an evolutionary perspective. Front Cell Dev Biol. 2022;10:944776.",
+      "url": "https://doi.org/10.3389/fcell.2022.944776",
+      "accessed": "2026-10-17",
+      "type": "Revisión evolutiva",
+      "scope": "Regulación activa de la diferenciación ovárica; RSPO1, WNT4, β-catenina y FOXL2."
+    },
+    {
+      "id": 5,
+      "key": "uhlenhaut-foxl2-2009",
+      "citation": "Uhlenhaut NH, Jakob S, Anlag K, Eisenberger T, Sekido R, Kress J, et al. Somatic sex reprogramming of adult ovaries to testes by FOXL2 ablation. Cell. 2009;139(6):1130-1142.",
+      "url": "https://doi.org/10.1016/j.cell.2009.11.021",
+      "accessed": "2026-10-17",
+      "type": "Estudio experimental en ratón",
+      "scope": "Eliminación inducida de Foxl2 en ovario adulto; mantenimiento de identidad somática gonadal."
+    },
+    {
+      "id": 6,
+      "key": "xie-insectos-2025",
+      "citation": "Xie X, Zhang Y, Peng H, Deng Z. Sex Chromosome Dosage Compensation in Insects. Insects. 2025;16(2):160.",
+      "url": "https://doi.org/10.3390/insects16020160",
+      "accessed": "2026-10-17",
+      "type": "Revisión de genética de insectos",
+      "scope": "Diversidad cromosómica y sistema XX/X0 en algunos insectos."
+    },
+    {
+      "id": 7,
+      "key": "seiler-csd-2024",
+      "citation": "Seiler J, Beye M. Honeybees’ novel complementary sex-determining system: function and origin. Trends Genet. 2024;40(11):969-981.",
+      "url": "https://doi.org/10.1016/j.tig.2024.08.001",
+      "accessed": "2026-10-17",
+      "type": "Revisión de genética de abeja melífera",
+      "scope": "Hemicigosis, heterocigosis y homocigosis de csd; posibilidad de machos diploides."
+    },
+    {
+      "id": 8,
+      "key": "akashi-temperatura-2024",
+      "citation": "Akashi H, Hasui D, Ueda K, Ishikawa M, Takeda M, Miyagawa S. Understanding the role of environmental temperature on sex determination through comparative studies in reptiles and amphibians. J Exp Zool A Ecol Integr Physiol. 2024;341(1):48-59.",
+      "url": "https://doi.org/10.1002/jez.2760",
+      "accessed": "2026-10-17",
+      "type": "Revisión comparativa",
+      "scope": "Diversidad de mecanismos térmicos en reptiles; patrones conceptuales y periodo sensible."
+    },
+    {
+      "id": 9,
+      "key": "kitano-teleosteos-2024",
+      "citation": "Kitano J, Ansai S, Takehana Y, Yamamoto Y. Diversity and Convergence of Sex-Determination Mechanisms in Teleost Fish. Annu Rev Anim Biosci. 2024;12:233-259.",
+      "url": "https://doi.org/10.1146/annurev-animal-021122-113935",
+      "accessed": "2026-10-17",
+      "type": "Revisión de genética comparada",
+      "scope": "Diversidad genética y ambiental de la determinación inicial en teleósteos."
+    },
+    {
+      "id": 10,
+      "key": "casas-cambio-2021",
+      "citation": "Casas L, Saborido-Rey F. Environmental Cues and Mechanisms Underpinning Sex Change in Fish. Sex Dev. 2021;15(1-3):108-121.",
+      "url": "https://doi.org/10.1159/000515274",
+      "accessed": "2026-10-17",
+      "type": "Revisión de cambio sexual en peces",
+      "scope": "Diferencia entre protandria, protoginia y determinación inicial."
+    },
+    {
+      "id": 11,
+      "key": "corredor-freemartin-2009",
+      "citation": "Corredor Camargo ES, Páez Barón EM. Freemartinismo o quimerismo XX/XY en bovinos: revisión. Rev Investig Agrar Ambient. 2009;(1):7-12.",
+      "url": "https://doi.org/10.22490/21456453.894",
+      "accessed": "2026-10-17",
+      "type": "Revisión veterinaria en español",
+      "scope": "Anastomosis fetal, quimerismo sanguíneo XX/XY y evaluación del freemartinismo bovino."
+    },
+    {
+      "id": 12,
+      "key": "nowacka-canino-2019",
+      "citation": "Nowacka-Woszuk J, Szczerbal I, Stachowiak M, Szydlowski M, Nizanski W, Dzimira S, et al. Association between polymorphisms in the SOX9 region and canine disorder of sex development (78,XX; SRY-negative) revisited in a multibreed case-control study. PLoS One. 2019;14(6):e0218565.",
+      "url": "https://doi.org/10.1371/journal.pone.0218565",
+      "accessed": "2026-10-17",
+      "type": "Estudio de casos y controles multirracial canino",
+      "scope": "Perros 78,XX y SRY negativos; variantes de SOX9 no explican todos los casos."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "¿Qué progenitor es heterogamético en aves?",
+      "options": [
+        "El macho ZZ.",
+        "La hembra ZW.",
+        "Ambos producen siempre Z y W."
+      ],
+      "correct": 1,
+      "feedback": "La hembra ZW puede producir gametos Z o W. El macho ZZ produce gametos con Z; por eso la heterogametia de referencia es femenina.",
+      "references": [
+        2
+      ]
+    },
+    {
+      "question": "¿Qué señal causa regresión de los conductos de Müller en el modelo mamífero?",
+      "options": [
+        "La AMH de las células de Sertoli fetales.",
+        "La testosterona, sin participación de AMH.",
+        "La DHT procedente del ovario fetal."
+      ],
+      "correct": 0,
+      "feedback": "La AMH fetal de Sertoli interviene en la regresión de Müller. La testosterona favorece derivados de Wolff y la DHT actúa sobre genitales externos y próstata.",
+      "references": [
+        1
+      ]
+    },
+    {
+      "question": "¿Qué representa el 0 del sistema X0?",
+      "options": [
+        "Un cromosoma llamado O.",
+        "La ausencia de todos los autosomas.",
+        "La ausencia de un segundo cromosoma sexual."
+      ],
+      "correct": 2,
+      "feedback": "0 señala que falta un segundo cromosoma sexual. No es la letra O ni significa que el organismo completo sea haploide: los autosomas siguen siendo diploides.",
+      "references": [
+        6
+      ]
+    },
+    {
+      "question": "¿Un huevo fecundado de abeja melífera origina siempre una hembra?",
+      "options": [
+        "Sí, fecundación y sexo femenino son equivalentes.",
+        "No: la homocigosis de csd permite machos diploides.",
+        "No: todo huevo fecundado es haploide."
+      ],
+      "correct": 1,
+      "feedback": "El huevo fecundado es diploide. En Apis mellifera, csd heterocigoto favorece desarrollo femenino; csd homocigoto puede producir un macho diploide.",
+      "references": [
+        7
+      ]
+    },
+    {
+      "question": "¿Una temperatura más alta produce siempre más hembras en reptiles?",
+      "options": [
+        "No: hay distintos mecanismos y patrones según la especie.",
+        "Sí: todos los reptiles comparten el patrón MF.",
+        "Sí: basta un cambio de temperatura en cualquier momento."
+      ],
+      "correct": 0,
+      "feedback": "No existe una dirección térmica universal. Deben considerarse especie, mecanismo y periodo sensible; MF, FM y FMF son patrones conceptuales diferentes.",
+      "references": [
+        8
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "label": "Informe académico · Word",
+      "path": "/exposiciones/assets/descargas/informe-determinacion-sexual-animal.docx"
+    },
+    {
+      "label": "Presentación académica · PowerPoint",
+      "path": "/exposiciones/assets/descargas/presentacion-determinacion-sexual-animal.pptx"
+    }
+  ],
+  "downloadsAt": "referencias-y-materiales",
+  "credits": [
+    "Diagramas conceptuales originales para VETJB. Elaboración propia basada en las referencias indicadas; no se reproducen ilustraciones de terceros.",
+    "Contenido preparado por Juan José Bajaña Chuno para Genética y Mejoramiento Animal, UTMACH. La cita de instituciones y autores no implica su participación, revisión ni aval."
+  ]
+}
