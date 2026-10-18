@@ -88,7 +88,7 @@ Las pruebas jsdom comprueban lógica y DOM; no sustituyen un navegador real ni v
 
 ## Respaldo e impresión
 
-El informe Word es el material académico real asociado. El respaldo PDF corresponde al material académico E0; la actualización visual E1 se explora en la web. El PDF es estático; contiene escenarios calculados, razonamiento de casos y respuestas, y no conserva controles interactivos. Solo se muestran descargas para archivos existentes.
+Las descargas incluyen el informe académico actualizado en Word, su versión PDF y una presentación PowerPoint de 15 diapositivas. Los tres archivos comparten las referencias y los dos casos didácticos de la exposición. La presentación incorpora notas para el expositor; las animaciones y los controles interactivos se exploran en la web. Solo se muestran descargas para archivos existentes y sus enlaces incluyen una versión basada en el contenido para evitar archivos antiguos en caché.
 
 La hoja de impresión muestra las escenas y las soluciones. Para un PDF desde el navegador, utiliza Estudiar, Ctrl+P, destino «Guardar como PDF» y revisa la vista previa. La salida del navegador puede variar: el PDF de respaldo adjunto es la alternativa revisada. No se instala un service worker.
 

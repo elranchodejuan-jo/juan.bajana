@@ -1010,7 +1010,11 @@
       "path": "/exposiciones/assets/descargas/informe-equilibrio-acido-base.docx"
     },
     {
-      "label": "Contenido académico base · PDF",
+      "label": "Presentación académica · PowerPoint",
+      "path": "/exposiciones/assets/descargas/presentacion-equilibrio-acido-base.pptx"
+    },
+    {
+      "label": "Informe académico · PDF",
       "path": "/exposiciones/assets/descargas/equilibrio-acido-base.pdf"
     }
   ]
