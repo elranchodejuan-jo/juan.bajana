@@ -13,6 +13,23 @@ const expoPath = 'exposiciones/fisiopatologia/equilibrio-acido-base/index.html';
 let importNumber = 0;
 const tick = () => new Promise((resolve) => setTimeout(resolve, 10));
 
+function animationFrameQueue() {
+  let nextId = 0;
+  const pending = new Map();
+  return {
+    pending,
+    request(callback) { const id = ++nextId; pending.set(id, callback); return id; },
+    cancel(id) { pending.delete(id); },
+    run(ids = [...pending.keys()]) {
+      for (const id of ids) {
+        const callback = pending.get(id);
+        pending.delete(id);
+        callback?.(0);
+      }
+    },
+  };
+}
+
 async function environment(path, suffix = '', options = {}) {
   const html = await readFile(new URL(path, root), 'utf8');
   const address = `https://vetjb.example/${path.replace(/index\.html$/, '')}${suffix}`;
@@ -24,12 +41,13 @@ async function environment(path, suffix = '', options = {}) {
   const originals = new Map();
   const intervals = new Set();
   const nativeInterval = globalThis.setInterval;
+  const animationFrames = options.manualAnimationFrames ? animationFrameQueue() : null;
   const globals = {
     window: win, document: win.document, location: win.location,
     history: win.history, navigator: win.navigator, localStorage: win.localStorage,
     addEventListener: win.addEventListener.bind(win),
-    requestAnimationFrame: win.requestAnimationFrame.bind(win),
-    cancelAnimationFrame: win.cancelAnimationFrame.bind(win),
+    requestAnimationFrame: animationFrames ? animationFrames.request.bind(animationFrames) : win.requestAnimationFrame.bind(win),
+    cancelAnimationFrame: animationFrames ? animationFrames.cancel.bind(animationFrames) : win.cancelAnimationFrame.bind(win),
     getComputedStyle: win.getComputedStyle.bind(win),
     HTMLElement: win.HTMLElement, Element: win.Element, Node: win.Node,
     setInterval: (...args) => { const timer = nativeInterval(...args); intervals.add(timer); return timer; },
@@ -47,7 +65,7 @@ async function environment(path, suffix = '', options = {}) {
   const app = await import(`${moduleURL.href}?dom-test=${++importNumber}`);
   await tick();
   return {
-    win, document: win.document, app,
+    win, document: win.document, app, animationFrames,
     async close() {
       await tick();
       win.close();
@@ -300,5 +318,49 @@ test('DOM: mode round trip uses local reveal engine and preserves entered state'
     assert.equal(doc.querySelector('[data-reveal-style]'), null);
     assert.ok([...doc.querySelectorAll('.expo-scene')].every(scene => !scene.hidden), 'Every scene must become readable after leaving slides');
     assert.equal(env.win.location.hash, '#simulador');
+  } finally { await env.close(); }
+});
+
+test('DOM regression: stale study animation frames cannot change the slide during loading or after a mode round trip', async () => {
+  const env = await environment(expoPath, '?modo=estudiar#simulador', { manualAnimationFrames: true });
+  try {
+    const { win, document: doc, app, animationFrames } = env;
+    change(win, doc.querySelector('#hco3-number'), '18');
+    const scenes = [...doc.querySelectorAll('.expo-scene')];
+    const gasometry = scenes.findIndex((scene) => scene.id === 'lectura-gasometria');
+    assert.ok(gasometry >= 0);
+    // Simulate the intermediate geometry produced when reveal.css loads while
+    // the page still has the study-mode layout. It must not become navigation.
+    scenes.forEach((scene, index) => {
+      scene.getBoundingClientRect = () => ({ top: index <= gasometry ? (index - gasometry) * 300 : 1000 });
+    });
+    win.dispatchEvent(new win.Event('scroll'));
+    const queuedStudyFrames = [...animationFrames.pending.entries()];
+    assert.ok(queuedStudyFrames.length >= 2, 'Initial anchor scrolling and scroll tracking must both be pending.');
+
+    const transition = app.switchMode('presentar');
+    // A browser may already have taken callbacks out of its queue when cleanup
+    // runs. Execute that batch during the asynchronous CSS/module-loading gap.
+    for (const [, callback] of queuedStudyFrames) callback(0);
+    doc.querySelector('[data-reveal-style]').dispatchEvent(new win.Event('load'));
+    await transition;
+    assert.equal(doc.body.dataset.mode, 'presentar');
+    assert.equal(doc.querySelector('.expo-scene.present')?.id, 'simulador');
+    assert.equal(win.location.hash, '#simulador');
+    assert.equal(doc.querySelector('#hco3-number').value, '18');
+    assert.equal(doc.querySelector('#sim-ph').textContent, '7,28');
+    assert.ok(queuedStudyFrames.every(([id]) => !animationFrames.pending.has(id)), 'The obsolete scheduled work must also be cancelled.');
+
+    await app.switchMode('estudiar');
+    // Merely checking mode === estudiar is insufficient: an earlier study
+    // lifecycle is still obsolete after returning to study mode.
+    for (const [, callback] of queuedStudyFrames) callback(0);
+    assert.equal(win.location.hash, '#simulador');
+    assert.equal(doc.querySelector('#hco3-number').value, '18');
+
+    const beforeScroll = new Set(animationFrames.pending.keys());
+    win.dispatchEvent(new win.Event('scroll'));
+    animationFrames.run([...animationFrames.pending.keys()].filter((id) => !beforeScroll.has(id)));
+    assert.equal(win.location.hash, '#lectura-gasometria', 'The current study lifecycle must still respond to actual scrolling.');
   } finally { await env.close(); }
 });

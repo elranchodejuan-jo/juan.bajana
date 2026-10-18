@@ -302,13 +302,14 @@ function loadRevealStyles() {
   });
 }
 
-async function initializePresentation() {
+async function initializePresentation(initialScene = sceneFromHash() || currentScene || scenes[0]) {
+  // Capture the scene before CSS/module loading can change page geometry.
+  stopStudy();
   const [revealModule, notesModule] = await Promise.all([
     import('../vendor/reveal/reveal.esm.js'),
     import('../vendor/reveal/notes.esm.js'),
     loadRevealStyles(),
   ]);
-  const initialScene = sceneFromHash() || scenes[0];
   mode = 'presentar';
   body.dataset.mode = mode;
   deck = new revealModule.default(deckElement, {
@@ -359,12 +360,16 @@ function initializeStudy() {
   updateNavigation(initialScene, false);
   const speaker = document.querySelector('[data-speaker]');
   if (speaker) speaker.disabled = true;
-  let scheduled = false;
+  let studyActive = true;
+  let scrollFrame = null;
+  let initialFrame = null;
   function onScroll() {
-    if (scheduled || mode !== 'estudiar') return;
-    scheduled = true;
-    requestAnimationFrame(() => {
-      scheduled = false;
+    if (!studyActive || scrollFrame !== null || mode !== 'estudiar') return;
+    scrollFrame = requestAnimationFrame(() => {
+      scrollFrame = null;
+      // Cancellation alone does not cover a callback already taken for a frame.
+      // A previous study lifecycle must stay inactive even after switching back.
+      if (!studyActive || mode !== 'estudiar') return;
       let active = scenes[0];
       for (const scene of scenes) {
         if (scene.getBoundingClientRect().top <= 180) active = scene;
@@ -376,10 +381,16 @@ function initializeStudy() {
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll, { passive: true });
   stopStudy = () => {
+    studyActive = false;
     window.removeEventListener('scroll', onScroll);
     window.removeEventListener('resize', onScroll);
+    if (scrollFrame !== null) cancelAnimationFrame(scrollFrame);
+    if (initialFrame !== null) cancelAnimationFrame(initialFrame);
+    scrollFrame = initialFrame = null;
   };
-  requestAnimationFrame(() => {
+  initialFrame = requestAnimationFrame(() => {
+    initialFrame = null;
+    if (!studyActive || mode !== 'estudiar') return;
     if (location.hash && initialScene) initialScene.scrollIntoView({ behavior: 'auto', block: 'start' });
     if (deckElement) deckElement.dataset.ready = 'true';
   });
@@ -396,7 +407,7 @@ export async function switchMode(nextMode) {
   url.hash = scene.id;
   history.replaceState(null, '', url);
   try {
-    if (nextMode === 'presentar') await initializePresentation();
+    if (nextMode === 'presentar') await initializePresentation(scene);
     else {
       deck?.destroy();
       deck = undefined;

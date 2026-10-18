@@ -291,6 +291,29 @@ body.expo-app[data-mode="presentar"] .expo-choices input { margin-top: 5px; widt
 body.expo-app[data-mode="presentar"] .expo-feedback { font-size: 23px; line-height: 1.35; }
 body.expo-app[data-mode="presentar"] .expo-case-steps h3 { font-size: 28px; }
 body.expo-app[data-mode="presentar"] .expo-case-steps p { font-size: 27px; }
+/* Six-row cases keep their data, question and citations inside the slide. */
+@media screen {
+body.expo-app[data-mode="presentar"] #expo-deck .expo-scene[data-layout="case"] { padding-block: 32px; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="case"] .expo-scene-heading { margin-bottom: 14px; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="case"] .expo-eyebrow { margin-bottom: 10px; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="case"] .expo-lead { margin-top: 10px; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="case"] .expo-sources { margin-top: 8px; }
+body.expo-app[data-mode="presentar"] .expo-case { font-size: 28px; line-height: 1.3; }
+body.expo-app[data-mode="presentar"] .expo-case .expo-small { margin-top: 8px; line-height: 1.35; }
+body.expo-app[data-mode="presentar"] .expo-case .expo-case-data { line-height: 1.3; margin-block: 8px; }
+body.expo-app[data-mode="presentar"] .expo-case .expo-case-data :where(th, td) { padding: 6px 14px; }
+body.expo-app[data-mode="presentar"] .expo-case .expo-case-data caption { margin-bottom: 6px; line-height: 1.3; }
+body.expo-app[data-mode="presentar"] .expo-case .expo-choices { gap: 8px; margin-block: 12px; }
+body.expo-app[data-mode="presentar"] .expo-case .expo-choices label { min-height: 44px; padding: 8px 12px; font-size: 28px; }
+body.expo-app[data-mode="presentar"] .expo-case .expo-actions { gap: 6px; margin-top: 12px; }
+body.expo-app[data-mode="presentar"] .expo-case .expo-button { min-height: 44px; padding: 8px 10px; font-size: 16px; }
+body.expo-app[data-mode="presentar"] .expo-case .expo-feedback { padding: 10px 14px; margin-top: 10px; line-height: 1.3; }
+body.expo-app[data-mode="presentar"] .expo-case [data-case-status] { padding: 8px 12px; margin-top: 4px; }
+body.expo-app[data-mode="presentar"] .expo-case .expo-case-steps { gap: 12px; margin-top: 14px; }
+body.expo-app[data-mode="presentar"] .expo-case .expo-case-steps article { padding-left: 18px; }
+body.expo-app[data-mode="presentar"] .expo-case .expo-case-steps h3 { margin-bottom: 6px; line-height: 1.25; }
+body.expo-app[data-mode="presentar"] .expo-case .expo-case-steps p { font-size: 28px; line-height: 1.3; }
+}
 body.expo-app[data-mode="presentar"] .expo-quiz legend { font-size: 30px; }
 body.expo-app[data-mode="presentar"] .expo-quiz fieldset { padding: 8px 0 16px; }
 body.expo-app[data-mode="presentar"] .expo-references { max-height: 420px; overflow-y: auto; padding-right: 16px; }
