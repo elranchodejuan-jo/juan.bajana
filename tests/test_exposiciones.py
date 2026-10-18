@@ -1,11 +1,13 @@
 import importlib.util
+import hashlib
 import json
 import math
+import re
 import tempfile
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urlsplit, unquote
+from urllib.parse import urlsplit, unquote, urljoin
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('builder', ROOT/'scripts/build-exposiciones.py')
@@ -21,6 +23,21 @@ class Links(HTMLParser):
         if tag=='img':self.images.append(a)
         for k in ('href','src'):
             if a.get(k):self.links.append(a[k])
+
+class RuntimeAssets(HTMLParser):
+    def __init__(self):
+        super().__init__(); self.scripts=[]; self.styles=[]; self.import_maps=[]; self.map_data=None
+    def handle_starttag(self, tag, attrs):
+        a=dict(attrs)
+        if tag=='script':
+            self.scripts.append(a)
+            if a.get('type')=='importmap':self.map_data=''
+        if tag=='link' and a.get('rel')=='stylesheet':self.styles.append(a['href'])
+    def handle_data(self, data):
+        if self.map_data is not None:self.map_data+=data
+    def handle_endtag(self, tag):
+        if tag=='script' and self.map_data is not None:
+            self.import_maps.append(json.loads(self.map_data));self.map_data=None
 
 class ExposicionesTests(unittest.TestCase):
     def setUp(self):
@@ -41,6 +58,56 @@ class ExposicionesTests(unittest.TestCase):
         self.assertIn('expo-figure',cover)
         pulmonary=next(s for s in data['scenes'] if s['id']=='regulacion-pulmonar')
         self.assertNotIn('data-visual-lab',builder.scene_html(pulmonary,data,3))
+
+    def test_asset_hash_changes_for_css_and_transitive_dependency(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            files={
+                '/exposiciones/shared/expo.css':'body { color: white; }',
+                '/exposiciones/shared/experience.mjs':"import('./visual-models.mjs');",
+                '/exposiciones/shared/visual-models.mjs':"import { value } from './simulator.mjs';",
+                '/exposiciones/shared/simulator.mjs':'export const value = 1;',
+                '/exposiciones/vendor/reveal/reveal.esm.js':'export default {};',
+            }
+            for path, content in files.items():
+                target=root/path.lstrip('/');target.parent.mkdir(parents=True,exist_ok=True);target.write_text(content)
+            css='/exposiciones/shared/expo.css';dependency='/exposiciones/shared/simulator.mjs'
+            css_before=builder.asset_url(css,root=root);imports_before=builder.module_imports(root=root)
+            (root/css.lstrip('/')).write_text('body { color: cyan; }')
+            self.assertNotEqual(css_before,builder.asset_url(css,root=root))
+            self.assertEqual(imports_before,builder.module_imports(root=root))
+            (root/dependency.lstrip('/')).write_text('export const value = 2;')
+            imports_after=builder.module_imports(root=root)
+            self.assertNotEqual(imports_before[dependency],imports_after[dependency])
+            self.assertEqual(set(imports_after),set(files)-{css})
+            for path in set(imports_before)-{dependency}:
+                self.assertEqual(imports_before[path],imports_after[path])
+
+    def test_generated_html_versions_css_entry_and_complete_module_graph(self):
+        shared=ROOT/'exposiciones/shared';vendor=ROOT/'exposiciones/vendor'
+        modules={*shared.rglob('*.mjs'),*vendor.rglob('*.mjs'),*vendor.rglob('*.esm.js')}
+        expected={f'/{p.relative_to(ROOT).as_posix()}':f'/{p.relative_to(ROOT).as_posix()}?v={hashlib.sha256(p.read_bytes()).hexdigest()[:16]}' for p in modules}
+        css=shared/'expo.css';css_url=f'/exposiciones/shared/expo.css?v={hashlib.sha256(css.read_bytes()).hexdigest()[:16]}'
+        pages=list((ROOT/'exposiciones').rglob('index.html'))
+        self.assertEqual(len(pages),4)
+        for page in pages:
+            parsed=RuntimeAssets();parsed.feed(page.read_text())
+            self.assertEqual(parsed.styles,[css_url],str(page))
+            self.assertEqual(parsed.import_maps,[{'imports':expected}],str(page))
+            self.assertEqual([s.get('type') for s in parsed.scripts],['importmap','module'],str(page))
+            self.assertEqual(parsed.scripts[-1]['src'],expected['/exposiciones/shared/experience.mjs'])
+        # A versioned importer still resolves ./dependency to an unversioned URL;
+        # the map must intercept that normalized URL at every level of the graph.
+        count=0
+        for module in modules:
+            parent=expected[f'/{module.relative_to(ROOT).as_posix()}']
+            imports=re.findall(r'\b(?:import\s*\(\s*|from\s+|import\s+)[\'\"]([^\'\"]+)[\'\"]',module.read_text())
+            for specifier in imports:
+                if not specifier.startswith(('.', '/')):continue
+                resolved=urljoin(f'https://vetjb.com{parent}',specifier)
+                self.assertIn(urlsplit(resolved).path,expected,f'Unmapped import {specifier} in {module}')
+                count+=1
+        self.assertGreaterEqual(count,7)
 
     def test_draft_creation_rejects_traversal_and_duplicates(self):
         with tempfile.TemporaryDirectory() as td:
