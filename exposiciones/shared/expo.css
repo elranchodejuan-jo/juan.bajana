@@ -32,6 +32,12 @@ body.expo-app {
   --expo-mono-font: "JetBrains Mono", Consolas, monospace;
   --expo-toolbar-height: 64px;
   --expo-navigation-height: 56px;
+  --ambient-cyan: #62cfe3;
+  --ambient-teal: #4ebdad;
+  --ambient-copper: #d7a079;
+  --ambient-grid: rgb(98 207 227 / 10%);
+  --ambient-glow-cyan: rgb(98 207 227 / 11%);
+  --ambient-glow-teal: rgb(78 189 173 / 9%);
   color-scheme: dark;
   margin: 0;
   background: var(--expo-bg);
@@ -53,6 +59,12 @@ body.expo-app[data-theme="light"] {
   --expo-warning: #805410;
   --expo-danger: #a43231;
   --expo-shadow: 0 18px 65px rgb(34 59 84 / 8%);
+  --ambient-cyan: #1b758c;
+  --ambient-teal: #218874;
+  --ambient-copper: #a9633d;
+  --ambient-grid: rgb(27 117 140 / 11%);
+  --ambient-glow-cyan: rgb(27 117 140 / 9%);
+  --ambient-glow-teal: rgb(33 136 116 / 8%);
   color-scheme: light;
 }
 body.expo-app[data-subject="genetica"] { --expo-accent: #b7b0ff; --expo-accent-soft: #282442; }
@@ -619,4 +631,52 @@ body.expo-app[data-mode="presentar"] .expo-simulator-stage .lab-axis-title { fon
   body.expo-app .expo-simulator-stage > .expo-simulator { display: grid !important; }
   body.expo-app .expo-simulator-stage .expo-phase-lab { margin-top: 18pt; }
   body.expo-app .expo-phase-lab .expo-lab-svg { max-height: 220pt !important; }
+}
+
+/* A fixed decorative surface: body background, ambient field, then content. */
+body.expo-app:has(> .expo-ambient) { isolation: isolate; }
+body.expo-app .expo-ambient {
+  --ambient-intensity: .72;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  contain: paint;
+  pointer-events: none;
+  user-select: none;
+  opacity: var(--ambient-intensity);
+  -webkit-mask-image: radial-gradient(ellipse 44% 47% at 50% 43%, rgb(0 0 0 / 6%) 0%, rgb(0 0 0 / 10%) 35%, rgb(0 0 0 / 45%) 70%, #000 100%);
+  mask-image: radial-gradient(ellipse 44% 47% at 50% 43%, rgb(0 0 0 / 6%) 0%, rgb(0 0 0 / 10%) 35%, rgb(0 0 0 / 45%) 70%, #000 100%);
+}
+body.expo-app .expo-ambient[data-emphasis="hero"] { --ambient-intensity: 1; }
+body.expo-app .expo-ambient[data-emphasis="breathing"] { --ambient-intensity: .92; }
+body.expo-app .expo-ambient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse at 4% 84%, var(--ambient-glow-cyan), transparent 48%),
+    radial-gradient(ellipse at 96% 24%, var(--ambient-glow-teal), transparent 46%),
+    linear-gradient(var(--ambient-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ambient-grid) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 64px 64px, 64px 64px;
+}
+body.expo-app .expo-ambient-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; pointer-events: none; user-select: none; }
+body.expo-app[data-receiver="true"] .expo-ambient { display: none !important; }
+@media screen {
+  body.expo-app:has(> .expo-ambient) #expo-deck.reveal,
+  body.expo-app:has(> .expo-ambient) #expo-deck .expo-scene { background: transparent; }
+  body.expo-app:has(> .expo-ambient) .expo-site-header { background: var(--expo-bg); }
+}
+@media (max-width: 760px), (pointer: coarse) {
+  body.expo-app .expo-ambient { opacity: calc(var(--ambient-intensity) * .7); }
+  body.expo-app .expo-ambient::before { background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.expo-app .expo-ambient { opacity: calc(var(--ambient-intensity) * .8); }
+  body.expo-app .expo-ambient, body.expo-app .expo-ambient * { animation: none !important; transition: none !important; }
+}
+@media print {
+  body.expo-app .expo-ambient { display: none !important; }
 }

@@ -36,6 +36,8 @@ La pantalla completa necesita una acción del usuario y permiso del navegador. S
 
 La portada presenta un mapa original de partículas en tres perspectivas: organismo, regulación y relación química. Puedes seleccionarlas con botones; en Página, el desplazamiento también cambia la perspectiva. La figura es conceptual, no anatomía diagnóstica.
 
+El fondo ambiental acompaña ambos formatos con una red de partículas sensible al puntero y ondas lentas inspiradas en la respiración. Destaca en la portada y en regulación pulmonar; reduce su intensidad en el resto. Es decorativo: no representa una señal clínica ni modifica el simulador. Comparte el botón **Pausar movimiento**, respeta movimiento reducido, se detiene al ocultar la pestaña y no se imprime. En pantallas táctiles conserva la composición sin perseguir el dedo; si Canvas no está disponible, permanece un fondo estático.
+
 Los laboratorios de bicarbonato y riñón muestran mecanismos por pasos. El laboratorio pulmonar permite variar la ventilación alveolar relativa: `PCO2 = 40 / (ventilación / 100)`. Es una relación aislada en estado estacionario, con producción de CO₂ constante, CO₂ inspirado despreciable y aproximación alveolar–arterial; no simula tiempo, frecuencia respiratoria, V/Q ni respuesta de un paciente.
 
 El gráfico del simulador une PCO₂ y HCO₃⁻ con líneas de igual pH. El punto se mueve con las entradas; desaparece si son inválidas. Las líneas no son intervalos de normalidad ni regiones de diagnóstico. Los referentes de interacción y el alcance de reutilización se registran en `docs/exposiciones-referentes.md`.

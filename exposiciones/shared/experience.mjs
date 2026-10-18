@@ -515,6 +515,13 @@ if (scenes.length) {
   const { initializeVisualLabs } = await import('./visual-labs.mjs');
   initializeVisualLabs(document);
 }
+// The atmosphere is decorative: a renderer failure must not affect the lesson.
+if (scenes.length && !isReceiver) {
+  try {
+    const { initializeAmbient } = await import('./ambient-field.mjs');
+    initializeAmbient(document);
+  } catch { /* All content and controls remain usable without the background. */ }
+}
 const simulators = document.querySelectorAll('[data-simulator]');
 if (simulators.length) {
   const { initializeSimulator } = await import('./simulator.mjs');
