@@ -11,6 +11,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from expo_visuals import visual_for, simulator_visual
 from expo_hero import hero_visual
+from expo_genetics import genetics_visual
+from expo_genetics_hero import genetics_hero_visual
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / 'exposiciones'
@@ -93,9 +95,10 @@ def module_imports(*, root=ROOT):
     return {f'/{path.relative_to(root).as_posix()}': asset_url(f'/{path.relative_to(root).as_posix()}', root=root)
             for path in sorted(modules)}
 
-def head(title, description, subject='fisiopatologia'):
+def head(title, description, subject='fisiopatologia', *, extra_styles=(), exposition=''):
     imports = json.dumps({'imports': module_imports()}, separators=(',', ':')).replace('<', '\\u003c')
-    return f'''<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{esc(title)} · VETJB</title><meta name="description" content="{esc(description)}"><meta name="color-scheme" content="dark light"><link rel="icon" href="/assets/favicon.png"><link rel="stylesheet" href="{esc(asset_url('/exposiciones/shared/expo.css'))}"><script type="importmap">{imports}</script></head><body class="expo-app" data-subject="{esc(subject)}" data-mode="estudiar" data-theme="dark"><a class="expo-skip" href="#contenido">Saltar al contenido</a><noscript><p class="expo-wrap expo-small">Modo lectura: el contenido y los razonamientos están disponibles. Activa JavaScript para presentar y usar los ejercicios interactivos.</p></noscript>'''
+    styles = ''.join(f'<link rel="stylesheet" href="{esc(asset_url(path))}">' for path in extra_styles)
+    return f'''<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{esc(title)} · VETJB</title><meta name="description" content="{esc(description)}"><meta name="color-scheme" content="dark light"><link rel="icon" href="/assets/favicon.png"><link rel="stylesheet" href="{esc(asset_url('/exposiciones/shared/expo.css'))}">{styles}<script type="importmap">{imports}</script></head><body class="expo-app" data-subject="{esc(subject)}" data-exposition="{esc(exposition)}" data-mode="estudiar" data-theme="dark"><a class="expo-skip" href="#contenido">Saltar al contenido</a><noscript><p class="expo-wrap expo-small">Modo lectura: el contenido y los razonamientos están disponibles. Activa JavaScript para presentar y usar los ejercicios interactivos.</p></noscript>'''
 
 def site_header(subject=None):
     back = f'<a href="/exposiciones/{subject}/">{esc(SUBJECTS[subject]["title"])}</a>' if subject else ''
@@ -107,6 +110,17 @@ def scripts():
 def citations(scene):
     refs = scene.get('references', [])
     return '<p class="expo-sources">Fuentes: ' + ', '.join(f'<a href="#ref-{r}">[{r}]</a>' for r in refs) + '.</p>' if refs else ''
+
+def numbered_visual_sources(markup, data, scene):
+    """Resolve widget source URLs against the lesson's canonical references."""
+    by_url = {ref['url']: ref for ref in data['references']}
+    def replace(match):
+        url = html.unescape(match.group(1))
+        ref = by_url.get(url)
+        if ref is None or ref['id'] not in scene.get('references', []):
+            raise ValueError(f'Fuente visual no incluida en las citas de {scene["id"]}: {url}')
+        return f'<a class="gen-source" href="#ref-{ref["id"]}" aria-label="Referencia {ref["id"]}">[{ref["id"]}]</a>'
+    return re.sub(r'<a class="gen-source" href="([^"]+)">[^<]*</a>', replace, markup)
 
 def paragraphs(value):
     if isinstance(value, str):
@@ -143,11 +157,15 @@ def quiz_component(questions):
 def scene_html(scene, data, i):
     layout = scene.get('layout', 'default')
     acid_base_visuals = data['subject'] == 'fisiopatologia' and data['slug'] == 'equilibrio-acido-base'
-    heading = f'<header class="expo-scene-heading"><p class="expo-eyebrow">{esc(SUBJECTS[data["subject"]]["title"])} · {i+1:02d}</p><h2>{esc(scene["title"])}</h2><p class="expo-lead">{esc(scene.get("summary", ""))}</p></header>'
+    genetics = data['subject'] == 'genetica' and data['slug'] == 'cromosomas-y-determinacion-sexual'
+    title_tag = 'h1' if genetics and layout == 'cover' else 'h2'
+    heading = f'<header class="expo-scene-heading"><p class="expo-eyebrow">{esc(SUBJECTS[data["subject"]]["title"])} · {i+1:02d}</p><{title_tag}>{esc(scene["title"])}</{title_tag}><p class="expo-lead">{esc(scene.get("summary", ""))}</p></header>'
     bullets = '<ul class="expo-points">' + ''.join(f'<li>{esc(p)}</li>' for p in scene.get('bullets', [])) + '</ul>' if scene.get('bullets') else ''
     equation = f'<p class="expo-equation">{esc(scene["equation"])}</p>' if scene.get('equation') else ''
     copy = f'<div class="expo-scene-copy">{bullets}{equation}</div>'
-    lab = visual_for(scene['id']) if acid_base_visuals else ''
+    lab = visual_for(scene['id']) if acid_base_visuals else genetics_visual(scene['id']) if genetics else ''
+    if genetics and lab:
+        lab = numbered_visual_sources(lab, data, scene)
     if layout == 'cover':
         body = copy
     elif layout == 'simulator':
@@ -157,13 +175,14 @@ def scene_html(scene, data, i):
     elif layout == 'quiz':
         body = quiz_component(data['quiz'])
     elif layout == 'references':
-        body = f'<div class="expo-present-only"><p class="expo-lead">Fuentes universitarias, artículos veterinarios y bibliografía trazable.</p><p>Las citas numeradas acompañan cada apartado.</p><a class="expo-button expo-button-primary" href="?modo=estudiar#{esc(scene["id"])}">Abrir las {len(data["references"])} referencias completas</a></div><ol class="expo-references expo-study-only">' + ''.join(f'<li id="ref-{r["id"]}" value="{r["id"]}"><p>{esc(r["citation"])}</p><a href="{esc(r["url"])}" target="_blank" rel="noopener noreferrer">{esc(r["url"])}</a><p class="expo-small">{esc(r.get("scope", ""))}</p></li>' for r in data['references']) + '</ol>'
+        mode_control = ' data-view-mode="estudiar"' if genetics else ''
+        body = f'<div class="expo-present-only"><p class="expo-lead">Fuentes universitarias, artículos veterinarios y bibliografía trazable.</p><p>Las citas numeradas acompañan cada apartado.</p><a class="expo-button expo-button-primary" href="?modo=estudiar#{esc(scene["id"])}"{mode_control}>Abrir las {len(data["references"])} referencias completas</a></div><ol class="expo-references expo-study-only">' + ''.join(f'<li id="ref-{r["id"]}" value="{r["id"]}"><p>{esc(r["citation"])}</p><a href="{esc(r["url"])}" target="_blank" rel="noopener noreferrer">{esc(r["url"])}</a><p class="expo-small">{esc(r.get("scope", ""))}</p></li>' for r in data['references']) + '</ol>'
+    elif lab:
+        body = lab + f'<div class="expo-study-only expo-lab-context">{copy}{figure(scene) if scene.get("figure") else ""}</div>'
     elif layout == 'compare':
         body = '<div class="expo-comparison">' + ''.join(f'<article><h3>{esc(c["title"])}</h3>{paragraphs(c["text"])}</article>' for c in scene.get('comparison', [])) + '</div>' + equation
     elif layout == 'steps':
         body = '<ol class="expo-process">' + ''.join(f'<li>{esc(p)}</li>' for p in scene.get('bullets', [])) + '</ol>' + equation
-    elif lab:
-        body = lab + f'<div class="expo-study-only expo-lab-context">{copy}{figure(scene) if scene.get("figure") else ""}</div>'
     elif scene.get('figure'):
         body = f'<div class="expo-scene-grid">{copy}{figure(scene)}</div>'
     else:
@@ -171,12 +190,14 @@ def scene_html(scene, data, i):
     if layout == 'cover':
         body = '<div class="expo-cover-layout"><div class="expo-cover-copy">' + body
         body += f'<p class="expo-author">{esc(", ".join(data["authors"]))}<br><span>Estudiante de Medicina Veterinaria · UTMACH</span></p><a class="expo-button expo-button-primary" href="#{esc(data["scenes"][1]["id"])}">Comenzar a explorar {icon("chevron-right")}</a>'
-        cover_art = hero_visual() if acid_base_visuals else figure(scene) if scene.get('figure') else ''
+        cover_art = hero_visual() if acid_base_visuals else genetics_hero_visual() if genetics else figure(scene) if scene.get('figure') else ''
         body += '</div>' + cover_art + '</div>'
     if layout == 'references' and data.get('slug') == 'equilibrio-acido-base':
         body += '<p class="expo-credits expo-small">Referentes de interacción: <a href="https://andreerogel1997-bit.github.io/amc-vetatlas/" target="_blank" rel="noopener noreferrer">AMC VetAtlas · Andreé</a> y <a href="https://clinicaveterinariavinyo.com/" target="_blank" rel="noopener noreferrer">Clínica Veterinaria Vinyo</a>. Gráficos y código de esta experiencia creados para VETJB. Las referencias no implican colaboración ni aval.</p>'
-    if layout == 'closing':
+    if layout == 'closing' or (layout == 'references' and data.get('downloadsAt') == scene['id']):
         body += '<div class="expo-actions">' + ''.join(f'<a class="expo-button" href="{esc(asset_url(r["path"]))}" download>{esc(r["label"])}</a>' for r in data.get('resources', [])) + '</div>'
+    if layout == 'references' and data.get('credits'):
+        body += '<div class="expo-study-only expo-credits"><h3>Figuras y procedencia</h3>' + paragraphs(data['credits']) + '</div>'
     expanded = f'<div class="expo-study-only expo-explanation"><h3>Para profundizar</h3>{paragraphs(scene.get("explanation"))}</div>' if scene.get('explanation') else ''
     return f'<section class="expo-scene" id="{esc(scene["id"])}" data-layout="{layout}" aria-label="{esc(scene["title"])}">{heading}{body}{expanded}{citations(scene)}<aside class="notes">{paragraphs(scene.get("notes", ""))}</aside></section>'
 
@@ -188,17 +209,19 @@ def dialogs(data):
 
 def build_expo(data):
     url = route(data)
+    extra_styles = ['/exposiciones/shared/genetics.css', '/exposiciones/shared/genetics-ambient.css', '/exposiciones/shared/genetics-layout.css'] if data['subject'] == 'genetica' and data['slug'] == 'cromosomas-y-determinacion-sexual' else []
     toolbar = f'''<div id="expo-toolbar" class="expo-toolbar" aria-label="Herramientas de la exposición"><a href="/exposiciones/" class="expo-back">{icon('chevron-left')} Biblioteca</a><div class="expo-actions"><nav class="expo-mode-switch" aria-label="Formato de la exposición"><a class="expo-button" href="?modo=estudiar" data-view-mode="estudiar" aria-current="true">Página</a><a class="expo-button" href="?modo=presentar" data-view-mode="presentar">Diapositivas</a></nav>{button('Tema claro', 'data-theme-toggle')}{button('Pausar movimiento', 'data-motion-toggle')}{button('Índice', 'data-index-open')}{button('Compartir', 'data-share-open')}<span class="expo-present-only">{button('Notas', 'data-speaker')}{button('Pantalla completa', 'data-fullscreen')}</span></div></div>'''
     nav = f'<nav class="expo-navigation expo-present-only" aria-label="Controles de presentación">{button("Anterior", "data-prev")}<span data-progress aria-live="polite"></span>{button("Siguiente", "data-next")}</nav>'
     toc = '<details class="expo-study-only expo-study-index"><summary>Índice de lectura</summary><ol>' + ''.join(f'<li><a href="#{esc(s["id"])}">{esc(s["title"])}</a></li>' for s in data['scenes']) + '</ol></details>'
-    body = head(data['title'], data['summary'], data['subject']) + site_header(data['subject']) + toolbar + '<main id="contenido">' + toc + '<div id="expo-deck" class="reveal"><div class="slides">' + ''.join(scene_html(s, data, i) for i,s in enumerate(data['scenes'])) + '</div></div></main>' + nav + dialogs(data) + scripts()
+    body = head(data['title'], data['summary'], data['subject'], extra_styles=extra_styles, exposition=data['slug']) + site_header(data['subject']) + toolbar + '<main id="contenido">' + toc + '<div id="expo-deck" class="reveal"><div class="slides">' + ''.join(scene_html(s, data, i) for i,s in enumerate(data['scenes'])) + '</div></div></main>' + nav + dialogs(data) + scripts()
     path = ROOT / url.lstrip('/') / 'index.html'
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(body, encoding='utf8')
 
 def card(data):
     url=route(data)
-    return f'''<article class="expo-card" data-expo-card data-title="{esc(data['title'])}" data-subject="{esc(data['subject'])}"><figure><img src="{esc(data['cover'])}" alt="Sistema bicarbonato y CO₂" width="720" height="480"></figure><div class="expo-card-copy"><p class="expo-eyebrow">{esc(SUBJECTS[data['subject']]['title'])}</p><h2>{esc(data['title'])}</h2><p>{esc(data['summary'])}</p><p class="expo-small">{esc(', '.join(data['authors']))}</p><div class="expo-actions"><a class="expo-button expo-button-primary" href="{url}?modo=presentar">{icon('play')} Presentar</a><a class="expo-button" href="{url}?modo=estudiar">Estudiar {icon('chevron-right')}</a>{button('Compartir', f'data-share-open data-share-url="{url}?modo=estudiar"')}</div></div></article>'''
+    cover_alt = data.get('cover_alt') or data.get('scenes', [{}])[0].get('figure_alt') or data['title']
+    return f'''<article class="expo-card" data-expo-card data-title="{esc(data['title'])}" data-subject="{esc(data['subject'])}"><figure><img src="{esc(data['cover'])}" alt="{esc(cover_alt)}" width="720" height="480"></figure><div class="expo-card-copy"><p class="expo-eyebrow">{esc(SUBJECTS[data['subject']]['title'])}</p><h2>{esc(data['title'])}</h2><p>{esc(data['summary'])}</p><p class="expo-small">{esc(', '.join(data['authors']))}</p><div class="expo-actions"><a class="expo-button expo-button-primary" href="{url}?modo=presentar">{icon('play')} Presentar</a><a class="expo-button" href="{url}?modo=estudiar">Estudiar {icon('chevron-right')}</a>{button('Compartir', f'data-share-open data-share-url="{url}?modo=estudiar"')}</div></div></article>'''
 
 def catalog(items, subject=None):
     title=SUBJECTS[subject]['title'] if subject else 'EXPOSICIONES'

@@ -1,0 +1,103 @@
+/* Genetics explorers only: no base-site, Fisiopatología or reveal.js resets. */
+body.expo-app .genetics-lab {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--expo-border);
+  border-radius: 12px;
+  background: var(--expo-surface);
+  color: var(--expo-text);
+  font-size: 17px;
+  line-height: 1.45;
+  text-align: left;
+}
+body.expo-app .genetics-lab :where(p, h3) { margin: 0; }
+body.expo-app .genetics-lab .gen-toolbar,
+body.expo-app .genetics-lab .gen-choices { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+body.expo-app .genetics-lab .gen-toolbar { justify-content: space-between; margin-bottom: 14px; }
+body.expo-app .genetics-lab .gen-toolbar label { display: flex; align-items: center; gap: 12px; flex: 1 1 220px; max-width: 480px; font-weight: 600; }
+body.expo-app .genetics-lab .gen-toolbar select { width: auto; min-width: 0; flex: 1; min-height: 44px; padding: 7px 10px; font-size: 17px; }
+body.expo-app .genetics-lab .gen-button { border: 1px solid var(--expo-border); border-radius: 6px; padding: 8px 12px; min-height: 44px; color: var(--expo-text); background: var(--expo-raised); font-size: 16px; font-weight: 600; line-height: 1.3; }
+body.expo-app .genetics-lab .gen-button:hover { border-color: var(--expo-accent); }
+body.expo-app .genetics-lab .gen-button[aria-pressed="true"] { border-color: var(--expo-accent); background: var(--expo-accent-soft); box-shadow: inset 0 -3px var(--expo-accent); }
+body.expo-app .genetics-lab .gen-columns { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+body.expo-app .genetics-lab .gen-columns > * { min-width: 0; }
+body.expo-app .genetics-lab .gen-result { padding: 12px 15px; background: var(--expo-raised); border-left: 3px solid var(--expo-accent); border-radius: 0 7px 7px 0; }
+body.expo-app .genetics-lab .gen-result p + p { margin-top: 8px; }
+body.expo-app .genetics-lab .gen-kicker { font: 500 13px/1.4 var(--expo-mono-font); letter-spacing: .05em; text-transform: uppercase; color: var(--expo-muted); }
+body.expo-app .genetics-lab .gen-complement { font: 600 25px/1.2 var(--expo-body-font); color: var(--expo-accent); }
+body.expo-app .genetics-lab .gen-heading { font-size: 19px; line-height: 1.35; font-weight: 600; margin-bottom: 8px; }
+body.expo-app .genetics-lab .gen-table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.4; }
+body.expo-app .genetics-lab .gen-table caption { color: var(--expo-muted); text-align: left; padding-bottom: 7px; font-size: 14px; }
+body.expo-app .genetics-lab .gen-table :where(th, td) { padding: 7px 8px; border: 1px solid var(--expo-border); vertical-align: middle; text-align: left; overflow-wrap: normal; }
+body.expo-app .genetics-lab .gen-table th { font-weight: 600; }
+body.expo-app .genetics-lab .gen-table thead { color: var(--expo-muted); }
+body.expo-app .genetics-lab .gen-table .gen-selected { background: var(--expo-accent-soft); }
+body.expo-app .genetics-lab .gen-punnett td { padding: 3px; }
+body.expo-app .genetics-lab .gen-punnett .gen-button { width: 100%; font-size: 16px; white-space: nowrap; }
+body.expo-app .genetics-lab .gen-print-cell { display: none; }
+body.expo-app .genetics-lab .gen-small { color: var(--expo-muted); font-size: 14px; line-height: 1.4; margin-top: 8px; }
+body.expo-app .genetics-lab .gen-note { margin-top: 12px; color: var(--expo-muted); font-size: 15px; line-height: 1.45; }
+body.expo-app .genetics-lab .gen-path { display: grid; grid-template-columns: minmax(0, 1fr) minmax(80px, .7fr) minmax(0, 1fr) minmax(80px, .7fr) minmax(0, 1fr); gap: 8px; align-items: center; }
+body.expo-app .genetics-lab .gen-node { min-height: 78px; padding: 13px 10px; display: flex; flex-direction: column; justify-content: center; gap: 5px; border: 1px solid var(--expo-border); border-radius: 8px; background: var(--expo-raised); text-align: center; }
+body.expo-app .genetics-lab .gen-node strong { font-size: 19px; line-height: 1.3; }
+body.expo-app .genetics-lab .gen-node span { color: var(--expo-muted); font-size: 14px; }
+body.expo-app .genetics-lab .gen-relation { padding-block: 8px; border-bottom: 2px solid var(--expo-accent); font-size: 14px; line-height: 1.4; color: var(--expo-accent); text-align: center; }
+body.expo-app .genetics-lab .gen-relation small { display: block; font-size: 13px; color: var(--expo-muted); }
+body.expo-app .genetics-lab .gen-conversion { border-bottom-style: dashed; }
+body.expo-app .genetics-lab .gen-branch { margin-top: 9px; border-left: 3px double var(--expo-accent); padding-left: 12px; font-size: 17px; }
+body.expo-app .genetics-lab .gen-description { margin-top: 12px; font-size: 17px; line-height: 1.5; }
+body.expo-app .genetics-lab .gen-source { white-space: nowrap; }
+body.expo-app .genetics-lab .gen-thermal-table :where(th, td) { text-align: center; }
+body.expo-app .genetics-lab .gen-thermal-table td { position: relative; font: 600 19px/1.2 var(--expo-mono-font); }
+body.expo-app .genetics-lab .gen-thermal-M { background: repeating-linear-gradient(135deg, transparent 0 6px, var(--expo-accent-soft) 6px 8px); }
+body.expo-app .genetics-lab .gen-thermal-F { border-bottom-width: 3px; }
+body.expo-app .genetics-lab .gen-thermal-transition { color: var(--expo-muted); }
+body.expo-app .genetics-lab .gen-current { outline: 3px solid var(--expo-accent); outline-offset: -4px; }
+body.expo-app .genetics-lab input[type="range"] { accent-color: var(--expo-accent); width: 100%; min-height: 30px; margin: 3px 0 0; }
+body.expo-app .genetics-lab .gen-range-labels { display: flex; justify-content: space-between; color: var(--expo-muted); font-size: 14px; margin-bottom: 12px; }
+body.expo-app .genetics-lab .gen-fallback { padding-left: 20px; font-size: 16px; }
+/* Presentar keeps the main concepts readable on a 1280×720 design canvas.
+   Redundant prose stays in study mode; caveats remain visible in both modes. */
+body.expo-app[data-mode="presentar"] .genetics-lab { padding: 12px 14px; font-size: 22px; line-height: 1.3; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-toolbar { margin-bottom: 10px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-toolbar label { max-width: 620px; font-size: 20px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-toolbar select { font-size: 20px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-button { font-size: 18px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-result { padding: 9px 12px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-complement { font-size: 30px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-heading { font-size: 24px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-kicker { font-size: 16px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-note { margin-top: 8px; font-size: 16px; line-height: 1.35; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-small { margin-top: 6px; font-size: 16px; line-height: 1.3; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-table :where(th, td) { padding: 5px 6px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-table { font-size: 20px; line-height: 1.25; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-table caption { font-size: 16px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-punnett .gen-button { font-size: 20px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-node { min-height: 95px; padding: 9px 8px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-node strong { font-size: 22px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-node span { font-size: 16px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-relation { font-size: 16px; line-height: 1.3; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-relation small { font-size: 16px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-branch { font-size: 22px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-description { font-size: 22px; line-height: 1.3; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-study-detail { display: none; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-thermal-table td { font-size: 24px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-range-labels { font-size: 16px; }
+@media (max-width: 680px) {
+  body.expo-app[data-mode="estudiar"] .genetics-lab { padding: 14px 10px; }
+  body.expo-app[data-mode="estudiar"] .genetics-lab .gen-columns { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  body.expo-app[data-mode="estudiar"] .genetics-lab .gen-path { grid-template-columns: minmax(0, 1fr); gap: 5px; }
+  body.expo-app[data-mode="estudiar"] .genetics-lab .gen-node { min-height: 56px; }
+  body.expo-app[data-mode="estudiar"] .genetics-lab .gen-relation { justify-self: center; padding: 5px 16px; }
+  body.expo-app[data-mode="estudiar"] .genetics-lab .gen-punnett :where(th, .gen-button) { font-size: 14px; }
+  body.expo-app[data-mode="estudiar"] .genetics-lab .gen-punnett .gen-button { white-space: normal; }
+}
+@media print {
+  body.expo-app .genetics-lab { break-inside: avoid; background: white; color: #17202c; border-color: #8c94a0; }
+  body.expo-app .genetics-lab .gen-toolbar { display: none; }
+  body.expo-app .genetics-lab .gen-punnett button { display: none !important; }
+  body.expo-app .genetics-lab .gen-print-cell { display: block !important; }
+  body.expo-app .genetics-lab [data-gen-cross][hidden] { display: block !important; margin-top: 12px; }
+  body.expo-app .genetics-lab .gen-node,
+  body.expo-app .genetics-lab .gen-result { background: white; }
+}

@@ -4,7 +4,7 @@ Fecha de elaboración y revisión: 17 de octubre de 2026.
 Proyecto y autoría editorial: Juan José Bajaña Chuno, vetjb.com.
 Elaboración técnica: diagramas SVG originales realizados con asistencia de IA para este proyecto y revisados contra las fuentes indicadas.
 
-## Archivos y alcance
+## Fisiopatología: archivos y alcance
 
 | Archivo | Contenido | Base científica |
 | --- | --- | --- |
@@ -22,7 +22,7 @@ Estos recursos se incorporan como obra original del proyecto bajo la licencia ge
 
 Las fuentes tipográficas no están incrustadas ni se redistribuyen. La pila CSS utiliza Inter cuando esté disponible y fuentes del sistema como alternativa. No existen scripts, dependencias de red, fuentes remotas ni imágenes enlazadas.
 
-## Fuentes consultadas
+## Fisiopatología: fuentes consultadas
 
 La numeración coincide con `report_content.json` y el informe de Fisiopatología de esta sesión.
 
@@ -31,7 +31,7 @@ La numeración coincide con `report_content.json` y el informe de Fisiopatologí
 4. Cornell University. Physiology [Internet]. eClinPath; [citado 17 oct 2026]. https://eclinpath.com/chemistry/kidney/physiology/
 5. Cornell University. Response to disturbances [Internet]. eClinPath; [citado 17 oct 2026]. https://eclinpath.com/chemistry/acid-base/compensation/
 
-## Integración y accesibilidad
+## Fisiopatología: integración y accesibilidad
 
 - Lienzo: `viewBox="0 0 720 480"`. Mantener proporción mediante `width: 100%; height: auto`.
 - Cada SVG incluye `role="img"`, `title`, `desc` y etiquetas vectoriales legibles. El tamaño mínimo de texto es 22 px en el lienzo de referencia.
@@ -39,3 +39,44 @@ La numeración coincide con `report_content.json` y el informe de Fisiopatologí
 - Sin atributo `data-theme`, el SVG usa `prefers-color-scheme`. Al insertarlo en línea, `data-theme="light"` o `data-theme="dark"` en la raíz `<svg>` fuerza el tema de la página. Como `<img>`, conserva un fondo propio de contraste suficiente en ambos temas y sigue la preferencia del sistema.
 - Si se inserta el mismo SVG en línea más de una vez en un documento, asignar un prefijo de instancia a sus identificadores y referencias `url(#...)`/`aria-labelledby` para evitar IDs duplicados.
 - Los PNG y scripts de este directorio son material de comprobación. Solo los tres SVG y este registro necesitan integrarse como recursos públicos.
+
+## Genética: determinación sexual animal
+
+Incorporación: 17 de octubre de 2026. Carpeta: `genetica/determinacion-sexual/`.
+Los siete SVG son composiciones originales realizadas para esta exposición;
+no son cariotipos, fotografías clínicas, mediciones ni reproducciones de figuras
+de artículos. Se conserva la autoría editorial y el alcance de licencia del
+proyecto indicados arriba, sin introducir una licencia adicional.
+
+| Archivo | Contenido y simplificación | Base bibliográfica estable |
+| --- | --- | --- |
+| `portada.svg` | Síntesis de cromosomas, redes del desarrollo y diversidad animal; imagen de catálogo. | `unam-desarrollo-2021`, `ioannidis-dmrt1-2021` y fuentes comparativas de la exposición. |
+| `niveles-desarrollo-sexual.svg` | Constitución cromosómica, identidad gonadal y fenotipo como niveles relacionados, no equivalentes. | `unam-desarrollo-2021`. |
+| `gametos-xx-xy-zz-zw.svg` | Gametos y heterogametia de modelos habituales XX/XY y ZZ/ZW; símbolos sin morfología cromosómica real. | `unam-desarrollo-2021`, `ioannidis-dmrt1-2021`. |
+| `gonada-bipotencial.svg` | Organización somática y germinal del primordio gonadal; no es anatomía a escala ni cronología universal. | `unam-desarrollo-2021`, `ridnik-regulacion-2021`. |
+| `haplodiploidia-csd.svg` | Ploidía y estado alélico de `csd` en *Apis mellifera*, incluida la posibilidad de machos diploides. | `seiler-csd-2024`. |
+| `cambio-sexual-peces.svg` | Distinción entre determinación inicial, protandria y protoginia; no representa una única especie. | `kitano-teleosteos-2024`, `casas-cambio-2021`. |
+| `freemartinismo-bovino.svg` | Conexión vascular fetal, intercambio y posible quimerismo; el antecedente no confirma por sí solo el síndrome. | `corredor-freemartin-2009`. |
+
+Las claves corresponden a las entradas completas, con DOI o URL y alcance,
+de `exposiciones/content/genetica--cromosomas-y-determinacion-sexual.json`.
+La numeración Vancouver de la web se genera según su propio orden, que puede
+diferir del informe descargable.
+
+Los SVG usan `viewBox="0 0 960 560"`, `title`, `desc`, texto vectorial y
+equivalentes textuales en la página. Mantener su proporción y la acción de
+ampliar. No incluyen scripts, fotos, fuentes incrustadas ni dependencias de red.
+La revisión de sus renders estáticos no acredita la maquetación HTML ni la
+legibilidad efectiva al proyectar; esa revisión está pendiente en navegador.
+
+La portada interactiva definida en `scripts/expo_genetics_hero.py` y los
+diagramas semánticos de `scripts/expo_genetics.py` también son originales. Sus
+estados de Canvas son exclusivamente decorativos; SVG, HTML y texto expresan
+la información científica.
+
+Este registro cubre los recursos originales de la web. El Word y PowerPoint
+son copias sin cambios de los materiales académicos entregados; conservan sus
+propias figuras, atribuciones y bibliografía. No se extrajeron de ellos las
+ilustraciones de UNAM para publicarlas como SVG de la web. La procedencia y
+los hashes de ambos documentos figuran en
+`docs/exposiciones-verificacion-determinacion-sexual.md`.

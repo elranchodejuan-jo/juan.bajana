@@ -1,0 +1,100 @@
+/* Genetics-only layers; no changes to the Fisiopatología rendering strategy. */
+body.expo-app[data-subject="genetica"] {
+  --genetics-violet: #b09ae9;
+  --genetics-teal: #79c4c9;
+  --genetics-wash: #201e36;
+  --genetics-glow: rgb(176 154 233 / 9%);
+}
+body.expo-app[data-subject="genetica"][data-theme="light"] {
+  --genetics-violet: #6a4cb0;
+  --genetics-teal: #177b83;
+  --genetics-wash: #f0ebfa;
+  --genetics-glow: rgb(106 76 176 / 7%);
+}
+body.expo-app:has(> .genetics-ambient) { isolation: isolate; }
+body.expo-app .genetics-ambient {
+  position: fixed; inset: 0; z-index: -1; overflow: hidden; contain: paint;
+  pointer-events: none; user-select: none; opacity: .9;
+}
+body.expo-app .genetics-ambient::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 3% 16%, var(--genetics-glow), transparent 44%),
+    radial-gradient(ellipse at 97% 80%, var(--genetics-glow), transparent 44%);
+}
+body.expo-app .genetics-ambient[data-canvas="fallback"]::after {
+  content: ""; position: absolute; inset: 9% 2%; border-inline: 1px dashed var(--genetics-violet);
+  border-radius: 45%; opacity: .1; pointer-events: none;
+}
+body.expo-app .genetics-ambient-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+body.expo-app[data-receiver="true"] .genetics-ambient { display: none !important; }
+body.expo-app .genetics-hero {
+  min-width: 0; position: relative; isolation: isolate; overflow: hidden;
+  border: 1px solid var(--expo-border); border-radius: 16px;
+  background: linear-gradient(145deg, var(--expo-surface), var(--genetics-wash));
+  box-shadow: var(--expo-shadow);
+}
+body.expo-app .genetics-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 18px 0; color: var(--expo-muted); font: 400 11px/1.5 var(--expo-mono-font); }
+body.expo-app .genetics-hero-tag { color: var(--genetics-violet); letter-spacing: .1em; font-size: 10px; }
+body.expo-app .genetics-hero-stage { position: relative; width: 100%; aspect-ratio: 900 / 390; }
+body.expo-app .genetics-hero-svg, body.expo-app .genetics-hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+body.expo-app .genetics-hero-canvas { pointer-events: none; }
+body.expo-app .genetics-hero-orbits { fill: none; stroke: var(--genetics-violet); stroke-width: 1; opacity: .12; }
+body.expo-app .genetics-hero-orbits path { stroke-dasharray: 3 10; }
+body.expo-app .genetics-hero-layer { opacity: 0; visibility: hidden; transition: opacity 240ms ease; }
+body.expo-app .genetics-hero[data-stage="0"] [data-genetics-layer="0"],
+body.expo-app .genetics-hero[data-stage="1"] [data-genetics-layer="1"],
+body.expo-app .genetics-hero[data-stage="2"] [data-genetics-layer="2"] { opacity: 1; visibility: visible; }
+body.expo-app .genetics-hero-panel { fill: var(--expo-surface); stroke: var(--genetics-violet); stroke-width: 1.7; }
+body.expo-app .genetics-hero-panel-alt { stroke: var(--genetics-teal); stroke-dasharray: 6 3; }
+body.expo-app .genetics-hero-link { fill: none; stroke: var(--genetics-violet); stroke-width: 2; opacity: .65; }
+body.expo-app .genetics-chromosome { fill: none; stroke: var(--genetics-violet); stroke-width: 12; stroke-linecap: round; }
+body.expo-app .genetics-chromosome-alt { stroke: var(--genetics-teal); }
+body.expo-app .genetics-svg-heading { fill: var(--expo-text); font: 500 25px var(--expo-body-font); letter-spacing: -.3px; }
+body.expo-app .genetics-svg-symbol { fill: var(--expo-text); font: 500 29px var(--expo-mono-font); }
+body.expo-app .genetics-svg-label { fill: var(--expo-text); font: 400 23px var(--expo-body-font); }
+body.expo-app .genetics-svg-detail { fill: var(--expo-muted); font: 400 20px var(--expo-body-font); }
+body.expo-app .genetics-hero-controls { display: flex; align-items: stretch; gap: 8px; padding: 0 14px; }
+body.expo-app .genetics-hero-choices { display: flex; flex: 1; min-width: 0; gap: 3px; border: 1px solid var(--expo-border); border-radius: 8px; padding: 3px; background: var(--expo-bg); }
+body.expo-app .genetics-hero-choices button, body.expo-app .genetics-hero-motion { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 7px 9px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: var(--expo-muted); font-size: 12px; line-height: 1.3; }
+body.expo-app .genetics-hero-choices button { flex: 1; }
+body.expo-app .genetics-hero-choices button[aria-pressed="true"] { border-color: var(--expo-accent); color: var(--expo-text); background: var(--expo-accent-soft); }
+body.expo-app .genetics-hero-motion { flex: 0 0 auto; border-color: var(--expo-border); }
+body.expo-app .genetics-hero-caption { color: var(--expo-text); font-size: 13px; line-height: 1.5; margin: 12px 18px 0; min-height: 3em; }
+body.expo-app .genetics-hero-disclaimer { color: var(--expo-muted); font-size: 10px; line-height: 1.4; margin: 6px 18px 15px; }
+body.expo-app .genetics-hero[data-motion="paused"] .genetics-hero-layer { transition: none; }
+body.expo-app[data-mode="presentar"] .genetics-hero-stage { height: 225px; aspect-ratio: auto; }
+body.expo-app[data-mode="presentar"] .genetics-hero-top { font-size: 14px; padding-top: 12px; }
+body.expo-app[data-mode="presentar"] .genetics-hero-choices button { font-size: 15px; }
+body.expo-app[data-mode="presentar"] .genetics-hero-motion { font-size: 13px; }
+body.expo-app[data-mode="presentar"] .genetics-hero-caption { font-size: 16px; min-height: 0; margin-top: 9px; }
+body.expo-app[data-mode="presentar"] .genetics-hero-disclaimer { font-size: 12px; margin-bottom: 12px; }
+@media screen {
+  body.expo-app:has(> .genetics-ambient) #expo-deck.reveal,
+  body.expo-app:has(> .genetics-ambient) #expo-deck .expo-scene { background: transparent; }
+  body.expo-app:has(> .genetics-ambient) .expo-site-header { background: var(--expo-bg); }
+}
+@media (max-width: 760px), (pointer: coarse) {
+  body.expo-app .genetics-ambient { opacity: .65; }
+}
+@media (max-width: 600px) {
+  body.expo-app[data-mode="estudiar"] .genetics-hero-top { padding-inline: 12px; font-size: 10px; }
+  body.expo-app[data-mode="estudiar"] .genetics-hero-tag { display: none; }
+  body.expo-app[data-mode="estudiar"] .genetics-hero-controls { flex-wrap: wrap; padding-inline: 10px; }
+  body.expo-app[data-mode="estudiar"] .genetics-hero-choices { flex-basis: 100%; }
+  body.expo-app[data-mode="estudiar"] .genetics-hero-choices button { font-size: 11px; padding-inline: 5px; }
+  body.expo-app[data-mode="estudiar"] .genetics-hero-motion { min-height: 36px; padding: 5px 12px; margin-left: auto; }
+  body.expo-app[data-mode="estudiar"] .genetics-hero-caption { margin-inline: 12px; font-size: 13px; }
+  body.expo-app[data-mode="estudiar"] .genetics-hero-disclaimer { margin-inline: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.expo-app .genetics-hero-layer { transition: none; }
+  body.expo-app .genetics-hero-canvas { display: none; }
+}
+@media print {
+  body.expo-app .genetics-ambient, body.expo-app .genetics-hero-canvas,
+  body.expo-app .genetics-hero-controls, body.expo-app .genetics-hero-tag { display: none !important; }
+  body.expo-app .genetics-hero { --genetics-violet: #6a4cb0; --genetics-teal: #177b83; --expo-surface: #fff; --expo-text: #132237; --expo-muted: #465e76; background: white; box-shadow: none; break-inside: avoid; }
+  body.expo-app .genetics-hero-stage { height: auto !important; aspect-ratio: 900 / 390; }
+  body.expo-app .genetics-hero-caption { font-size: 10pt !important; }
+  body.expo-app .genetics-hero-disclaimer { font-size: 8pt !important; }
+}

@@ -511,15 +511,28 @@ if (document.querySelector('[data-hero]')) {
   const { initializeHero } = await import('./hero-field.mjs');
   initializeHero(document);
 }
-if (scenes.length) {
+if (document.querySelector('[data-visual-lab]')) {
   const { initializeVisualLabs } = await import('./visual-labs.mjs');
   initializeVisualLabs(document);
+}
+if (document.querySelector('[data-genetics-hero]')) {
+  const { initializeGeneticsHero } = await import('./genetics-hero.mjs');
+  initializeGeneticsHero(document);
+}
+if (body.dataset.exposition === 'cromosomas-y-determinacion-sexual') {
+  const { initGeneticsLabs } = await import('./genetics-labs.mjs');
+  initGeneticsLabs(document, window);
 }
 // The atmosphere is decorative: a renderer failure must not affect the lesson.
 if (scenes.length && !isReceiver) {
   try {
-    const { initializeAmbient } = await import('./ambient-field.mjs');
-    initializeAmbient(document);
+    if (body.dataset.subject === 'genetica') {
+      const { initializeGeneticsAmbient } = await import('./ambient-genetics.mjs');
+      initializeGeneticsAmbient(document);
+    } else if (body.dataset.subject === 'fisiopatologia') {
+      const { initializeAmbient } = await import('./ambient-field.mjs');
+      initializeAmbient(document);
+    }
   } catch { /* All content and controls remain usable without the background. */ }
 }
 const simulators = document.querySelectorAll('[data-simulator]');
