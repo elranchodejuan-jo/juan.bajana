@@ -55,6 +55,10 @@ export function initializeSimulator(form) {
     { number: pco2Number, range: pco2Range, key: 'pco2' },
   ];
   const decimal = new Intl.NumberFormat('es', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const publish = (result) => {
+    const Event = form.ownerDocument.defaultView?.CustomEvent;
+    if (Event) form.dispatchEvent(new Event('expo:simulator', { bubbles: true, detail: result }));
+  };
 
   function render() {
     const result = evaluateAcidBase(hco3Number.value, pco2Number.value);
@@ -67,13 +71,14 @@ export function initializeSimulator(form) {
       phOutput.textContent = '—';
       trendOutput.textContent = 'Corrige los valores para calcular el pH.';
       if (marker) marker.setAttribute('visibility', 'hidden');
+      publish(result);
       return;
     }
     phOutput.textContent = decimal.format(result.pH);
     const wording = {
-      igual: 'Mismo cociente HCO₃⁻/PCO₂ y mismo pH que el escenario inicial. Esto no demuestra ausencia de un trastorno clínico.',
-      menor: 'pH menor que el escenario inicial: tendencia acidificante del cociente HCO₃⁻/PCO₂.',
-      mayor: 'pH mayor que el escenario inicial: tendencia alcalinizante del cociente HCO₃⁻/PCO₂.',
+      igual: 'Mismo cociente; mismo pH. No descarta un trastorno.',
+      menor: 'El cociente disminuye: tendencia acidificante.',
+      mayor: 'El cociente aumenta: tendencia alcalinizante.',
     };
     trendOutput.textContent = wording[result.trend];
     if (marker) {
@@ -86,6 +91,7 @@ export function initializeSimulator(form) {
       marker.setAttribute('visibility', 'visible');
       marker.setAttribute('aria-label', `pH calculado: ${decimal.format(result.pH)}`);
     }
+    publish(result);
   }
 
   for (const pair of pairs) {

@@ -4,7 +4,12 @@ import argparse
 import html
 import json
 import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from expo_visuals import visual_for, simulator_visual
+from expo_hero import hero_visual
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / 'exposiciones'
@@ -101,7 +106,7 @@ def simulator():
 <label for="hco3-number">HCO₃⁻ <small>mmol/L</small></label><input id="hco3-number" type="number" min="4" max="48" step="0.1" value="24" inputmode="decimal" aria-describedby="sim-error"><input id="hco3-range" type="range" min="4" max="48" step="0.1" value="24" aria-label="Ajustar bicarbonato">
 <label for="pco2-number">PCO₂ <small>mmHg</small></label><input id="pco2-number" type="number" min="10" max="100" step="0.1" value="40" inputmode="decimal" aria-describedby="sim-error"><input id="pco2-range" type="range" min="10" max="100" step="0.1" value="40" aria-label="Ajustar presión de CO₂">
 <p id="sim-error" role="status" aria-live="polite"></p><div class="expo-actions"><button type="reset" class="expo-button">Reiniciar</button><button type="button" class="expo-button" data-preset data-hco3="12" data-pco2="32">HCO₃⁻ reducido</button><button type="button" class="expo-button" data-preset data-hco3="27" data-pco2="60">CO₂ retenido</button></div></div>
-<div class="expo-sim-result"><span>pH calculado</span><output id="sim-ph" aria-live="polite">7,401</output><p id="sim-trend">Punto didáctico de comparación.</p><p class="expo-equation">pH ≈ 6,1 + log₁₀[HCO₃⁻ / (0,03 × PCO₂)]</p><p class="expo-small">Aproximación a 37 °C. 0,03: mmol·L⁻¹·mmHg⁻¹. Estos límites son de exploración, no intervalos clínicos.</p></div></form><p class="expo-caution">Simulación educativa simplificada. No sustituye la interpretación clínica veterinaria.</p><noscript><p>Ejemplos calculados: 24/40 → pH 7,40; 12/32 → 7,20; 27/60 → 7,28. El simulador requiere JavaScript.</p></noscript>'''
+<div class="expo-sim-result"><span>pH calculado</span><output id="sim-ph" aria-live="polite">7,401</output><p id="sim-trend">Punto didáctico de comparación.</p><p class="expo-equation">pH ≈ 6,1 + log₁₀[HCO₃⁻ / (0,03 × PCO₂)]</p><p class="expo-small">A 37 °C; 0,03 en mmol·L⁻¹·mmHg⁻¹. Límites de exploración, no intervalos clínicos.</p></div></form><p class="expo-caution">Simulación educativa simplificada. No sustituye la interpretación clínica veterinaria.</p><noscript><p>Ejemplos calculados: 24/40 → pH 7,40; 12/32 → 7,20; 27/60 → 7,28. El simulador requiere JavaScript.</p></noscript>'''
 
 def case_component(case):
     cid = esc(case['id'])
@@ -120,12 +125,16 @@ def quiz_component(questions):
 
 def scene_html(scene, data, i):
     layout = scene.get('layout', 'default')
+    acid_base_visuals = data['subject'] == 'fisiopatologia' and data['slug'] == 'equilibrio-acido-base'
     heading = f'<header class="expo-scene-heading"><p class="expo-eyebrow">{esc(SUBJECTS[data["subject"]]["title"])} · {i+1:02d}</p><h2>{esc(scene["title"])}</h2><p class="expo-lead">{esc(scene.get("summary", ""))}</p></header>'
     bullets = '<ul class="expo-points">' + ''.join(f'<li>{esc(p)}</li>' for p in scene.get('bullets', [])) + '</ul>' if scene.get('bullets') else ''
     equation = f'<p class="expo-equation">{esc(scene["equation"])}</p>' if scene.get('equation') else ''
     copy = f'<div class="expo-scene-copy">{bullets}{equation}</div>'
-    if layout == 'simulator':
-        body = simulator()
+    lab = visual_for(scene['id']) if acid_base_visuals else ''
+    if layout == 'cover':
+        body = copy
+    elif layout == 'simulator':
+        body = '<div class="expo-simulator-stage">' + simulator() + simulator_visual() + '</div>'
     elif layout == 'case':
         body = case_component(scene['case'])
     elif layout == 'quiz':
@@ -136,12 +145,19 @@ def scene_html(scene, data, i):
         body = '<div class="expo-comparison">' + ''.join(f'<article><h3>{esc(c["title"])}</h3>{paragraphs(c["text"])}</article>' for c in scene.get('comparison', [])) + '</div>' + equation
     elif layout == 'steps':
         body = '<ol class="expo-process">' + ''.join(f'<li>{esc(p)}</li>' for p in scene.get('bullets', [])) + '</ol>' + equation
+    elif lab:
+        body = lab + f'<div class="expo-study-only expo-lab-context">{copy}{figure(scene) if scene.get("figure") else ""}</div>'
     elif scene.get('figure'):
         body = f'<div class="expo-scene-grid">{copy}{figure(scene)}</div>'
     else:
         body = copy
     if layout == 'cover':
+        body = '<div class="expo-cover-layout"><div class="expo-cover-copy">' + body
         body += f'<p class="expo-author">{esc(", ".join(data["authors"]))}<br><span>Estudiante de Medicina Veterinaria · UTMACH</span></p><a class="expo-button expo-button-primary" href="#{esc(data["scenes"][1]["id"])}">Comenzar a explorar {icon("chevron-right")}</a>'
+        cover_art = hero_visual() if acid_base_visuals else figure(scene) if scene.get('figure') else ''
+        body += '</div>' + cover_art + '</div>'
+    if layout == 'references' and data.get('slug') == 'equilibrio-acido-base':
+        body += '<p class="expo-credits expo-small">Referentes de interacción: <a href="https://andreerogel1997-bit.github.io/amc-vetatlas/" target="_blank" rel="noopener noreferrer">AMC VetAtlas · Andreé</a> y <a href="https://clinicaveterinariavinyo.com/" target="_blank" rel="noopener noreferrer">Clínica Veterinaria Vinyo</a>. Gráficos y código de esta experiencia creados para VETJB. Las referencias no implican colaboración ni aval.</p>'
     if layout == 'closing':
         body += '<div class="expo-actions">' + ''.join(f'<a class="expo-button" href="{esc(r["path"])}" download>{esc(r["label"])}</a>' for r in data.get('resources', [])) + '</div>'
     expanded = f'<div class="expo-study-only expo-explanation"><h3>Para profundizar</h3>{paragraphs(scene.get("explanation"))}</div>' if scene.get('explanation') else ''
@@ -155,7 +171,7 @@ def dialogs(data):
 
 def build_expo(data):
     url = route(data)
-    toolbar = f'''<div id="expo-toolbar" class="expo-toolbar"><a href="/exposiciones/" class="expo-back">{icon('chevron-left')} Biblioteca</a><div class="expo-actions"><a class="expo-button expo-button-primary" href="?modo=presentar" data-mode-toggle><span data-control-label>Presentar</span></a>{button('Tema claro', 'data-theme-toggle')}{button('Índice', 'data-index-open')}{button('Compartir', 'data-share-open')}<span class="expo-present-only">{button('Notas', 'data-speaker')}{button('Pantalla completa', 'data-fullscreen')}</span></div></div>'''
+    toolbar = f'''<div id="expo-toolbar" class="expo-toolbar" aria-label="Herramientas de la exposición"><a href="/exposiciones/" class="expo-back">{icon('chevron-left')} Biblioteca</a><div class="expo-actions"><nav class="expo-mode-switch" aria-label="Formato de la exposición"><a class="expo-button" href="?modo=estudiar" data-view-mode="estudiar" aria-current="true">Página</a><a class="expo-button" href="?modo=presentar" data-view-mode="presentar">Diapositivas</a></nav>{button('Tema claro', 'data-theme-toggle')}{button('Pausar movimiento', 'data-motion-toggle')}{button('Índice', 'data-index-open')}{button('Compartir', 'data-share-open')}<span class="expo-present-only">{button('Notas', 'data-speaker')}{button('Pantalla completa', 'data-fullscreen')}</span></div></div>'''
     nav = f'<nav class="expo-navigation expo-present-only" aria-label="Controles de presentación">{button("Anterior", "data-prev")}<span data-progress aria-live="polite"></span>{button("Siguiente", "data-next")}</nav>'
     toc = '<details class="expo-study-only expo-study-index"><summary>Índice de lectura</summary><ol>' + ''.join(f'<li><a href="#{esc(s["id"])}">{esc(s["title"])}</a></li>' for s in data['scenes']) + '</ol></details>'
     body = head(data['title'], data['summary'], data['subject']) + site_header(data['subject']) + toolbar + '<main id="contenido">' + toc + '<div id="expo-deck" class="reveal"><div class="slides">' + ''.join(scene_html(s, data, i) for i,s in enumerate(data['scenes'])) + '</div></div></main>' + nav + dialogs(data) + scripts()

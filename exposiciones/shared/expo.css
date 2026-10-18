@@ -377,3 +377,223 @@ body.expo-app[data-receiver="true"] #expo-deck { inset: 0; width: 100vw; height:
 html:not(.expo-js) body.expo-app button,
 html:not(.expo-js) body.expo-app [data-catalog-search],
 html:not(.expo-js) body.expo-app .expo-toolbar { display: none; }
+
+/* Visual chapter: original mechanisms, a quiet particle field and readable labs. */
+html.expo-js[data-theme="dark"], html.expo-js[data-theme="dark"].reveal-viewport { background: #0b1220; }
+html.expo-js[data-theme="light"], html.expo-js[data-theme="light"].reveal-viewport { background: #f8fafc; }
+body.expo-app.reveal-viewport, body.expo-app #expo-deck.reveal { background: var(--expo-bg); }
+body.expo-app { --hero-cyan: #79e0ee; --hero-copper: #e9ad82; --hero-wash: #102a3b; }
+body.expo-app[data-theme="light"] { --hero-cyan: #086e83; --hero-copper: #a9572e; --hero-wash: #eaf5f6; }
+body.expo-app .expo-mode-switch { display: inline-flex; padding: 3px; gap: 3px; border: 1px solid var(--expo-border); border-radius: 8px; background: var(--expo-surface); }
+body.expo-app .expo-mode-switch .expo-button { border-color: transparent; background: transparent; min-height: 40px; }
+body.expo-app .expo-mode-switch [aria-current="true"] { background: var(--expo-accent-soft); color: var(--expo-accent); border-color: var(--expo-accent); }
+body.expo-app .expo-cover-layout { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.3fr); align-items: center; gap: 44px; }
+body.expo-app .expo-cover-copy { min-width: 0; }
+body.expo-app .expo-cover-copy .expo-points { padding: 0; list-style: none; }
+body.expo-app .expo-cover-copy .expo-points li:first-child { font-size: clamp(25px, 2.4vw, 34px); font-weight: 500; letter-spacing: -.035em; line-height: 1.35; }
+body.expo-app .expo-cover-copy .expo-points li + li { color: var(--expo-muted); font-size: 19px; line-height: 1.55; margin-top: 20px; }
+body.expo-app .expo-hero-visual { --hero-tilt-x: 0deg; --hero-tilt-y: 0deg; min-width: 0; border: 1px solid var(--expo-border); border-radius: 16px; overflow: clip; position: relative; isolation: isolate; background: linear-gradient(145deg, var(--expo-surface), var(--hero-wash)); box-shadow: 0 24px 60px rgb(0 0 0 / 12%); }
+body.expo-app .expo-hero-visual-top { display: flex; gap: 14px; align-items: center; justify-content: space-between; padding: 16px 20px 0; color: var(--expo-muted); font: 400 11px/1.4 var(--expo-mono-font); }
+body.expo-app .expo-hero-live { color: var(--expo-accent); white-space: nowrap; font-size: 9px; letter-spacing: .09em; }
+body.expo-app .expo-hero-stage { position: relative; width: 100%; aspect-ratio: 900 / 430; perspective: 1100px; transform-style: preserve-3d; }
+body.expo-app .expo-hero-type { position: absolute; right: 11%; top: -16%; color: var(--hero-cyan); opacity: .055; font: 600 clamp(140px, 25vw, 280px)/1 var(--expo-body-font); letter-spacing: -.09em; pointer-events: none; user-select: none; }
+body.expo-app .expo-hero-field, body.expo-app .expo-hero-svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotateX(var(--hero-tilt-x)) rotateY(var(--hero-tilt-y)); transform-origin: 50% 54%; transition: transform 200ms ease-out; }
+body.expo-app .expo-hero-field { pointer-events: none; z-index: 2; opacity: .9; }
+body.expo-app .expo-hero-svg { overflow: visible; z-index: 1; }
+body.expo-app .expo-hero-orbits { fill: none; stroke: var(--hero-cyan); stroke-width: .8; opacity: .13; }
+body.expo-app .expo-hero-orbits path { stroke-dasharray: 2 9; }
+body.expo-app .expo-hero-layer { opacity: 0; transition: opacity 360ms ease; }
+body.expo-app .expo-hero-visual[data-stage="0"] [data-hero-layer="0"], body.expo-app .expo-hero-visual[data-stage="1"] [data-hero-layer="1"], body.expo-app .expo-hero-visual[data-stage="2"] [data-hero-layer="2"] { opacity: 1; }
+body.expo-app .hero-organism { fill: url(#hero-organism-fill); stroke: var(--hero-cyan); stroke-width: 1.8; }
+body.expo-app .hero-kidney { fill: url(#hero-kidney-fill); stroke: var(--hero-copper); stroke-width: 1.8; }
+body.expo-app .hero-connection { fill: none; stroke: var(--hero-cyan); stroke-width: 1.7; stroke-dasharray: 4 6; }
+body.expo-app .hero-lung-branch, body.expo-app .hero-kidney-line { fill: none; stroke: var(--hero-cyan); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+body.expo-app .hero-kidney-line { stroke: var(--hero-copper); stroke-width: 3; }
+body.expo-app .hero-guide { fill: none; stroke: var(--expo-muted); stroke-width: 1.2; opacity: .6; }
+body.expo-app .hero-node { fill: var(--expo-bg); stroke: var(--hero-cyan); stroke-width: 1.4; }
+body.expo-app .hero-marker { fill: var(--hero-cyan); }
+body.expo-app .hero-marker-copper { fill: var(--hero-copper); }
+body.expo-app .hero-reservoir { fill: url(#hero-organism-fill); stroke: var(--hero-cyan); stroke-width: 1.5; }
+body.expo-app .hero-reservoir-copper { fill: url(#hero-kidney-fill); stroke: var(--hero-copper); }
+body.expo-app .hero-symbol { fill: var(--expo-text); font: 500 38px var(--expo-body-font); letter-spacing: -.04em; }
+body.expo-app .hero-symbol-small { font-size: 29px; }
+body.expo-app .hero-label { fill: var(--expo-text); font: 500 25px var(--expo-body-font); letter-spacing: -.02em; }
+body.expo-app .hero-detail { fill: var(--expo-muted); font: 400 17px var(--expo-body-font); }
+body.expo-app .hero-formula { fill: var(--hero-cyan); font: 500 42px var(--expo-body-font); letter-spacing: -.04em; }
+body.expo-app .hero-formula-copper { fill: var(--hero-copper); }
+body.expo-app .expo-hero-controls { display: flex; gap: 8px; align-items: center; padding: 0 18px; }
+body.expo-app .expo-hero-tabs { display: flex; flex: 1; border: 1px solid var(--expo-border); border-radius: 8px; padding: 3px; gap: 3px; background: var(--expo-bg); }
+body.expo-app .expo-hero-tabs button, body.expo-app .expo-hero-motion { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 8px 9px; font-size: 12px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: var(--expo-muted); }
+body.expo-app .expo-hero-tabs button > span { color: var(--expo-accent); font: 400 10px/1 var(--expo-mono-font); }
+body.expo-app .expo-hero-tabs button[aria-pressed="true"] { background: var(--expo-accent-soft); color: var(--expo-text); border-color: var(--expo-accent); }
+body.expo-app .expo-hero-motion { flex: 0 0 auto; padding-inline: 10px; border-color: var(--expo-border); }
+body.expo-app .expo-hero-caption { color: var(--expo-text); font-size: 13px; line-height: 1.5; margin: 13px 20px 0; min-height: 3em; }
+body.expo-app .expo-hero-disclaimer { color: var(--expo-muted); font-size: 10px; line-height: 1.4; margin: 6px 20px 16px; }
+body.expo-app .expo-hero-visual[data-motion="paused"] .expo-hero-layer { transition: none; }
+
+body.expo-app .expo-visual-lab { min-width: 0; padding: 26px; border: 1px solid var(--expo-border); border-radius: 14px; background: linear-gradient(135deg, var(--expo-surface), var(--expo-bg)); }
+body.expo-app .expo-lab-stage { min-width: 0; display: flex; justify-content: center; align-items: center; }
+body.expo-app .expo-lab-svg { display: block; width: 100%; height: auto; max-height: 340px; overflow: visible; }
+body.expo-app .expo-lab-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 15px; padding: 0; margin: 0; border: 0; min-width: 0; }
+body.expo-app .expo-lab-controls label { color: var(--expo-text); font-size: 15px; }
+body.expo-app .expo-lab-controls > label:has(input[type="radio"]) { display: flex; gap: 8px; align-items: center; padding: 10px 14px; min-height: 44px; background: var(--expo-bg); border: 1px solid var(--expo-border); border-radius: 6px; }
+body.expo-app .expo-lab-controls > label:has(input:checked) { background: var(--expo-accent-soft); border-color: var(--expo-accent); }
+body.expo-app .expo-lab-controls input[type="radio"] { accent-color: var(--expo-accent); width: 17px; height: 17px; margin: 0; }
+body.expo-app .expo-lab-controls input[type="range"] { min-width: 180px; flex: 1; width: 100%; height: 44px; accent-color: var(--expo-accent); }
+body.expo-app .expo-lab-controls legend { font-size: 13px; line-height: 1.4; color: var(--expo-muted); margin-bottom: 12px; padding: 0; }
+body.expo-app .expo-lab-controls output { margin-left: 8px; color: var(--expo-accent); font-family: var(--expo-mono-font); }
+body.expo-app .expo-lab-controls.expo-actions { margin-top: 20px; }
+body.expo-app .expo-lab-copy { color: var(--expo-muted); font-size: 18px; line-height: 1.5; }
+body.expo-app .expo-lab-title { font-size: 24px; margin-bottom: 10px; }
+body.expo-app .expo-lab-note, body.expo-app .expo-lab-legend { font-size: 13px; line-height: 1.5; color: var(--expo-muted); }
+body.expo-app .expo-lab-note { margin-top: 14px; }
+body.expo-app .expo-lab-readout { font-size: 17px; color: var(--expo-muted); }
+body.expo-app .expo-lab-output { display: block; color: var(--expo-accent); font: 500 40px/1.2 var(--expo-mono-font); margin: 10px 0; letter-spacing: -.04em; }
+body.expo-app .lab-surface { fill: var(--hero-wash); stroke: var(--expo-border); stroke-width: 1.5; }
+body.expo-app .lab-line { fill: none; color: var(--expo-accent); stroke: currentColor; }
+body.expo-app .lab-label { fill: var(--expo-text); font: 500 26px var(--expo-body-font); }
+body.expo-app .lab-muted { fill: var(--expo-muted); font: 400 17px var(--expo-body-font); }
+body.expo-app .lab-accent { fill: var(--expo-accent); opacity: .75; }
+body.expo-app .lab-flow { color: var(--hero-copper); }
+body.expo-app .lab-lung { transform-box: fill-box; transform-origin: 50% 10%; }
+body.expo-app [data-visual-lab="pulmonary"][data-motion="running"] .lab-lung { animation: expo-breathe var(--breath-duration, 4s) ease-in-out infinite; }
+@keyframes expo-breathe { 0%,100% { transform: scale(.97); } 50% { transform: scale(1.025); } }
+body.expo-app [data-direction="right"] .lab-buffer-forward, body.expo-app [data-direction="left"] .lab-buffer-reverse { color: var(--hero-copper); stroke-width: 5; }
+body.expo-app [data-direction="right"] .lab-buffer-reverse, body.expo-app [data-direction="left"] .lab-buffer-forward { opacity: .22; }
+body.expo-app .lab-renal-path { opacity: .15; transition: opacity 200ms ease; }
+body.expo-app [data-renal-state="0"] [data-renal-flow="0"], body.expo-app [data-renal-state="1"] [data-renal-flow="1"], body.expo-app [data-renal-state="2"] [data-renal-flow="2"] { opacity: 1; color: var(--hero-copper); }
+body.expo-app [data-visual-lab="pulmonary"] { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); column-gap: 30px; }
+body.expo-app [data-visual-lab="pulmonary"] > .expo-lab-controls:first-child { grid-column: 1 / -1; margin-bottom: 16px; }
+body.expo-app [data-visual-lab="pulmonary"] > .expo-lab-stage { grid-column: 1; grid-row: 2 / span 4; }
+body.expo-app [data-visual-lab="pulmonary"] > :where(.expo-lab-readout, .expo-lab-note, .expo-actions) { grid-column: 2; }
+body.expo-app .expo-lab-context > .expo-scene-grid { margin-top: 20px; }
+body.expo-app .expo-simulator-stage { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+body.expo-app .expo-simulator-stage > .expo-simulator { grid-column: 1; grid-row: 1; gap: 20px; }
+body.expo-app .expo-simulator-stage > .expo-phase-lab { grid-column: 2; grid-row: 1; }
+body.expo-app .expo-simulator-stage > :where(.expo-caution, noscript) { grid-column: 1 / -1; }
+body.expo-app .expo-phase-lab { padding: 20px 16px; }
+body.expo-app .expo-phase-lab .expo-lab-readout { color: var(--expo-text); margin-top: 10px; }
+body.expo-app .expo-phase-lab .expo-lab-legend { margin-top: 10px; }
+body.expo-app .lab-grid { color: var(--expo-border); opacity: .4; stroke-width: .8; }
+body.expo-app .lab-axis { color: var(--expo-muted); }
+body.expo-app .lab-axis-label, body.expo-app .lab-axis-title { fill: var(--expo-muted); font: 400 19px var(--expo-body-font); }
+body.expo-app .lab-axis-title { fill: var(--expo-text); font-size: 21px; }
+body.expo-app .lab-isoph { color: var(--expo-accent); opacity: .64; }
+body.expo-app .lab-isoph-0, body.expo-app .lab-isoph-1 { color: var(--hero-copper); }
+body.expo-app .lab-isoph-3 { opacity: 1; }
+body.expo-app .lab-isoph-3 path { stroke-width: 3; }
+body.expo-app .lab-isoph-label { fill: currentColor; font: 500 19px var(--expo-mono-font); }
+body.expo-app .lab-phase-guide { color: var(--expo-text); opacity: .7; }
+body.expo-app .lab-phase-halo { fill: var(--expo-accent); opacity: .18; }
+body.expo-app .lab-phase-marker { fill: var(--expo-text); stroke: var(--expo-bg); stroke-width: 2; }
+
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="cover"] h2 { font-size: 56px; }
+body.expo-app[data-mode="presentar"] .expo-cover-layout { grid-template-columns: minmax(0, .65fr) minmax(0, 1fr); gap: 36px; }
+body.expo-app[data-mode="presentar"] .expo-cover-copy .expo-points li:first-child { font-size: 32px; }
+body.expo-app[data-mode="presentar"] .expo-cover-copy .expo-points li + li { font-size: 28px; line-height: 1.35; margin-top: 18px; }
+body.expo-app[data-mode="presentar"] .expo-cover-copy .expo-author { font-size: 18px; margin: 20px 0; }
+body.expo-app[data-mode="presentar"] .expo-hero-stage { height: 240px; aspect-ratio: auto; }
+body.expo-app[data-mode="presentar"] .expo-hero-visual-top { padding-top: 12px; font-size: 14px; }
+body.expo-app[data-mode="presentar"] .expo-hero-live { font-size: 11px; }
+body.expo-app[data-mode="presentar"] .expo-hero-tabs button { font-size: 16px; }
+body.expo-app[data-mode="presentar"] .expo-hero-tabs button > span { font-size: 12px; }
+body.expo-app[data-mode="presentar"] .expo-hero-motion { font-size: 14px; }
+body.expo-app[data-mode="presentar"] .expo-hero-caption { font-size: 16px; min-height: 0; margin-top: 10px; }
+body.expo-app[data-mode="presentar"] .expo-hero-disclaimer { font-size: 13px; margin-bottom: 12px; }
+body.expo-app[data-mode="presentar"] .expo-visual-lab { padding: 16px 24px; }
+body.expo-app[data-mode="presentar"] .expo-lab-svg { max-height: 232px; }
+body.expo-app[data-mode="presentar"] .expo-lab-controls label { font-size: 21px; }
+body.expo-app[data-mode="presentar"] .expo-lab-controls legend { font-size: 16px; margin-bottom: 8px; }
+body.expo-app[data-mode="presentar"] .expo-lab-title { font-size: 28px; margin-bottom: 7px; }
+body.expo-app[data-mode="presentar"] .expo-lab-copy { font-size: 27px; line-height: 1.32; }
+body.expo-app[data-mode="presentar"] .expo-lab-note, body.expo-app[data-mode="presentar"] .expo-lab-legend { font-size: 16px; line-height: 1.4; }
+body.expo-app[data-mode="presentar"] .expo-lab-readout { font-size: 24px; }
+body.expo-app[data-mode="presentar"] .expo-lab-output { font-size: 46px; margin-block: 8px; }
+body.expo-app[data-mode="presentar"] .expo-lab-controls.expo-actions { margin-top: 14px; }
+body.expo-app[data-mode="presentar"] [data-visual-lab="buffer"] .expo-lab-svg { max-height: 180px; }
+body.expo-app[data-mode="presentar"] [data-visual-lab="buffer"] .expo-lab-tabs legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; padding: 0; margin: 0; }
+body.expo-app[data-mode="presentar"] [data-visual-lab="buffer"] .lab-muted { font-size: 21px; }
+body.expo-app[data-mode="presentar"] [data-visual-lab="pulmonary"] .expo-lab-svg { max-height: 290px; }
+body.expo-app[data-mode="presentar"] [data-visual-lab="renal"] { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); column-gap: 28px; }
+body.expo-app[data-mode="presentar"] [data-visual-lab="renal"] > .expo-lab-tabs { grid-column: 1 / -1; margin-bottom: 14px; }
+body.expo-app[data-mode="presentar"] [data-visual-lab="renal"] > .expo-lab-stage { grid-column: 1; grid-row: 2 / span 2; }
+body.expo-app[data-mode="presentar"] [data-visual-lab="renal"] > [aria-live], body.expo-app[data-mode="presentar"] [data-visual-lab="renal"] > .expo-actions { grid-column: 2; }
+body.expo-app[data-mode="presentar"] [data-visual-lab="renal"] .expo-lab-svg { max-height: 260px; }
+body.expo-app[data-mode="presentar"] #expo-deck .expo-scene[data-layout="simulator"] { padding-block: 32px; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="simulator"] .expo-scene-heading { margin-bottom: 14px; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="simulator"] .expo-eyebrow { margin-bottom: 10px; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="simulator"] .expo-lead { margin-top: 12px; }
+body.expo-app[data-mode="presentar"] .expo-scene[data-layout="simulator"] .expo-sources { margin-top: 10px; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage { grid-template-columns: minmax(0, .36fr) minmax(0, .2fr) minmax(0, .44fr); column-gap: 24px; row-gap: 8px; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage > .expo-simulator { display: contents; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage .expo-sim-controls { grid-column: 1; grid-row: 1 / span 2; grid-template-columns: minmax(0, 1fr) 110px; font-size: 28px; gap: 10px; padding: 14px; background: var(--expo-surface); border: 1px solid var(--expo-border); border-radius: 10px; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage .expo-sim-controls .expo-actions .expo-button { font-size: 16px; padding: 8px 10px; min-height: 44px; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage .expo-sim-result { display: contents; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage .expo-sim-result > span { grid-column: 2; grid-row: 1; align-self: start; font-size: 17px; color: var(--expo-muted); }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage #sim-ph { grid-column: 2; grid-row: 1; align-self: start; padding-top: 24px; margin: 0; font-size: 68px; line-height: 1.1; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage #sim-trend { grid-column: 3; grid-row: 1; align-self: center; color: var(--expo-text); font-size: 28px; line-height: 1.3; margin: 0; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage > .expo-phase-lab { grid-column: 2 / 4; grid-row: 2; padding: 0; border: 0; background: none; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage .expo-phase-lab .expo-lab-svg { max-height: 210px; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage .expo-phase-lab .expo-lab-readout { font-size: 21px; line-height: 1.35; margin-top: 6px; text-align: center; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage .expo-phase-lab .expo-lab-legend { display: none; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage .expo-sim-result .expo-equation { grid-column: 1 / -1; grid-row: 3; font-size: 26px; line-height: 1.4; margin: 0; padding: 0; border: 0; background: none; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage .expo-sim-result > .expo-small { grid-column: 1 / -1; grid-row: 4; font-size: 17px; line-height: 1.4; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage > .expo-caution { grid-row: 5; margin-top: 0; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage .lab-axis-label, body.expo-app[data-mode="presentar"] .expo-simulator-stage .lab-isoph-label { font-size: 29px; }
+body.expo-app[data-mode="presentar"] .expo-simulator-stage .lab-axis-title { font-size: 28px; }
+
+@media (max-width: 1100px) {
+  body.expo-app[data-mode="estudiar"] .expo-cover-layout { grid-template-columns: minmax(0, .75fr) minmax(0, 1fr); gap: 28px; }
+  body.expo-app[data-mode="estudiar"] .expo-simulator-stage { grid-template-columns: 1fr; }
+  body.expo-app[data-mode="estudiar"] .expo-simulator-stage > .expo-phase-lab { grid-column: 1; grid-row: auto; }
+  body.expo-app[data-mode="estudiar"] .expo-simulator-stage .expo-lab-svg { max-height: 370px; }
+}
+@media (max-width: 760px) {
+  body.expo-app[data-mode="estudiar"] .expo-cover-layout { grid-template-columns: 1fr; }
+  body.expo-app[data-mode="estudiar"] .expo-cover-copy .expo-points li:first-child { max-width: 26ch; }
+  body.expo-app[data-mode="estudiar"] .expo-hero-visual { max-width: 640px; }
+  body.expo-app[data-mode="estudiar"] .expo-hero-visual-top { font-size: 10px; padding-inline: 14px; }
+  body.expo-app[data-mode="estudiar"] .expo-hero-controls { padding-inline: 10px; gap: 6px; }
+  body.expo-app[data-mode="estudiar"] .expo-hero-tabs { gap: 1px; padding: 2px; }
+  body.expo-app[data-mode="estudiar"] .expo-hero-tabs button { padding-inline: 5px; gap: 4px; font-size: 10px; }
+  body.expo-app[data-mode="estudiar"] .expo-hero-tabs button > span { display: none; }
+  body.expo-app[data-mode="estudiar"] .expo-hero-motion { font-size: 10px; padding-inline: 7px; }
+  body.expo-app[data-mode="estudiar"] .expo-hero-caption { margin-inline: 14px; font-size: 12px; }
+  body.expo-app[data-mode="estudiar"] .expo-hero-disclaimer { margin-inline: 14px; }
+  body.expo-app[data-mode="estudiar"] .expo-visual-lab { padding: 18px 14px; }
+  body.expo-app[data-mode="estudiar"] .expo-lab-controls { gap: 8px; }
+  body.expo-app[data-mode="estudiar"] .expo-lab-controls label { font-size: 13px; }
+  body.expo-app[data-mode="estudiar"] .expo-lab-controls > label:has(input[type="radio"]) { padding: 9px 10px; }
+  body.expo-app[data-mode="estudiar"] [data-visual-lab="pulmonary"] { grid-template-columns: 1fr; }
+  body.expo-app[data-mode="estudiar"] [data-visual-lab="pulmonary"] > :where(.expo-lab-stage, .expo-lab-readout, .expo-lab-note, .expo-actions) { grid-column: 1; grid-row: auto; }
+  body.expo-app[data-mode="estudiar"] .expo-lab-copy { font-size: 17px; }
+  body.expo-app[data-mode="estudiar"] .expo-lab-title { font-size: 22px; }
+  body.expo-app[data-mode="estudiar"] .expo-lab-output { font-size: 37px; }
+  body.expo-app .expo-mode-switch .expo-button { font-size: 12px; padding-inline: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.expo-app .expo-hero-field { display: none; }
+  body.expo-app .expo-hero-svg { transform: none !important; }
+  body.expo-app .lab-lung { animation: none !important; transform: none !important; }
+}
+@media print {
+  body.expo-app .expo-hero-field, body.expo-app .expo-hero-controls, body.expo-app .expo-hero-live { display: none !important; }
+  body.expo-app .expo-hero-svg { transform: none !important; }
+  body.expo-app .expo-hero-type { display: none; }
+  body.expo-app .expo-hero-visual { --hero-cyan: #086e83; --hero-copper: #a9572e; --hero-wash: #eaf5f6; background: white; box-shadow: none; break-inside: avoid; }
+  body.expo-app .expo-hero-stage { height: auto !important; aspect-ratio: 900 / 430; }
+  body.expo-app .expo-hero-caption { font-size: 10pt !important; }
+  body.expo-app .expo-hero-disclaimer { font-size: 8pt !important; }
+  body.expo-app .expo-cover-layout { grid-template-columns: 1fr 1fr !important; gap: 20pt !important; }
+  body.expo-app .expo-cover-copy .expo-points li { font-size: 12pt !important; }
+  body.expo-app .expo-visual-lab { padding: 12pt !important; background: white !important; box-shadow: none; break-inside: avoid; }
+  body.expo-app .expo-lab-controls { display: none; }
+  body.expo-app .expo-lab-svg { max-height: 200pt !important; }
+  body.expo-app .lab-lung { animation: none !important; transform: none !important; }
+  body.expo-app .expo-lab-copy, body.expo-app .expo-lab-readout { font-size: 11pt !important; }
+  body.expo-app .expo-lab-note, body.expo-app .expo-lab-legend { font-size: 9pt !important; }
+  body.expo-app .expo-simulator-stage { display: block !important; }
+  body.expo-app .expo-simulator-stage > .expo-simulator { display: grid !important; }
+  body.expo-app .expo-simulator-stage .expo-phase-lab { margin-top: 18pt; }
+  body.expo-app .expo-phase-lab .expo-lab-svg { max-height: 220pt !important; }
+}

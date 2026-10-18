@@ -10,6 +10,26 @@ let deck;
 let currentScene = scenes[0];
 let qrcodePromise;
 const dialogOpeners = new WeakMap();
+let stopStudy = () => {};
+let changingMode = false;
+
+// One motion preference governs every visual, including reduced-motion systems.
+const motionPreference = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+function setMotion(paused) {
+  paused = Boolean(paused || motionPreference?.matches);
+  body.dataset.motion = paused ? 'paused' : 'running';
+  document.querySelectorAll('[data-motion-toggle]').forEach((button) => {
+    setLabel(button, motionPreference?.matches ? 'Movimiento reducido del sistema' : paused ? 'Activar movimiento' : 'Pausar movimiento', motionPreference?.matches ? 'Movimiento reducido' : paused ? 'Activar movimiento' : 'Pausar movimiento');
+    button.setAttribute('aria-pressed', String(paused));
+    button.disabled = Boolean(motionPreference?.matches);
+  });
+  document.dispatchEvent(new window.CustomEvent('expo:motion', { detail: { paused } }));
+}
+setMotion(Boolean(motionPreference?.matches));
+motionPreference?.addEventListener('change', (event) => setMotion(event.matches));
+document.querySelectorAll('[data-motion-toggle]').forEach((button) => {
+  button.addEventListener('click', () => setMotion(body.dataset.motion !== 'paused'));
+});
 
 const toolbar = document.querySelector('#expo-toolbar');
 if (toolbar && !isReceiver) {
@@ -231,14 +251,15 @@ function updateNavigation(scene, updateHash = true) {
     url.hash = scene.id;
     history.replaceState(null, '', url);
   }
-  const toggle = document.querySelector('[data-mode-toggle]');
-  if (toggle) {
+  document.querySelectorAll('[data-view-mode]').forEach((toggle) => {
     const url = new URL(location.href);
-    url.searchParams.set('modo', mode === 'presentar' ? 'estudiar' : 'presentar');
+    url.searchParams.set('modo', toggle.dataset.viewMode);
     url.hash = scene.id;
     toggle.href = url.href;
-    setLabel(toggle, mode === 'presentar' ? 'Cambiar a Estudiar' : 'Cambiar a Presentar', mode === 'presentar' ? 'Estudiar' : 'Presentar');
-  }
+    if (toggle.dataset.viewMode === mode) toggle.setAttribute('aria-current', 'true');
+    else toggle.removeAttribute('aria-current');
+  });
+  document.dispatchEvent(new window.CustomEvent('expo:scenechange', { detail: { id: scene.id } }));
 }
 
 function sceneFromHash() {
@@ -267,6 +288,7 @@ export function canNavigateByKeyboard(event) {
 }
 
 function loadRevealStyles() {
+  if (document.querySelector('[data-reveal-style]')) return Promise.resolve();
   return new Promise((resolve, reject) => {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -282,8 +304,8 @@ function loadRevealStyles() {
 
 async function initializePresentation() {
   const [revealModule, notesModule] = await Promise.all([
-    import('/exposiciones/vendor/reveal/reveal.esm.js'),
-    import('/exposiciones/vendor/reveal/notes.esm.js'),
+    import('../vendor/reveal/reveal.esm.js'),
+    import('../vendor/reveal/notes.esm.js'),
     loadRevealStyles(),
   ]);
   const initialScene = sceneFromHash() || scenes[0];
@@ -330,6 +352,7 @@ function openSpeaker() {
 }
 
 function initializeStudy() {
+  stopStudy();
   mode = 'estudiar';
   body.dataset.mode = mode;
   const initialScene = sceneFromHash() || scenes[0];
@@ -352,11 +375,68 @@ function initializeStudy() {
   }
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll, { passive: true });
+  stopStudy = () => {
+    window.removeEventListener('scroll', onScroll);
+    window.removeEventListener('resize', onScroll);
+  };
   requestAnimationFrame(() => {
     if (location.hash && initialScene) initialScene.scrollIntoView({ behavior: 'auto', block: 'start' });
     if (deckElement) deckElement.dataset.ready = 'true';
   });
 }
+
+export async function switchMode(nextMode) {
+  if (!scenes.length || changingMode || nextMode === mode || !['presentar', 'estudiar'].includes(nextMode)) return;
+  changingMode = true;
+  const scene = currentScene;
+  stopStudy();
+  document.querySelectorAll('[data-view-mode]').forEach((control) => control.setAttribute('aria-disabled', 'true'));
+  const url = new URL(location.href);
+  url.searchParams.set('modo', nextMode);
+  url.hash = scene.id;
+  history.replaceState(null, '', url);
+  try {
+    if (nextMode === 'presentar') await initializePresentation();
+    else {
+      deck?.destroy();
+      deck = undefined;
+      document.querySelector('[data-reveal-style]')?.remove();
+      initializeStudy();
+    }
+  } catch {
+    deck?.destroy();
+    deck = undefined;
+    document.querySelector('[data-reveal-style]')?.remove();
+    initializeStudy();
+    const fallbackURL = new URL(location.href);
+    fallbackURL.searchParams.set('modo', 'estudiar');
+    history.replaceState(null, '', fallbackURL);
+    let status = document.querySelector('[data-mode-status]');
+    if (!status) {
+      status = document.createElement('p');
+      status.dataset.modeStatus = '';
+      status.className = 'expo-status';
+      status.setAttribute('role', 'status');
+      toolbar?.after(status);
+    }
+    status.textContent = 'No se pudo iniciar Diapositivas. Puedes continuar en Página.';
+  } finally {
+    changingMode = false;
+    document.querySelectorAll('[data-view-mode]').forEach((control) => control.removeAttribute('aria-disabled'));
+    updateNavigation(scene);
+    document.dispatchEvent(new window.CustomEvent('expo:modechange', { detail: { mode } }));
+    if (mode === 'estudiar') scene.scrollIntoView({ behavior: 'auto', block: 'start' });
+  }
+}
+
+document.querySelectorAll('[data-view-mode]').forEach((control) => {
+  control.addEventListener('click', (event) => {
+    // Preserve native open-in-new-tab behavior for modified clicks.
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button) return;
+    event.preventDefault();
+    void switchMode(control.dataset.viewMode);
+  });
+});
 
 if (scenes.length) {
   document.querySelector('[data-prev]')?.addEventListener('click', () => navigateTo(scenes[scenes.indexOf(currentScene) - 1]));
@@ -410,12 +490,20 @@ if (scenes.length) {
       const status = document.createElement('p');
       status.className = 'expo-status';
       status.setAttribute('role', 'status');
-      status.textContent = 'No se pudo iniciar Presentar. El contenido sigue disponible en Estudiar; vuelve a intentar cuando todos los archivos locales estén disponibles.';
+      status.textContent = 'No se pudo iniciar Diapositivas. El contenido sigue disponible en Página; vuelve a intentar cuando todos los archivos locales estén disponibles.';
       document.querySelector('#expo-toolbar')?.after(status);
     }
   } else initializeStudy();
 }
 
+if (document.querySelector('[data-hero]')) {
+  const { initializeHero } = await import('./hero-field.mjs');
+  initializeHero(document);
+}
+if (scenes.length) {
+  const { initializeVisualLabs } = await import('./visual-labs.mjs');
+  initializeVisualLabs(document);
+}
 const simulators = document.querySelectorAll('[data-simulator]');
 if (simulators.length) {
   const { initializeSimulator } = await import('./simulator.mjs');
@@ -508,6 +596,7 @@ document.querySelectorAll('form[data-case]').forEach((form) => {
     status.textContent = revealed ? `Paso ${revealed} de ${steps.length}.` : 'Pregunta y respuesta seleccionada.';
   });
   form.addEventListener('reset', () => queueMicrotask(resetReveals));
+  document.addEventListener('expo:modechange', renderCase);
   resetReveals();
 });
 
@@ -552,6 +641,7 @@ document.querySelectorAll('form[data-quiz]').forEach((form) => {
     paginate();
   }));
   paginate();
+  document.addEventListener('expo:modechange', paginate);
 });
 
 let printHidden = [];

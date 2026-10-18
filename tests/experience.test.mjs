@@ -13,17 +13,26 @@ const expoPath = 'exposiciones/fisiopatologia/equilibrio-acido-base/index.html';
 let importNumber = 0;
 const tick = () => new Promise((resolve) => setTimeout(resolve, 10));
 
-async function environment(path, suffix = '') {
+async function environment(path, suffix = '', options = {}) {
   const html = await readFile(new URL(path, root), 'utf8');
   const address = `https://vetjb.example/${path.replace(/index\.html$/, '')}${suffix}`;
   const dom = new JSDOM(html, { url: address, pretendToBeVisual: true });
   const win = dom.window;
+  // jsdom has no Canvas renderer: exercise the intentional semantic SVG fallback.
+  win.HTMLCanvasElement.prototype.getContext = () => null;
+  win.matchMedia = (query) => ({ matches: query.includes('prefers-reduced-motion') && Boolean(options.reducedMotion), addEventListener() {}, removeEventListener() {} });
   const originals = new Map();
+  const intervals = new Set();
+  const nativeInterval = globalThis.setInterval;
   const globals = {
     window: win, document: win.document, location: win.location,
     history: win.history, navigator: win.navigator, localStorage: win.localStorage,
     addEventListener: win.addEventListener.bind(win),
     requestAnimationFrame: win.requestAnimationFrame.bind(win),
+    cancelAnimationFrame: win.cancelAnimationFrame.bind(win),
+    getComputedStyle: win.getComputedStyle.bind(win),
+    HTMLElement: win.HTMLElement, Element: win.Element, Node: win.Node,
+    setInterval: (...args) => { const timer = nativeInterval(...args); intervals.add(timer); return timer; },
   };
   for (const [key, value] of Object.entries(globals)) {
     originals.set(key, Object.getOwnPropertyDescriptor(globalThis, key));
@@ -42,6 +51,7 @@ async function environment(path, suffix = '') {
     async close() {
       await tick();
       win.close();
+      for (const timer of intervals) clearInterval(timer);
       for (const [key, original] of originals) {
         if (original) Object.defineProperty(globalThis, key, original);
         else delete globalThis[key];
@@ -88,7 +98,9 @@ test('DOM: study mode preserves scene in mode link; theme and modal close return
   try {
     const doc = env.document;
     assert.equal(doc.body.dataset.mode, 'estudiar');
-    const modeLink = new URL(doc.querySelector('[data-mode-toggle]').href);
+    assert.equal(doc.querySelector('[data-view-mode="estudiar"]').getAttribute('aria-current'), 'true');
+    assert.equal(doc.querySelector('[data-view-mode="presentar"]').textContent, 'Diapositivas');
+    const modeLink = new URL(doc.querySelector('[data-view-mode="presentar"]').href);
     assert.equal(modeLink.searchParams.get('modo'), 'presentar');
     assert.equal(modeLink.hash, `#${ids[3]}`);
     assert.match(doc.querySelector('[data-progress]').textContent, /^4\s*\//);
@@ -226,5 +238,67 @@ test('DOM: keyboard guard blocks controls, text selection and dialogs without su
     assert.equal(app.canNavigateByKeyboard({ target: doc.body }), false);
     dialog.close();
     assert.equal(app.canNavigateByKeyboard({ target: doc.body }), true);
+  } finally { await env.close(); }
+});
+
+
+test('DOM: global motion pause is explicit and does not change the scene or simulator', async () => {
+  const env = await environment(expoPath, '?modo=estudiar#simulador');
+  try {
+    const doc = env.document;
+    const control = doc.querySelector('[data-motion-toggle]');
+    const before = doc.querySelector('#sim-ph').textContent;
+    assert.equal(doc.body.dataset.motion, 'running');
+    control.click();
+    assert.equal(doc.body.dataset.motion, 'paused');
+    assert.equal(control.getAttribute('aria-pressed'), 'true');
+    assert.equal(env.win.location.hash, '#simulador');
+    assert.equal(doc.querySelector('#sim-ph').textContent, before);
+    control.click();
+    assert.equal(doc.body.dataset.motion, 'running');
+    assert.equal(control.getAttribute('aria-pressed'), 'false');
+  } finally { await env.close(); }
+});
+
+
+test('DOM: hero remains explorable without Canvas and honors reduced motion', async () => {
+  const env = await environment(expoPath, '', { reducedMotion: true });
+  try {
+    const doc = env.document;
+    assert.equal(doc.body.dataset.motion, 'paused');
+    assert.equal(doc.querySelector('[data-motion-toggle]').disabled, true);
+    const hero = doc.querySelector('[data-hero]');
+    hero.querySelector('[data-hero-step="2"]').click();
+    assert.equal(hero.dataset.stage, '2');
+    assert.equal(hero.querySelector('[data-hero-step="2"]').getAttribute('aria-pressed'), 'true');
+    assert.match(hero.querySelector('[data-hero-caption]').textContent, /HCO₃/);
+    assert.equal(hero.querySelector('[data-hero-layer="2"]').getAttribute('aria-hidden'), 'false');
+  } finally { await env.close(); }
+});
+
+test('DOM: mode round trip uses local reveal engine and preserves entered state', async () => {
+  const env = await environment(expoPath, '?modo=estudiar#simulador');
+  try {
+    const { win, document: doc, app } = env;
+    change(win, doc.querySelector('#hco3-number'), '18');
+    const correct = doc.querySelector('[data-question] input[value="0"]');
+    correct.click();
+    const transition = app.switchMode('presentar');
+    // Stylesheet loading is outside jsdom: signal successful local CSS retrieval.
+    doc.querySelector('[data-reveal-style]').dispatchEvent(new win.Event('load'));
+    await transition;
+    assert.equal(doc.body.dataset.mode, 'presentar');
+    assert.equal(doc.querySelectorAll('#expo-deck .slides section').length, 15);
+    assert.equal(doc.querySelectorAll('#expo-deck .stack').length, 0);
+    assert.equal(doc.querySelector('[data-view-mode="presentar"]').getAttribute('aria-current'), 'true');
+    assert.equal(doc.querySelector('#hco3-number').value, '18');
+    assert.equal(env.win.location.hash, '#simulador');
+    await app.switchMode('estudiar');
+    assert.equal(doc.body.dataset.mode, 'estudiar');
+    assert.equal(doc.querySelector('#hco3-number').value, '18');
+    assert.equal(correct.checked, true);
+    assert.equal(doc.querySelector('[data-reveal-style]'), null);
+    assert.ok([...doc.querySelectorAll('.expo-scene')].every(scene => !scene.hidden), 'Every scene must become readable after leaving slides');
+    assert.equal(env.win.location.hash, '#simulador');
   } finally { await env.close(); }
 });
