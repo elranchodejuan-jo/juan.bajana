@@ -138,6 +138,6 @@ INP de usuarios, datos de campo ni percentiles de Core Web Vitals.
 
 ## Exposiciones académicas
 
-El acceso **EXPOSICIONES** incorpora una biblioteca estática y el piloto de equilibrio ácido-base, con modos Presentar/Estudiar, casos y simulador. Genética tiene una categoría vacía y un procedimiento reutilizable; su tema no se ha inventado.
+El acceso **EXPOSICIONES** incorpora una biblioteca estática con dos temas: equilibrio ácido-base (15 escenas) y cromosomas sexuales, diferenciación sexual y sistemas básicos de determinación sexual en animales (18 escenas). Ambos ofrecen modos Página/Diapositivas, notas y materiales académicos. Genética añade seis exploradores, figuras originales y un fondo decorativo propio.
 
-Consulta [la guía de ejecución y autoría](exposiciones/README.md) y [la verificación de esta entrega](docs/exposiciones-verificacion.md). No cambia CNAME ni el despliegue existente.
+Consulta [la guía de ejecución y autoría](exposiciones/README.md), [la verificación inicial](docs/exposiciones-verificacion.md) y [la verificación de Genética](docs/exposiciones-verificacion-determinacion-sexual.md). La incorporación de Genética está preparada en una rama; su publicación requiere revisar y fusionar el PR. La revisión web en navegador sigue pendiente por una limitación del entorno de vista previa. No cambia CNAME ni el despliegue existente.
