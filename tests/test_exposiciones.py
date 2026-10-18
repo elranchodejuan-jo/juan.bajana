@@ -10,6 +10,12 @@ from pathlib import Path
 from urllib.parse import urlsplit, unquote, urljoin
 
 ROOT = Path(__file__).resolve().parents[1]
+EXPECTED_PAGES = {
+    'exposiciones/index.html', 'exposiciones/fisiopatologia/index.html',
+    'exposiciones/genetica/index.html',
+    'exposiciones/fisiopatologia/equilibrio-acido-base/index.html',
+    'exposiciones/genetica/cromosomas-y-determinacion-sexual/index.html',
+}
 spec = importlib.util.spec_from_file_location('builder', ROOT/'scripts/build-exposiciones.py')
 builder = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(builder)
@@ -96,10 +102,14 @@ class ExposicionesTests(unittest.TestCase):
         expected={f'/{p.relative_to(ROOT).as_posix()}':f'/{p.relative_to(ROOT).as_posix()}?v={hashlib.sha256(p.read_bytes()).hexdigest()[:16]}' for p in modules}
         css=shared/'expo.css';css_url=f'/exposiciones/shared/expo.css?v={hashlib.sha256(css.read_bytes()).hexdigest()[:16]}'
         pages=list((ROOT/'exposiciones').rglob('index.html'))
-        self.assertEqual(len(pages),4)
+        self.assertEqual({p.relative_to(ROOT).as_posix() for p in pages},EXPECTED_PAGES)
         for page in pages:
             parsed=RuntimeAssets();parsed.feed(page.read_text())
-            self.assertEqual(parsed.styles,[css_url],str(page))
+            expected_styles=[css_url]
+            if 'cromosomas-y-determinacion-sexual' in page.parts:
+                expected_styles += [builder.asset_url('/exposiciones/shared/'+name) for name in
+                                    ['genetics.css','genetics-ambient.css','genetics-layout.css']]
+            self.assertEqual(parsed.styles,expected_styles,str(page))
             self.assertEqual(parsed.import_maps,[{'imports':expected}],str(page))
             self.assertEqual([s.get('type') for s in parsed.scripts],['importmap','module'],str(page))
             self.assertEqual(parsed.scripts[-1]['src'],expected['/exposiciones/shared/experience.mjs'])
@@ -152,7 +162,7 @@ class ExposicionesTests(unittest.TestCase):
 
     def test_html_links_ids_images_and_no_remote_runtime(self):
         files=list((ROOT/'exposiciones').rglob('index.html'))
-        self.assertEqual(len(files),4)
+        self.assertEqual({p.relative_to(ROOT).as_posix() for p in files},EXPECTED_PAGES)
         for p in files:
             parsed=Links();parsed.feed(p.read_text())
             self.assertEqual(len(parsed.ids),len(set(parsed.ids)),f'Duplicate id {p}')
@@ -196,7 +206,69 @@ class ExposicionesTests(unittest.TestCase):
         self.assertIn('data-motion-toggle',source)
         self.assertIn('Lectura del razonamiento completo',source)
         genetics=(ROOT/'exposiciones/genetica/index.html').read_text()
-        self.assertIn('Todavía no hay exposiciones publicadas',genetics)
-        self.assertNotIn('data-expo-card',genetics)
+        self.assertNotIn('Todavía no hay exposiciones publicadas',genetics)
+        self.assertEqual(genetics.count('data-expo-card'),1)
+        self.assertIn('/exposiciones/genetica/cromosomas-y-determinacion-sexual/?modo=presentar',genetics)
+        self.assertIn('/exposiciones/genetica/cromosomas-y-determinacion-sexual/?modo=estudiar',genetics)
+
+    def test_genetics_content_citations_scope_and_downloads(self):
+        data=json.loads((ROOT/'exposiciones/content/genetica--cromosomas-y-determinacion-sexual.json').read_text())
+        builder.validate(data,published=True)
+        self.assertEqual(len(data['scenes']),18)
+        self.assertEqual(data['authors'],['Juan José Bajaña Chuno'])
+        first=[]
+        for scene in data['scenes']:
+            self.assertTrue(scene.get('notes'),scene['id'])
+            for ref in scene.get('references',[]):
+                if ref not in first:first.append(ref)
+        self.assertEqual(first,list(range(1,len(data['references'])+1)))
+        self.assertEqual(len({r['key'] for r in data['references']}),len(data['references']))
+        source=(ROOT/'exposiciones/genetica/cromosomas-y-determinacion-sexual/index.html').read_text()
+        self.assertEqual(source.count('<section'),18)
+        self.assertEqual(source.count('<h1>'),1)
+        for acid_only in ['data-simulator','data-visual-lab=','data-hero ','Henderson','HCO₃']:
+            self.assertNotIn(acid_only,source)
+        self.assertIn('data-genetics-hero',source)
+        self.assertIn('conceptual',source)
+        self.assertNotIn('/workspace/',source)
+        self.assertNotIn('sandbox:',source)
+        self.assertEqual(len(data['quiz']),5)
+        for question in data['quiz']:
+            self.assertIn(question['correct'],range(len(question['options'])))
+            self.assertTrue(question['feedback'])
+        parsed=Links();parsed.feed(source)
+        self.assertEqual(len(parsed.downloads),2)
+        expected_hashes={
+            'informe-determinacion-sexual-animal.docx':'52605524ebd3db1ddf3dc1461ac74b8008e8577b7c9b7d41a3efb79bb628cb9f',
+            'presentacion-determinacion-sexual-animal.pptx':'670b86c56a6af47891374190328f0e7631f86d6968196642773e4c825b7f3d2b',
+        }
+        for link in parsed.downloads:
+            path=urlsplit(link['href']).path
+            digest=hashlib.sha256((ROOT/path.lstrip('/')).read_bytes()).hexdigest()
+            self.assertEqual(digest,expected_hashes[Path(path).name])
+            self.assertEqual(link['href'],path+'?v='+digest[:16])
+
+    def test_genetics_renderer_is_scoped_to_its_lesson(self):
+        data=json.loads((ROOT/'exposiciones/content/genetica--cromosomas-y-determinacion-sexual.json').read_text())
+        scene=next(s for s in data['scenes'] if s['id']=='cruces-cromosomicos')
+        self.assertIn('data-genetics-lab',builder.scene_html(scene,data,3))
+        unrelated=dict(data,slug='otra-leccion')
+        self.assertNotIn('data-genetics-lab',builder.scene_html(scene,unrelated,3))
+
+    def test_genetics_widget_sources_are_numbered_and_cannot_be_orphaned(self):
+        data=json.loads((ROOT/'exposiciones/content/genetica--cromosomas-y-determinacion-sexual.json').read_text())
+        scene=next(s for s in data['scenes'] if s['id']=='via-ovarica')
+        markup='<a class="gen-source" href="'+data['references'][2]['url']+'">Ridnik et al.</a>'
+        resolved=builder.numbered_visual_sources(markup,data,scene)
+        self.assertIn('href="#ref-3"',resolved)
+        self.assertIn('>[3]</a>',resolved)
+        with self.assertRaises(ValueError):
+            builder.numbered_visual_sources(markup,data,dict(scene,references=[]))
+        with self.assertRaises(ValueError):
+            builder.numbered_visual_sources('<a class="gen-source" href="https://example.com/unknown">Unknown</a>',data,scene)
+        source=(ROOT/'exposiciones/genetica/cromosomas-y-determinacion-sexual/index.html').read_text()
+        sources=re.findall(r'<a class="gen-source" href="([^"]+)"',source)
+        self.assertGreaterEqual(len(sources),6)
+        self.assertTrue(all(url.startswith('#ref-') for url in sources))
 
 if __name__=='__main__':unittest.main()

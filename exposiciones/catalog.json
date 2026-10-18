@@ -10,5 +10,17 @@
     ],
     "status": "published",
     "cover": "/exposiciones/assets/figuras/bicarbonato.svg"
+  },
+  {
+    "id": "genetica-cromosomas-y-determinacion-sexual",
+    "subject": "genetica",
+    "slug": "cromosomas-y-determinacion-sexual",
+    "title": "Cromosomas sexuales, diferenciación sexual y sistemas básicos de determinación sexual en animales",
+    "summary": "Comparación de cromosomas, redes gonadales y señales ambientales con ejemplos veterinarios.",
+    "authors": [
+      "Juan José Bajaña Chuno"
+    ],
+    "status": "published",
+    "cover": "/exposiciones/assets/figuras/genetica/determinacion-sexual/portada.svg"
   }
 ]

@@ -321,6 +321,56 @@ test('DOM: mode round trip uses local reveal engine and preserves entered state'
   } finally { await env.close(); }
 });
 
+test('DOM: genetics keeps all activity choices when opening references from slides', async () => {
+  const env = await environment('exposiciones/genetica/cromosomas-y-determinacion-sexual/index.html', '?modo=estudiar#cruces-cromosomicos');
+  try {
+    const { win, document: doc, app } = env;
+    change(win, doc.querySelector('[data-gen-model]'), 'zzzw');
+    doc.querySelector('[data-gen-cross="zzzw"] [data-row="1"][data-column="0"]').click();
+    doc.querySelector('#via-testicular [data-gen-route="ovarica"]').click();
+    doc.querySelector('[data-gen-hormone="dht"]').click();
+    change(win, doc.querySelector('[data-gen-system]'), 'haplodiploidia');
+    doc.querySelector('[data-gen-pattern="FMF"]').click();
+    change(win, doc.querySelector('[data-gen-temperature]'), '2');
+    doc.querySelector('[data-genetics-step="2"]').click();
+    const question = doc.querySelector('[data-question]');
+    const answer = question.querySelector(`input[value="${question.dataset.answer}"]`);
+    answer.click();
+    doc.querySelector('[data-quiz-check]').click();
+    for (const selector of ['[data-gen-model]', '[data-gen-temperature]', '[data-gen-hormone="dht"]']) {
+      assert.equal(app.canNavigateByKeyboard({ target: doc.querySelector(selector) }), false);
+    }
+
+    const transition = app.switchMode('presentar');
+    doc.querySelector('[data-reveal-style]').dispatchEvent(new win.Event('load'));
+    await transition;
+    assert.equal(doc.querySelectorAll('#expo-deck .slides section').length, 18);
+    assert.equal(doc.querySelectorAll('#expo-deck .stack').length, 0);
+    assert.equal(win.location.hash, '#cruces-cromosomicos');
+    doc.querySelector('#expo-index a[href="#referencias-y-materiales"]').click();
+    const referenceLink = doc.querySelector('#referencias-y-materiales [data-view-mode="estudiar"]');
+    assert.equal(new URL(referenceLink.href).hash, '#referencias-y-materiales');
+    referenceLink.click();
+    await tick();
+    assert.equal(doc.body.dataset.mode, 'estudiar');
+    assert.equal(win.location.hash, '#referencias-y-materiales');
+    assert.equal(doc.querySelector('[data-gen-model]').value, 'zzzw');
+    assert.equal(doc.querySelector('[data-gen-complement]').textContent, 'ZW · Hembra');
+    assert.equal(doc.querySelector('#via-testicular [data-gen-route-panel="ovarica"]').hidden, false);
+    assert.equal(doc.querySelector('[data-gen-hormone-panel="dht"]').hidden, false);
+    assert.equal(doc.querySelector('[data-gen-system]').value, 'haplodiploidia');
+    assert.equal(doc.querySelector('[data-gen-pattern="FMF"]').getAttribute('aria-pressed'), 'true');
+    assert.equal(doc.querySelector('[data-gen-temperature]').value, '2');
+    assert.equal(doc.querySelector('[data-gen-thermal-result]').textContent, 'Predominio relativo de machos');
+    assert.equal(doc.querySelector('[data-genetics-hero]').dataset.stage, '2');
+    assert.equal(answer.checked, true);
+    assert.equal(question.querySelector('[data-feedback]').hidden, false);
+    assert.match(doc.querySelector('[data-quiz-score]').textContent, /1 de 5 respuestas correctas/);
+    assert.equal(doc.querySelectorAll('[data-genetics-ambient]').length, 1);
+    assert.equal(doc.querySelector('[data-hero]'), null);
+  } finally { await env.close(); }
+});
+
 test('DOM regression: stale study animation frames cannot change the slide during loading or after a mode round trip', async () => {
   const env = await environment(expoPath, '?modo=estudiar#simulador', { manualAnimationFrames: true });
   try {

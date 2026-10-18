@@ -1,0 +1,28 @@
+/* Layout for this lesson only; the shared Fisiopatología composition is retained. */
+body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-scene-heading h1 {
+  font-size: clamp(32px, 4.1vw, 50px);
+  line-height: 1.12;
+  max-width: 34ch;
+}
+body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-cover-layout { gap: 32px; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-references { margin-bottom: 28px; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-scene-copy { min-width: 0; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-credits { font-size: 14px; }
+@media screen {
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-scene-heading { margin-bottom: 20px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-scene-heading h1 { font-size: 44px; max-width: none; line-height: 1.12; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-scene-heading h2 { font-size: 46px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-lead { font-size: 26px; line-height: 1.3; margin-top: 12px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-cover-copy { font-size: 24px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-cover-copy .expo-points li { margin-bottom: 12px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-cover-copy .expo-author { font-size: 18px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-scene-grid { font-size: 28px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-figure img { max-height: 315px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-figure figcaption { font-size: 16px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-sources { margin-top: 12px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-comparison p { font-size: 27px; }
+}
+@media print {
+  body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-scene-heading h1 { font-size: 25pt !important; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-cover-layout { display: block; }
+}
