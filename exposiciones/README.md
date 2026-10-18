@@ -68,6 +68,8 @@ py -3 -m unittest discover -s tests -p "test_*.py" -v
 
 `published` significa incluido en los archivos generados de esa rama, no desplegado en internet. Revisa las páginas localmente y abre un pull request. La publicación efectiva depende de su aprobación y del alojamiento existente. El generador escribe HTML versionado; GitHub Pages no necesita ejecutar Python ni npm.
 
+Vuelve a ejecutar el generador cuando cambies `shared/expo.css` o cualquier módulo JavaScript y publica también los cuatro HTML regenerados. Cada recurso lleva `?v=` con un hash de su contenido; un `importmap` anterior al script de entrada versiona también las dependencias estáticas y dinámicas. Así, el HTML nuevo solicita el CSS y los módulos nuevos aunque el navegador conserve la versión anterior. Requiere un navegador actual con soporte de import maps. El CSS de Reveal y el script clásico de QR son archivos vendor sin cambios y no forman parte de este mapa.
+
 No coloques información privada en borradores: aunque no aparezcan en el catálogo, el repositorio es público.
 
 ## Pruebas

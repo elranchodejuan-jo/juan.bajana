@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate static study/presentation pages from reviewed JSON; no dependencies."""
 import argparse
+import hashlib
 import html
 import json
 import re
@@ -77,15 +78,31 @@ def icon(name):
 def button(label, attrs='', primary=False):
     return f'<button type="button" class="expo-button{" expo-button-primary" if primary else ""}" {attrs}><span data-control-label>{label}</span></button>'
 
+def asset_url(path, *, root=ROOT):
+    """Invalidate a browser's cached resource whenever its bytes change."""
+    if not path.startswith('/exposiciones/') or '?' in path or '#' in path or '..' in Path(path).parts:
+        raise ValueError('Ruta de recurso versionado inválida.')
+    digest = hashlib.sha256((root / path.lstrip('/')).read_bytes()).hexdigest()[:16]
+    return f'{path}?v={digest}'
+
+def module_imports(*, root=ROOT):
+    """Map normalized module URLs, including relative and dynamic imports."""
+    shared = root / 'exposiciones/shared'
+    vendor = root / 'exposiciones/vendor'
+    modules = {*shared.rglob('*.mjs'), *vendor.rglob('*.mjs'), *vendor.rglob('*.esm.js')}
+    return {f'/{path.relative_to(root).as_posix()}': asset_url(f'/{path.relative_to(root).as_posix()}', root=root)
+            for path in sorted(modules)}
+
 def head(title, description, subject='fisiopatologia'):
-    return f'''<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{esc(title)} · VETJB</title><meta name="description" content="{esc(description)}"><meta name="color-scheme" content="dark light"><link rel="icon" href="/assets/favicon.png"><link rel="stylesheet" href="/exposiciones/shared/expo.css"></head><body class="expo-app" data-subject="{esc(subject)}" data-mode="estudiar" data-theme="dark"><a class="expo-skip" href="#contenido">Saltar al contenido</a><noscript><p class="expo-wrap expo-small">Modo lectura: el contenido y los razonamientos están disponibles. Activa JavaScript para presentar y usar los ejercicios interactivos.</p></noscript>'''
+    imports = json.dumps({'imports': module_imports()}, separators=(',', ':')).replace('<', '\\u003c')
+    return f'''<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{esc(title)} · VETJB</title><meta name="description" content="{esc(description)}"><meta name="color-scheme" content="dark light"><link rel="icon" href="/assets/favicon.png"><link rel="stylesheet" href="{esc(asset_url('/exposiciones/shared/expo.css'))}"><script type="importmap">{imports}</script></head><body class="expo-app" data-subject="{esc(subject)}" data-mode="estudiar" data-theme="dark"><a class="expo-skip" href="#contenido">Saltar al contenido</a><noscript><p class="expo-wrap expo-small">Modo lectura: el contenido y los razonamientos están disponibles. Activa JavaScript para presentar y usar los ejercicios interactivos.</p></noscript>'''
 
 def site_header(subject=None):
     back = f'<a href="/exposiciones/{subject}/">{esc(SUBJECTS[subject]["title"])}</a>' if subject else ''
     return f'<header class="expo-site-header"><a class="expo-brand" href="/" aria-label="Juan Bajaña, inicio">JB<span>_</span></a><nav aria-label="Ruta de navegación"><a href="/exposiciones/">EXPOSICIONES</a>{back}</nav>{button("Tema claro", "data-theme-toggle")}</header>'
 
 def scripts():
-    return '<script type="module" src="/exposiciones/shared/experience.mjs"></script></body></html>'
+    return f'<script type="module" src="{esc(asset_url("/exposiciones/shared/experience.mjs"))}"></script></body></html>'
 
 def citations(scene):
     refs = scene.get('references', [])
