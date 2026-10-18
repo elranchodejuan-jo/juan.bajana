@@ -1,6 +1,6 @@
 # VETJB · Exposiciones
 
-Biblioteca estática en español. Cada exposición contiene en un mismo HTML los modos **Página** (lectura vertical) y **Diapositivas**: equilibrio ácido-base tiene 15 escenas y determinación sexual animal, 18. No requiere cuentas, servicios de pago, CDNs ni un cambio de despliegue. `CNAME` y la portada conservan la publicación existente.
+Biblioteca estática en español. Cada exposición contiene en un mismo HTML los modos **Página** (lectura vertical) y **Diapositivas**: equilibrio ácido-base tiene 15 escenas y determinación sexual animal, 14. No requiere cuentas, servicios de pago, CDNs ni un cambio de despliegue. `CNAME` y la portada conservan la publicación existente.
 
 ## Abrir en Windows
 
@@ -51,20 +51,24 @@ Los dos casos son construidos, con datos coherentes: ternero con diarrea y perro
 
 ## Genética: cromosomas y determinación sexual
 
-La investigación bibliográfica de Genética y Mejoramiento Animal, Quinto A, UTMACH, se edita en `content/genetica--cromosomas-y-determinacion-sexual.json`. Sus 18 escenas distinguen constitución cromosómica, identidad gonadal y fenotipo; presentan las redes testicular y ovárica, las señales hormonales, cinco sistemas de determinación, diversidad en peces y ejemplos veterinarios bovinos y caninos. No atribuye experimentos ni pacientes al estudiante.
+La investigación bibliográfica de Genética y Mejoramiento Animal, Quinto A, UTMACH, se edita en `content/genetica--cromosomas-y-determinacion-sexual.json`. Sus 14 escenas distinguen constitución cromosómica, identidad gonadal y fenotipo; presentan las redes testicular y ovárica, las señales hormonales, cinco sistemas de determinación, diversidad en peces y ejemplos veterinarios bovinos y caninos. El primordio gonadal se integra en los niveles del desarrollo, los gametos en los cruces, ambas vías en una misma escena y XX/X0 en el comparador. Las explicaciones y notas conservan los conceptos y sus límites. No atribuye experimentos ni pacientes al estudiante.
 
-Hay seis exploradores: un cuadro de Punnett con modelos XX/XY y ZZ/ZW; dos instancias independientes de comparación de redes gonadales; señales AMH/testosterona/DHT; comparación de sistemas; y patrones térmicos MF, FM y FMF. La autoevaluación añade cinco preguntas con retroalimentación, puntuación local y reinicio. Los controles conservan su selección al cambiar entre Página y Diapositivas; las flechas del teclado de un campo o selector mantienen su función nativa.
+Hay siete exploradores: niveles del desarrollo, cuadro de Punnett con modelos XX/XY y ZZ/ZW, una comparación de redes gonadales con ambas vías, señales AMH/testosterona/DHT, comparación de sistemas, ploidía y `csd` en abeja melífera, y patrones térmicos MF, FM y FMF. La autoevaluación añade cinco preguntas con retroalimentación, puntuación local y reinicio. Los controles conservan su selección al cambiar entre Página y Diapositivas; las flechas del teclado de un campo o selector mantienen su función nativa.
 
 Los cruces expresan probabilidades teóricas bajo segregación y fecundación equivalentes, no una proporción exacta por camada. La actividad térmica no contiene grados ni porcentajes de una especie y no recomienda temperaturas de incubación. El comparador distingue XX/X0, haplodiploidía y el sistema `csd` de la abeja melífera; no asume que todo diploide sea hembra. Los ejemplos de freemartinismo y desarrollo sexual canino necesitan contexto y pruebas: la web no confirma diagnósticos.
 
 La portada ofrece tres perspectivas manuales: Cromosomas, Desarrollo y Diversidad. Un fondo genético independiente dibuja hélices, motivos cromosómicos y redes discretas; el puntero fino produce un efecto decorativo. Ambos respetan pausa global, movimiento reducido, pestaña oculta, impresión y receptor de notas. No reemplazan el fondo respiratorio de Fisiopatología. SVG y texto conservan la información si Canvas no está disponible.
 
-La entrega incluye siete SVG originales, 12 referencias verificadas y los archivos Word y PowerPoint preparados para este tema, copiados sin modificaciones. Los detalles de procedencia, hashes y revisión pendiente están en [la verificación de Genética](../docs/exposiciones-verificacion-determinacion-sexual.md). El estado `published` del JSON solo incorpora la exposición al catálogo generado de esta rama; no acredita un despliegue en vetjb.com.
+Los diagramas de Genética se integran como SVG inline con superficies transparentes y colores adaptados al tema claro u oscuro. Los iconos se usan como apoyo puntual para reconocer conceptos y controles; las etiquetas textuales conservan el significado. No se colocan paneles blancos opacos sobre el tema oscuro. El archivo original de cada figura sigue disponible para ampliación.
+
+Cuatro aliases mantienen los enlaces anteriores: `gonada-bipotencial` dirige a `niveles-del-desarrollo`, `cromosomas-y-gametos` a `cruces-cromosomicos`, `via-ovarica` a `via-testicular` y `sistema-xx-x0` a `comparacion-de-sistemas`. Son destinos de compatibilidad, no escenas adicionales.
+
+Se conservan los siete SVG originales, 12 referencias verificadas y los archivos Word y PowerPoint preparados para este tema. Los descargables no se modifican en esta revisión: el PowerPoint mantiene sus 20 diapositivas. Los detalles de procedencia y hashes están en [el registro inicial de Genética](../docs/exposiciones-verificacion-determinacion-sexual.md); el alcance y los pendientes actuales están en [la revisión visual de 14 escenas](../docs/exposiciones-verificacion-genetica-visual.md). El estado `published` del JSON solo incorpora la exposición al catálogo generado de la rama; no acredita un despliegue en vetjb.com.
 
 Archivos de implementación:
 
 - `shared/genetics-models.mjs` y `shared/genetics-labs.mjs`: relaciones educativas y controles.
-- `scripts/expo_genetics.py`: fragmentos semánticos de los seis exploradores.
+- `scripts/expo_genetics.py`: fragmentos semánticos de los siete exploradores.
 - `shared/genetics-hero.mjs`, `scripts/expo_genetics_hero.py` y `shared/ambient-genetics.mjs`: portada y fondo.
 - `shared/genetics.css`, `shared/genetics-ambient.css` y `shared/genetics-layout.css`: estilos aislados.
 - `assets/figuras/genetica/determinacion-sexual/`: figuras originales; atribución y alcance en `assets/figuras/LICENSES.md`.
@@ -77,7 +81,7 @@ Desde la raíz, usando el tema real:
 py -3 scripts/build-exposiciones.py new --subject genetica --slug nombre-real-del-tema
 ```
 
-Esto crea un JSON en `exposiciones/content/` con estado `draft`; rechaza rutas inseguras y duplicados y no sobrescribe contenidos. Completa `title`, `summary`, `authors`, `cover`, `scenes`, `references` y, si existen, `resources`. Las rutas de figuras y descargas deben estar dentro de `/exposiciones/` y existir. Las referencias usan `id`, `citation`, `url` HTTPS y `scope`. Conserva identificadores de escenas estables.
+Esto crea un JSON en `exposiciones/content/` con estado `draft`; rechaza rutas inseguras y duplicados y no sobrescribe contenidos. Completa `title`, `summary`, `authors`, `cover`, `scenes`, `references` y, si existen, `resources`. Las rutas de figuras y descargas deben estar dentro de `/exposiciones/` y existir. Las referencias usan `id`, `citation`, `url` HTTPS y `scope`. Conserva identificadores de escenas estables. Cuando integres un apartado en otro, registra su antiguo identificador en `aliases` de la escena receptora y comprueba que el enlace profundo conserve un destino único.
 
 Las materias y sus metadatos se configuran en `exposiciones/subjects.json`; sus acentos están aislados en `shared/expo.css`.
 
@@ -106,12 +110,12 @@ py -3 -m unittest discover -s tests -p "test_*.py" -v
 node --check js/main.js
 ```
 
-Las pruebas jsdom comprueban lógica y DOM; no sustituyen un navegador real ni verifican geometría, ventanas emergentes, fullscreen o comportamiento de proyección. Consulta `docs/exposiciones-verificacion-e1.md` para el trabajo previo de Fisiopatología y `docs/exposiciones-verificacion-determinacion-sexual.md` para Genética. Los resultados y pendientes de una entrega no validan automáticamente la otra.
+Las pruebas jsdom comprueban lógica y DOM; no sustituyen un navegador real ni verifican geometría, ventanas emergentes, fullscreen o comportamiento de proyección. Consulta `docs/exposiciones-verificacion-e1.md` para el trabajo previo de Fisiopatología, `docs/exposiciones-verificacion-determinacion-sexual.md` para la incorporación inicial de Genética y `docs/exposiciones-verificacion-genetica-visual.md` para la revisión de 14 escenas. Los resultados y pendientes de una entrega no validan automáticamente la otra.
 
 ## Respaldo e impresión
 
-Fisiopatología ofrece el informe académico actualizado en Word, su versión PDF y una presentación PowerPoint de 15 diapositivas. Los tres archivos comparten las referencias y los dos casos didácticos de esa exposición. Genética ofrece su informe Word y su PowerPoint de 20 diapositivas, con notas, imágenes y bibliografía; la síntesis web tiene 18 escenas. No se ha creado un PDF nuevo de Genética. Las animaciones y los controles interactivos se exploran en la web. Solo se muestran descargas para archivos existentes y sus enlaces incluyen una versión basada en el contenido para evitar archivos antiguos en caché.
+Fisiopatología ofrece el informe académico actualizado en Word, su versión PDF y una presentación PowerPoint de 15 diapositivas. Los tres archivos comparten las referencias y los dos casos didácticos de esa exposición. Genética ofrece su informe Word y su PowerPoint de 20 diapositivas, con notas, imágenes y bibliografía; la síntesis web tiene 14 escenas. Ambos archivos de Genética se conservan sin cambios en esta revisión. No se ha creado un PDF nuevo de Genética. Las animaciones y los controles interactivos se exploran en la web. Solo se muestran descargas para archivos existentes y sus enlaces incluyen una versión basada en el contenido para evitar archivos antiguos en caché.
 
 La hoja de impresión está preparada para mostrar las escenas y las soluciones. Para un PDF desde el navegador, utiliza Estudiar, Ctrl+P, destino «Guardar como PDF» y revisa la vista previa. La salida puede variar; la impresión web de Genética sigue pendiente de inspección real. El PDF descargable de respaldo corresponde únicamente a Fisiopatología. No se instala un service worker.
 
-Para comprobar offline en tu equipo: abre un perfil de navegador nuevo, inicia el servidor local, desconecta internet y prueba navegación, figuras, casos y simulador. Las fuentes bibliográficas externas sí necesitan conexión. En esta entrega esa prueba real quedó pendiente por la limitación de vista previa descrita en la verificación.
+Para comprobar offline en tu equipo: abre un perfil de navegador nuevo, inicia el servidor local, desconecta internet y prueba navegación, figuras, casos y simulador. Las fuentes bibliográficas externas sí necesitan conexión. La comprobación actual en navegador está bloqueada por una política de permisos guardados de acceso a vetjb.com; no se intentan rutas alternativas para eludirla. La inspección estática y los renders de SVG no validan la maquetación ni el funcionamiento offline real. El bloqueo de vista previa del registro inicial corresponde a aquella entrega, no a esta revisión.

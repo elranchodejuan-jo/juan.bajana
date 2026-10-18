@@ -83,6 +83,9 @@ function openDialog(dialog, opener) {
 
 document.querySelectorAll('dialog').forEach((dialog) => {
   dialog.addEventListener('close', () => {
+    dialog.querySelector('[data-expanded-svg]')?.remove();
+    const figureImage = dialog.id === 'expo-figure' && dialog.querySelector('img');
+    if (figureImage) figureImage.hidden = false;
     const opener = dialogOpeners.get(dialog);
     if (opener?.isConnected) opener.focus({ preventScroll: true });
   });
@@ -185,6 +188,31 @@ document.querySelectorAll('[data-enlarge]').forEach((button) => {
   button.addEventListener('click', () => {
     const dialog = document.querySelector('#expo-figure');
     const image = dialog?.querySelector('img');
+    if (dialog && image && button.dataset.inlineFigure) {
+      const source = document.getElementById(button.dataset.inlineFigure);
+      if (!source?.matches('svg.gen-figure-svg')) return;
+      const expanded = source.cloneNode(true);
+      const nodes = [expanded, ...expanded.querySelectorAll('*')];
+      const ids = new Map(nodes.filter((node) => node.id).map((node) => [node.id, `${node.id}-expanded`]));
+      for (const node of nodes) {
+        for (const attribute of [...node.attributes]) {
+          let value = attribute.value;
+          if (attribute.name === 'id') value = ids.get(value);
+          else if (['aria-labelledby', 'aria-describedby'].includes(attribute.name)) value = value.split(/\s+/).map((id) => ids.get(id) || id).join(' ');
+          else {
+            for (const [oldId, newId] of ids) value = value.replaceAll(`url(#${oldId})`, `url(#${newId})`);
+            if (value.startsWith('#') && ids.has(value.slice(1))) value = `#${ids.get(value.slice(1))}`;
+          }
+          node.setAttribute(attribute.name, value);
+        }
+      }
+      expanded.dataset.expandedSvg = '';
+      dialog.querySelector('[data-expanded-svg]')?.remove();
+      image.hidden = true;
+      dialog.append(expanded);
+      openDialog(dialog, button);
+      return;
+    }
     if (!image || !button.dataset.src) return;
     const source = new URL(button.dataset.src, location.href);
     if (source.origin !== location.origin) return;
@@ -266,7 +294,9 @@ function sceneFromHash() {
   let id;
   try { id = decodeURIComponent(location.hash.slice(1).replace(/^\//, '')); } catch { return undefined; }
   if (isReceiver && /^\d+(?:\/\d+)?$/.test(id)) return scenes[Number(id.split('/')[0])];
-  return scenes.find((scene) => scene.id === id);
+  const target = document.getElementById(id);
+  const scene = target?.closest('.expo-scene');
+  return scenes.includes(scene) ? scene : undefined;
 }
 
 function navigateTo(scene, focus = false) {

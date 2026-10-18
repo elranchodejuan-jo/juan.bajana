@@ -9,7 +9,7 @@ import { initGeneticsLabs } from '../exposiciones/shared/genetics-labs.mjs';
 
 const directory = fileURLToPath(new URL('../', import.meta.url));
 const fragments = JSON.parse(execFileSync(process.env.PYTHON || 'python3', ['-c',
-  "import json,sys;sys.path.insert(0,'scripts');from expo_genetics import genetics_visual;ids=['cruces-cromosomicos','via-testicular','via-ovarica','hormonas-y-conductos','comparacion-de-sistemas','temperatura','unknown'];print(json.dumps({key:genetics_visual(key) for key in ids}))",
+  "import json,sys;sys.path.insert(0,'scripts');from expo_genetics import genetics_visual;ids=['niveles-del-desarrollo','haplodiploidia','cruces-cromosomicos','via-testicular','via-ovarica','hormonas-y-conductos','comparacion-de-sistemas','temperatura','unknown'];print(json.dumps({key:genetics_visual(key) for key in ids}))",
 ], { cwd: directory, encoding: 'utf8' }));
 
 function environment(html) {
@@ -55,10 +55,10 @@ test('thermal patterns reverse, preserve FMF female extremes and label transitio
 });
 
 test('SSR offers semantic tables, all scientific caveats and independent slide-free fragments', () => {
-  const { dom, doc } = environment(Object.values(fragments).join(''));
+  const { dom, doc } = environment(Object.entries(fragments).filter(([key]) => key !== 'via-ovarica').map(([, html]) => html).join(''));
   try {
     assert.equal(fragments.unknown, '');
-    assert.equal(doc.querySelectorAll('[data-genetics-lab]').length, 6);
+    assert.equal(doc.querySelectorAll('[data-genetics-lab]').length, 7);
     assert.equal(doc.querySelectorAll('section').length, 0);
     for (const table of doc.querySelectorAll('table')) {
       assert.ok(table.querySelector('caption')?.textContent);
@@ -97,16 +97,14 @@ test('Punnett selections identify both parents, survive mode events and reset th
   } finally { dom.window.close(); }
 });
 
-test('networks preserve each scene default, do not couple both copies and detach listeners on destroy', () => {
-  const { dom, doc } = environment(fragments['via-testicular'] + fragments['via-ovarica']);
+test('the combined gonadal network compares both pathways and detaches listeners on destroy', () => {
+  const { dom, doc } = environment(fragments['via-testicular']);
   try {
     const destroy = initGeneticsLabs(doc);
-    const [testis, ovary] = doc.querySelectorAll('[data-genetics-lab]');
+    const testis = doc.querySelector('[data-genetics-lab]');
     assert.equal(testis.querySelector('[data-gen-route-panel="testicular"]').hidden, false);
-    assert.equal(ovary.querySelector('[data-gen-route-panel="ovarica"]').hidden, false);
     testis.querySelector('[data-gen-route="ovarica"]').click();
     assert.equal(testis.querySelector('[data-gen-route-panel="ovarica"]').hidden, false);
-    assert.equal(ovary.querySelector('[data-gen-route-panel="ovarica"]').hidden, false);
     destroy();
     testis.querySelector('[data-gen-reset]').click();
     assert.equal(testis.querySelector('[data-gen-route-panel="ovarica"]').hidden, false);
@@ -167,5 +165,75 @@ test('temperature explorer narrates relative locations, retains state and resets
     assert.equal(doc.querySelector('[data-gen-temperature]').value, '0');
     assert.equal(doc.querySelector('[data-gen-pattern="MF"]').getAttribute('aria-pressed'), 'true');
     assert.equal(doc.querySelector('[data-gen-thermal-result]').textContent, 'Predominio relativo de machos');
+  } finally { dom.window.close(); }
+});
+
+
+test('development levels distinguish somatic and germinal roles, provide a complete static summary and keyboard selection', () => {
+  const { dom, doc } = environment(fragments['niveles-del-desarrollo']);
+  try {
+    const lab = doc.querySelector('[data-genetics-lab]');
+    const summary = lab.querySelector('.gen-static-summary');
+    assert.equal(summary.querySelectorAll('tbody tr').length, 3);
+    assert.match(summary.textContent, /células somáticas y germinales/);
+    assert.match(summary.textContent, /Las somáticas dirigen.*las germinales originan gametos/);
+    assert.match(lab.textContent, /no permite diagnosticar/);
+    assert.equal(lab.querySelectorAll('button[data-gen-level] svg[aria-hidden="true"]').length, 3);
+    assert.equal(lab.querySelector('.gen-source').href, 'https://reproduccionanimalesdomesticos.fmvz.unam.mx/libro/capitulo1/autores.html');
+    const destroy = initGeneticsLabs(doc);
+    const duplicateDestroy = initGeneticsLabs(doc);
+    duplicateDestroy();
+    assert.equal(lab.dataset.genReady, 'true');
+    const first = lab.querySelector('[data-gen-level="cromosomas"]');
+    first.focus();
+    const arrow = new dom.window.KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true, cancelable: true });
+    first.dispatchEvent(arrow);
+    assert.equal(arrow.defaultPrevented, true);
+    assert.equal(doc.activeElement.dataset.genLevel, 'gonada');
+    assert.equal(lab.querySelector('[data-gen-level-panel]:not([hidden])').dataset.genLevelPanel, 'gonada');
+    const end = new dom.window.KeyboardEvent('keydown', { key: 'End', bubbles: true, cancelable: true });
+    doc.activeElement.dispatchEvent(end);
+    assert.equal(doc.activeElement.dataset.genLevel, 'fenotipo');
+    assert.equal(lab.querySelectorAll('[data-gen-level][aria-pressed="true"]').length, 1);
+    doc.body.dataset.mode = 'presentar';
+    doc.dispatchEvent(new dom.window.CustomEvent('expo:modechange', { detail: { mode: 'presentar' } }));
+    destroy();
+    lab.querySelector('[data-gen-reset]').click();
+    assert.equal(lab.querySelector('[data-gen-level-panel]:not([hidden])').dataset.genLevelPanel, 'fenotipo');
+    initGeneticsLabs(doc);
+    assert.equal(lab.querySelector('[data-gen-level-panel]:not([hidden])').dataset.genLevelPanel, 'fenotipo');
+    lab.querySelector('[data-gen-reset]').click();
+    assert.equal(lab.querySelector('[data-gen-level-panel]:not([hidden])').dataset.genLevelPanel, 'cromosomas');
+  } finally { dom.window.close(); }
+});
+
+test('Apis csd explorer distinguishes hemizygous, heterozygous and diploid-male cases without false probabilities', () => {
+  const { dom, doc } = environment(fragments.haplodiploidia);
+  try {
+    const lab = doc.querySelector('[data-genetics-lab]');
+    const rows = [...lab.querySelectorAll('.gen-static-summary tbody tr')].map((row) => row.textContent);
+    assert.equal(rows.length, 3);
+    assert.match(rows[0], /No fecundadon; A; hemicigoto en csdMacho haploide/);
+    assert.match(rows[1], /Fecundado2n; A \/ B; heterocigoto en csdHembra diploide/);
+    assert.match(rows[2], /Fecundado2n; A \/ A; homocigoto en csdMacho diploide/);
+    assert.match(lab.textContent, /A y B son símbolos didácticos, no datos/);
+    assert.match(lab.textContent, /No generalizar.*todos los himenópteros/);
+    assert.doesNotMatch(lab.textContent, /\d+\s*%/);
+    assert.equal(lab.querySelector('.gen-source').href, 'https://doi.org/10.1016/j.tig.2024.08.001');
+    const destroy = initGeneticsLabs(doc);
+    lab.querySelector('[data-gen-csd="homocigoto"]').click();
+    assert.equal(lab.querySelector('[data-gen-csd-panel]:not([hidden])').dataset.genCsdPanel, 'homocigoto');
+    assert.match(lab.querySelector('[data-gen-csd-panel]:not([hidden])').textContent, /2n.*A \/ A.*Macho diploide/);
+    destroy(); initGeneticsLabs(doc);
+    assert.equal(lab.querySelector('[data-gen-csd-panel]:not([hidden])').dataset.genCsdPanel, 'homocigoto');
+    lab.querySelector('[data-gen-csd="heterocigoto"]').click();
+    assert.match(lab.querySelector('[data-gen-csd-panel]:not([hidden])').textContent, /2n.*A \/ B.*Hembra diploide/);
+    const current = lab.querySelector('[data-gen-csd="heterocigoto"]');
+    current.dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'Home', bubbles: true, cancelable: true }));
+    assert.equal(doc.activeElement.dataset.genCsd, 'haploide');
+    lab.querySelector('[data-gen-csd="homocigoto"]').click();
+    lab.querySelector('[data-gen-reset]').click();
+    assert.equal(lab.querySelector('[data-gen-csd-panel]:not([hidden])').dataset.genCsdPanel, 'haploide');
+    assert.equal(lab.querySelectorAll('[data-gen-csd][aria-pressed="true"]').length, 1);
   } finally { dom.window.close(); }
 });

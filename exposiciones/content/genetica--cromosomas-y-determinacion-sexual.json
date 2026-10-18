@@ -48,15 +48,18 @@
     },
     {
       "id": "niveles-del-desarrollo",
-      "title": "Tres niveles que debemos distinguir",
-      "summary": "Cromosomas, gónadas y fenotipo aportan información diferente.",
+      "title": "Tres niveles, un desarrollo coordinado",
+      "summary": "Del primordio gonadal al fenotipo: cada nivel aporta información diferente.",
       "bullets": [
         "Constitución cromosómica: complemento sexual.",
         "Identidad gonadal: tejido y organización.",
         "Fenotipo: conductos, genitales y caracteres somáticos."
       ],
-      "explanation": "La determinación gonadal orienta la diferenciación del primordio; las señales tisulares contribuyen después al fenotipo. Sus relaciones pueden divergir. El aspecto externo, por sí solo, no demuestra cariotipo, tejido gonadal ni aptitud reproductiva.",
-      "notes": "Pedir un ejemplo del dato necesario para evaluar cada nivel: estudio cromosómico, evaluación del tejido y examen anatómico. El esquema ordena conceptos, no diagnostica a un animal.",
+      "explanation": "La determinación gonadal orienta la diferenciación de un primordio bipotencial organizado en la cresta genital; bipotencial no significa ovario maduro. Este primordio reúne células somáticas de soporte y del estroma con células germinales precursoras de gametos. Son linajes diferentes: las células germinales no se convierten en Sertoli. Las redes reguladoras orientan la organización gonadal y las señales tisulares contribuyen después al fenotipo. Estos niveles pueden divergir: el aspecto externo, por sí solo, no demuestra cariotipo, tejido gonadal ni aptitud reproductiva.",
+      "notes": "Recorrer los tres niveles y pedir qué dato permite evaluar cada uno: estudio cromosómico, evaluación del tejido y examen anatómico. Al explorar la gónada, distinguir células de soporte y precursoras de gametos. No asignar semanas humanas ni un calendario común a todas las especies domésticas. El esquema organiza conceptos; no diagnostica a un animal.",
+      "aliases": [
+        "gonada-bipotencial"
+      ],
       "references": [
         1
       ],
@@ -66,90 +69,39 @@
       "caption": "Figura 1. Elaboración propia basada en la referencia 1. Relaciones simplificadas."
     },
     {
-      "id": "cromosomas-y-gametos",
-      "title": "Cromosomas sexuales y tipos de gametos",
-      "summary": "La heterogametia cambia entre mamíferos domésticos y aves.",
+      "id": "cruces-cromosomicos",
+      "title": "Gametos y combinaciones cromosómicas",
+      "summary": "¿Quién aporta dos tipos de gametos en mamíferos domésticos y en aves?",
       "bullets": [
         "XX/XY: macho heterogamético.",
-        "ZZ/ZW: hembra heterogamética.",
-        "Muchos genes del desarrollo sexual son autosómicos."
+        "ZZ/ZW: hembra heterogamética."
       ],
-      "explanation": "Homogametia indica un solo tipo de complemento sexual en los gametos; heterogametia, dos. Los autosomas son los demás cromosomas y también contienen reguladores del desarrollo. Las letras designan complementos, no formas exclusivas de cromosomas duplicados.",
-      "notes": "Seguir cada progenitor hasta sus gametos. Preguntar quién aporta X o Y y quién aporta Z o W. No confundir heterogametia con heterocigosis de cualquier gen.",
-      "references": [
-        1,
-        2
+      "explanation": "Homogametia indica un solo tipo de complemento sexual en los gametos; heterogametia, dos. En mamíferos domésticos, la hembra XX aporta X y el macho XY aporta X o Y; en aves, el macho ZZ aporta Z y la hembra ZW aporta Z o W. Los autosomas son los demás cromosomas y también contienen reguladores del desarrollo sexual. Las letras designan complementos, no formas exclusivas de cromosomas duplicados. En el modelo ideal hay dos resultados equiprobables: XX y XY, o ZZ y ZW. Son probabilidades teóricas bajo segregación y fecundación equivalentes: no garantizan una proporción exacta en una camada ni predicen el sexo de un individuo.",
+      "notes": "Seguir cada progenitor hasta sus gametos e invitar a elegir una casilla antes de revelar el resultado. Distinguir heterogametia de heterocigosis de cualquier gen. Los gametos idénticos en filas o columnas repetidas representan combinaciones; no son nuevos tipos de gametos. Recordar que muchos reguladores son autosómicos y que el cuadro supone fecundación y segregación equivalentes.",
+      "aliases": [
+        "cromosomas-y-gametos"
       ],
-      "layout": "figure",
-      "figure": "/exposiciones/assets/figuras/genetica/determinacion-sexual/gametos-xx-xy-zz-zw.svg",
-      "figure_alt": "La hembra XX aporta X y el macho XY aporta X o Y; el macho ZZ aporta Z y la hembra ZW aporta Z o W.",
-      "caption": "Figura 2. Elaboración propia; patrones de referencia de mamíferos domésticos y aves."
-    },
-    {
-      "id": "cruces-cromosomicos",
-      "title": "Explora las combinaciones cromosómicas",
-      "summary": "Un cuadro de Punnett muestra posibilidades, no destinos individuales.",
-      "bullets": [
-        "Selecciona XX/XY o ZZ/ZW.",
-        "Identifica el origen de cada cromosoma."
-      ],
-      "explanation": "En el modelo ideal hay dos resultados equiprobables: XX y XY en mamíferos domésticos; ZZ y ZW en aves. Probabilidades teóricas bajo segregación y fecundación equivalentes. No garantizan una proporción exacta en una camada ni permiten predecir el sexo de un individuo.",
-      "notes": "Invitar a elegir una casilla antes de revelar el resultado. Si aparecen gametos idénticos en filas o columnas repetidas, aclarar que se duplican para representar combinaciones, no nuevos tipos de gametos. El modelo supone fecundación y segregación equivalentes.",
       "references": [
         1,
         2
       ],
       "layout": "default"
-    },
-    {
-      "id": "gonada-bipotencial",
-      "title": "El punto de partida: una gónada bipotencial",
-      "summary": "Las células somáticas y germinales cumplen funciones distintas.",
-      "bullets": [
-        "La cresta genital organiza el primordio gonadal.",
-        "Las células de soporte acompañan a las germinales.",
-        "Bipotencial no significa ovario maduro."
-      ],
-      "explanation": "El primordio reúne células somáticas de soporte y del estroma con células germinales precursoras de gametos. Las redes de regulación orientan su organización. Las células germinales no se convierten en Sertoli: son linajes diferentes.",
-      "notes": "Recuperar la distinción entre tejido de soporte y células precursoras de gametos. No asignar al esquema semanas humanas ni un calendario común a todas las especies domésticas.",
-      "references": [
-        1,
-        3
-      ],
-      "layout": "figure",
-      "figure": "/exposiciones/assets/figuras/genetica/determinacion-sexual/gonada-bipotencial.svg",
-      "figure_alt": "La gónada bipotencial reúne células somáticas de soporte y estroma con células germinales; son linajes diferentes.",
-      "caption": "Figura 3. Elaboración propia. Organización celular simplificada y sin escala temporal."
     },
     {
       "id": "via-testicular",
-      "title": "Vía testicular: una red reguladora",
-      "summary": "En el modelo mamífero típico, SRY favorece la activación de SOX9.",
+      "title": "Redes testicular y ovárica",
+      "summary": "Dos programas activos orientan la diferenciación y sostienen la identidad gonadal.",
       "bullets": [
-        "SOX9 contribuye a la diferenciación de Sertoli.",
-        "La regulación depende del tejido y del contexto."
+        "Testículo: SRY, SOX9 y células de Sertoli.",
+        "Ovario: RSPO1, WNT4, β-catenina y FOXL2."
       ],
-      "explanation": "SRY participa en el inicio de la red testicular; SOX9 integra regulación y mantenimiento de la línea de soporte. Intervienen otros genes y elementos reguladores. La cadena resumida no equivale a una secuencia universal para todos los vertebrados.",
-      "notes": "Leer las conexiones como relaciones funcionales. Distinguir un regulador transcripcional de una hormona. No transformar la selección de componentes en una predicción clínica: el explorador ilustra relaciones respaldadas.",
+      "explanation": "En el modelo mamífero típico, SRY favorece la activación de SOX9, que contribuye a la diferenciación de Sertoli y al mantenimiento de la línea de soporte. También participan otros genes y elementos reguladores. La vía ovárica requiere programas activos: RSPO1, WNT4 y β-catenina participan en su desarrollo, mientras FOXL2 contribuye a la identidad ovárica. En ratones adultos, la eliminación experimental de Foxl2 indujo reprogramación de células somáticas ováricas y expresión de genes testiculares. Este experimento no demuestra cambio sexual espontáneo normal en hembras domésticas. Las redes resumidas no son una secuencia universal para todos los vertebrados.",
+      "notes": "Alternar ambas vías y pedir que se identifique una relación de regulación en cada una. Distinguir reguladores transcripcionales de hormonas y desarrollo inicial de mantenimiento posterior. Explicar que el ovario no se forma por ausencia de organización. Al mencionar el estudio de Uhlenhaut, precisar ratón adulto y eliminación experimental de Foxl2. Las conexiones son relaciones funcionales dependientes del tejido y del contexto; no permiten una predicción clínica ni asignan funciones idénticas en todas las especies.",
+      "aliases": [
+        "via-ovarica"
+      ],
       "references": [
         1,
-        3,
-        4,
-        5
-      ],
-      "layout": "default"
-    },
-    {
-      "id": "via-ovarica",
-      "title": "La vía ovárica es activa",
-      "summary": "Desarrollo y mantenimiento requieren regulación coordinada.",
-      "bullets": [
-        "RSPO1, WNT4 y β-catenina participan en la vía.",
-        "FOXL2 contribuye a la identidad ovárica."
-      ],
-      "explanation": "El ovario se desarrolla mediante programas activos, no por ausencia de organización. En ratones adultos, eliminar Foxl2 experimentalmente indujo reprogramación de células somáticas ováricas y expresión de genes testiculares. Esa intervención no demuestra cambio sexual espontáneo normal en hembras domésticas.",
-      "notes": "Contrastar desarrollo inicial y mantenimiento posterior. Nombrar explícitamente la especie y la intervención del estudio de Uhlenhaut. La red está resumida y no asigna a cada componente una función idéntica en todas las especies.",
-      "references": [
         3,
         4,
         5
@@ -180,8 +132,11 @@
         "Compara señal, ejemplo y límite.",
         "Heterogametia solo donde corresponde."
       ],
-      "explanation": "XX/XY y ZZ/ZW distinguen complementos sexuales; XX/X0 incluye ausencia de un segundo cromosoma sexual. En abeja melífera, ploidía y csd se relacionan; en determinados reptiles, la temperatura influye durante un periodo sensible. Son modelos de referencia y no inventarios de todas las excepciones.",
-      "notes": "Pedir que el grupo identifique qué variable cambia entre sistemas. No describir ZZ/ZW como SRY invertido, ni forzar etiquetas X/Y en haplodiploidía o determinación térmica.",
+      "explanation": "XX/XY y ZZ/ZW distinguen complementos sexuales. En el patrón XX/X0 de algunos insectos, la hembra tiene XX y el macho X0: el cero expresa ausencia de un segundo cromosoma sexual, no un cromosoma llamado O. El macho forma gametos con X o sin cromosoma sexual; los autosomas mantienen su condición diploide. Esto es diferente de la haplodiploidía, en la que cambia el número de juegos cromosómicos completos. En abeja melífera, ploidía y csd se relacionan; en determinados reptiles, la temperatura influye durante un periodo sensible. Son modelos de referencia, no reglas para todas las especies ni inventarios de todas las excepciones.",
+      "notes": "Pedir que el grupo identifique qué variable cambia entre sistemas. Al seleccionar XX/X0, explicar el cero y contrastar un cromosoma sexual ausente con un juego cromosómico completo. No generalizar XX/X0 a todos los insectos, describir ZZ/ZW como SRY invertido ni forzar etiquetas X/Y en haplodiploidía o determinación térmica.",
+      "aliases": [
+        "sistema-xx-x0"
+      ],
       "references": [
         1,
         2,
@@ -218,32 +173,6 @@
       ]
     },
     {
-      "id": "sistema-xx-x0",
-      "title": "XX/X0: el cero tiene significado",
-      "summary": "En algunos insectos, X0 indica un único cromosoma sexual X.",
-      "bullets": [
-        "Hembra XX; macho X0 en el patrón de referencia.",
-        "0 significa ausencia, no un cromosoma O.",
-        "Los autosomas mantienen condición diploide."
-      ],
-      "explanation": "El macho puede formar gametos con X o sin cromosoma sexual. La ausencia de un segundo cromosoma sexual no convierte al organismo entero en haploide: el número de juegos autosómicos debe distinguirse del número de cromosomas sexuales.",
-      "notes": "Escribir X más cero y pedir que se explique el símbolo. Comparar este sistema con la haplodiploidía siguiente: en ella cambia el número de juegos cromosómicos completos. No generalizar XX/X0 a todos los insectos.",
-      "references": [
-        6
-      ],
-      "layout": "compare",
-      "comparison": [
-        {
-          "title": "XX",
-          "text": "Dos cromosomas sexuales X; patrón femenino de referencia."
-        },
-        {
-          "title": "X0",
-          "text": "Un X y ausencia del segundo cromosoma sexual; patrón masculino de referencia."
-        }
-      ]
-    },
-    {
       "id": "haplodiploidia",
       "title": "Abeja melífera: la ploidía no lo explica todo",
       "summary": "El estado del locus csd permite entender los machos diploides.",
@@ -260,7 +189,7 @@
       "layout": "figure",
       "figure": "/exposiciones/assets/figuras/genetica/determinacion-sexual/haplodiploidia-csd.svg",
       "figure_alt": "Tres posibilidades en abeja melífera: haploide hemicigoto macho, diploide heterocigoto hembra y diploide homocigoto macho.",
-      "caption": "Figura 4. Elaboración propia basada en la referencia 7. Modelo introductorio de Apis mellifera."
+      "caption": "Figura 2. Elaboración propia basada en la referencia 7. Modelo introductorio de Apis mellifera."
     },
     {
       "id": "temperatura",
@@ -295,7 +224,7 @@
       "layout": "figure",
       "figure": "/exposiciones/assets/figuras/genetica/determinacion-sexual/cambio-sexual-peces.svg",
       "figure_alt": "Determinación inicial diversa; en algunas especies la protandria va de macho a hembra y la protoginia de hembra a macho.",
-      "caption": "Figura 5. Elaboración propia. Procesos de especies distintas; sin cronología ni especie simulada."
+      "caption": "Figura 3. Elaboración propia. Procesos de especies distintas; sin cronología ni especie simulada."
     },
     {
       "id": "freemartinismo",
@@ -314,7 +243,7 @@
       "layout": "figure",
       "figure": "/exposiciones/assets/figuras/genetica/determinacion-sexual/freemartinismo-bovino.svg",
       "figure_alt": "Conexión vascular entre fetos bovinos de distinto sexo: intercambio de células y señales, posible quimerismo sanguíneo y alteraciones reproductivas.",
-      "caption": "Figura 6. Elaboración propia basada en la referencia 11. Esquema funcional, no anatomía a escala."
+      "caption": "Figura 4. Elaboración propia basada en la referencia 11. Esquema funcional, no anatomía a escala."
     },
     {
       "id": "desarrollo-sexual-canino",
@@ -356,6 +285,7 @@
       "references": [
         1,
         2,
+        6,
         7,
         8,
         12
