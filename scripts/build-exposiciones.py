@@ -176,7 +176,7 @@ def scene_html(scene, data, i):
     if layout == 'references' and data.get('slug') == 'equilibrio-acido-base':
         body += '<p class="expo-credits expo-small">Referentes de interacción: <a href="https://andreerogel1997-bit.github.io/amc-vetatlas/" target="_blank" rel="noopener noreferrer">AMC VetAtlas · Andreé</a> y <a href="https://clinicaveterinariavinyo.com/" target="_blank" rel="noopener noreferrer">Clínica Veterinaria Vinyo</a>. Gráficos y código de esta experiencia creados para VETJB. Las referencias no implican colaboración ni aval.</p>'
     if layout == 'closing':
-        body += '<div class="expo-actions">' + ''.join(f'<a class="expo-button" href="{esc(r["path"])}" download>{esc(r["label"])}</a>' for r in data.get('resources', [])) + '</div>'
+        body += '<div class="expo-actions">' + ''.join(f'<a class="expo-button" href="{esc(asset_url(r["path"]))}" download>{esc(r["label"])}</a>' for r in data.get('resources', [])) + '</div>'
     expanded = f'<div class="expo-study-only expo-explanation"><h3>Para profundizar</h3>{paragraphs(scene.get("explanation"))}</div>' if scene.get('explanation') else ''
     return f'<section class="expo-scene" id="{esc(scene["id"])}" data-layout="{layout}" aria-label="{esc(scene["title"])}">{heading}{body}{expanded}{citations(scene)}<aside class="notes">{paragraphs(scene.get("notes", ""))}</aside></section>'
 

@@ -16,13 +16,20 @@ spec.loader.exec_module(builder)
 
 class Links(HTMLParser):
     def __init__(self):
-        super().__init__(); self.links=[]; self.ids=[]; self.images=[]
+        super().__init__(); self.links=[]; self.ids=[]; self.images=[]; self.downloads=[]; self.active_download=None
     def handle_starttag(self, tag, attrs):
         a=dict(attrs)
         if 'id' in a:self.ids.append(a['id'])
         if tag=='img':self.images.append(a)
+        if tag=='a' and 'download' in a:
+            self.active_download={'href':a.get('href'), 'label':''}
+            self.downloads.append(self.active_download)
         for k in ('href','src'):
             if a.get(k):self.links.append(a[k])
+    def handle_data(self, data):
+        if self.active_download is not None:self.active_download['label']+=data
+    def handle_endtag(self, tag):
+        if tag=='a':self.active_download=None
 
 class RuntimeAssets(HTMLParser):
     def __init__(self):
@@ -127,6 +134,21 @@ class ExposicionesTests(unittest.TestCase):
             with self.assertRaises(ValueError):builder.local_path(path)
         self.content['resources']=[{'path':'/exposiciones/no-existe.pdf'}]
         with self.assertRaises(ValueError):builder.validate(self.content,published=True)
+
+    def test_academic_downloads_include_powerpoint_and_version_every_file(self):
+        resources=self.content['resources']
+        self.assertEqual([(Path(r['path']).suffix,r['label']) for r in resources],[
+            ('.docx','Informe académico · Word'),
+            ('.pptx','Presentación académica · PowerPoint'),
+            ('.pdf','Informe académico · PDF'),
+        ])
+        expected=[{'href':f'{r["path"]}?v={hashlib.sha256((ROOT/r["path"].lstrip("/")).read_bytes()).hexdigest()[:16]}',
+                   'label':r['label']} for r in resources]
+        closing=next(s for s in self.content['scenes'] if s['layout']=='closing')
+        rendered=Links();rendered.feed(builder.scene_html(closing,self.content,0))
+        self.assertEqual(rendered.downloads,expected)
+        published=Links();published.feed((ROOT/'exposiciones/fisiopatologia/equilibrio-acido-base/index.html').read_text())
+        self.assertEqual(published.downloads,expected,'Regenerate the page after replacing any downloadable file.')
 
     def test_html_links_ids_images_and_no_remote_runtime(self):
         files=list((ROOT/'exposiciones').rglob('index.html'))
