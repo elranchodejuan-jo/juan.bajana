@@ -34,6 +34,14 @@ class ExposicionesTests(unittest.TestCase):
                 if r not in first:first.append(r)
         self.assertEqual(first,list(range(1,len(self.content['references'])+1)))
 
+    def test_other_subjects_do_not_receive_acid_base_visuals(self):
+        data=dict(self.content,subject='genetica',slug='tema-real-futuro')
+        cover=builder.scene_html(data['scenes'][0],data,0)
+        self.assertNotIn('data-hero',cover)
+        self.assertIn('expo-figure',cover)
+        pulmonary=next(s for s in data['scenes'] if s['id']=='regulacion-pulmonar')
+        self.assertNotIn('data-visual-lab',builder.scene_html(pulmonary,data,3))
+
     def test_draft_creation_rejects_traversal_and_duplicates(self):
         with tempfile.TemporaryDirectory() as td:
             for slug in ('../escape','a/b','a--b','', '/root','Acento','a%2fb'):
@@ -91,6 +99,12 @@ class ExposicionesTests(unittest.TestCase):
             self.assertIn(builder.esc(scene['title']),source)
             self.assertIn(f'id="{scene["id"]}"',source)
         self.assertIn('<noscript>',source)
+        self.assertEqual(len(self.content['scenes']),15)
+        self.assertEqual(source.count('class="expo-scene"'),15)
+        self.assertEqual(source.count('<section'),15, 'Nested sections become unintended vertical slides in reveal.js')
+        self.assertIn('data-view-mode="estudiar"',source)
+        self.assertIn('data-view-mode="presentar"',source)
+        self.assertIn('data-motion-toggle',source)
         self.assertIn('Lectura del razonamiento completo',source)
         genetics=(ROOT/'exposiciones/genetica/index.html').read_text()
         self.assertIn('Todavía no hay exposiciones publicadas',genetics)

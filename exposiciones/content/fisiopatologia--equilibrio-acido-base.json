@@ -7,7 +7,7 @@
   "summary": "Una lectura veterinaria del pH: mecanismos, gasometría y dos casos para razonar.",
   "language": "es",
   "audience": "Estudiantes de Medicina Veterinaria",
-  "reviewedOn": "2026-10-17",
+  "reviewedOn": "2026-10-18",
   "provenance": "Adaptación del informe académico de este proyecto y consulta de las fuentes enumeradas. Los casos y valores del simulador son construcciones didácticas, no datos de pacientes.",
   "scope": "Fundamentos fisiopatológicos e interpretación educativa; sin prescripción, dosificación ni protocolos de tratamiento.",
   "references": [
@@ -47,6 +47,14 @@
     },
     {
       "id": 5,
+      "citation": "Abnormal ventilation, abnormal gas exchange [material docente en Internet]. Columbia University; [sin fecha] [citado 18 oct 2026]. p. 6.",
+      "url": "https://www.columbia.edu/itc/hs/medical/pathophys/pulmonary/2008/abnormalColor.pdf",
+      "accessed": "2026-10-18",
+      "type": "Material docente universitario de fisiología general",
+      "scope": "Ecuación de ventilación alveolar y relación inversa entre PCO₂ y ventilación alveolar con producción de CO₂ constante. Sustenta el modelo matemático, no intervalos ni respuestas clínicas por especie. El PDF no identifica autor personal ni fecha de publicación."
+    },
+    {
+      "id": 6,
       "citation": "Cornell University. Physiology [Internet]. eClinPath; [citado 17 oct 2026].",
       "url": "https://eclinpath.com/chemistry/kidney/physiology/",
       "accessed": "2026-10-17",
@@ -54,7 +62,7 @@
       "scope": "Recuperación renal de bicarbonato, amoniogénesis y excreción neta de ácido."
     },
     {
-      "id": 6,
+      "id": 7,
       "citation": "Cornell University. Bicarbonate [Internet]. eClinPath; [citado 17 oct 2026].",
       "url": "https://eclinpath.com/chemistry/acid-base/chemistry-tests/bicarbonate/",
       "accessed": "2026-10-17",
@@ -62,7 +70,7 @@
       "scope": "Interpretación de HCO₃⁻ y mecanismos de alteraciones metabólicas."
     },
     {
-      "id": 7,
+      "id": 8,
       "citation": "Braun U, Nuss K, Reif S, Hilbe M, Gerspach C. Left and right displaced abomasum and abomasal volvulus: comparison of clinical, laboratory and ultrasonographic findings in 1982 dairy cows. Acta Vet Scand. 2022;64:40.",
       "doi": "10.1186/s13028-022-00656-9",
       "url": "https://doi.org/10.1186/s13028-022-00656-9",
@@ -72,7 +80,7 @@
       "scope": "Alteraciones abomasales y coexistencia de mecanismos acidificantes y alcalinizantes; datos clínicos de 1988–2016."
     },
     {
-      "id": 8,
+      "id": 9,
       "citation": "Cornell University. Laboratory detection [Internet]. eClinPath; [citado 17 oct 2026].",
       "url": "https://eclinpath.com/chemistry/acid-base/laboratory-detection/",
       "accessed": "2026-10-17",
@@ -80,7 +88,7 @@
       "scope": "Muestra, medición, gasometría e interpretación contextual."
     },
     {
-      "id": 9,
+      "id": 10,
       "citation": "Cornell University. Anion gap [Internet]. eClinPath; [citado 17 oct 2026].",
       "url": "https://eclinpath.com/chemistry/acid-base/chemistry-tests/anion-gap/",
       "accessed": "2026-10-17",
@@ -88,7 +96,7 @@
       "scope": "Fórmula, aniones no medidos, efecto de albúmina y limitaciones de la brecha aniónica."
     },
     {
-      "id": 10,
+      "id": 11,
       "citation": "Jung Y, Ku JY, Kim B, Kim Y, Park KM, Baek J, et al. Determining lactate concentrations in Korean indigenous calves and evaluating its role as a predictor for acidemia in calf diarrhea. BMC Vet Res. 2024;20:373.",
       "doi": "10.1186/s12917-024-04235-0",
       "url": "https://doi.org/10.1186/s12917-024-04235-0",
@@ -98,7 +106,7 @@
       "scope": "L- y D-lactato en terneros Hanwoo; clasificación de acidemia venosa y límites de la inferencia clínica."
     },
     {
-      "id": 11,
+      "id": 12,
       "citation": "Burgos RA, Manosalva C, Alarcón P, Navarro M, Quiroga J, Morán G, et al. The D-lactate enigma: exploring the inflammatory influence of D-lactate in cattle. Front Vet Sci. 2024;11:1509399.",
       "doi": "10.3389/fvets.2024.1509399",
       "url": "https://doi.org/10.3389/fvets.2024.1509399",
@@ -112,10 +120,10 @@
     {
       "id": "inicio",
       "title": "Fisiopatología del equilibrio ácido-base",
-      "summary": "Objetivo: relacionar mecanismos ácido-base con resultados y contexto veterinario.",
+      "summary": "Relaciona mecanismos ácido-base con resultados y contexto veterinario.",
       "bullets": [
         "¿Un pH dentro del intervalo descarta un trastorno?",
-        "Explora, interpreta y comprueba tus hipótesis."
+        "Explora los mecanismos. Interpreta los resultados."
       ],
       "notes": "Abrir con la pregunta clínica y recoger hipótesis. Al finalizar se volverá a ella mediante la autoevaluación.",
       "layout": "cover",
@@ -129,11 +137,11 @@
     },
     {
       "id": "ph-y-procesos",
-      "title": "Proceso y resultado no son lo mismo",
-      "summary": "Acidosis y alcalosis describen procesos. Acidemia y alcalemia describen el pH.",
+      "title": "pH: resultado y proceso",
+      "summary": "Acidemia y alcalemia describen el pH; acidosis y alcalosis, procesos.",
       "bullets": [
-        "Acidosis: tendencia a disminuir el pH.",
-        "Alcalosis: tendencia a aumentarlo.",
+        "Acidosis: tiende a disminuir el pH.",
+        "Alcalosis: tiende a aumentar el pH.",
         "Procesos opuestos pueden ocultarse en el resultado."
       ],
       "comparison": [
@@ -155,15 +163,15 @@
     },
     {
       "id": "bicarbonato-co2",
-      "title": "Una relación entre base y CO₂",
+      "title": "Bicarbonato y CO₂: una relación",
       "figureId": "sistema-bicarbonato",
-      "summary": "El sistema bicarbonato conecta la amortiguación química con la eliminación pulmonar de CO₂.",
+      "summary": "La amortiguación química se conecta con la eliminación pulmonar de CO₂.",
       "bullets": [
         "HCO₃⁻ / CO₂ disuelto determina el pH del modelo.",
-        "Amortiguar limita un cambio; no elimina por sí solo toda la carga."
+        "Amortiguar limita el cambio; no elimina toda la carga."
       ],
       "equation": "CO₂ + H₂O ⇌ H₂CO₃ ⇌ H⁺ + HCO₃⁻",
-      "notes": "Seguir las flechas reversibles. La relación didáctica 20:1 corresponde a HCO₃⁻ frente a CO₂ disuelto, no frente a PCO₂.",
+      "notes": "Seguir las flechas reversibles. La relación didáctica 20:1 corresponde a HCO₃⁻ frente a CO₂ disuelto, no frente a PCO₂. Usar los pasos para resaltar componentes de una misma reacción reversible, no como etapas irreversibles. La animación ilustra relaciones: no representa velocidades, concentraciones ni una escala temporal real.",
       "layout": "figure",
       "explanation": "Henderson–Hasselbalch relaciona pH, bicarbonato y CO₂. La hemoglobina, las proteínas y los fosfatos también participan en la amortiguación; sus efectos no están representados de forma independiente en el simulador.",
       "references": [
@@ -176,39 +184,40 @@
     },
     {
       "id": "regulacion-pulmonar",
-      "title": "Ventilar modifica la PCO₂",
+      "title": "La ventilación regula la PCO₂",
       "figureId": "regulacion-pulmonar",
-      "summary": "La ventilación alveolar controla la eliminación de CO₂ respecto de su producción.",
+      "summary": "La PCO₂ depende de la ventilación alveolar y de la producción de CO₂.",
       "bullets": [
-        "Menor ventilación efectiva: tendencia a retener CO₂.",
-        "Mayor ventilación efectiva: tendencia a eliminar CO₂.",
-        "Taquipnea no equivale siempre a hiperventilación alveolar."
+        "Menor ventilación alveolar: mayor PCO₂.",
+        "Mayor ventilación alveolar: menor PCO₂.",
+        "Comparación con producción de CO₂ constante."
       ],
-      "notes": "Aclarar la condición del esquema: producción de CO₂ comparable. Evitar concluir que una respiración rápida garantiza PCO₂ baja.",
+      "notes": "Aclarar la condición del esquema: producción de CO₂ comparable. Evitar concluir que una respiración rápida garantiza PCO₂ baja. El control del ejercicio expresa ventilación alveolar relativa de 50 a 150 %. Su referencia didáctica es 100 % y PCO₂ de 40 mmHg: PCO₂ = 40 / (ventilación relativa / 100). Comparar estados estacionarios con producción de CO₂ constante. El porcentaje no representa un intervalo fisiológico ni la frecuencia respiratoria. El movimiento pulmonar ilustra ventilación; su ritmo no simula la evolución temporal de la PCO₂. La ecuación alveolar de la fuente 5 sustenta la relación inversa; el valor 40 mmHg es una referencia elegida para este ejercicio. Se asume CO₂ inspirado despreciable y se aproxima PCO₂ alveolar a arterial. No se modelan espacio muerto ni desigualdad ventilación/perfusión. Si se muestra pH con HCO₃⁻ fijo en 24 mmol/L, es una comparación matemática que excluye tanto la amortiguación inicial como la adaptación renal.",
       "layout": "figure",
       "explanation": "Si se mantiene la producción de CO₂, una caída de ventilación alveolar eleva la PCO₂. La frecuencia respiratoria aislada no describe el volumen útil ventilado; por eso debe interpretarse con la gasometría.",
       "references": [
-        4
+        4,
+        5
       ],
       "figure": "/exposiciones/assets/figuras/pulmon.svg",
       "figure_alt": "Ventilar modifica la PCO₂",
-      "caption": "Esquema funcional original. Relaciones fisiológicas simplificadas."
+      "caption": "Esquema funcional. Producción de CO₂ constante y comparación entre estados estacionarios."
     },
     {
       "id": "regulacion-renal",
       "title": "El riñón conserva base y elimina ácido",
       "figureId": "regulacion-renal",
-      "summary": "Recuperar bicarbonato filtrado y generar bicarbonato nuevo son funciones distintas.",
+      "summary": "Recuperar HCO₃⁻ filtrado y generar HCO₃⁻ nuevo son funciones distintas.",
       "bullets": [
-        "Reabsorción: evita perder HCO₃⁻ existente.",
-        "Excreción neta de ácido: NH₄⁺ y ácido titulable.",
-        "La respuesta cambia con el tiempo y la función renal."
+        "Reabsorber conserva HCO₃⁻ existente.",
+        "Excretar ácido neto permite reponer HCO₃⁻.",
+        "La respuesta depende del tiempo y de la función renal."
       ],
-      "notes": "Separar conservación de una base ya filtrada de reposición de base. El dibujo representa funciones, no una anatomía renal exacta de una especie.",
+      "notes": "Separar conservación de una base ya filtrada de reposición de base. El dibujo representa funciones, no una anatomía renal exacta de una especie. Recorrer los tres pasos para distinguir recuperación de HCO₃⁻, excreción neta de ácido como NH₄⁺ y ácido titulable, y reposición de bicarbonato en sangre. Son una organización didáctica, no tres periodos sucesivos ni una nefrona anatómica. La secreción de H⁺ ligada a recuperar bicarbonato filtrado no equivale por sí sola a generar base neta.",
       "layout": "figure",
       "explanation": "La amoniogénesis renal utiliza glutamina. El amonio y los tampones urinarios permiten excretar ácido; esta eliminación neta repone bicarbonato en sangre. En la alcalosis también puede aumentar la excreción renal de bicarbonato, si las condiciones de volumen y electrolitos lo permiten.",
       "references": [
-        5
+        6
       ],
       "figure": "/exposiciones/assets/figuras/renal.svg",
       "figure_alt": "El riñón conserva base y elimina ácido",
@@ -216,12 +225,12 @@
     },
     {
       "id": "trastornos-metabolicos",
-      "title": "Dos direcciones metabólicas",
-      "summary": "La pérdida de base y la pérdida de ácido producen tendencias diferentes.",
+      "title": "Trastornos metabólicos",
+      "summary": "Ganar ácido o perder base acidifica; perder ácido o ganar base alcaliniza.",
       "bullets": [
-        "Acidosis: HCO₃⁻ disminuye en el patrón tradicional.",
-        "Alcalosis: HCO₃⁻ aumenta en el patrón tradicional.",
-        "La causa y el contexto deciden la interpretación."
+        "Acidosis metabólica: tendencia a HCO₃⁻ bajo.",
+        "Alcalosis metabólica: tendencia a HCO₃⁻ alto.",
+        "Interpretar siempre con pH, PCO₂ y contexto."
       ],
       "comparison": [
         {
@@ -233,21 +242,21 @@
           "text": "Pérdida o secuestro de HCl; ciertos aportes de base."
         }
       ],
-      "notes": "Contrastar diarrea y enfermedad abomasal. Identificar el material perdido o secuestrado antes de asociar una etiqueta con el síntoma.",
+      "notes": "Contrastar diarrea y enfermedad abomasal. Identificar el material perdido o secuestrado antes de asociar una etiqueta con el síntoma. Las tendencias de HCO₃⁻ describen el patrón tradicional; un valor aislado no establece que el proceso sea primario.",
       "layout": "compare",
       "explanation": "Un HCO₃⁻ bajo también puede acompañar la adaptación a una alcalosis respiratoria. En bovinos, el secuestro de contenido abomasal favorece alcalosis hipoclorémica; si se altera la perfusión puede añadirse acidosis. No todo vómito ni toda diarrea producen un patrón único.",
       "references": [
-        6,
-        7
+        7,
+        8
       ]
     },
     {
       "id": "trastornos-respiratorios",
-      "title": "El cambio primario puede ser el CO₂",
-      "summary": "La acidosis respiratoria retiene CO₂; la alcalosis respiratoria lo elimina en exceso respecto de su producción.",
+      "title": "Trastornos respiratorios",
+      "summary": "Un cambio primario de PCO₂ puede acidificar o alcalinizar.",
       "bullets": [
-        "PCO₂ alta: favorece descenso del pH.",
-        "PCO₂ baja: favorece aumento del pH."
+        "PCO₂ alta: favorece un pH menor.",
+        "PCO₂ baja: favorece un pH mayor."
       ],
       "comparison": [
         {
@@ -259,7 +268,7 @@
           "text": "Ejemplo: hiperventilación por dolor, excitación o hipoxemia."
         }
       ],
-      "notes": "Presentar los ejemplos como posibilidades. En el caso canino se conoce una secuencia temporal que ayuda a interpretar los números.",
+      "notes": "Presentar los ejemplos como posibilidades. En el caso canino se conoce una secuencia temporal que ayuda a interpretar los números. Retener o eliminar CO₂ se interpreta respecto de su producción. Una PCO₂ aislada no distingue un proceso primario de una respuesta secundaria.",
       "layout": "compare",
       "explanation": "La misma PCO₂ puede representar un proceso primario o una respuesta secundaria. Para decidirlo hay que observar bicarbonato, pH e historia; el nombre de una enfermedad respiratoria no sustituye esa evaluación.",
       "references": [
@@ -268,12 +277,12 @@
     },
     {
       "id": "compensacion-mixtos",
-      "title": "Compensar no significa resolver",
-      "summary": "Una respuesta secundaria atenúa el cambio; un trastorno mixto reúne procesos primarios.",
+      "title": "Compensación y trastornos mixtos",
+      "summary": "La compensación atenúa el cambio; los procesos mixtos se combinan.",
       "bullets": [
-        "Metabólico primario: cambia la ventilación.",
-        "Respiratorio primario: amortiguación inicial y adaptación renal posterior.",
-        "La magnitud esperada depende de especie y duración."
+        "Trastorno metabólico: respuesta ventilatoria.",
+        "Trastorno respiratorio: amortiguación y respuesta renal.",
+        "La respuesta esperada depende de especie y duración."
       ],
       "comparison": [
         {
@@ -285,7 +294,7 @@
           "text": "Dos o más procesos primarios; pueden sumar u oponer efectos."
         }
       ],
-      "notes": "Comparar cuadros recientes y persistentes sin convertir horas concretas en reglas universales. Un pH cercano al basal tampoco prueba curación.",
+      "notes": "Comparar cuadros recientes y persistentes sin convertir horas concretas en reglas universales. Un pH cercano al basal tampoco prueba curación. En los cuadros respiratorios, distinguir amortiguación inicial de adaptación renal posterior; la animación no debe hacerlas parecer instantáneas.",
       "layout": "compare",
       "explanation": "La respuesta ventilatoria comienza antes que la adaptación renal completa. En una acidosis respiratoria reciente, un pequeño aumento de HCO₃⁻ puede proceder de amortiguación: no prueba adaptación renal crónica. Las ecuaciones de compensación caninas no se trasladan automáticamente a terneros.",
       "references": [
@@ -294,49 +303,49 @@
     },
     {
       "id": "lectura-gasometria",
-      "title": "Leer la gasometría en orden",
-      "summary": "Comenzar por muestra y contexto; terminar integrando los resultados.",
+      "title": "Gasometría: cuatro pasos",
+      "summary": "De la muestra y el contexto a una interpretación integrada.",
       "bullets": [
-        "Identificar especie, muestra arterial o venosa y condiciones de obtención.",
-        "Comparar el pH con el criterio aplicable.",
-        "Relacionar PCO₂ y HCO₃⁻ con el cambio del pH.",
-        "Valorar respuesta, electrolitos y explicaciones alternativas."
+        "Identifica especie, muestra y condiciones de obtención.",
+        "Compara el pH con el criterio aplicable.",
+        "Relaciona PCO₂ y HCO₃⁻ con el cambio de pH.",
+        "Integra respuesta, electrolitos e historia."
       ],
       "steps": [
-        "Identificar especie, muestra arterial o venosa y condiciones de obtención.",
-        "Comparar el pH con el criterio aplicable.",
-        "Relacionar PCO₂ y HCO₃⁻ con el cambio del pH.",
-        "Valorar respuesta, electrolitos y explicaciones alternativas."
+        "Identifica especie, muestra y condiciones de obtención.",
+        "Compara el pH con el criterio aplicable.",
+        "Relaciona PCO₂ y HCO₃⁻ con el cambio de pH.",
+        "Integra respuesta, electrolitos e historia."
       ],
-      "notes": "Distinguir medidas de cálculos. No usar un valor de brecha aniónica como diagnóstico de acidosis láctica.",
+      "notes": "Distinguir medidas de cálculos. No usar un valor de brecha aniónica como diagnóstico de acidosis láctica. Precisar si la muestra es arterial o venosa y revisar las condiciones de obtención. En el último paso, considerar explicaciones alternativas además de la historia clínica.",
       "layout": "steps",
       "explanation": "El gasómetro mide pH y PCO₂; suele calcular bicarbonato. El aire y la demora pueden alterar resultados. La PO₂ venosa no sustituye a la arterial para evaluar oxigenación pulmonar. La brecha aniónica se calcula aquí como (Na⁺ + K⁺) − (Cl⁻ + HCO₃⁻). Se compara con el intervalo del laboratorio para esa fórmula. Una elevación orienta a aniones no medidos, sin identificar cuál; la albúmina baja puede enmascararla.",
       "references": [
-        8,
-        9
+        9,
+        10
       ],
       "equation": "AG = (Na⁺ + K⁺) − (Cl⁻ + HCO₃⁻)"
     },
     {
       "id": "simulador",
-      "title": "Cambia dos entradas; observa una salida",
-      "summary": "El pH es una salida calculada del modelo, no un tercer control independiente.",
+      "title": "Dos entradas, un pH calculado",
+      "summary": "Modifica HCO₃⁻ o PCO₂ y observa el pH del modelo.",
       "bullets": [
-        "Aumentar HCO₃⁻ con PCO₂ fija eleva el pH.",
-        "Aumentar PCO₂ con HCO₃⁻ fijo reduce el pH."
+        "Con PCO₂ fija: más HCO₃⁻ eleva el pH.",
+        "Con HCO₃⁻ fijo: más PCO₂ reduce el pH."
       ],
-      "notes": "Modificar una entrada cada vez. Después mantener la proporción de ambas: un pH parecido puede coexistir con valores alejados del punto inicial.",
+      "notes": "Modificar una entrada cada vez. Después mantener la proporción de ambas: un pH parecido puede coexistir con valores alejados del punto inicial. En la gráfica, localizar el punto calculado y observar cómo cambia al variar una sola entrada. La curva muestra una relación matemática; recorrerla no representa el paso del tiempo ni una trayectoria de compensación. El pH es la salida, no un tercer control independiente.",
       "layout": "simulator",
       "explanation": "El modelo usa pH = 6,1 + log₁₀[HCO₃⁻/(0,03 × PCO₂)]. Son constantes aproximadas a 37 °C: pK aparente 6,1 y solubilidad de CO₂ 0,03 mmol·L⁻¹·mmHg⁻¹. No corrige temperatura, diferencias de especie, proteínas ni otros iones. Con 24 mmol/L y 40 mmHg se obtiene 7,401. Este punto es una referencia matemática, no un intervalo veterinario. Una gasometría real opera de modo distinto: mide pH y PCO₂ y habitualmente calcula HCO₃⁻.",
       "references": [
         2,
-        8
+        9
       ]
     },
     {
       "id": "ternero-diarrea",
       "title": "Ternero con diarrea",
-      "summary": "Bovino · 12 días · caso didáctico",
+      "summary": "Bovino de 12 días · caso didáctico",
       "layout": "case",
       "case": {
         "id": "ternero-diarrea",
@@ -401,28 +410,28 @@
         },
         "references": [
           3,
-          6,
-          9,
+          7,
           10,
-          11
+          11,
+          12
         ],
         "correct": 0,
         "short_history": "Diarrea, menor ingestión de leche y debilidad."
       },
       "explanation": "Para nombrar acidemia en este ejercicio se utiliza el criterio pH venoso <7,35 aplicado por Jung et al. a terneros Hanwoo con diarrea. Es una clasificación del estudio, no un intervalo validado para todas las razas, edades o analizadores. En terneros con diarrea pueden coexistir pérdidas digestivas, alteración de perfusión y absorción de productos de fermentación. El lactato no reemplaza la gasometría. El D-lactato tiene vías y orígenes distintos del L-lactato, y exige evaluación específica.",
-      "notes": "Leer la muestra y los antecedentes antes de responder. Todos los resultados fueron elegidos para el ejercicio; no provienen de historias clínicas.",
+      "notes": "Leer la muestra y los antecedentes antes de responder. Todos los resultados fueron elegidos para el ejercicio; no provienen de historias clínicas. Solicitar primero una hipótesis y revelar el razonamiento paso a paso. La disminución de PCO₂ orienta la dirección de la respuesta, sin demostrar adecuación cuantitativa bovina.",
       "references": [
         3,
-        6,
-        9,
+        7,
         10,
-        11
+        11,
+        12
       ]
     },
     {
       "id": "perro-hipoventilacion",
       "title": "Perro con hipoventilación aguda",
-      "summary": "Canino · Adulto · caso didáctico",
+      "summary": "Canino adulto · caso didáctico",
       "layout": "case",
       "case": {
         "id": "perro-hipoventilacion",
@@ -504,28 +513,28 @@
           1,
           3,
           4,
-          8
+          9
         ],
         "correct": 0,
         "short_history": "Hipoventilación durante anestesia. Cambio en 20 minutos."
       },
       "explanation": "Se interpreta la secuencia conocida de hipoventilación, aumento de PCO₂ y descenso de pH. No se presenta un rango de referencia universal.",
-      "notes": "Leer la muestra y los antecedentes antes de responder. Todos los resultados fueron elegidos para el ejercicio; no provienen de historias clínicas.",
+      "notes": "Leer la muestra y los antecedentes antes de responder. Todos los resultados fueron elegidos para el ejercicio; no provienen de historias clínicas. Comparar primero el panel previo y el actual. Revelar después la secuencia: menor ventilación, mayor PCO₂ y menor pH. El pequeño aumento de HCO₃⁻ no demuestra adaptación renal crónica.",
       "references": [
         1,
         3,
         4,
-        8
+        9
       ]
     },
     {
       "id": "autoevaluacion",
-      "title": "¿Qué puedes concluir y qué falta?",
-      "summary": "Comprueba el razonamiento, no solo la etiqueta del trastorno.",
+      "title": "Comprueba tu razonamiento",
+      "summary": "Explica el mecanismo y reconoce qué datos faltan.",
       "bullets": [
         "El pH expresa un resultado.",
-        "La causa exige contexto y análisis conjunto.",
-        "La compensación no equivale a curación."
+        "La causa exige integrar datos y contexto.",
+        "Compensar no significa curar."
       ],
       "notes": "Volver a la pregunta inicial. Pedir una explicación breve antes de mostrar la retroalimentación y acceder a la bibliografía cuando se quiera profundizar.",
       "layout": "quiz",
@@ -534,25 +543,25 @@
     },
     {
       "id": "conclusiones",
-      "title": "Interpretar es conectar mecanismos",
-      "summary": "El pH es el inicio de la pregunta clínica.",
+      "title": "Integra los mecanismos",
+      "summary": "El pH inicia la pregunta clínica.",
       "layout": "closing",
       "bullets": [
         "Integra pH, PCO₂, HCO₃⁻, electrolitos e historia.",
-        "Reconoce la compensación y sus límites por especie.",
+        "Valora compensación, especie y duración.",
         "Un pH dentro del intervalo no descarta procesos opuestos."
       ],
       "references": [
         1,
         3,
-        8
+        9
       ],
-      "notes": "Volver a la pregunta de apertura y solicitar una explicación del grupo."
+      "notes": "Volver a la pregunta de apertura y solicitar una explicación del grupo. Cerrar con los límites del modelo y un dato adicional que sería necesario en cada caso, antes de nombrar una causa."
     },
     {
       "id": "referencias",
-      "title": "Fuentes para seguir estudiando",
-      "summary": "Bibliografía Vancouver · consultada el 17 de octubre de 2026.",
+      "title": "Referencias Vancouver",
+      "summary": "12 fuentes · consultadas el 17 y 18 de octubre de 2026.",
       "layout": "references",
       "notes": "Las citas de cada apartado enlazan a estas referencias y sus fuentes originales.",
       "references": []
@@ -671,7 +680,7 @@
     },
     "references": [
       2,
-      8
+      9
     ]
   },
   "cases": [
@@ -751,7 +760,7 @@
           "title": "1. Resultado del pH",
           "text": "7,15 cumple el criterio de acidemia seleccionado para el ejercicio.",
           "references": [
-            10
+            11
           ]
         },
         {
@@ -759,8 +768,8 @@
           "title": "2. Componente principal",
           "text": "HCO₃⁻ de 10 mmol/L, acidemia y diarrea apoyan acidosis metabólica.",
           "references": [
-            6,
-            10
+            7,
+            11
           ]
         },
         {
@@ -776,7 +785,7 @@
           "title": "4. Cálculo y límite",
           "text": "AG = (135 + 4,8) − (102 + 10) = 27,8 mmol/L. Hace falta el intervalo del laboratorio y el contexto proteico para clasificarla; no demuestra lactacidemia.",
           "references": [
-            9
+            10
           ]
         },
         {
@@ -784,8 +793,8 @@
           "title": "5. Lo que falta",
           "text": "Considerar pérdidas digestivas, perfusión y fermentación. Diferenciar L-lactato de D-lactato y no inferir el agente causal a partir de la gasometría.",
           "references": [
-            10,
-            11
+            11,
+            12
           ]
         }
       ],
@@ -797,10 +806,10 @@
       },
       "references": [
         3,
-        6,
-        9,
+        7,
         10,
-        11
+        11,
+        12
       ]
     },
     {
@@ -904,7 +913,7 @@
           "title": "4. Límites de la conclusión",
           "text": "Los datos no identifican por sí solos la causa de hipoventilación ni cuantifican la oxigenación; no se proporcionó PaO₂.",
           "references": [
-            8
+            9
           ]
         }
       ],
@@ -917,7 +926,7 @@
         1,
         3,
         4,
-        8
+        9
       ]
     }
   ],
@@ -959,7 +968,7 @@
       "correct": 1,
       "feedback": "Recuperar lo filtrado conserva base; excretar ácido neto repone base. Es diferente de evitar la pérdida urinaria del bicarbonato que ya existía. La ventilación controla CO₂; la función renal participa en el balance de base.",
       "references": [
-        5
+        6
       ]
     },
     {
@@ -972,7 +981,7 @@
       "correct": 1,
       "feedback": "La brecha no identifica un anión específico. Su causa requiere investigar el contexto, sin ignorar albúmina y método. La electroneutralidad se conserva; el panel no mide todos los iones.",
       "references": [
-        9
+        10
       ]
     },
     {
@@ -1001,7 +1010,7 @@
       "path": "/exposiciones/assets/descargas/informe-equilibrio-acido-base.docx"
     },
     {
-      "label": "Respaldo estático · PDF",
+      "label": "Contenido académico base · PDF",
       "path": "/exposiciones/assets/descargas/equilibrio-acido-base.pdf"
     }
   ]
