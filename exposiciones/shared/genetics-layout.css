@@ -8,6 +8,14 @@ body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-cover-layout { g
 body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-references { margin-bottom: 28px; }
 body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-scene-copy { min-width: 0; }
 body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-credits { font-size: 14px; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-eyebrow { display: flex; align-items: center; gap: 10px; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-eyebrow .expo-icon { width: 24px; height: 24px; flex: 0 0 auto; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-scene-alias { position: absolute; width: 0; height: 0; pointer-events: none; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-svg-figure { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 10px; background: transparent; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-svg-figure > svg { grid-column: 1 / -1; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-svg-figure > button { position: static; grid-column: 2; grid-row: 2; font-size: 14px; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-svg-figure > figcaption { grid-column: 1; grid-row: 2; margin: 0; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-dialog-figure .gen-figure-svg { margin-top: 14px; max-height: 78vh; }
 @media screen {
   body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-scene-heading { margin-bottom: 20px; }
   body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-scene-heading h1 { font-size: 44px; max-width: none; line-height: 1.12; }
@@ -21,8 +29,14 @@ body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-credits { font-s
   body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-figure figcaption { font-size: 16px; }
   body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-sources { margin-top: 12px; }
   body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-comparison p { font-size: 27px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-scene-grid:has(> .gen-svg-figure) { grid-template-columns: 1fr; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-scene-grid:has(> .gen-svg-figure) > .expo-scene-copy { display: none; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .gen-svg-figure > svg { max-height: 390px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .gen-svg-figure > button { font-size: 16px; }
 }
 @media print {
   body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-scene-heading h1 { font-size: 25pt !important; }
   body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-cover-layout { display: block; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-svg-figure { display: block; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-figure-svg { max-height: 230pt; }
 }

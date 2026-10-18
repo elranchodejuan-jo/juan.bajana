@@ -108,6 +108,10 @@ body.expo-app .expo-catalog { display: grid; grid-template-columns: repeat(2, mi
 body.expo-app .expo-card { min-width: 0; background: var(--expo-surface); border: 1px solid var(--expo-border); border-radius: 12px; overflow: hidden; }
 body.expo-app .expo-card figure { background: #eaf2f6; }
 body.expo-app .expo-card figure img { width: 100%; aspect-ratio: 16 / 10; object-fit: contain; }
+/* Original genetics figures inherit the selected theme, including in catalogues. */
+body.expo-app .expo-card[data-subject="genetica"] figure { background: var(--expo-bg); padding: 16px; }
+body.expo-app .gen-figure-svg { display: block; width: 100%; height: auto; background: transparent; }
+body.expo-app .expo-card .gen-figure-svg { aspect-ratio: 16 / 10; }
 body.expo-app .expo-card-copy { padding: 30px; }
 body.expo-app .expo-card h2 { font-size: clamp(27px, 3vw, 38px); margin-bottom: 17px; }
 body.expo-app .expo-card p { color: var(--expo-muted); margin-top: 14px; }
@@ -385,6 +389,7 @@ body.expo-app[data-receiver="true"] #expo-deck { inset: 0; width: 100vw; height:
 }
 @media print {
   body.expo-app, body.expo-app[data-mode="presentar"] { --expo-bg: #fff; --expo-surface: #fff; --expo-raised: #f0f3f5; --expo-text: #172330; --expo-muted: #394e60; --expo-accent: #08677b; --expo-accent-soft: #eef7f8; --expo-border: #b5c3cf; height: auto !important; overflow: visible !important; background: white !important; color: #172330 !important; font-size: 11pt; }
+  body.expo-app[data-subject="genetica"], body.expo-app[data-subject="genetica"][data-theme] { --expo-bg: #fff; --expo-surface: #fff; --expo-text: #172330; --expo-muted: #394e60; --expo-accent: #65459f; --expo-accent-soft: #ede8f4; --expo-border: #a7a0b5; }
   body.expo-app :where(.expo-site-header, .expo-toolbar, .expo-navigation, .expo-footer, .skip-link, .expo-skip, .expo-present-only, dialog, button, .expo-figure > button, .expo-simulator input, .expo-simulator select, .expo-quiz-navigation) { display: none !important; }
   body.expo-app #expo-deck, body.expo-app[data-mode="presentar"] #expo-deck, body.expo-app[data-mode="estudiar"] #expo-deck { position: static !important; width: 100% !important; height: auto !important; margin: 0 !important; overflow: visible !important; font: 400 11pt/1.45 var(--expo-body-font) !important; }
   body.expo-app #expo-deck > .slides { position: static !important; width: 100% !important; height: auto !important; transform: none !important; perspective: none !important; text-align: left !important; }

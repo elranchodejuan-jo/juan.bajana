@@ -214,7 +214,7 @@ class ExposicionesTests(unittest.TestCase):
     def test_genetics_content_citations_scope_and_downloads(self):
         data=json.loads((ROOT/'exposiciones/content/genetica--cromosomas-y-determinacion-sexual.json').read_text())
         builder.validate(data,published=True)
-        self.assertEqual(len(data['scenes']),18)
+        self.assertEqual(len(data['scenes']),14)
         self.assertEqual(data['authors'],['Juan José Bajaña Chuno'])
         first=[]
         for scene in data['scenes']:
@@ -224,7 +224,8 @@ class ExposicionesTests(unittest.TestCase):
         self.assertEqual(first,list(range(1,len(data['references'])+1)))
         self.assertEqual(len({r['key'] for r in data['references']}),len(data['references']))
         source=(ROOT/'exposiciones/genetica/cromosomas-y-determinacion-sexual/index.html').read_text()
-        self.assertEqual(source.count('<section'),18)
+        self.assertEqual(source.count('<section'),14)
+        self.assertEqual(source.count('data-genetics-lab="'),7)
         self.assertEqual(source.count('<h1>'),1)
         for acid_only in ['data-simulator','data-visual-lab=','data-hero ','Henderson','HCO₃']:
             self.assertNotIn(acid_only,source)
@@ -257,7 +258,7 @@ class ExposicionesTests(unittest.TestCase):
 
     def test_genetics_widget_sources_are_numbered_and_cannot_be_orphaned(self):
         data=json.loads((ROOT/'exposiciones/content/genetica--cromosomas-y-determinacion-sexual.json').read_text())
-        scene=next(s for s in data['scenes'] if s['id']=='via-ovarica')
+        scene=next(s for s in data['scenes'] if s['id']=='via-testicular')
         markup='<a class="gen-source" href="'+data['references'][2]['url']+'">Ridnik et al.</a>'
         resolved=builder.numbered_visual_sources(markup,data,scene)
         self.assertIn('href="#ref-3"',resolved)
@@ -270,5 +271,34 @@ class ExposicionesTests(unittest.TestCase):
         sources=re.findall(r'<a class="gen-source" href="([^"]+)"',source)
         self.assertGreaterEqual(len(sources),6)
         self.assertTrue(all(url.startswith('#ref-') for url in sources))
+
+    def test_genetics_aliases_are_unique_and_preserve_merged_scene_links(self):
+        data=json.loads((ROOT/'exposiciones/content/genetica--cromosomas-y-determinacion-sexual.json').read_text())
+        expected={'gonada-bipotencial':'niveles-del-desarrollo','cromosomas-y-gametos':'cruces-cromosomicos',
+                  'via-ovarica':'via-testicular','sistema-xx-x0':'comparacion-de-sistemas'}
+        self.assertEqual({alias:scene['id'] for scene in data['scenes'] for alias in scene.get('aliases',[])},expected)
+        for bad_alias in ['inicio','../ruta','via-ovarica']:
+            invalid=json.loads(json.dumps(data))
+            invalid['scenes'][0]['aliases']=[bad_alias]
+            with self.assertRaises(ValueError):builder.validate(invalid,published=True)
+
+    def test_original_genetics_figures_inherit_theme_and_namespace_ids(self):
+        folder=ROOT/'exposiciones/assets/figuras/genetica/determinacion-sexual'
+        for path in folder.glob('*.svg'):
+            source=path.read_text()
+            self.assertIn('var(--expo-text',source)
+            self.assertNotIn('#faf8fd',source)
+            self.assertNotIn('<style',source)
+            url='/'+path.relative_to(ROOT).as_posix()
+            first=Links();first.feed(builder.inline_genetics_svg(url,'figure-first'))
+            second=Links();second.feed(builder.inline_genetics_svg(url,'figure-second'))
+            self.assertFalse(set(first.ids)&set(second.ids))
+            self.assertIn('figure-first',first.ids)
+        data=json.loads((ROOT/'exposiciones/content/genetica--cromosomas-y-determinacion-sexual.json').read_text())
+        scene=next(s for s in data['scenes'] if s['id']=='freemartinismo')
+        rendered=builder.figure(scene)
+        self.assertIn('data-inline-figure="gen-figure-freemartinismo"',rendered)
+        self.assertNotIn('<img',rendered)
+        self.assertIn('aria-labelledby="gen-figure-freemartinismo-title gen-figure-freemartinismo-desc"',rendered)
 
 if __name__=='__main__':unittest.main()

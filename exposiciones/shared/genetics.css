@@ -56,6 +56,17 @@ body.expo-app .genetics-lab .gen-current { outline: 3px solid var(--expo-accent)
 body.expo-app .genetics-lab input[type="range"] { accent-color: var(--expo-accent); width: 100%; min-height: 30px; margin: 3px 0 0; }
 body.expo-app .genetics-lab .gen-range-labels { display: flex; justify-content: space-between; color: var(--expo-muted); font-size: 14px; margin-bottom: 12px; }
 body.expo-app .genetics-lab .gen-fallback { padding-left: 20px; font-size: 16px; }
+/* New diagrams keep their complete summary available before JavaScript and in print. */
+body.expo-app .genetics-lab:not([data-gen-ready]) .gen-interactive { display: none; }
+body.expo-app .genetics-lab[data-gen-ready] .gen-static-summary { display: none; }
+body.expo-app .genetics-lab .gen-icon { width: 24px; height: 24px; flex: 0 0 24px; color: var(--expo-accent); }
+body.expo-app .genetics-lab .gen-icon-button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; }
+body.expo-app .genetics-lab .gen-level-choices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 12px; }
+body.expo-app .genetics-lab .gen-level-choices .gen-button { min-height: 76px; }
+body.expo-app .genetics-lab .gen-level-choices .gen-icon { width: 30px; height: 30px; flex-basis: 30px; }
+body.expo-app .genetics-lab .gen-level-detail { min-height: 118px; }
+body.expo-app .genetics-lab .gen-csd-path .gen-node { min-height: 126px; align-items: center; }
+body.expo-app .genetics-lab .gen-csd-path .gen-ploidy { color: var(--expo-accent); font-size: 28px; }
 /* Presentar keeps the main concepts readable on a 1280×720 design canvas.
    Redundant prose stays in study mode; caveats remain visible in both modes. */
 body.expo-app[data-mode="presentar"] .genetics-lab { padding: 12px 14px; font-size: 22px; line-height: 1.3; }
@@ -83,6 +94,10 @@ body.expo-app[data-mode="presentar"] .genetics-lab .gen-description { font-size:
 body.expo-app[data-mode="presentar"] .genetics-lab .gen-study-detail { display: none; }
 body.expo-app[data-mode="presentar"] .genetics-lab .gen-thermal-table td { font-size: 24px; }
 body.expo-app[data-mode="presentar"] .genetics-lab .gen-range-labels { font-size: 16px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-level-choices .gen-button { min-height: 68px; font-size: 22px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-level-detail { min-height: 116px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-csd-path .gen-node { min-height: 130px; }
+body.expo-app[data-mode="presentar"] .genetics-lab .gen-csd-path .gen-ploidy { font-size: 32px; }
 @media (max-width: 680px) {
   body.expo-app[data-mode="estudiar"] .genetics-lab { padding: 14px 10px; }
   body.expo-app[data-mode="estudiar"] .genetics-lab .gen-columns { grid-template-columns: minmax(0, 1fr); gap: 12px; }
@@ -91,10 +106,16 @@ body.expo-app[data-mode="presentar"] .genetics-lab .gen-range-labels { font-size
   body.expo-app[data-mode="estudiar"] .genetics-lab .gen-relation { justify-self: center; padding: 5px 16px; }
   body.expo-app[data-mode="estudiar"] .genetics-lab .gen-punnett :where(th, .gen-button) { font-size: 14px; }
   body.expo-app[data-mode="estudiar"] .genetics-lab .gen-punnett .gen-button { white-space: normal; }
+  body.expo-app[data-mode="estudiar"] .genetics-lab .gen-level-choices { gap: 7px; }
+  body.expo-app[data-mode="estudiar"] .genetics-lab .gen-level-choices .gen-button { flex-direction: column; padding: 10px 5px; font-size: 14px; }
+  body.expo-app[data-mode="estudiar"] .genetics-lab .gen-level-detail { min-height: 0; }
+  body.expo-app[data-mode="estudiar"] .genetics-lab .gen-csd-path .gen-node { min-height: 80px; }
 }
 @media print {
   body.expo-app .genetics-lab { break-inside: avoid; background: white; color: #17202c; border-color: #8c94a0; }
   body.expo-app .genetics-lab .gen-toolbar { display: none; }
+  body.expo-app .genetics-lab .gen-interactive { display: none !important; }
+  body.expo-app .genetics-lab .gen-static-summary { display: block !important; }
   body.expo-app .genetics-lab .gen-punnett button { display: none !important; }
   body.expo-app .genetics-lab .gen-print-cell { display: block !important; }
   body.expo-app .genetics-lab [data-gen-cross][hidden] { display: block !important; margin-top: 12px; }

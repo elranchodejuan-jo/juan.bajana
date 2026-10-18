@@ -19,6 +19,68 @@ def _source(label, doi_or_url):
     return f'<a class="gen-source" href="{escape(url)}">{escape(label)}</a>'
 
 
+
+def _icon(kind):
+    """Small decorative outlines; visible control labels carry their meaning."""
+    paths = {
+        'chromosomes': '<path d="m6 4 6 16M12 4 6 20M16 5l4 14M20 5l-4 14"/>',
+        'gonad': '<ellipse cx="12" cy="12" rx="9" ry="7"/><circle cx="9" cy="11" r="2"/><circle cx="15" cy="13" r="2"/>',
+        'phenotype': '<circle cx="10" cy="10" r="6"/><path d="m15 15 6 6M7 10h6M10 7v6"/>',
+        'egg': '<path d="M19 14c0 5-3 7-7 7s-7-2-7-7S9 3 12 3s7 6 7 11Z"/>',
+        'alleles': '<path d="M5 4v16M10 4v16M15 4v16M20 4v16M5 8h5M15 8h5M5 16h5M15 16h5"/>',
+        'bee': '<ellipse cx="12" cy="14" rx="5" ry="7"/><path d="M8 11h8M7 15h10M9 19h6M9 7 7 3M15 7l2-4"/><path d="M7 10C1 4 1 14 7 15M17 10c6-6 6 4 0 5"/>',
+    }
+    return f'<svg class="gen-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">{paths[kind]}</svg>'
+
+
+def _icon_button(label, icon, attributes):
+    return f'<button type="button" class="gen-button gen-icon-button" {attributes}>{_icon(icon)}<span>{escape(label)}</span></button>'
+
+
+def _summary_table(caption, headings, rows):
+    header = ''.join(f'<th scope="col">{escape(item)}</th>' for item in headings)
+    body = ''
+    for row in rows:
+        cells = f'<th scope="row">{escape(row[0])}</th>'
+        cells += ''.join(f'<td>{escape(value)}</td>' for value in row[1:])
+        body += f'<tr>{cells}</tr>'
+    return f'<div class="gen-static-summary"><table class="gen-table"><caption>{escape(caption)}</caption><thead><tr>{header}</tr></thead><tbody>{body}</tbody></table></div>'
+
+
+LEVELS = [
+    ('cromosomas', 'Cromosomas', 'chromosomes', 'Constitución cromosómica', 'XX y XY describen el complemento sexual típico de los mamíferos domésticos. La constitución cromosómica es uno de los niveles del desarrollo.'),
+    ('gonada', 'Gónada', 'gonad', 'Organización gonadal', 'La gónada bipotencial reúne células somáticas y germinales. Las somáticas dirigen su organización testicular u ovárica; las germinales originan gametos.'),
+    ('fenotipo', 'Fenotipo', 'phenotype', 'Características del animal', 'Conductos, genitales y otros rasgos resultan de la diferenciación de los tejidos. Influyen señales hormonales, receptores y regulación local.'),
+]
+
+
+def _development():
+    choices = ''.join(_icon_button(name, icon, f'data-gen-level="{key}" aria-pressed="{str(key == "cromosomas").lower()}"') for key, name, icon, *_ in LEVELS)
+    panels = ''.join(f'<div data-gen-level-panel="{key}"{" hidden" if key != "cromosomas" else ""}><h3 class="gen-heading">{title}</h3><p>{detail}</p></div>' for key, _, _, title, detail in LEVELS)
+    summary = _summary_table('Tres niveles del desarrollo sexual mamífero', ['Nivel', 'Qué describe'], [(name, detail) for _, name, _, _, detail in LEVELS])
+    return f'''<div class="genetics-lab" data-genetics-lab="development" aria-label="Tres niveles del desarrollo sexual mamífero">
+<div class="gen-interactive"><div class="gen-toolbar"><p class="gen-kicker">Selecciona un nivel</p>{_reset()}</div><div class="gen-level-choices" role="group" aria-label="Nivel del desarrollo">{choices}</div><div class="gen-result gen-level-detail" aria-live="polite" aria-atomic="true">{panels}</div></div>
+{summary}<p class="gen-note">Son niveles relacionados, no equivalentes. Este esquema no permite diagnosticar el desarrollo sexual de un individuo.</p><p class="gen-small">Modelo mamífero. {_source('Díaz-Hernández et al., UNAM, 2021', 'https://reproduccionanimalesdomesticos.fmvz.unam.mx/libro/capitulo1/autores.html')}.</p></div>'''
+
+
+HAPLOID_CASES = [
+    ('haploide', 'No fecundado', 'egg', 'No fecundado', 'n', 'A', 'Hemicigoto en csd', 'Macho haploide'),
+    ('heterocigoto', 'Fecundado · A ≠ B', 'alleles', 'Fecundado', '2n', 'A / B', 'Heterocigoto en csd', 'Hembra diploide'),
+    ('homocigoto', 'Fecundado · A = A', 'alleles', 'Fecundado', '2n', 'A / A', 'Homocigoto en csd', 'Macho diploide'),
+]
+
+
+def _haplodiploidy():
+    choices = ''.join(_icon_button(label, icon, f'data-gen-csd="{key}" aria-pressed="{str(key == "haploide").lower()}"') for key, label, icon, *_ in HAPLOID_CASES)
+    panels = []
+    for key, _, _, fertilization, ploidy, alleles, state, result in HAPLOID_CASES:
+        panels.append(f'''<div data-gen-csd-panel="{key}"{" hidden" if key != "haploide" else ""}><div class="gen-path gen-csd-path"><div class="gen-node">{_icon('egg')}<strong>{fertilization}</strong><span>Origen del huevo</span></div><span class="gen-relation">complemento →</span><div class="gen-node"><strong class="gen-ploidy">{ploidy} · {alleles}</strong><span>{state}</span></div><span class="gen-relation">desarrollo →</span><div class="gen-node">{_icon('bee')}<strong>{result}</strong></div></div></div>''')
+    summary = _summary_table('Relación entre ploidía y csd en Apis mellifera', ['Huevo', 'Ploidía / csd', 'Resultado'], [(fertilization, f'{ploidy}; {alleles}; {state.lower()}', result) for _, _, _, fertilization, ploidy, alleles, state, result in HAPLOID_CASES])
+    return f'''<div class="genetics-lab" data-genetics-lab="haplodiploidy" aria-label="Ploidía y determinación complementaria en la abeja melífera">
+<div class="gen-interactive"><div class="gen-toolbar"><div class="gen-choices" role="group" aria-label="Fecundación y combinación de csd">{choices}</div>{_reset()}</div><div aria-live="polite" aria-atomic="true">{''.join(panels)}</div></div>
+{summary}<p class="gen-note"><em>Apis mellifera</em>: la diploidía no garantiza una hembra; también importa <em>csd</em>. No generalizar este mecanismo a todos los himenópteros.</p><p class="gen-small">A y B son símbolos didácticos, no datos de alelos muestreados. {_source('Seiler et al., 2024', '10.1016/j.tig.2024.08.001')}.</p></div>'''
+
+
 def _punnett():
     panels = []
     for key, title, maternal, paternal, heterogametic in [
@@ -124,6 +186,8 @@ def genetics_visual(scene_id):
     if scene_id in ('via-testicular', 'via-ovarica'):
         return _network(scene_id)
     return {
+        'niveles-del-desarrollo': _development,
+        'haplodiploidia': _haplodiploidy,
         'cruces-cromosomicos': _punnett,
         'hormonas-y-conductos': _hormones,
         'comparacion-de-sistemas': _comparison,

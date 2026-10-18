@@ -80,3 +80,17 @@ propias figuras, atribuciones y bibliografía. No se extrajeron de ellos las
 ilustraciones de UNAM para publicarlas como SVG de la web. La procedencia y
 los hashes de ambos documentos figuran en
 `docs/exposiciones-verificacion-determinacion-sexual.md`.
+
+### Revisión de integración del 18 de octubre de 2026
+
+Los siete SVG conservan su contenido y autoría originales, con fondos
+transparentes y colores mediante variables de la exposición. La inserción
+inline asigna identificadores únicos a cada instancia, incluidas sus
+ampliaciones. Los pequeños símbolos incorporados dentro de las figuras y
+los exploradores de niveles del desarrollo y ploidía/`csd` son trazados
+originales del proyecto. Los iconos de encabezado reutilizan el recurso
+Lucide local, cuya atribución existente se conserva en el repositorio.
+Se revisaron renders estáticos de las siete figuras en claro y oscuro;
+la verificación visual de su composición dentro del navegador sigue
+pendiente por el bloqueo de permisos registrado en
+`docs/exposiciones-verificacion-genetica-visual.md`.

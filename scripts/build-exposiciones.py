@@ -6,6 +6,7 @@ import html
 import json
 import re
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -60,6 +61,10 @@ def validate(data, *, published=False):
         if not SLUG.fullmatch(scene['id']) or scene['id'] in ids:
             raise ValueError('Identificador de escena inválido o duplicado.')
         ids.add(scene['id'])
+        for alias in scene.get('aliases', []):
+            if not SLUG.fullmatch(alias) or alias in ids:
+                raise ValueError('Alias de escena inválido o duplicado.')
+            ids.add(alias)
         if scene.get('layout', 'default') not in LAYOUTS:
             raise ValueError('Componente desconocido.')
         if not set(scene.get('references', [])) <= refs:
@@ -127,9 +132,40 @@ def paragraphs(value):
         value = [value]
     return ''.join(f'<p>{esc(p)}</p>' for p in value or [])
 
+def inline_genetics_svg(path, prefix):
+    """Embed our reviewed local SVGs so their colors inherit the active theme."""
+    if not path.startswith('/exposiciones/assets/figuras/genetica/determinacion-sexual/'):
+        raise ValueError('Solo se integran figuras originales de esta exposición.')
+    ET.register_namespace('', 'http://www.w3.org/2000/svg')
+    svg = ET.fromstring(local_path(path).read_text(encoding='utf8'))
+    ids = {el.attrib['id']: f'{prefix}-{el.attrib["id"]}' for el in svg.iter() if 'id' in el.attrib}
+    for el in svg.iter():
+        if el.tag.split('}')[-1] in ('script', 'foreignObject', 'style'):
+            raise ValueError('Elemento activo no permitido en una figura.')
+        for name, value in list(el.attrib.items()):
+            if name.lower().startswith('on') or (name.split('}')[-1] == 'href' and not value.startswith('#')):
+                raise ValueError('Recurso externo o evento no permitido en una figura.')
+            if name == 'id':
+                value = ids[value]
+            elif name in ('aria-labelledby', 'aria-describedby'):
+                value = ' '.join(ids.get(item, item) for item in value.split())
+            else:
+                for old, new in ids.items():
+                    value = value.replace(f'url(#{old})', f'url(#{new})')
+                if value.startswith('#') and value[1:] in ids:
+                    value = '#' + ids[value[1:]]
+            el.set(name, value)
+    svg.set('id', prefix)
+    svg.set('class', 'gen-figure-svg')
+    return ET.tostring(svg, encoding='unicode')
+
 def figure(scene):
     src = esc(scene['figure'])
     alt = esc(scene.get('figure_alt', scene['title']))
+    if scene['figure'].startswith('/exposiciones/assets/figuras/genetica/determinacion-sexual/'):
+        identifier = 'gen-figure-' + scene['id']
+        drawing = inline_genetics_svg(scene['figure'], identifier)
+        return f'<figure class="expo-figure gen-svg-figure">{drawing}{button("Ampliar esquema", f"data-enlarge data-inline-figure=\"{identifier}\"")}<figcaption>{esc(scene.get("caption", "Esquema conceptual original."))}</figcaption></figure>'
     return f'<figure class="expo-figure"><img src="{src}" alt="{alt}" width="720" height="480">{button("Ampliar esquema", f"data-enlarge data-src=\"{src}\" data-alt=\"{alt}\"")}<figcaption>{esc(scene.get("caption", "Esquema funcional original; no representa anatomía específica."))}</figcaption></figure>'
 
 def simulator():
@@ -159,7 +195,11 @@ def scene_html(scene, data, i):
     acid_base_visuals = data['subject'] == 'fisiopatologia' and data['slug'] == 'equilibrio-acido-base'
     genetics = data['subject'] == 'genetica' and data['slug'] == 'cromosomas-y-determinacion-sexual'
     title_tag = 'h1' if genetics and layout == 'cover' else 'h2'
-    heading = f'<header class="expo-scene-heading"><p class="expo-eyebrow">{esc(SUBJECTS[data["subject"]]["title"])} · {i+1:02d}</p><{title_tag}>{esc(scene["title"])}</{title_tag}><p class="expo-lead">{esc(scene.get("summary", ""))}</p></header>'
+    heading_icon = ''
+    if genetics:
+        name = 'clipboard-list' if scene['id'] == 'autoevaluacion' else 'book-open' if layout in ('cover', 'references') else 'paw-print' if scene['id'] in ('aves-y-dmrt1', 'diversidad-en-peces', 'freemartinismo', 'desarrollo-sexual-canino') else 'chart-no-axes-combined'
+        heading_icon = icon(name) + ' '
+    heading = f'<header class="expo-scene-heading"><p class="expo-eyebrow">{heading_icon}{esc(SUBJECTS[data["subject"]]["title"])} · {i+1:02d}</p><{title_tag}>{esc(scene["title"])}</{title_tag}><p class="expo-lead">{esc(scene.get("summary", ""))}</p></header>'
     bullets = '<ul class="expo-points">' + ''.join(f'<li>{esc(p)}</li>' for p in scene.get('bullets', [])) + '</ul>' if scene.get('bullets') else ''
     equation = f'<p class="expo-equation">{esc(scene["equation"])}</p>' if scene.get('equation') else ''
     copy = f'<div class="expo-scene-copy">{bullets}{equation}</div>'
@@ -199,7 +239,8 @@ def scene_html(scene, data, i):
     if layout == 'references' and data.get('credits'):
         body += '<div class="expo-study-only expo-credits"><h3>Figuras y procedencia</h3>' + paragraphs(data['credits']) + '</div>'
     expanded = f'<div class="expo-study-only expo-explanation"><h3>Para profundizar</h3>{paragraphs(scene.get("explanation"))}</div>' if scene.get('explanation') else ''
-    return f'<section class="expo-scene" id="{esc(scene["id"])}" data-layout="{layout}" aria-label="{esc(scene["title"])}">{heading}{body}{expanded}{citations(scene)}<aside class="notes">{paragraphs(scene.get("notes", ""))}</aside></section>'
+    aliases = ''.join(f'<span id="{esc(alias)}" class="expo-scene-alias" aria-hidden="true"></span>' for alias in scene.get('aliases', []))
+    return f'<section class="expo-scene" id="{esc(scene["id"])}" data-layout="{layout}" aria-label="{esc(scene["title"])}">{aliases}{heading}{body}{expanded}{citations(scene)}<aside class="notes">{paragraphs(scene.get("notes", ""))}</aside></section>'
 
 def dialogs(data):
     index = ''.join(f'<li><a href="#{esc(s["id"])}">{i+1:02d} · {esc(s["title"])}</a></li>' for i,s in enumerate(data['scenes']))
@@ -221,7 +262,8 @@ def build_expo(data):
 def card(data):
     url=route(data)
     cover_alt = data.get('cover_alt') or data.get('scenes', [{}])[0].get('figure_alt') or data['title']
-    return f'''<article class="expo-card" data-expo-card data-title="{esc(data['title'])}" data-subject="{esc(data['subject'])}"><figure><img src="{esc(data['cover'])}" alt="{esc(cover_alt)}" width="720" height="480"></figure><div class="expo-card-copy"><p class="expo-eyebrow">{esc(SUBJECTS[data['subject']]['title'])}</p><h2>{esc(data['title'])}</h2><p>{esc(data['summary'])}</p><p class="expo-small">{esc(', '.join(data['authors']))}</p><div class="expo-actions"><a class="expo-button expo-button-primary" href="{url}?modo=presentar">{icon('play')} Presentar</a><a class="expo-button" href="{url}?modo=estudiar">Estudiar {icon('chevron-right')}</a>{button('Compartir', f'data-share-open data-share-url="{url}?modo=estudiar"')}</div></div></article>'''
+    cover = inline_genetics_svg(data['cover'], 'gen-card-' + data['slug']) if data['cover'].startswith('/exposiciones/assets/figuras/genetica/determinacion-sexual/') else f'<img src="{esc(data["cover"])}" alt="{esc(cover_alt)}" width="720" height="480">'
+    return f'''<article class="expo-card" data-expo-card data-title="{esc(data['title'])}" data-subject="{esc(data['subject'])}"><figure>{cover}</figure><div class="expo-card-copy"><p class="expo-eyebrow">{esc(SUBJECTS[data['subject']]['title'])}</p><h2>{esc(data['title'])}</h2><p>{esc(data['summary'])}</p><p class="expo-small">{esc(', '.join(data['authors']))}</p><div class="expo-actions"><a class="expo-button expo-button-primary" href="{url}?modo=presentar">{icon('play')} Presentar</a><a class="expo-button" href="{url}?modo=estudiar">Estudiar {icon('chevron-right')}</a>{button('Compartir', f'data-share-open data-share-url="{url}?modo=estudiar"')}</div></div></article>'''
 
 def catalog(items, subject=None):
     title=SUBJECTS[subject]['title'] if subject else 'EXPOSICIONES'

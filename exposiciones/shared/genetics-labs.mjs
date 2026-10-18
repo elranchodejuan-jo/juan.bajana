@@ -39,12 +39,26 @@ function initializePunnett(lab, on) {
   render();
 }
 
-function initializeSelection(lab, on, kind, options, fallback) {
+function initializeSelection(lab, on, kind, options, fallback, keyboard = false) {
   const attribute = `data-gen-${kind}`;
   const panels = `${attribute}-panel`;
   const buttons = [...lab.querySelectorAll(`[${attribute}]`)];
   const render = (choice) => { if (options.includes(choice)) selectPanel(lab, attribute, panels, choice); };
-  buttons.forEach((button) => on(button, 'click', () => render(button.getAttribute(attribute))));
+  buttons.forEach((button, index) => {
+    on(button, 'click', () => render(button.getAttribute(attribute)));
+    if (keyboard) on(button, 'keydown', (event) => {
+      const directions = { ArrowLeft: -1, ArrowUp: -1, ArrowRight: 1, ArrowDown: 1 };
+      let target;
+      if (Object.hasOwn(directions, event.key)) target = (index + directions[event.key] + buttons.length) % buttons.length;
+      else if (event.key === 'Home') target = 0;
+      else if (event.key === 'End') target = buttons.length - 1;
+      else return;
+      event.preventDefault();
+      event.stopPropagation();
+      buttons[target].focus();
+      render(buttons[target].getAttribute(attribute));
+    });
+  });
   on(lab.querySelector('[data-gen-reset]'), 'click', () => render(fallback));
   render(buttons.find((button) => button.getAttribute('aria-pressed') === 'true')?.getAttribute(attribute) || fallback);
 }
@@ -113,12 +127,15 @@ export function initGeneticsLabs(root = document) {
       listeners.push(() => target.removeEventListener(type, listener));
     };
     const kind = lab.dataset.geneticsLab;
-    if (kind === 'punnett') initializePunnett(lab, on);
+    if (kind === 'development') initializeSelection(lab, on, 'level', ['cromosomas', 'gonada', 'fenotipo'], 'cromosomas', true);
+    else if (kind === 'haplodiploidy') initializeSelection(lab, on, 'csd', ['haploide', 'heterocigoto', 'homocigoto'], 'haploide', true);
+    else if (kind === 'punnett') initializePunnett(lab, on);
     else if (kind === 'network') initializeSelection(lab, on, 'route', ['testicular', 'ovarica'], lab.dataset.genDefault || 'testicular');
     else if (kind === 'hormones') initializeSelection(lab, on, 'hormone', ['amh', 'testosterona', 'dht'], 'amh');
     else if (kind === 'comparison') initializeComparison(lab, on);
     else if (kind === 'temperature') initializeTemperature(lab, on);
     else continue;
+    lab.dataset.genReady = 'true';
     initialized.add(lab);
     cleanups.push(() => { listeners.forEach((remove) => remove()); initialized.delete(lab); });
   }

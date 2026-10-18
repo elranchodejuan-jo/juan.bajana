@@ -333,6 +333,8 @@ test('DOM: genetics keeps all activity choices when opening references from slid
     doc.querySelector('[data-gen-pattern="FMF"]').click();
     change(win, doc.querySelector('[data-gen-temperature]'), '2');
     doc.querySelector('[data-genetics-step="2"]').click();
+    doc.querySelector('[data-gen-level="gonada"]').click();
+    doc.querySelector('[data-gen-csd="homocigoto"]').click();
     const question = doc.querySelector('[data-question]');
     const answer = question.querySelector(`input[value="${question.dataset.answer}"]`);
     answer.click();
@@ -344,7 +346,7 @@ test('DOM: genetics keeps all activity choices when opening references from slid
     const transition = app.switchMode('presentar');
     doc.querySelector('[data-reveal-style]').dispatchEvent(new win.Event('load'));
     await transition;
-    assert.equal(doc.querySelectorAll('#expo-deck .slides section').length, 18);
+    assert.equal(doc.querySelectorAll('#expo-deck .slides section').length, 14);
     assert.equal(doc.querySelectorAll('#expo-deck .stack').length, 0);
     assert.equal(win.location.hash, '#cruces-cromosomicos');
     doc.querySelector('#expo-index a[href="#referencias-y-materiales"]').click();
@@ -363,11 +365,53 @@ test('DOM: genetics keeps all activity choices when opening references from slid
     assert.equal(doc.querySelector('[data-gen-temperature]').value, '2');
     assert.equal(doc.querySelector('[data-gen-thermal-result]').textContent, 'Predominio relativo de machos');
     assert.equal(doc.querySelector('[data-genetics-hero]').dataset.stage, '2');
+    assert.equal(doc.querySelector('[data-gen-level-panel="gonada"]').hidden, false);
+    assert.equal(doc.querySelector('[data-gen-csd-panel="homocigoto"]').hidden, false);
     assert.equal(answer.checked, true);
     assert.equal(question.querySelector('[data-feedback]').hidden, false);
     assert.match(doc.querySelector('[data-quiz-score]').textContent, /1 de 5 respuestas correctas/);
     assert.equal(doc.querySelectorAll('[data-genetics-ambient]').length, 1);
     assert.equal(doc.querySelector('[data-hero]'), null);
+  } finally { await env.close(); }
+});
+
+test('DOM: merged genetics anchors resolve and enlarged SVG keeps theme inheritance without duplicate IDs', async () => {
+  const env = await environment('exposiciones/genetica/cromosomas-y-determinacion-sexual/index.html', '?modo=estudiar#gonada-bipotencial');
+  try {
+    const { win, document: doc } = env;
+    // Study mode can retain the inbound fragment while its navigation resolves
+    // the merged destination; sharing either fragment must keep working.
+    assert.equal(win.location.hash, '#gonada-bipotencial');
+    assert.equal(doc.querySelector('[data-progress]').textContent, '2 / 14');
+    assert.equal(new URL(doc.querySelector('[data-view-mode="presentar"]').href).hash, '#niveles-del-desarrollo');
+    const aliases = {'cromosomas-y-gametos':'cruces-cromosomicos','via-ovarica':'via-testicular','sistema-xx-x0':'comparacion-de-sistemas'};
+    for (const [alias, target] of Object.entries(aliases)) {
+      win.location.hash = alias;
+      await tick();
+      assert.equal(win.location.hash, '#' + target);
+    }
+    const button = doc.querySelector('#freemartinismo [data-inline-figure]');
+    button.focus(); button.click();
+    const dialog = doc.querySelector('#expo-figure');
+    assert.equal(dialog.open, true);
+    assert.equal(dialog.querySelector('img').hidden, true);
+    const svg = dialog.querySelector('[data-expanded-svg]');
+    assert.ok(svg);
+    assert.match(svg.querySelector('text').getAttribute('fill'), /var\(--expo-/);
+    const ids = [...doc.querySelectorAll('[id]')].map((node) => node.id);
+    assert.equal(ids.length, new Set(ids).size);
+    for (const id of svg.getAttribute('aria-labelledby').split(' ')) assert.ok(svg.querySelector(`[id="${id}"]`));
+    for (const element of svg.querySelectorAll('[marker-end]')) {
+      const id = element.getAttribute('marker-end').slice(5,-1);
+      assert.ok(svg.querySelector(`[id="${id}"]`));
+    }
+    doc.querySelector('[data-theme-toggle]').click();
+    assert.equal(doc.body.dataset.theme,'light');
+    assert.equal(dialog.querySelector('[data-expanded-svg]'),svg);
+    dialog.querySelector('[data-dialog-close]').click();
+    assert.equal(dialog.open,false);
+    assert.equal(dialog.querySelector('[data-expanded-svg]'),null);
+    assert.equal(doc.activeElement,button);
   } finally { await env.close(); }
 });
 
