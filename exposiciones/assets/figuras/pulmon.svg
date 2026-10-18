@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" class="diagram" role="img" aria-labelledby="pulmon-title pulmon-desc">
+<title id="pulmon-title">Regulación pulmonar del CO₂</title>
+<desc id="pulmon-desc">El CO₂ de los tejidos llega a los pulmones en sangre y sale al exterior mediante ventilación alveolar. Si la producción de CO₂ permanece constante, más ventilación reduce la PCO₂ y menos ventilación la aumenta. Esquema funcional, sin anatomía específica.</desc>
+<style>text {font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-kerning:normal}
+.heading {font-size:31px;font-weight:700}
+.subheading {font-size:22px;font-weight:400}
+.label {font-size:25px;font-weight:600}
+.small {font-size:22px;font-weight:400}
+.chemical {font-size:34px;font-weight:600}
+.flow {stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.rule {stroke-width:1.5}
+.node {stroke-width:1.5}
+.diagram .canvas {fill:#F8FCFF;stroke:#A9CFDF}
+.diagram .ink {fill:#123345}
+.diagram .muted {fill:#315A70}
+.diagram .accent {fill:#086D95}
+.diagram .node {fill:#E4F4FC;stroke:#A9CFDF}
+.diagram .flow {fill:none;stroke:#086D95}
+.diagram .rule {stroke:#A9CFDF}
+.diagram .arrowhead {fill:#086D95}
+@media (prefers-color-scheme:dark) {
+.diagram .canvas {fill:#0B1729;stroke:#35576C}
+.diagram .ink {fill:#F1F8FF}
+.diagram .muted {fill:#B9D9EA}
+.diagram .accent {fill:#65D6EF}
+.diagram .node {fill:#12304A;stroke:#35576C}
+.diagram .flow {fill:none;stroke:#65D6EF}
+.diagram .rule {stroke:#35576C}
+.diagram .arrowhead {fill:#65D6EF}
+}
+.diagram[data-theme="light"] .canvas {fill:#F8FCFF;stroke:#A9CFDF}
+.diagram[data-theme="light"] .ink {fill:#123345}
+.diagram[data-theme="light"] .muted {fill:#315A70}
+.diagram[data-theme="light"] .accent {fill:#086D95}
+.diagram[data-theme="light"] .node {fill:#E4F4FC;stroke:#A9CFDF}
+.diagram[data-theme="light"] .flow {fill:none;stroke:#086D95}
+.diagram[data-theme="light"] .rule {stroke:#A9CFDF}
+.diagram[data-theme="light"] .arrowhead {fill:#086D95}
+.diagram[data-theme="dark"] .canvas {fill:#0B1729;stroke:#35576C}
+.diagram[data-theme="dark"] .ink {fill:#F1F8FF}
+.diagram[data-theme="dark"] .muted {fill:#B9D9EA}
+.diagram[data-theme="dark"] .accent {fill:#65D6EF}
+.diagram[data-theme="dark"] .node {fill:#12304A;stroke:#35576C}
+.diagram[data-theme="dark"] .flow {fill:none;stroke:#65D6EF}
+.diagram[data-theme="dark"] .rule {stroke:#35576C}
+.diagram[data-theme="dark"] .arrowhead {fill:#65D6EF}</style>
+<defs><marker id="pulmon-arrow" viewBox="0 0 10 10" refX="8.7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrowhead" d="M 0 0 L 10 5 L 0 10 Z"/></marker></defs>
+<rect class="canvas" x="1" y="1" width="718" height="478" rx="16" stroke-width="1.5"/>
+<text x="32" y="50" class="heading ink">Regulación pulmonar</text>
+<text x="32" y="89" class="subheading muted">La ventilación alveolar permite eliminar CO₂.</text>
+<text x="102" y="185" class="label ink" text-anchor="middle">Tejidos</text>
+<text x="102" y="220" class="small muted" text-anchor="middle">Producen CO₂</text>
+<text x="359" y="185" class="label ink" text-anchor="middle">Pulmones</text>
+<text x="359" y="220" class="small muted" text-anchor="middle">Intercambio gaseoso</text>
+<text x="618" y="185" class="label ink" text-anchor="middle">Exterior</text>
+<text x="618" y="220" class="small muted" text-anchor="middle">CO₂ espirado</text>
+<path class="flow" d="M 182 177 H 274" marker-end="url(#pulmon-arrow)"/>
+<text x="228" y="145" class="small accent" text-anchor="middle">Sangre</text>
+<path class="flow" d="M 447 177 H 533" marker-end="url(#pulmon-arrow)"/>
+<text x="490" y="145" class="small accent" text-anchor="middle">CO₂</text>
+<line class="rule" x1="32" x2="688" y1="266" y2="266"/>
+<text x="32" y="318" class="label ink">Más ventilación</text>
+<path class="flow" d="M 330 310 H 395" marker-end="url(#pulmon-arrow)"/>
+<text x="443" y="318" class="label accent">Menor PCO₂</text>
+<text x="32" y="382" class="label ink">Menos ventilación</text>
+<path class="flow" d="M 330 374 H 395" marker-end="url(#pulmon-arrow)"/>
+<text x="443" y="382" class="label accent">Mayor PCO₂</text>
+<text x="360" y="441" class="small muted" text-anchor="middle">Si la producción de CO₂ se mantiene constante.</text>
+</svg>

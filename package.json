@@ -1,0 +1,11 @@
+{
+  "name": "vetjb-exposiciones-checks",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "build:exposiciones": "python3 scripts/build-exposiciones.py"
+  },
+  "devDependencies": {
+    "jsdom": "26.1.0"
+  }
+}

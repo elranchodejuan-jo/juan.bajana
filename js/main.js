@@ -32,7 +32,7 @@ navToggle.addEventListener("click", toggleMenu);
 navLinks.forEach((link) => {
   link.addEventListener("click", () => {
     closeMenu();
-    const destination = document.querySelector(link.hash);
+    const destination = link.hash ? document.getElementById(link.hash.slice(1)) : null;
     if (destination) {
       destination.setAttribute("tabindex", "-1");
       destination.focus({ preventScroll: true });

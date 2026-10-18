@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" class="diagram" role="img" aria-labelledby="bicarbonato-title bicarbonato-desc">
+<title id="bicarbonato-title">Sistema bicarbonato y dióxido de carbono</title>
+<desc id="bicarbonato-desc">Reacción reversible: CO₂ más agua, ácido carbónico, e hidrogenión más bicarbonato. El pH depende de la relación entre bicarbonato y CO₂ disuelto; este último es proporcional a la PCO₂.</desc>
+<style>text {font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-kerning:normal}
+.heading {font-size:31px;font-weight:700}
+.subheading {font-size:22px;font-weight:400}
+.label {font-size:25px;font-weight:600}
+.small {font-size:22px;font-weight:400}
+.chemical {font-size:34px;font-weight:600}
+.flow {stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.rule {stroke-width:1.5}
+.node {stroke-width:1.5}
+.diagram .canvas {fill:#F8FCFF;stroke:#A9CFDF}
+.diagram .ink {fill:#123345}
+.diagram .muted {fill:#315A70}
+.diagram .accent {fill:#086D95}
+.diagram .node {fill:#E4F4FC;stroke:#A9CFDF}
+.diagram .flow {fill:none;stroke:#086D95}
+.diagram .rule {stroke:#A9CFDF}
+.diagram .arrowhead {fill:#086D95}
+@media (prefers-color-scheme:dark) {
+.diagram .canvas {fill:#0B1729;stroke:#35576C}
+.diagram .ink {fill:#F1F8FF}
+.diagram .muted {fill:#B9D9EA}
+.diagram .accent {fill:#65D6EF}
+.diagram .node {fill:#12304A;stroke:#35576C}
+.diagram .flow {fill:none;stroke:#65D6EF}
+.diagram .rule {stroke:#35576C}
+.diagram .arrowhead {fill:#65D6EF}
+}
+.diagram[data-theme="light"] .canvas {fill:#F8FCFF;stroke:#A9CFDF}
+.diagram[data-theme="light"] .ink {fill:#123345}
+.diagram[data-theme="light"] .muted {fill:#315A70}
+.diagram[data-theme="light"] .accent {fill:#086D95}
+.diagram[data-theme="light"] .node {fill:#E4F4FC;stroke:#A9CFDF}
+.diagram[data-theme="light"] .flow {fill:none;stroke:#086D95}
+.diagram[data-theme="light"] .rule {stroke:#A9CFDF}
+.diagram[data-theme="light"] .arrowhead {fill:#086D95}
+.diagram[data-theme="dark"] .canvas {fill:#0B1729;stroke:#35576C}
+.diagram[data-theme="dark"] .ink {fill:#F1F8FF}
+.diagram[data-theme="dark"] .muted {fill:#B9D9EA}
+.diagram[data-theme="dark"] .accent {fill:#65D6EF}
+.diagram[data-theme="dark"] .node {fill:#12304A;stroke:#35576C}
+.diagram[data-theme="dark"] .flow {fill:none;stroke:#65D6EF}
+.diagram[data-theme="dark"] .rule {stroke:#35576C}
+.diagram[data-theme="dark"] .arrowhead {fill:#65D6EF}</style>
+<defs><marker id="bicarbonato-arrow" viewBox="0 0 10 10" refX="8.7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrowhead" d="M 0 0 L 10 5 L 0 10 Z"/></marker></defs>
+<rect class="canvas" x="1" y="1" width="718" height="478" rx="16" stroke-width="1.5"/>
+<text x="32" y="50" class="heading ink">Sistema bicarbonato–CO₂</text>
+<text x="32" y="89" class="subheading muted">Equilibrio químico reversible</text>
+<text x="121" y="176" class="chemical ink" text-anchor="middle">CO₂ + H₂O</text>
+<text x="354" y="176" class="chemical ink" text-anchor="middle">H₂CO₃</text>
+<text x="590" y="176" class="chemical ink" text-anchor="middle">H⁺ + HCO₃⁻</text>
+<path class="flow" d="M 230 152 H 266" marker-end="url(#bicarbonato-arrow)"/>
+<path class="flow" d="M 266 177 H 230" marker-end="url(#bicarbonato-arrow)"/>
+<path class="flow" d="M 430 152 H 466" marker-end="url(#bicarbonato-arrow)"/>
+<path class="flow" d="M 466 177 H 430" marker-end="url(#bicarbonato-arrow)"/>
+<line class="rule" x1="32" x2="688" y1="222" y2="222"/>
+<text x="360" y="266" class="label ink" text-anchor="middle">Relación que determina el pH</text>
+<text x="360" y="318" class="chemical accent" text-anchor="middle">HCO₃⁻</text>
+<line class="flow" x1="224" x2="496" y1="336" y2="336"/>
+<text x="360" y="377" class="chemical accent" text-anchor="middle">CO₂ disuelto</text>
+<text x="360" y="440" class="small muted" text-anchor="middle">El CO₂ disuelto es proporcional a la PCO₂.</text>
+</svg>

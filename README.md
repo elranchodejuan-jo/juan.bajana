@@ -135,3 +135,9 @@ fotografía pasa de 515 a 594 px de ancho con el mismo archivo.
 La diferencia de LCP móvil fue de 44 ms en este entorno. Esta muestra pequeña
 no demuestra una mejora o regresión de rendimiento en producción. No mide
 INP de usuarios, datos de campo ni percentiles de Core Web Vitals.
+
+## Exposiciones académicas
+
+El acceso **EXPOSICIONES** incorpora una biblioteca estática y el piloto de equilibrio ácido-base, con modos Presentar/Estudiar, casos y simulador. Genética tiene una categoría vacía y un procedimiento reutilizable; su tema no se ha inventado.
+
+Consulta [la guía de ejecución y autoría](exposiciones/README.md) y [la verificación de esta entrega](docs/exposiciones-verificacion.md). No cambia CNAME ni el despliegue existente.

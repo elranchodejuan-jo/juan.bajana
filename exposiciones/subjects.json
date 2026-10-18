@@ -1,0 +1,12 @@
+{
+  "fisiopatologia": {
+    "title": "Fisiopatología",
+    "accent": "cyan",
+    "summary": "Comprender el mecanismo. Interpretar el cambio."
+  },
+  "genetica": {
+    "title": "Genética",
+    "accent": "violet",
+    "summary": "Un espacio para explorar herencia y variación."
+  }
+}
