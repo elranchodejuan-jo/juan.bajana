@@ -503,7 +503,7 @@ export async function switchMode(nextMode) {
   document.querySelectorAll('[data-view-mode]').forEach((control) => control.setAttribute('aria-disabled', 'true'));
   const url = new URL(location.href);
   url.searchParams.set('modo', nextMode);
-  url.hash = scene.id;
+  url.hash = scene.querySelector('form[data-quiz-cases]')?.dataset.activeQuestion || scene.id;
   history.replaceState(null, '', url);
   try {
     if (nextMode === 'presentar') await initializePresentation(scene);
