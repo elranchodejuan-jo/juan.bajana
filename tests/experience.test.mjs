@@ -590,7 +590,7 @@ test('DOM: genetics questions and references preserve the slide and print answer
   } finally {await env.close();}
 });
 
-test('DOM: merged genetics anchors resolve and enlarged SVG keeps theme inheritance without duplicate IDs', async () => {
+test('DOM: merged genetics anchors resolve and SVG/image enlargements keep theme and focus', async () => {
   const env = await environment('exposiciones/genetica/cromosomas-y-determinacion-sexual/index.html', '?modo=estudiar#gonada-bipotencial');
   try {
     const { win, document: doc } = env;
@@ -627,6 +627,29 @@ test('DOM: merged genetics anchors resolve and enlarged SVG keeps theme inherita
     assert.equal(dialog.open,false);
     assert.equal(dialog.querySelector('[data-expanded-svg]'),null);
     assert.equal(doc.activeElement,button);
+    // Context images share the same dialog after an SVG has been displayed.
+    const illustrations = [...doc.querySelectorAll('.gen-context-image')];
+    assert.equal(illustrations.length, 3);
+    for (const illustration of illustrations) {
+      const imageButton = illustration.querySelector('[data-enlarge]');
+      const preview = illustration.querySelector('img');
+      assert.match(illustration.querySelector('figcaption').textContent, /Ilustración generada con IA/);
+      imageButton.focus(); imageButton.click();
+      assert.equal(dialog.open, true);
+      assert.equal(dialog.querySelector('img').hidden, false);
+      assert.equal(dialog.querySelector('img').src, preview.src);
+      assert.equal(dialog.querySelector('img').alt, preview.alt);
+      assert.equal(dialog.querySelector('[data-expanded-svg]'), null);
+      assert.equal(dialog.getAttribute('aria-label'), 'Imagen de ejemplo ampliada');
+      assert.equal(dialog.hasAttribute('data-context-image'), true);
+      assert.match(dialog.querySelector('[data-expanded-caption]').textContent, /Ilustración generada con IA/);
+      assert.equal(dialog.querySelector('[data-expanded-caption]').textContent, imageButton.dataset.caption);
+      dialog.querySelector('[data-dialog-close]').click();
+      assert.equal(doc.activeElement, imageButton);
+      assert.equal(dialog.hasAttribute('data-context-image'), false);
+      assert.equal(dialog.querySelector('[data-expanded-caption]'), null);
+      assert.equal(dialog.getAttribute('aria-label'), 'Esquema ampliado');
+    }
   } finally { await env.close(); }
 });
 

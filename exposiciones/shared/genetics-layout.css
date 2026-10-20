@@ -27,6 +27,24 @@ body[data-exposition="cromosomas-y-determinacion-sexual"] :is(.gen-oral-dialog, 
 body[data-exposition="cromosomas-y-determinacion-sexual"] :is(.gen-oral-dialog, .gen-oral-study) details p { line-height: 1.6; }
 body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-question-action { margin-top: 12px; }
 body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-question-action .expo-button { min-height: 40px; font-size: 18px; }
+/* Three contextual images support the examples without narrowing the explorers. */
+body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-illustrated-heading { display: grid; grid-template-columns: minmax(0, 1fr) 280px; align-items: center; gap: 28px; margin-bottom: 24px; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-illustrated-heading > .expo-scene-heading { min-width: 0; margin-bottom: 0; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-context-image { min-width: 0; margin: 0; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-context-image-media { position: relative; overflow: hidden; border: 1px solid var(--expo-border); border-radius: 10px; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-context-image img { display: block; width: 100%; height: auto; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-context-image button { position: absolute; inset: 0; width: 100%; display: flex; justify-content: flex-end; align-items: flex-end; padding: 8px; border: 0; background: transparent; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-context-image button span { padding: 5px 9px; border-radius: 5px; background: rgb(10 17 29 / 88%); color: #fff; font-size: 13px; line-height: 1.4; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-context-image button:focus-visible { outline-offset: -4px; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-context-image figcaption { margin-top: 8px; color: var(--expo-muted); font-size: 14px; line-height: 1.4; }
+body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-context-image figcaption span { display: block; font-size: 12px; margin-top: 3px; }
+body.expo-app[data-exposition="cromosomas-y-determinacion-sexual"] dialog[data-context-image] { width: min(1100px, 94vw); }
+body.expo-app[data-exposition="cromosomas-y-determinacion-sexual"] dialog[data-context-image] > img { background: transparent; }
+body.expo-app[data-exposition="cromosomas-y-determinacion-sexual"] dialog[data-context-image] [data-expanded-caption] { margin-top: 12px; }
+@media screen and (max-width: 760px) {
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="estudiar"] .gen-illustrated-heading { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="estudiar"] .gen-context-image { width: min(100%, 400px); }
+}
 @media screen {
   body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-scene-heading { margin-bottom: 20px; }
   body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-scene-heading h1 { font-size: 44px; max-width: none; line-height: 1.12; }
@@ -46,6 +64,10 @@ body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-question-action .
   body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .expo-scene-grid:has(> .gen-svg-figure) > .expo-scene-copy { display: none; }
   body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .gen-svg-figure > svg { max-height: 390px; }
   body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .gen-svg-figure > button { font-size: 16px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .gen-illustrated-heading { grid-template-columns: minmax(0, 1fr) 260px; gap: 24px; margin-bottom: 16px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] .gen-illustrated-heading > .expo-scene-heading { margin-bottom: 0; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] #freemartinismo [data-gen-freemartin-panel]:not([hidden]) { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: center; gap: 18px; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"][data-mode="presentar"] #freemartinismo .gen-freemartin-diagram { margin-bottom: 0; }
 }
 @media print {
   body[data-exposition="cromosomas-y-determinacion-sexual"] .expo-scene-heading h1 { font-size: 25pt !important; }
@@ -55,4 +77,7 @@ body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-question-action .
   body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-materials-home { display: block !important; padding: 0; }
   body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-oral-study > :not(summary) { display: block !important; }
   body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-oral-study::details-content { content-visibility: visible; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-illustrated-heading { grid-template-columns: minmax(0, 1fr) 140pt; gap: 14pt; break-inside: avoid; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-context-image figcaption { font-size: 9pt; }
+  body[data-exposition="cromosomas-y-determinacion-sexual"] .gen-context-image figcaption span { font-size: 8pt; }
 }
