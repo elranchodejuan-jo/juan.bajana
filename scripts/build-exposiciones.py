@@ -71,6 +71,15 @@ def validate(data, *, published=False):
             raise ValueError('Cita sin referencia.')
         if scene.get('figure') and not local_path(scene['figure']).is_file():
             raise ValueError('Figura inexistente.')
+        if scene.get('illustration'):
+            illustration = scene['illustration']
+            path = local_path(illustration['src'])
+            if not path.is_file() or path.suffix.lower() not in ('.webp', '.png', '.jpg', '.jpeg'):
+                raise ValueError('Ilustración local inexistente o de formato no admitido.')
+            if not all(isinstance(illustration.get(key), str) and illustration[key].strip() for key in ('alt', 'caption')):
+                raise ValueError('La ilustración necesita descripción y pie de imagen.')
+            if not all(type(illustration.get(key)) is int and 0 < illustration[key] <= 8192 for key in ('width', 'height')):
+                raise ValueError('Dimensiones de ilustración inválidas.')
     for resource in data.get('resources', []):
         if not local_path(resource['path']).is_file():
             raise ValueError('Material descargable inexistente.')
@@ -168,6 +177,15 @@ def figure(scene):
         return f'<figure class="expo-figure gen-svg-figure">{drawing}{button("Ampliar esquema", f"data-enlarge data-inline-figure=\"{identifier}\"")}<figcaption>{esc(scene.get("caption", "Esquema conceptual original."))}</figcaption></figure>'
     return f'<figure class="expo-figure"><img src="{src}" alt="{alt}" width="720" height="480">{button("Ampliar esquema", f"data-enlarge data-src=\"{src}\" data-alt=\"{alt}\"")}<figcaption>{esc(scene.get("caption", "Esquema funcional original; no representa anatomía específica."))}</figcaption></figure>'
 
+def contextual_illustration(scene):
+    illustration = scene['illustration']
+    src = esc(asset_url(illustration['src']))
+    alt = esc(illustration['alt'])
+    caption_id = 'illustration-caption-' + scene['id']
+    label = esc('Ampliar imagen: ' + scene['title'])
+    expanded_caption = esc(illustration['caption'] + ' Ilustración generada con IA.')
+    return f'<figure class="gen-context-image"><div class="gen-context-image-media"><img src="{src}" alt="{alt}" width="{illustration["width"]}" height="{illustration["height"]}" loading="lazy" decoding="async"><button type="button" data-enlarge data-src="{src}" data-alt="{alt}" data-caption="{expanded_caption}" aria-label="{label}" aria-describedby="{caption_id}"><span>Ampliar imagen</span></button></div><figcaption id="{caption_id}">{esc(illustration["caption"])}<span>Ilustración generada con IA.</span></figcaption></figure>'
+
 def simulator():
     return '''<form class="expo-simulator" data-simulator novalidate><div class="expo-sim-controls">
 <label for="hco3-number">HCO₃⁻ <small>mmol/L</small></label><input id="hco3-number" type="number" min="4" max="48" step="0.1" value="24" inputmode="decimal" aria-describedby="sim-error"><input id="hco3-range" type="range" min="4" max="48" step="0.1" value="24" aria-label="Ajustar bicarbonato">
@@ -214,6 +232,8 @@ def scene_html(scene, data, i):
     section_label = esc(scene.get('section', SUBJECTS[data['subject']]['title'])) if genetics else esc(SUBJECTS[data['subject']]['title'])
     position = f'{i:02d}/{len(data["scenes"])-1}' if genetics and i else f'{i+1:02d}'
     heading = f'<header class="expo-scene-heading"><p class="expo-eyebrow">{heading_icon}{section_label} · {position}</p><{title_tag}>{esc(scene["title"])}</{title_tag}><p class="expo-lead">{esc(scene.get("summary", ""))}</p></header>'
+    if genetics and scene.get('illustration'):
+        heading = f'<div class="gen-illustrated-heading">{heading}{contextual_illustration(scene)}</div>'
     bullets = '<ul class="expo-points">' + ''.join(f'<li>{esc(p)}</li>' for p in scene.get('bullets', [])) + '</ul>' if scene.get('bullets') else ''
     equation = f'<p class="expo-equation">{esc(scene["equation"])}</p>' if scene.get('equation') else ''
     copy = f'<div class="expo-scene-copy">{bullets}{equation}</div>'

@@ -272,6 +272,13 @@
         "question": "¿Cómo puede alterarse el desarrollo reproductivo de una hembra bovina que comparte gestación con un macho?",
         "answer": "Si se establece una conexión vascular entre los fetos, pueden intercambiarse células y señales que alteren el desarrollo reproductivo de la hembra. Puede aparecer freemartinismo, pero ser cogemela de un macho no basta para confirmarlo.",
         "presenter": "Dennisse Carolina Silva Del Rosario"
+      },
+      "illustration": {
+        "src": "/exposiciones/assets/imagenes/genetica/terneros-cogemelos.webp",
+        "alt": "Ilustración generada con IA de dos terneros juntos en un entorno ganadero; no permite confirmar su sexo ni diagnosticar freemartinismo.",
+        "caption": "Gestación compartida; la apariencia no confirma freemartinismo.",
+        "width": 1536,
+        "height": 1024
       }
     },
     {
@@ -355,6 +362,13 @@
         "question": "¿Qué progenitor es heterogamético en el sistema XX/XY y cuál en el sistema ZZ/ZW?",
         "answer": "En XX/XY, el macho XY produce gametos con X o con Y. En ZZ/ZW, la hembra ZW produce gametos con Z o con W. Heterogamético significa producir dos tipos de gametos respecto a sus cromosomas sexuales.",
         "presenter": "Britney Gissel Cujilema Montero"
+      },
+      "illustration": {
+        "src": "/exposiciones/assets/imagenes/genetica/gallo-y-gallina.webp",
+        "alt": "Ilustración generada con IA de un gallo y una gallina como ejemplo del sistema aviar ZZ/ZW.",
+        "caption": "Ejemplo aviar: macho ZZ y hembra ZW.",
+        "width": 1536,
+        "height": 1024
       }
     },
     {
@@ -397,6 +411,13 @@
         "question": "¿Una temperatura más alta produce siempre más hembras en los reptiles?",
         "answer": "No. El efecto depende de la especie, su mecanismo de determinación sexual y el período sensible del desarrollo. Existen patrones distintos y muchos reptiles presentan determinación genética.",
         "presenter": "Joselyn María Pambi Gaona"
+      },
+      "illustration": {
+        "src": "/exposiciones/assets/imagenes/genetica/tortuga-y-huevos.webp",
+        "alt": "Ilustración generada con IA de una tortuga y huevos; contextualiza la incubación, sin indicar temperaturas ni predecir el sexo.",
+        "caption": "Incubación: el efecto térmico depende de la especie.",
+        "width": 1536,
+        "height": 1024
       }
     },
     {
@@ -598,6 +619,7 @@
   "downloadsAt": "comparacion-de-sistemas",
   "credits": [
     "Diagramas conceptuales originales para VETJB, basados en las referencias indicadas. No representan mediciones del grupo ni anatomía a escala.",
+    "Tres ilustraciones contextuales generadas con IA para VETJB: terneros, aves domésticas y tortuga con huevos. Son ejemplos visuales, no fotografías de casos reales ni evidencia diagnóstica o experimental.",
     "Contenido preparado por el Grupo 4 de Quinto A para Genética y Mejoramiento Animal, Universidad Técnica de Machala. La cita de instituciones y autores no implica su participación, revisión ni aval."
   ]
 }

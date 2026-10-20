@@ -88,6 +88,11 @@ function openDialog(dialog, opener) {
 document.querySelectorAll('dialog').forEach((dialog) => {
   dialog.addEventListener('close', () => {
     dialog.querySelector('[data-expanded-svg]')?.remove();
+    dialog.querySelector('[data-expanded-caption]')?.remove();
+    if (dialog.hasAttribute('data-context-image')) {
+      delete dialog.dataset.contextImage;
+      dialog.setAttribute('aria-label', 'Esquema ampliado');
+    }
     const figureImage = dialog.id === 'expo-figure' && dialog.querySelector('img');
     if (figureImage) figureImage.hidden = false;
     const opener = dialogOpeners.get(dialog);
@@ -252,6 +257,15 @@ document.querySelectorAll('[data-enlarge]').forEach((button) => {
     if (source.origin !== location.origin) return;
     image.src = source.href;
     image.alt = button.dataset.alt || button.querySelector('img')?.alt || 'Esquema ampliado';
+    if (button.dataset.caption) {
+      const caption = document.createElement('p');
+      caption.dataset.expandedCaption = '';
+      caption.className = 'expo-small';
+      caption.textContent = button.dataset.caption;
+      dialog.append(caption);
+      dialog.dataset.contextImage = '';
+      dialog.setAttribute('aria-label', 'Imagen de ejemplo ampliada');
+    }
     openDialog(dialog, button);
   });
 });
