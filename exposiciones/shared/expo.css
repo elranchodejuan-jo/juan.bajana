@@ -655,7 +655,8 @@ body.expo-app[data-subject="fisiopatologia"] .expo-quiz-case-reasoning :where(p,
 body.expo-app[data-subject="fisiopatologia"] [data-buffer-model-note] { margin: 0 0 14px; }
 
 @media screen {
-  body.expo-app[data-subject="fisiopatologia"][data-mode="presentar"] #expo-deck .expo-scene[data-layout="quiz"]:has([data-quiz-cases]) { padding-block: 26px; }
+  body.expo-app[data-subject="fisiopatologia"][data-mode="presentar"] :is(#sistemas-reguladores, #ph-y-procesos) .expo-comparison { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  body.expo-app[data-subject="fisiopatologia"][data-mode="presentar"] #expo-deck .expo-scene[data-layout="quiz"]:has([data-quiz-cases]) { padding-block: 18px; }
   body.expo-app[data-subject="fisiopatologia"][data-mode="presentar"] .expo-scene[data-layout="quiz"]:has([data-quiz-cases]) .expo-scene-heading { margin-bottom: 12px; }
   body.expo-app[data-subject="fisiopatologia"][data-mode="presentar"] .expo-scene[data-layout="quiz"]:has([data-quiz-cases]) .expo-eyebrow { margin-bottom: 6px; font-size: 14px; }
   body.expo-app[data-subject="fisiopatologia"][data-mode="presentar"] .expo-scene[data-layout="quiz"]:has([data-quiz-cases]) h2 { font-size: 40px; }

@@ -303,6 +303,18 @@ test('DOM: legacy case links select their quiz question and preserve checks, sha
     assert.equal(dog.querySelector('[data-question-reasoning]').hidden, true);
     assert.equal(calf.querySelector('[data-feedback]').hidden, false);
     assert.match(form.querySelector('[data-quiz-score]').textContent, /1 de 1 respuestas correctas/);
+    dog.querySelector('[data-question-check]').click();
+    assert.match(dog.querySelector('[data-feedback]').textContent, /^Correcta\./);
+    const returnToSlides = app.switchMode('presentar');
+    assert.equal(win.location.hash, '#perro-hipoventilacion', 'Loading slide mode must retain the active question in the URL.');
+    doc.querySelector('[data-reveal-style]').dispatchEvent(new win.Event('load'));
+    await returnToSlides;
+    assert.equal(win.location.hash, '#perro-hipoventilacion');
+    assert.equal(form.querySelector('[data-question]:not([hidden])'), dog);
+    assert.equal(dog.querySelector(`input[value="${dog.dataset.answer}"]`).checked, true);
+    assert.match(dog.querySelector('[data-feedback]').textContent, /^Correcta\./);
+    assert.equal(new URL(doc.querySelector('[data-view-mode="estudiar"]').href).hash, '#perro-hipoventilacion');
+    await app.switchMode('estudiar');
     win.location.hash = '#conclusiones';
     await tick();
     assert.equal(win.location.hash, '#referencias');
