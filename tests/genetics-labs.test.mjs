@@ -9,7 +9,7 @@ import { initGeneticsLabs } from '../exposiciones/shared/genetics-labs.mjs';
 
 const directory = fileURLToPath(new URL('../', import.meta.url));
 const fragments = JSON.parse(execFileSync(process.env.PYTHON || 'python3', ['-c',
-  "import json,sys;sys.path.insert(0,'scripts');from expo_genetics import genetics_visual;ids=['niveles-del-desarrollo','haplodiploidia','cruces-cromosomicos','via-testicular','via-ovarica','hormonas-y-conductos','comparacion-de-sistemas','temperatura','unknown'];print(json.dumps({key:genetics_visual(key) for key in ids}))",
+  "import json,sys;sys.path.insert(0,'scripts');from expo_genetics import genetics_visual;ids=['cromosomas-sexuales','freemartinismo','niveles-del-desarrollo','haplodiploidia','cruces-cromosomicos','via-testicular','via-ovarica','hormonas-y-conductos','comparacion-de-sistemas','temperatura','unknown'];print(json.dumps({key:genetics_visual(key) for key in ids}))",
 ], { cwd: directory, encoding: 'utf8' }));
 
 function environment(html) {
@@ -58,7 +58,7 @@ test('SSR offers semantic tables, all scientific caveats and independent slide-f
   const { dom, doc } = environment(Object.entries(fragments).filter(([key]) => key !== 'via-ovarica').map(([, html]) => html).join(''));
   try {
     assert.equal(fragments.unknown, '');
-    assert.equal(doc.querySelectorAll('[data-genetics-lab]').length, 7);
+    assert.equal(doc.querySelectorAll('[data-genetics-lab]').length, 9);
     assert.equal(doc.querySelectorAll('section').length, 0);
     for (const table of doc.querySelectorAll('table')) {
       assert.ok(table.querySelector('caption')?.textContent);
@@ -140,8 +140,8 @@ test('comparison does not force XY heterogametia onto ploidy or environmental sy
       assert.equal(doc.querySelector('[data-gen-system-panel]:not([hidden])').dataset.genSystemPanel, system);
       assert.match(doc.querySelector('.gen-selected').textContent, /No corresponde X\/Y o Z\/W/);
     }
-    change('[data-gen-system]', 'xxx0');
-    assert.match(doc.querySelector('[data-gen-system-panel]:not([hidden])').textContent, /autosomas siguen siendo diploides/);
+    assert.equal(doc.querySelectorAll('[data-gen-system] option').length, 4);
+    assert.equal(doc.querySelector('[data-gen-system-row="xxx0"]'), null, 'The presentation compares the four systems requested by the group.');
     doc.querySelector('[data-gen-reset]').click();
     assert.equal(doc.querySelector('[data-gen-system]').value, 'xxxy');
   } finally { dom.window.close(); }
@@ -174,11 +174,11 @@ test('development levels distinguish somatic and germinal roles, provide a compl
   try {
     const lab = doc.querySelector('[data-genetics-lab]');
     const summary = lab.querySelector('.gen-static-summary');
-    assert.equal(summary.querySelectorAll('tbody tr').length, 3);
+    assert.equal(summary.querySelectorAll('tbody tr').length, 4);
     assert.match(summary.textContent, /células somáticas y germinales/);
     assert.match(summary.textContent, /Las somáticas dirigen.*las germinales originan gametos/);
     assert.match(lab.textContent, /no permite diagnosticar/);
-    assert.equal(lab.querySelectorAll('button[data-gen-level] svg[aria-hidden="true"]').length, 3);
+    assert.equal(lab.querySelectorAll('button[data-gen-level] svg[aria-hidden="true"]').length, 4);
     assert.equal(lab.querySelector('.gen-source').href, 'https://reproduccionanimalesdomesticos.fmvz.unam.mx/libro/capitulo1/autores.html');
     const destroy = initGeneticsLabs(doc);
     const duplicateDestroy = initGeneticsLabs(doc);
@@ -191,6 +191,11 @@ test('development levels distinguish somatic and germinal roles, provide a compl
     assert.equal(arrow.defaultPrevented, true);
     assert.equal(doc.activeElement.dataset.genLevel, 'gonada');
     assert.equal(lab.querySelector('[data-gen-level-panel]:not([hidden])').dataset.genLevelPanel, 'gonada');
+    lab.querySelector('[data-gen-level="hormonas"]').click();
+    const hormones = lab.querySelector('[data-gen-level-panel="hormonas"]');
+    assert.equal(hormones.hidden, false);
+    assert.match(hormones.textContent, /Sertoli produce AMH y Leydig produce testosterona/);
+    assert.match(hormones.textContent, /conversión local a DHT.*tejidos y receptores funcionales/);
     const end = new dom.window.KeyboardEvent('keydown', { key: 'End', bubbles: true, cancelable: true });
     doc.activeElement.dispatchEvent(end);
     assert.equal(doc.activeElement.dataset.genLevel, 'fenotipo');
@@ -235,5 +240,62 @@ test('Apis csd explorer distinguishes hemizygous, heterozygous and diploid-male 
     lab.querySelector('[data-gen-reset]').click();
     assert.equal(lab.querySelector('[data-gen-csd-panel]:not([hidden])').dataset.genCsdPanel, 'haploide');
     assert.equal(lab.querySelectorAll('[data-gen-csd][aria-pressed="true"]').length, 1);
+  } finally { dom.window.close(); }
+});
+
+test('chromosome explorer differentiates chromosomal systems and preserves its keyboard selection across remounts', () => {
+  const { dom, doc } = environment(fragments['cromosomas-sexuales']);
+  try {
+    const lab = doc.querySelector('[data-genetics-lab]');
+    const summary = lab.querySelector('.gen-static-summary');
+    assert.equal(summary.querySelectorAll('tbody tr').length, 4);
+    assert.match(summary.textContent, /SRY.*vía testicular/);
+    assert.match(summary.textContent, /DMRT1, localizado en Z/);
+    assert.match(summary.textContent, /W no es un interruptor ovárico universal/);
+    assert.match(lab.textContent, /no representa su forma, tamaño ni mapa génico reales/);
+    const destroy = initGeneticsLabs(doc);
+    const first = lab.querySelector('[data-gen-chromosome="x"]');
+    first.focus();
+    first.dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true, cancelable: true }));
+    assert.equal(doc.activeElement.dataset.genChromosome, 'y');
+    assert.match(lab.querySelector('[data-gen-chromosome-panel]:not([hidden])').textContent, /SRY/);
+    lab.querySelector('[data-gen-chromosome="z"]').click();
+    assert.match(lab.querySelector('[data-gen-chromosome-panel]:not([hidden])').textContent, /DMRT1/);
+    doc.body.dataset.mode = 'presentar';
+    doc.dispatchEvent(new dom.window.CustomEvent('expo:modechange', { detail: { mode: 'presentar' } }));
+    destroy(); initGeneticsLabs(doc);
+    assert.equal(lab.querySelector('[data-gen-chromosome-panel]:not([hidden])').dataset.genChromosomePanel, 'z');
+    lab.querySelector('[data-gen-reset]').click();
+    assert.equal(lab.querySelector('[data-gen-chromosome-panel]:not([hidden])').dataset.genChromosomePanel, 'x');
+    assert.equal(lab.querySelectorAll('[data-gen-chromosome][aria-pressed="true"]').length, 1);
+  } finally { dom.window.close(); }
+});
+
+test('freemartin steps distinguish possible vascular communication, cellular exchange and diagnostic uncertainty', () => {
+  const { dom, doc } = environment(fragments.freemartinismo);
+  try {
+    const lab = doc.querySelector('[data-genetics-lab]');
+    const summary = lab.querySelector('.gen-static-summary');
+    assert.equal(summary.querySelectorAll('tbody tr').length, 3);
+    assert.match(summary.textContent, /no confirma freemartinismo/);
+    assert.match(summary.textContent, /En algunas gestaciones/);
+    assert.match(summary.textContent, /quimerismo sanguíneo XX\/XY/);
+    assert.match(lab.textContent, /No significa que cada célula XX se transforme en XY/);
+    assert.equal(lab.querySelector('.gen-source').href, 'https://doi.org/10.22490/21456453.894');
+    assert.equal(lab.querySelector('[data-gen-freemartin-panel="gemelos"] .gen-fetal-connection'), null);
+    assert.ok(lab.querySelector('[data-gen-freemartin-panel="conexion"] .gen-fetal-connection'));
+    assert.equal(lab.querySelectorAll('[data-gen-freemartin-panel="intercambio"] .gen-fetal-cells circle').length, 3);
+    const destroy = initGeneticsLabs(doc);
+    lab.querySelector('[data-gen-freemartin="intercambio"]').click();
+    assert.equal(lab.querySelector('[data-gen-freemartin-panel]:not([hidden])').dataset.genFreemartinPanel, 'intercambio');
+    destroy(); initGeneticsLabs(doc);
+    assert.equal(lab.querySelector('[data-gen-freemartin-panel]:not([hidden])').dataset.genFreemartinPanel, 'intercambio');
+    const selected = lab.querySelector('[data-gen-freemartin="intercambio"]');
+    selected.dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'Home', bubbles: true, cancelable: true }));
+    assert.equal(doc.activeElement.dataset.genFreemartin, 'gemelos');
+    lab.querySelector('[data-gen-freemartin="conexion"]').click();
+    lab.querySelector('[data-gen-reset]').click();
+    assert.equal(lab.querySelector('[data-gen-freemartin-panel]:not([hidden])').dataset.genFreemartinPanel, 'gemelos');
+    assert.equal(lab.querySelectorAll('[data-gen-freemartin][aria-pressed="true"]').length, 1);
   } finally { dom.window.close(); }
 });
