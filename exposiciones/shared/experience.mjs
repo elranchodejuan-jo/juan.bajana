@@ -322,15 +322,16 @@ function updateNavigation(scene, updateHash = true) {
   const next = document.querySelector('[data-next]');
   if (previous) previous.disabled = index <= 0;
   if (next) next.disabled = index >= scenes.length - 1;
+  const fragment = scene.querySelector('form[data-quiz-cases]')?.dataset.activeQuestion || scene.id;
   if (updateHash) {
     const url = new URL(location.href);
-    url.hash = scene.id;
+    url.hash = fragment;
     history.replaceState(null, '', url);
   }
   document.querySelectorAll('[data-view-mode]').forEach((toggle) => {
     const url = new URL(location.href);
     url.searchParams.set('modo', toggle.dataset.viewMode);
-    url.hash = scene.id;
+    url.hash = fragment;
     toggle.href = url.href;
     if (toggle.dataset.viewMode === mode) toggle.setAttribute('aria-current', 'true');
     else toggle.removeAttribute('aria-current');
@@ -347,10 +348,27 @@ function sceneFromHash() {
   return scenes.includes(scene) ? scene : undefined;
 }
 
+function selectQuizTarget(target) {
+  const question = target?.closest('[data-question]');
+  const form = question?.closest('form[data-quiz-cases]');
+  if (form) form.dispatchEvent(new window.CustomEvent('expo:questiontarget', { detail: { id: question.id } }));
+}
+
+function studyScrollTarget(scene) {
+  const form = scene?.querySelector('form[data-quiz-cases]');
+  if (!form) return scene;
+  let id = form.dataset.activeQuestion;
+  if (!id) {
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch { /* Use the scene for invalid fragments. */ }
+  }
+  const question = document.getElementById(id);
+  return question?.matches('[data-question]') && form.contains(question) ? question : scene;
+}
+
 function navigateTo(scene, focus = false) {
   if (!scene) return;
   if (mode === 'presentar' && deck) deck.slide(scenes.indexOf(scene));
-  else scene.scrollIntoView({ behavior: 'auto', block: 'start' });
+  else studyScrollTarget(scene).scrollIntoView({ behavior: 'auto', block: 'start' });
   updateNavigation(scene);
   if (focus) {
     const heading = scene.querySelector('h1, h2') || scene;
@@ -472,7 +490,7 @@ function initializeStudy() {
     let fragment;
     try { fragment = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch { /* Invalid hash keeps the selected scene. */ }
     if (fragment?.closest('[data-materials-content]')) fragment.scrollIntoView({ behavior: 'auto', block: 'start' });
-    else if (location.hash && initialScene) initialScene.scrollIntoView({ behavior: 'auto', block: 'start' });
+    else if (location.hash && initialScene) studyScrollTarget(initialScene).scrollIntoView({ behavior: 'auto', block: 'start' });
     if (deckElement) deckElement.dataset.ready = 'true';
   });
 }
@@ -517,7 +535,7 @@ export async function switchMode(nextMode) {
     document.querySelectorAll('[data-view-mode]').forEach((control) => control.removeAttribute('aria-disabled'));
     updateNavigation(scene);
     document.dispatchEvent(new window.CustomEvent('expo:modechange', { detail: { mode } }));
-    if (mode === 'estudiar') scene.scrollIntoView({ behavior: 'auto', block: 'start' });
+    if (mode === 'estudiar') studyScrollTarget(scene).scrollIntoView({ behavior: 'auto', block: 'start' });
   }
 }
 
@@ -546,6 +564,7 @@ if (scenes.length) {
       const scene = scenes.includes(target) ? target : target?.closest('.expo-scene');
       if (!scene) return;
       event.preventDefault();
+      selectQuizTarget(target);
       const dialog = link.closest('dialog');
       dialog?.close();
       navigateTo(scene, !dialog);
@@ -556,7 +575,11 @@ if (scenes.length) {
     let target;
     try { target = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch { return; }
     if (mode === 'presentar' && target?.closest('[data-materials-content]')) openMaterials(target);
-    else navigateTo(sceneFromHash());
+    else {
+      selectQuizTarget(target);
+      navigateTo(sceneFromHash());
+      if (mode === 'estudiar' && target?.matches('[data-question]')) target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    }
   });
   document.querySelector('[data-speaker]')?.addEventListener('click', openSpeaker);
   const fullscreen = document.querySelector('[data-fullscreen]');
@@ -735,13 +758,40 @@ document.querySelectorAll('form[data-quiz]').forEach((form) => {
   const position = form.querySelector('[data-quiz-position]');
   const score = form.querySelector('[data-quiz-score]');
   const individual = form.hasAttribute('data-quiz-individual');
+  const caseQuiz = form.hasAttribute('data-quiz-cases');
   const checkedAnswers = new Map();
   let questionIndex = 0;
+  if (caseQuiz) {
+    let initialId;
+    try { initialId = decodeURIComponent(initialFragment.slice(1)); } catch { /* Ignore malformed fragments. */ }
+    questionIndex = Math.max(0, questions.findIndex((question) => question.id === initialId));
+  }
+  function renderCase(question) {
+    if (!question.hasAttribute('data-quiz-case')) return;
+    const checked = checkedAnswers.has(question);
+    const compact = mode === 'presentar' && checked;
+    question.dataset.checked = String(checked);
+    question.querySelectorAll('.expo-choices label').forEach((label) => { label.hidden = compact && !label.querySelector('input:checked'); });
+    const checkButton = question.querySelector('[data-question-check]');
+    const changeButton = question.querySelector('[data-question-change]');
+    if (checkButton) checkButton.hidden = compact;
+    if (changeButton) changeButton.hidden = !compact;
+    const reasoning = question.querySelector('[data-question-reasoning]');
+    if (reasoning) reasoning.hidden = !checked;
+  }
   function paginate() {
     questions.forEach((question, index) => { question.hidden = mode === 'presentar' && index !== questionIndex; });
+    questions.forEach(renderCase);
+    if (caseQuiz && questions[questionIndex]) form.dataset.activeQuestion = questions[questionIndex].id;
     if (previous) { previous.hidden = mode !== 'presentar'; previous.disabled = questionIndex === 0; }
     if (next) { next.hidden = mode !== 'presentar'; next.disabled = questionIndex === questions.length - 1; }
     if (position) { position.hidden = mode !== 'presentar'; position.textContent = `Pregunta ${questionIndex + 1} de ${questions.length}`; }
+  }
+  function selectQuestion(index, updateHash = true) {
+    questionIndex = Math.max(0, Math.min(questions.length - 1, index));
+    paginate();
+    const scene = form.closest('.expo-scene');
+    if (caseQuiz && updateHash && scene === currentScene) updateNavigation(scene);
   }
   function check() {
     let correct = 0;
@@ -781,25 +831,40 @@ document.querySelectorAll('form[data-quiz]').forEach((form) => {
       updateCheckedScore();
     }
     feedback.hidden = false;
+    renderCase(question);
+    if (caseQuiz) selectQuestion(questions.indexOf(question));
+  }
+  function clearQuestion(question) {
+    checkedAnswers.delete(question);
+    const feedback = question.querySelector('[data-feedback]');
+    if (feedback) {
+      feedback.hidden = true;
+      if (feedback.dataset.explanation) feedback.textContent = feedback.dataset.explanation;
+      delete feedback.dataset.correct;
+    }
+    renderCase(question);
+    updateCheckedScore();
   }
   if (individual) {
     questions.forEach((question) => {
       question.querySelector('[data-question-check]')?.addEventListener('click', () => checkQuestion(question));
+      question.querySelector('[data-question-change]')?.addEventListener('click', () => {
+        clearQuestion(question);
+        question.querySelector('input:checked')?.focus({ preventScroll: true });
+      });
       question.addEventListener('change', (event) => {
         if (!event.target.matches('input[type="radio"]')) return;
-        checkedAnswers.delete(question);
-        const feedback = question.querySelector('[data-feedback]');
-        if (feedback) {
-          feedback.hidden = true;
-          if (feedback.dataset.explanation) feedback.textContent = feedback.dataset.explanation;
-          delete feedback.dataset.correct;
-        }
-        updateCheckedScore();
+        clearQuestion(question);
+        if (caseQuiz) selectQuestion(questions.indexOf(question));
       });
     });
   }
-  previous?.addEventListener('click', () => { questionIndex = Math.max(0, questionIndex - 1); paginate(); });
-  next?.addEventListener('click', () => { questionIndex = Math.min(questions.length - 1, questionIndex + 1); paginate(); });
+  previous?.addEventListener('click', () => selectQuestion(questionIndex - 1));
+  next?.addEventListener('click', () => selectQuestion(questionIndex + 1));
+  if (caseQuiz) form.addEventListener('expo:questiontarget', (event) => {
+    const index = questions.findIndex((question) => question.id === event.detail?.id);
+    if (index >= 0) selectQuestion(index, false);
+  });
   form.querySelector('[data-quiz-check]')?.addEventListener('click', (event) => { event.preventDefault(); check(); });
   form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -820,15 +885,23 @@ document.querySelectorAll('form[data-quiz]').forEach((form) => {
       }
     });
     if (score) score.textContent = '';
-    paginate();
+    selectQuestion(0);
   }));
   paginate();
+  if (caseQuiz && currentScene === form.closest('.expo-scene')) {
+    updateNavigation(currentScene);
+    const target = questions[questionIndex];
+    if (target && questionIndex > 0) requestAnimationFrame(() => {
+      if (mode === 'estudiar' && currentScene === form.closest('.expo-scene')) target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    });
+  }
   document.addEventListener('expo:modechange', paginate);
 });
 
 let printHidden = [];
 addEventListener('beforeprint', () => {
-  printHidden = [...document.querySelectorAll('[data-step][hidden], [data-option-feedback][hidden], [data-question][hidden], [data-feedback][hidden], form[data-case] fieldset[hidden], form[data-case] label[hidden]')];
+  printHidden = [...document.querySelectorAll('[data-step][hidden], [data-option-feedback][hidden], [data-question][hidden], [data-feedback][hidden], form[data-case] fieldset[hidden], form[data-case] label[hidden], [data-quiz-case] label[hidden]')]
+    .filter((element) => !(element.matches('[data-feedback]') && element.closest('form[data-quiz-cases]')));
   printHidden.forEach((element) => { element.hidden = false; });
 });
 addEventListener('afterprint', () => {

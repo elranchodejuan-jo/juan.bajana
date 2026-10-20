@@ -17,7 +17,7 @@ function bufferLab(lab, on) {
     panels.forEach((panel) => { panel.hidden = panel.dataset.bufferPanel !== load || Number(panel.dataset.bufferStep) !== step; });
     lab.querySelector('[data-buffer-position]').textContent = `Paso ${step + 1} de 3`;
     lab.querySelector('[data-buffer-direction]').textContent = {
-      reversible: 'Reacción reversible · sin magnitudes asignadas',
+      reversible: 'Reacción reversible',
       right: 'Sentido favorecido: hacia CO₂ y agua →',
       left: '← Sentido favorecido: hacia H⁺ y HCO₃⁻',
     }[direction];

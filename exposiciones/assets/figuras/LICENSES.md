@@ -8,9 +8,9 @@ Elaboración técnica: diagramas SVG originales realizados con asistencia de IA 
 
 | Archivo | Contenido | Base científica |
 | --- | --- | --- |
-| `bicarbonato.svg` | Equilibrio químico reversible y relación bicarbonato/CO₂ disuelto. | Referencias 1 y 3 del informe. |
-| `pulmon.svg` | Transporte de CO₂, eliminación pulmonar y dirección de PCO₂ al variar ventilación alveolar, manteniendo constante la producción de CO₂. | Referencias 1 y 5 del informe. |
-| `renal.svg` | Separación entre recuperación del bicarbonato filtrado y excreción neta de ácido, asociada a bicarbonato nuevo. | Referencia 4 del informe. |
+| `bicarbonato.svg` | Equilibrio químico reversible y relación bicarbonato/CO₂ disuelto. | Referencias 1, 2 y 3 del informe. |
+| `pulmon.svg` | Transporte de CO₂, eliminación pulmonar y dirección de PCO₂ al variar ventilación alveolar, manteniendo constante la producción de CO₂. | Referencias 1, 3 y 5 del informe. |
+| `renal.svg` | Separación entre recuperación del bicarbonato filtrado y excreción neta de ácido, asociada a bicarbonato nuevo. | Referencia 6 del informe. |
 
 Son esquemas funcionales. No reproducen la anatomía de una especie ni representan mediciones de un paciente. La relación química no sustituye una interpretación clínica completa. El esquema pulmonar mantiene explícitamente constante la producción de CO₂. En el renal, «ácido titulable» describe el ácido urinario tamponado, principalmente por fosfato.
 
@@ -24,12 +24,13 @@ Las fuentes tipográficas no están incrustadas ni se redistribuyen. La pila CSS
 
 ## Fisiopatología: fuentes consultadas
 
-La numeración coincide con `report_content.json` y el informe de Fisiopatología de esta sesión.
+La numeración coincide con el JSON canónico y el informe actualizado de Fisiopatología.
 
-1. Cornell University. Overview [Internet]. eClinPath; [citado 17 oct 2026]. https://eclinpath.com/chemistry/acid-base/overview/
-3. Baquero-Parrado JR. Consideraciones clínicas y regulación del equilibrio ácido-base en ganado bovino. Rev UDCA Actual Divulg Cient. 2008;11(2):85-100. https://doi.org/10.31910/rudca.v11.n2.2008.626
-4. Cornell University. Physiology [Internet]. eClinPath; [citado 17 oct 2026]. https://eclinpath.com/chemistry/kidney/physiology/
-5. Cornell University. Response to disturbances [Internet]. eClinPath; [citado 17 oct 2026]. https://eclinpath.com/chemistry/acid-base/compensation/
+- [1] Cornell University. Overview [Internet]. eClinPath; [citado 17 oct 2026]. https://eclinpath.com/chemistry/acid-base/overview/
+- [2] Baquero-Parrado JR. Consideraciones clínicas y regulación del equilibrio ácido-base en ganado bovino. Rev UDCA Actual Divulg Cient. 2008;11(2):85-100. https://doi.org/10.31910/rudca.v11.n2.2008.626
+- [6] Cornell University. Physiology [Internet]. eClinPath; [citado 17 oct 2026]. https://eclinpath.com/chemistry/kidney/physiology/
+- [3] Cornell University. Response to disturbances [Internet]. eClinPath; [citado 17 oct 2026]. https://eclinpath.com/chemistry/acid-base/compensation/
+- [5] Columbia University. Acid–base disturbances [material docente en Internet; sin fecha]. https://www.columbia.edu/itc/hs/medical/pathophys/pulmonary/2008/abnormalColor.pdf
 
 ## Fisiopatología: integración y accesibilidad
 
@@ -126,3 +127,10 @@ informe son originales; los diagramas y tablas del PowerPoint son editables.
 Se inspeccionaron las 11 páginas y las 16 diapositivas renderizadas.
 La revisión del HTML en navegador sigue pendiente por el bloqueo
 de permisos previamente documentado; no se han intentado rutas alternativas.
+
+
+## Fisiopatología: ilustraciones de contexto del 20 de octubre de 2026
+
+`ternero-contexto-acido-base.webp` y `perro-contexto-acido-base.webp` se generaron con OpenAI ImageGen para esta revisión. Son ilustraciones sintéticas de escenarios ficticios, no fotografías documentales de pacientes ni pruebas de los mecanismos explicados. Se integran con una leyenda explícita en web, informe y presentación. Los datos clínicos del ejercicio se conservan por separado; las imágenes no documentan un protocolo de anestesia, diagnóstico ni tratamiento.
+
+Indicaciones de generación: escena horizontal de un ternero joven blanco y negro sobre paja limpia, observado por un veterinario; escena horizontal de un perro adulto de pelaje marrón recostado en una mesa acolchada y observado por una veterinaria. Sin texto, logotipos, procedimientos invasivos ni señales clínicas rotuladas. Los originales PNG se reutilizaron en los documentos y se convirtieron a WebP para la página. No se copiaron fotografías de los repositorios de referencia.

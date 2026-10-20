@@ -155,8 +155,9 @@ class ExposicionesTests(unittest.TestCase):
         ])
         expected=[{'href':f'{r["path"]}?v={hashlib.sha256((ROOT/r["path"].lstrip("/")).read_bytes()).hexdigest()[:16]}',
                    'label':r['label']} for r in resources]
-        closing=next(s for s in self.content['scenes'] if s['layout']=='closing')
-        rendered=Links();rendered.feed(builder.scene_html(closing,self.content,0))
+        materials=next(s for s in self.content['scenes'] if s['id']==self.content['downloadsAt'])
+        self.assertEqual(materials['layout'],'references')
+        rendered=Links();rendered.feed(builder.scene_html(materials,self.content,0))
         self.assertEqual(rendered.downloads,expected)
         published=Links();published.feed((ROOT/'exposiciones/fisiopatologia/equilibrio-acido-base/index.html').read_text())
         self.assertEqual(published.downloads,expected,'Regenerate the page after replacing any downloadable file.')
@@ -182,9 +183,12 @@ class ExposicionesTests(unittest.TestCase):
             self.assertNotIn('eval(',p.read_text())
 
     def test_case_calculations_match_displayed_values(self):
-        for s in self.content['scenes']:
-            if s['layout']!='case':continue
-            c=s['case'];values=c['values']
+        self.assertEqual(len(self.content['quiz']),5)
+        cases=[q['case'] for q in self.content['quiz'] if q.get('case')]
+        self.assertEqual([c['id'] for c in cases],['ternero-diarrea','perro-hipoventilacion'])
+        self.assertFalse(any(s['layout'] in ('case','closing') for s in self.content['scenes']))
+        for c in cases:
+            values=c['values']
             def value(prefix):
                 key=next(k for k in values if k.startswith(prefix) and 'prev' not in k)
                 return float(values[key].split()[0].replace(',','.'))
@@ -199,9 +203,11 @@ class ExposicionesTests(unittest.TestCase):
             self.assertIn(builder.esc(scene['title']),source)
             self.assertIn(f'id="{scene["id"]}"',source)
         self.assertIn('<noscript>',source)
-        self.assertEqual(len(self.content['scenes']),15)
-        self.assertEqual(source.count('class="expo-scene"'),15)
-        self.assertEqual(source.count('<section'),15, 'Nested sections become unintended vertical slides in reveal.js')
+        self.assertEqual(len(self.content['scenes']),14)
+        self.assertEqual(source.count('class="expo-scene"'),14)
+        self.assertEqual(source.count('<section'),14, 'Nested sections become unintended vertical slides in reveal.js')
+        self.assertIn('data-quiz-individual data-quiz-cases',source)
+        self.assertIn('id="conclusiones" class="expo-scene-alias"',source)
         self.assertIn('data-view-mode="estudiar"',source)
         self.assertIn('data-view-mode="presentar"',source)
         self.assertIn('data-motion-toggle',source)

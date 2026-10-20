@@ -136,6 +136,29 @@ test('DOM buffer steps, load changes and reset remain functional after idempoten
   } finally { dom.window.close(); }
 });
 
+test('buffer teaching steps follow physiology while the model limitation remains outside every sequence', () => {
+  const { dom, doc } = environment(snippets.buffer);
+  try {
+    initializeVisualLabs(doc);
+    const note = doc.querySelector('[data-buffer-model-note]');
+    assert.equal(note.textContent, 'El esquema muestra la dirección de la reacción; no calcula su magnitud.');
+    assert.equal(note.closest('[data-buffer-panel]'), null);
+    for (const [load, direction, finalPhrase] of [['co2', 'left', 'El pH tiende a descender'], ['remove', 'right', 'El pH tiende a subir']]) {
+      doc.querySelector(`input[value="${load}"]`).click();
+      for (let step = 0; step < 3; step++) {
+        const panel = doc.querySelector('[data-buffer-panel]:not([hidden])');
+        assert.equal(panel.dataset.bufferStep, String(step));
+        assert.equal(doc.querySelector('[data-visual-lab]').dataset.direction, direction);
+        assert.doesNotMatch(panel.textContent, /Reconocer el límite|no calcula|no predicen|no se simulan/);
+        assert.equal(note.hidden, false);
+        if (step < 2) doc.querySelector('[data-buffer-next]').click();
+        else assert.equal(panel.querySelector('h3').textContent, finalPhrase);
+      }
+    }
+    assert.match(doc.querySelector('details.expo-study-only').textContent, /No calcula concentraciones, velocidades ni compensación/);
+  } finally { dom.window.close(); }
+});
+
 test('DOM renal controls select one function and reset without implying generation during recycling', () => {
   const { dom, doc } = environment(snippets.renal);
   try {
