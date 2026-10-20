@@ -183,19 +183,24 @@ def case_component(case):
     static = ''.join(f'<p><strong>{esc(s["title"])}</strong> {esc(s["text"])}</p>' for s in case['steps'])
     return f'''<form data-case class="expo-case" data-correct-index="{case['correct']}"><div class="expo-scene-grid"><div><p class="expo-study-only">{esc(case['history'])}</p><p class="expo-present-only">{esc(case.get('short_history',case['history']))}</p><p class="expo-small">{esc(case['sample'])} · Escenario didáctico construido.</p><table class="expo-case-data"><caption>Datos para interpretar</caption><tbody>{rows}</tbody></table></div><div><fieldset><legend>{esc(case['question'])}</legend><div class="expo-choices">{choices}</div></fieldset><div class="expo-actions">{button('Comprobar', 'data-case-check', True)}{button('Paso anterior', 'data-case-prev')}{button('Revelar siguiente paso', 'data-case-next')}<button type="reset" class="expo-button">Reiniciar caso</button></div><div class="expo-case-steps" data-case-steps aria-live="polite">{steps}</div></div></div></form><details class="expo-study-only"><summary>Lectura del razonamiento completo</summary>{static}</details>'''
 
-def quiz_component(questions):
+def quiz_component(questions, individual=False):
     items = []
     for i, q in enumerate(questions):
         choices = ''.join(f'<label><input type="radio" name="quiz-{i}" value="{j}"><span>{esc(c)}</span></label>' for j, c in enumerate(q['options']))
-        items.append(f'<fieldset data-question data-answer="{q["correct"]}" id="pregunta-{i+1}"><legend>{i+1}. {esc(q["question"])}</legend><div class="expo-choices">{choices}</div><p class="expo-feedback" data-feedback hidden>{esc(q["feedback"])}</p></fieldset>')
-    return f'<form data-quiz class="expo-quiz">{"".join(items)}<div class="expo-actions expo-present-only">{button("Pregunta anterior", "data-quiz-prev")}<span data-quiz-position></span>{button("Pregunta siguiente", "data-quiz-next")}</div><div class="expo-actions">{button("Evaluar respuestas", "data-quiz-check", True)}<button type="reset" class="expo-button">Reiniciar preguntas</button><output data-quiz-score aria-live="polite"></output></div></form><p class="expo-small">Resultado individual en este navegador. No se solicitan ni envían datos.</p><noscript><details><summary>Respuestas razonadas</summary>{"".join(paragraphs(q["feedback"]) for q in questions)}</details></noscript>'
+        check_attrs = f'data-question-check aria-controls="respuesta-{i+1}" aria-label="Comprobar respuesta de la pregunta {i+1}"'
+        check = '<div class="expo-actions">' + button('Comprobar respuesta', check_attrs, True) + '</div>' if individual else ''
+        feedback_attrs = f' id="respuesta-{i+1}" role="status" aria-live="polite" aria-atomic="true"' if individual else ''
+        items.append(f'<fieldset data-question data-answer="{q["correct"]}" id="pregunta-{i+1}"><legend>{i+1}. {esc(q["question"])}</legend><div class="expo-choices">{choices}</div>{check}<p class="expo-feedback" data-feedback{feedback_attrs} hidden>{esc(q["feedback"])}</p></fieldset>')
+    mode_attr = ' data-quiz-individual' if individual else ''
+    check_all = '' if individual else button('Evaluar respuestas', 'data-quiz-check', True)
+    return f'<form data-quiz{mode_attr} class="expo-quiz">{"".join(items)}<div class="expo-actions expo-present-only">{button("Pregunta anterior", "data-quiz-prev")}<span data-quiz-position></span>{button("Pregunta siguiente", "data-quiz-next")}</div><div class="expo-actions">{check_all}<button type="reset" class="expo-button">Reiniciar preguntas</button><output data-quiz-score aria-live="polite"></output></div></form><p class="expo-small">Resultado individual en este navegador. No se solicitan ni envían datos.</p><noscript><details><summary>Respuestas razonadas</summary>{"".join(paragraphs(q["feedback"]) for q in questions)}</details></noscript>'
 
 def genetics_materials(data):
     """Reading resources stay outside the slide count and remain usable without JS."""
     refs = ''.join(f'<li id="ref-{r["id"]}" value="{r["id"]}"><p>{esc(r["citation"])}</p><a href="{esc(r["url"])}" target="_blank" rel="noopener noreferrer">{esc(r["url"])}</a></li>' for r in data['references'])
     downloads = ''.join(f'<a class="expo-button" href="{esc(asset_url(r["path"]))}" download>{esc(r["label"])}</a>' for r in data.get('resources', []))
     questions = ''.join(f'<details class="gen-oral-study"><summary>{esc(s["oralQuestion"]["question"])}</summary>{paragraphs(s["oralQuestion"]["answer"])}</details>' for s in data['scenes'] if s.get('oralQuestion'))
-    return f'<div class="gen-materials-home expo-study-only"><div id="referencias-y-materiales" data-materials-content><h2>Materiales de estudio</h2><div class="expo-actions">{downloads}</div><h3>Preguntas para el grupo</h3>{questions}<div id="autoevaluacion"><h3>Autoevaluación</h3>{quiz_component(data.get("quiz", []))}</div><h3>Referencias bibliográficas</h3><ol class="expo-references">{refs}</ol><div class="expo-credits">{paragraphs(data.get("credits", []))}</div></div></div>'
+    return f'<div class="gen-materials-home expo-study-only"><div id="referencias-y-materiales" data-materials-content><h2>Materiales de estudio</h2><div class="expo-actions">{downloads}</div><h3>Preguntas para el grupo</h3>{questions}<div id="autoevaluacion"><h3>Autoevaluación</h3>{quiz_component(data.get("quiz", []), individual=True)}</div><h3>Referencias bibliográficas</h3><ol class="expo-references">{refs}</ol><div class="expo-credits">{paragraphs(data.get("credits", []))}</div></div></div>'
 
 def scene_html(scene, data, i):
     layout = scene.get('layout', 'default')

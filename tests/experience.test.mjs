@@ -226,6 +226,164 @@ test('DOM: quiz computes an individual score from answers and resets all feedbac
   } finally { await env.close(); }
 });
 
+test('DOM: genetics checks only the requested question and invalidates only its edited answer', async () => {
+  const env = await environment('exposiciones/genetica/cromosomas-y-determinacion-sexual/index.html');
+  try {
+    const doc = env.document;
+    const form = doc.querySelector('form[data-quiz-individual]');
+    assert.ok(form);
+    const questions = [...form.querySelectorAll('[data-question]')];
+    const feedback = questions.map((question) => question.querySelector('[data-feedback]'));
+    const explanations = feedback.map((message) => message.textContent);
+    const checks = questions.map((question) => question.querySelector('[data-question-check]'));
+    const score = form.querySelector('[data-quiz-score]');
+    const answer = (index, correct = true) => questions[index].querySelector(
+      correct ? `input[value="${questions[index].dataset.answer}"]` : `input:not([value="${questions[index].dataset.answer}"])`
+    );
+    assert.equal(questions.length, 5);
+    assert.equal(form.querySelector('[data-quiz-check]'), null);
+    assert.ok(checks.every((button) => button?.type === 'button'));
+    assert.ok(feedback.every((message) => message.hidden));
+    checks.forEach((button, index) => {
+      assert.equal(doc.getElementById(button.getAttribute('aria-controls')), feedback[index]);
+      assert.equal(feedback[index].getAttribute('role'), 'status');
+    });
+
+    checks[0].click();
+    assert.equal(feedback[0].textContent, 'Selecciona una respuesta antes de comprobar.');
+    assert.equal(feedback[0].hidden, false);
+    assert.ok(feedback.slice(1).every((message) => message.hidden));
+    assert.equal(score.textContent, '');
+
+    answer(0).click();
+    checks[0].click();
+    assert.equal(feedback[0].textContent, `Correcta. ${explanations[0]}`);
+    assert.match(score.textContent, /1 de 1 respuestas correctas\. 1 de 5 preguntas comprobadas\./);
+    // A selected answer is not counted or revealed until that question is checked.
+    answer(2).click();
+    answer(1, false).click();
+    checks[1].click();
+    assert.equal(feedback[1].textContent, `Incorrecta. ${explanations[1]}`);
+    assert.match(score.textContent, /1 de 2 respuestas correctas\. 2 de 5 preguntas comprobadas\./);
+    assert.ok(feedback.slice(2).every((message) => message.hidden));
+    checks[1].click();
+    assert.match(score.textContent, /1 de 2 respuestas correctas\. 2 de 5 preguntas comprobadas\./);
+
+    answer(0, false).click();
+    assert.equal(feedback[0].hidden, true);
+    assert.equal(feedback[1].hidden, false);
+    assert.equal(feedback[1].textContent, `Incorrecta. ${explanations[1]}`);
+    assert.match(score.textContent, /0 de 1 respuestas correctas\. 1 de 5 preguntas comprobadas\./);
+    checks[0].click();
+    assert.equal(feedback[0].textContent, `Incorrecta. ${explanations[0]}`);
+    assert.match(score.textContent, /0 de 2 respuestas correctas\. 2 de 5 preguntas comprobadas\./);
+    answer(0).click();
+    checks[0].click();
+    assert.equal(feedback[0].textContent, `Correcta. ${explanations[0]}`);
+    assert.match(score.textContent, /1 de 2 respuestas correctas\. 2 de 5 preguntas comprobadas\./);
+    checks[3].click();
+    assert.equal(feedback[3].textContent, 'Selecciona una respuesta antes de comprobar.');
+    assert.match(score.textContent, /1 de 2 respuestas correctas\. 2 de 5 preguntas comprobadas\./);
+    assert.equal(answer(2).checked, true);
+    assert.equal(feedback[2].hidden, true);
+    assert.equal(feedback[4].hidden, true);
+
+    form.reset(); await tick();
+    assert.equal(form.querySelector('input:checked'), null);
+    assert.equal(score.textContent, '');
+    assert.ok(feedback.every((message) => message.hidden));
+    // A new round starts independently, without the previous total or feedback.
+    answer(4).click();
+    checks[4].click();
+    assert.match(score.textContent, /1 de 1 respuestas correctas\. 1 de 5 preguntas comprobadas\./);
+    assert.ok(feedback.slice(0, 4).every((message) => message.hidden));
+    answer(2).click();
+    answer(2).focus();
+    const submit = new env.win.Event('submit', { bubbles: true, cancelable: true });
+    form.dispatchEvent(submit);
+    assert.equal(submit.defaultPrevented, true);
+    assert.equal(feedback[2].textContent, `Correcta. ${explanations[2]}`);
+    assert.match(score.textContent, /2 de 2 respuestas correctas\. 2 de 5 preguntas comprobadas\./);
+    assert.ok([0, 1, 3].every((index) => feedback[index].hidden));
+  } finally { await env.close(); }
+});
+
+test('DOM: genetics preserves individual checks while paging questions, reopening materials and changing mode', async () => {
+  const env = await environment('exposiciones/genetica/cromosomas-y-determinacion-sexual/index.html', '?modo=estudiar#freemartinismo');
+  try {
+    const { win, document: doc, app } = env;
+    const transition = app.switchMode('presentar');
+    doc.querySelector('[data-reveal-style]').dispatchEvent(new win.Event('load'));
+    await transition;
+    const form = doc.querySelector('form[data-quiz-individual]');
+    const questions = [...form.querySelectorAll('[data-question]')];
+    const previous = form.querySelector('[data-quiz-prev]');
+    const next = form.querySelector('[data-quiz-next]');
+    const position = form.querySelector('[data-quiz-position]');
+    const score = form.querySelector('[data-quiz-score]');
+    const open = doc.querySelector('[data-materials-open]');
+    const dialog = doc.querySelector('#expo-materials');
+    const firstAnswer = questions[0].querySelector(`input[value="${questions[0].dataset.answer}"]`);
+    const secondAnswer = questions[1].querySelector(`input:not([value="${questions[1].dataset.answer}"])`);
+    open.click();
+    assert.equal(dialog.open, true);
+    assert.equal(form.closest('dialog'), dialog);
+    assert.equal(questions[0].hidden, false);
+    assert.ok(questions.slice(1).every((question) => question.hidden));
+    assert.equal(previous.disabled, true);
+    firstAnswer.click();
+    questions[0].querySelector('[data-question-check]').click();
+    const firstFeedback = questions[0].querySelector('[data-feedback]').textContent;
+
+    next.click();
+    assert.equal(position.textContent, 'Pregunta 2 de 5');
+    assert.equal(questions[0].hidden, true);
+    assert.equal(questions[1].hidden, false);
+    assert.equal(questions[1].querySelector('[data-feedback]').hidden, true);
+    secondAnswer.click();
+    questions[1].querySelector('[data-question-check]').click();
+    const secondFeedback = questions[1].querySelector('[data-feedback]').textContent;
+    assert.match(secondFeedback, /^Incorrecta\./);
+    previous.click();
+    assert.equal(questions[0].hidden, false);
+    assert.equal(firstAnswer.checked, true);
+    assert.equal(questions[0].querySelector('[data-feedback]').textContent, firstFeedback);
+    assert.equal(questions[0].querySelector('[data-feedback]').hidden, false);
+    next.click();
+    dialog.querySelector('[data-dialog-close]').click();
+    open.click();
+    assert.equal(position.textContent, 'Pregunta 2 de 5');
+    assert.equal(secondAnswer.checked, true);
+    assert.equal(questions[1].querySelector('[data-feedback]').textContent, secondFeedback);
+    assert.equal(questions[1].querySelector('[data-feedback]').hidden, false);
+    assert.match(score.textContent, /1 de 2 respuestas correctas\. 2 de 5 preguntas comprobadas\./);
+    assert.equal(win.location.hash, '#freemartinismo');
+
+    dialog.querySelector('[data-dialog-close]').click();
+    await app.switchMode('estudiar');
+    assert.ok(questions.every((question) => !question.hidden));
+    assert.equal(firstAnswer.checked, true);
+    assert.equal(secondAnswer.checked, true);
+    assert.equal(questions[0].querySelector('[data-feedback]').hidden, false);
+    assert.equal(questions[1].querySelector('[data-feedback]').hidden, false);
+    assert.ok(questions.slice(2).every((question) => question.querySelector('[data-feedback]').hidden));
+    assert.match(score.textContent, /1 de 2 respuestas correctas\. 2 de 5 preguntas comprobadas\./);
+    const returnToSlides = app.switchMode('presentar');
+    doc.querySelector('[data-reveal-style]').dispatchEvent(new win.Event('load'));
+    await returnToSlides;
+    open.click();
+    assert.equal(position.textContent, 'Pregunta 2 de 5');
+    form.reset(); await tick();
+    assert.equal(position.textContent, 'Pregunta 1 de 5');
+    assert.equal(previous.disabled, true);
+    assert.equal(questions[0].hidden, false);
+    assert.ok(questions.slice(1).every((question) => question.hidden));
+    assert.equal(form.querySelector('input:checked'), null);
+    assert.ok(questions.every((question) => question.querySelector('[data-feedback]').hidden));
+    assert.equal(score.textContent, '');
+  } finally { await env.close(); }
+});
+
 test('DOM: keyboard guard blocks controls, text selection and dialogs without suppressing ordinary scene navigation', async () => {
   const env = await environment(expoPath);
   try {
@@ -340,7 +498,7 @@ test('DOM: genetics keeps all activity choices when opening references from slid
     const question = doc.querySelector('[data-question]');
     const answer = question.querySelector(`input[value="${question.dataset.answer}"]`);
     answer.click();
-    doc.querySelector('[data-quiz-check]').click();
+    question.querySelector('[data-question-check]').click();
     for (const selector of ['[data-gen-model]', '[data-gen-temperature]', '[data-gen-hormone="dht"]']) {
       assert.equal(app.canNavigateByKeyboard({ target: doc.querySelector(selector) }), false);
     }
@@ -377,7 +535,7 @@ test('DOM: genetics keeps all activity choices when opening references from slid
     assert.equal(doc.querySelector('[data-gen-freemartin-panel="intercambio"]').hidden,false);
     assert.equal(answer.checked, true);
     assert.equal(question.querySelector('[data-feedback]').hidden, false);
-    assert.match(doc.querySelector('[data-quiz-score]').textContent, /1 de 5 respuestas correctas/);
+    assert.match(doc.querySelector('[data-quiz-score]').textContent, /1 de 1 respuestas correctas\. 1 de 5 preguntas comprobadas\./);
     assert.equal(doc.querySelectorAll('[data-genetics-ambient]').length, 1);
     assert.equal(doc.querySelector('[data-hero]'), null);
   } finally { await env.close(); }

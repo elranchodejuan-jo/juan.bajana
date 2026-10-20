@@ -720,6 +720,8 @@ document.querySelectorAll('form[data-quiz]').forEach((form) => {
   const next = form.querySelector('[data-quiz-next]');
   const position = form.querySelector('[data-quiz-position]');
   const score = form.querySelector('[data-quiz-score]');
+  const individual = form.hasAttribute('data-quiz-individual');
+  const checkedAnswers = new Map();
   let questionIndex = 0;
   function paginate() {
     questions.forEach((question, index) => { question.hidden = mode === 'presentar' && index !== questionIndex; });
@@ -744,13 +746,65 @@ document.querySelectorAll('form[data-quiz]').forEach((form) => {
     });
     if (score) score.textContent = `${correct} de ${questions.length} respuestas correctas. ${answered} de ${questions.length} preguntas respondidas. Resultado individual en este navegador.`;
   }
+  function updateCheckedScore() {
+    if (!score) return;
+    const correct = [...checkedAnswers.values()].filter(Boolean).length;
+    score.textContent = checkedAnswers.size ? `${correct} de ${checkedAnswers.size} respuestas correctas. ${checkedAnswers.size} de ${questions.length} preguntas comprobadas.` : '';
+  }
+  function checkQuestion(question) {
+    const selected = question.querySelector('input[type="radio"]:checked');
+    const feedback = question.querySelector('[data-feedback]');
+    if (!feedback) return;
+    if (!feedback.dataset.explanation) feedback.dataset.explanation = feedback.textContent;
+    if (!selected) {
+      feedback.textContent = 'Selecciona una respuesta antes de comprobar.';
+      delete feedback.dataset.correct;
+    } else {
+      const correct = selected.value === question.dataset.answer;
+      checkedAnswers.set(question, correct);
+      feedback.dataset.correct = String(correct);
+      feedback.textContent = `${correct ? 'Correcta.' : 'Incorrecta.'} ${feedback.dataset.explanation}`;
+      updateCheckedScore();
+    }
+    feedback.hidden = false;
+  }
+  if (individual) {
+    questions.forEach((question) => {
+      question.querySelector('[data-question-check]')?.addEventListener('click', () => checkQuestion(question));
+      question.addEventListener('change', (event) => {
+        if (!event.target.matches('input[type="radio"]')) return;
+        checkedAnswers.delete(question);
+        const feedback = question.querySelector('[data-feedback]');
+        if (feedback) {
+          feedback.hidden = true;
+          if (feedback.dataset.explanation) feedback.textContent = feedback.dataset.explanation;
+          delete feedback.dataset.correct;
+        }
+        updateCheckedScore();
+      });
+    });
+  }
   previous?.addEventListener('click', () => { questionIndex = Math.max(0, questionIndex - 1); paginate(); });
   next?.addEventListener('click', () => { questionIndex = Math.min(questions.length - 1, questionIndex + 1); paginate(); });
   form.querySelector('[data-quiz-check]')?.addEventListener('click', (event) => { event.preventDefault(); check(); });
-  form.addEventListener('submit', (event) => { event.preventDefault(); check(); });
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (individual) {
+      const question = document.activeElement?.closest('[data-question]');
+      if (question && form.contains(question)) checkQuestion(question);
+    } else check();
+  });
   form.addEventListener('reset', () => queueMicrotask(() => {
     questionIndex = 0;
-    questions.forEach((question) => { const feedback = question.querySelector('[data-feedback]'); if (feedback) feedback.hidden = true; });
+    checkedAnswers.clear();
+    questions.forEach((question) => {
+      const feedback = question.querySelector('[data-feedback]');
+      if (feedback) {
+        feedback.hidden = true;
+        if (individual && feedback.dataset.explanation) feedback.textContent = feedback.dataset.explanation;
+        if (individual) delete feedback.dataset.correct;
+      }
+    });
     if (score) score.textContent = '';
     paginate();
   }));
