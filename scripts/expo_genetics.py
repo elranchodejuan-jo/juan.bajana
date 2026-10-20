@@ -25,6 +25,7 @@ def _icon(kind):
     paths = {
         'chromosomes': '<path d="m6 4 6 16M12 4 6 20M16 5l4 14M20 5l-4 14"/>',
         'gonad': '<ellipse cx="12" cy="12" rx="9" ry="7"/><circle cx="9" cy="11" r="2"/><circle cx="15" cy="13" r="2"/>',
+        'hormones': '<circle cx="6" cy="7" r="3"/><circle cx="18" cy="8" r="3"/><circle cx="12" cy="18" r="3"/><path d="m9 7 6 1M7 10l4 5M17 11l-4 4"/>',
         'phenotype': '<circle cx="10" cy="10" r="6"/><path d="m15 15 6 6M7 10h6M10 7v6"/>',
         'egg': '<path d="M19 14c0 5-3 7-7 7s-7-2-7-7S9 3 12 3s7 6 7 11Z"/>',
         'alleles': '<path d="M5 4v16M10 4v16M15 4v16M20 4v16M5 8h5M15 8h5M5 16h5M15 16h5"/>',
@@ -50,6 +51,7 @@ def _summary_table(caption, headings, rows):
 LEVELS = [
     ('cromosomas', 'Cromosomas', 'chromosomes', 'Constitución cromosómica', 'XX y XY describen el complemento sexual típico de los mamíferos domésticos. La constitución cromosómica es uno de los niveles del desarrollo.'),
     ('gonada', 'Gónada', 'gonad', 'Organización gonadal', 'La gónada bipotencial reúne células somáticas y germinales. Las somáticas dirigen su organización testicular u ovárica; las germinales originan gametos.'),
+    ('hormonas', 'Hormonas', 'hormones', 'Señales hormonales y respuesta tisular', 'En el modelo fetal masculino, Sertoli produce AMH y Leydig produce testosterona. Su acción y la conversión local a DHT dependen de tejidos y receptores funcionales.'),
     ('fenotipo', 'Fenotipo', 'phenotype', 'Características del animal', 'Conductos, genitales y otros rasgos resultan de la diferenciación de los tejidos. Influyen señales hormonales, receptores y regulación local.'),
 ]
 
@@ -57,10 +59,54 @@ LEVELS = [
 def _development():
     choices = ''.join(_icon_button(name, icon, f'data-gen-level="{key}" aria-pressed="{str(key == "cromosomas").lower()}"') for key, name, icon, *_ in LEVELS)
     panels = ''.join(f'<div data-gen-level-panel="{key}"{" hidden" if key != "cromosomas" else ""}><h3 class="gen-heading">{title}</h3><p>{detail}</p></div>' for key, _, _, title, detail in LEVELS)
-    summary = _summary_table('Tres niveles del desarrollo sexual mamífero', ['Nivel', 'Qué describe'], [(name, detail) for _, name, _, _, detail in LEVELS])
-    return f'''<div class="genetics-lab" data-genetics-lab="development" aria-label="Tres niveles del desarrollo sexual mamífero">
+    summary = _summary_table('Cuatro niveles del desarrollo sexual mamífero', ['Nivel', 'Qué describe'], [(name, detail) for _, name, _, _, detail in LEVELS])
+    return f'''<div class="genetics-lab" data-genetics-lab="development" aria-label="Cuatro niveles del desarrollo sexual mamífero">
 <div class="gen-interactive"><div class="gen-toolbar"><p class="gen-kicker">Selecciona un nivel</p>{_reset()}</div><div class="gen-level-choices" role="group" aria-label="Nivel del desarrollo">{choices}</div><div class="gen-result gen-level-detail" aria-live="polite" aria-atomic="true">{panels}</div></div>
 {summary}<p class="gen-note">Son niveles relacionados, no equivalentes. Este esquema no permite diagnosticar el desarrollo sexual de un individuo.</p><p class="gen-small">Modelo mamífero. {_source('Díaz-Hernández et al., UNAM, 2021', 'https://reproduccionanimalesdomesticos.fmvz.unam.mx/libro/capitulo1/autores.html')}.</p></div>'''
+
+
+CHROMOSOMES = [
+    ('x', 'X', 'Sistema XX/XY', 'Presente en hembras XX y machos XY', 'Contiene genes con distintas funciones celulares. Su contenido no se limita a la reproducción.', 'X no significa exclusivamente hembra.'),
+    ('y', 'Y', 'Sistema XX/XY', 'Presente habitualmente en el macho XY', 'En el modelo típico de mamíferos domésticos, SRY favorece el inicio de la vía testicular.', 'El desarrollo posterior también requiere genes de otros cromosomas y señales celulares.'),
+    ('z', 'Z', 'Sistema ZZ/ZW', 'Presente en machos ZZ y hembras ZW de aves', 'En pollo, la dosis funcional de DMRT1, localizado en Z, contribuye a la determinación de la gónada.', 'Z no equivale al X de los mamíferos.'),
+    ('w', 'W', 'Sistema ZZ/ZW', 'Presente habitualmente en la hembra ZW de aves', 'Forma parte del complemento sexual ZW y contiene genes propios. El mecanismo aviar no es un SRY invertido.', 'W no es un interruptor ovárico universal.'),
+]
+
+
+def _chromosomes():
+    choices = ''.join(_button(letter, f'data-gen-chromosome="{key}" aria-pressed="{str(key == "x").lower()}" aria-label="Explorar cromosoma {letter}"') for key, letter, *_ in CHROMOSOMES)
+    panels = []
+    for key, letter, system, presence, content, limit in CHROMOSOMES:
+        panels.append(f'''<div data-gen-chromosome-panel="{key}"{" hidden" if key != "x" else ""}><div class="gen-chromosome-panel"><div class="gen-chromosome-symbol" aria-hidden="true"><svg viewBox="0 0 100 170" fill="none" focusable="false"><path d="M38 16h24q10 0 10 10v40q0 10-8 19 8 9 8 19v40q0 10-10 10H38q-10 0-10-10v-40q0-10 8-19-8-9-8-19V26q0-10 10-10Z" stroke="currentColor" stroke-width="5"/><path d="M36 85h28" stroke="currentColor" stroke-width="5"/></svg><strong>{letter}</strong></div><div class="gen-result"><p class="gen-kicker">{system}</p><h3 class="gen-heading">{presence}</h3><p>{content}</p><p class="gen-small">{limit}</p></div></div></div>''')
+    summary = _summary_table('Cromosomas sexuales en los modelos de mamíferos y aves', ['Cromosoma', 'Presencia habitual', 'Información relevante'], [(letter, presence, f'{content} {limit}') for _, letter, _, presence, content, limit in CHROMOSOMES])
+    return f'''<div class="genetics-lab" data-genetics-lab="chromosomes" aria-label="Explorador de cromosomas X, Y, Z y W">
+<div class="gen-interactive"><div class="gen-toolbar"><div class="gen-choices gen-chromosome-choices" role="group" aria-label="Cromosoma sexual">{choices}</div>{_reset()}</div><div aria-live="polite" aria-atomic="true">{''.join(panels)}</div></div>
+{summary}<p class="gen-note">Los cromosomas sexuales contienen ADN y genes. El símbolo gráfico no representa su forma, tamaño ni mapa génico reales.</p><p class="gen-small">{_source('Díaz-Hernández et al., UNAM, 2021', 'https://reproduccionanimalesdomesticos.fmvz.unam.mx/libro/capitulo1/autores.html')}; {_source('Ioannidis et al., 2021', '10.1073/pnas.2020909118')}.</p></div>'''
+
+
+FREEMARTIN_STEPS = [
+    ('gemelos', '1 Gestación', 'Gemelos de distinto sexo', 'Una hembra y un macho comparten la gestación. Este antecedente permite plantear la sospecha, pero no confirma freemartinismo.'),
+    ('conexion', '2 Conexión', 'Comunicación vascular placentaria', 'En algunas gestaciones se establecen conexiones entre vasos placentarios. Estas pueden comunicar las circulaciones de ambos fetos.'),
+    ('intercambio', '3 Intercambio', 'Células, señales y desarrollo', 'El intercambio de células puede producir quimerismo sanguíneo XX/XY. Las señales compartidas pueden alterar el desarrollo reproductivo de la hembra y reducir su fertilidad.'),
+]
+
+
+def _freemartin_diagram(stage):
+    connection = stage in ('conexion', 'intercambio')
+    exchange = stage == 'intercambio'
+    path = '<path d="M235 80C330 20 370 140 465 80" class="gen-fetal-connection"/>' if connection else ''
+    cells = '<circle cx="300" cy="66" r="9"/><circle cx="350" cy="80" r="9"/><circle cx="400" cy="94" r="9"/>' if exchange else ''
+    label = 'Intercambio de células y señales' if exchange else 'Conexión vascular posible' if connection else 'Circulaciones fetales'
+    return f'''<svg class="gen-freemartin-diagram" viewBox="0 0 700 160" role="img" aria-label="{label}. Hembra XX y macho XY en una gestación gemelar."><g class="gen-fetal-pair"><circle cx="155" cy="80" r="65"/><circle cx="545" cy="80" r="65"/></g>{path}<g class="gen-fetal-cells">{cells}</g><g class="gen-fetal-labels"><text x="155" y="72">Hembra</text><text x="155" y="103">XX</text><text x="545" y="72">Macho</text><text x="545" y="103">XY</text></g></svg>'''
+
+
+def _freemartin():
+    choices = ''.join(_button(label, f'data-gen-freemartin="{key}" aria-pressed="{str(key == "gemelos").lower()}"') for key, label, *_ in FREEMARTIN_STEPS)
+    panels = ''.join(f'<div data-gen-freemartin-panel="{key}"{" hidden" if key != "gemelos" else ""}>{_freemartin_diagram(key)}<div class="gen-result"><h3 class="gen-heading">{title}</h3><p>{detail}</p></div></div>' for key, _, title, detail in FREEMARTIN_STEPS)
+    summary = _summary_table('Explicación del freemartinismo bovino', ['Paso', 'Relación biológica'], [(label, detail) for _, label, _, detail in FREEMARTIN_STEPS])
+    return f'''<div class="genetics-lab" data-genetics-lab="freemartin" aria-label="Recorrido del freemartinismo bovino">
+<div class="gen-interactive"><div class="gen-toolbar"><div class="gen-choices" role="group" aria-label="Paso de la explicación">{choices}</div>{_reset()}</div><div aria-live="polite" aria-atomic="true">{panels}</div></div>
+{summary}<p class="gen-note">Quimerismo: pueden coexistir células XX y XY en sangre. No significa que cada célula XX se transforme en XY. La confirmación requiere evaluación veterinaria.</p><p class="gen-small">Esquema funcional sin escala anatómica. {_source('Corredor y Páez, 2009', '10.22490/21456453.894')}.</p></div>'''
 
 
 HAPLOID_CASES = [
@@ -149,7 +195,6 @@ def _hormones():
 SYSTEMS = [
     ('xxxy', 'XX/XY', 'Mamíferos domésticos', 'Masculina: XY', 'Constitución cromosómica y red reguladora; SRY favorece la vía testicular en el modelo típico.', 'Hembra XX, macho XY es el patrón habitual; pueden existir diferencias del desarrollo sexual.'),
     ('zzzw', 'ZZ/ZW', 'Aves', 'Femenina: ZW', 'Constitución cromosómica; la dosis de DMRT1 contribuye a la determinación gonadal del pollo.', 'No es SRY invertido. El cromosoma W no es un interruptor ovárico universal.'),
-    ('xxx0', 'XX/X0', 'Algunos insectos', 'Masculina: X0', 'Complemento de cromosomas sexuales: hembra XX y macho X0 en el patrón descrito.', '0 indica ausencia de un segundo cromosoma sexual; los autosomas siguen siendo diploides.'),
     ('haplodiploidia', 'Haplodiploidía', 'Abeja melífera', 'No corresponde X/Y o Z/W', 'Machos habitualmente haploides y hembras diploides; en Apis mellifera también interviene el locus csd.', 'La homocigosis en csd puede originar machos diploides. No extrapolar csd a todos los himenópteros.'),
     ('temperatura', 'Temperatura', 'Determinados reptiles', 'No corresponde X/Y o Z/W', 'Condiciones térmicas durante un periodo sensible del desarrollo embrionario.', 'Los patrones dependen de especie y condiciones. No ocurre en todos los reptiles.'),
 ]
@@ -186,7 +231,9 @@ def genetics_visual(scene_id):
     if scene_id in ('via-testicular', 'via-ovarica'):
         return _network(scene_id)
     return {
+        'cromosomas-sexuales': _chromosomes,
         'niveles-del-desarrollo': _development,
+        'freemartinismo': _freemartin,
         'haplodiploidia': _haplodiploidy,
         'cruces-cromosomicos': _punnett,
         'hormonas-y-conductos': _hormones,

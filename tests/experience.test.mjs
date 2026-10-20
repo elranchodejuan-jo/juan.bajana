@@ -335,6 +335,8 @@ test('DOM: genetics keeps all activity choices when opening references from slid
     doc.querySelector('[data-genetics-step="2"]').click();
     doc.querySelector('[data-gen-level="gonada"]').click();
     doc.querySelector('[data-gen-csd="homocigoto"]').click();
+    doc.querySelector('[data-gen-chromosome="y"]').click();
+    doc.querySelector('[data-gen-freemartin="intercambio"]').click();
     const question = doc.querySelector('[data-question]');
     const answer = question.querySelector(`input[value="${question.dataset.answer}"]`);
     answer.click();
@@ -346,16 +348,20 @@ test('DOM: genetics keeps all activity choices when opening references from slid
     const transition = app.switchMode('presentar');
     doc.querySelector('[data-reveal-style]').dispatchEvent(new win.Event('load'));
     await transition;
-    assert.equal(doc.querySelectorAll('#expo-deck .slides section').length, 14);
+    assert.equal(doc.querySelectorAll('#expo-deck .slides section').length, 16);
     assert.equal(doc.querySelectorAll('#expo-deck .stack').length, 0);
     assert.equal(win.location.hash, '#cruces-cromosomicos');
-    doc.querySelector('#expo-index a[href="#referencias-y-materiales"]').click();
-    const referenceLink = doc.querySelector('#referencias-y-materiales [data-view-mode="estudiar"]');
-    assert.equal(new URL(referenceLink.href).hash, '#referencias-y-materiales');
-    referenceLink.click();
-    await tick();
-    assert.equal(doc.body.dataset.mode, 'estudiar');
-    assert.equal(win.location.hash, '#referencias-y-materiales');
+    const materials = doc.querySelector('[data-materials-content]');
+    doc.querySelector('[data-materials-open]').click();
+    const materialsDialog = doc.querySelector('#expo-materials');
+    assert.equal(materialsDialog.open,true);
+    assert.equal(materialsDialog.querySelector('[data-materials-content]'),materials);
+    assert.equal(doc.body.dataset.mode,'presentar');
+    assert.equal(win.location.hash, '#cruces-cromosomicos');
+    assert.equal(app.canNavigateByKeyboard({target:doc.body}),false);
+    materialsDialog.querySelector('[data-dialog-close]').click();
+    assert.equal(doc.querySelector('.gen-materials-home > [data-materials-content]'),materials);
+    await app.switchMode('estudiar');
     assert.equal(doc.querySelector('[data-gen-model]').value, 'zzzw');
     assert.equal(doc.querySelector('[data-gen-complement]').textContent, 'ZW · Hembra');
     assert.equal(doc.querySelector('#via-testicular [data-gen-route-panel="ovarica"]').hidden, false);
@@ -367,12 +373,63 @@ test('DOM: genetics keeps all activity choices when opening references from slid
     assert.equal(doc.querySelector('[data-genetics-hero]').dataset.stage, '2');
     assert.equal(doc.querySelector('[data-gen-level-panel="gonada"]').hidden, false);
     assert.equal(doc.querySelector('[data-gen-csd-panel="homocigoto"]').hidden, false);
+    assert.equal(doc.querySelector('[data-gen-chromosome-panel="y"]').hidden,false);
+    assert.equal(doc.querySelector('[data-gen-freemartin-panel="intercambio"]').hidden,false);
     assert.equal(answer.checked, true);
     assert.equal(question.querySelector('[data-feedback]').hidden, false);
     assert.match(doc.querySelector('[data-quiz-score]').textContent, /1 de 5 respuestas correctas/);
     assert.equal(doc.querySelectorAll('[data-genetics-ambient]').length, 1);
     assert.equal(doc.querySelector('[data-hero]'), null);
   } finally { await env.close(); }
+});
+
+test('DOM: genetics questions and references preserve the slide and print answers outside dialogs', async () => {
+  const env = await environment('exposiciones/genetica/cromosomas-y-determinacion-sexual/index.html', '?modo=estudiar#freemartinismo');
+  try {
+    const {win, document:doc, app} = env;
+    const transition=app.switchMode('presentar');
+    doc.querySelector('[data-reveal-style]').dispatchEvent(new win.Event('load'));
+    await transition;
+    const progress=doc.querySelector('[data-progress]').textContent;
+    const oralControls=[...doc.querySelectorAll('[data-oral-open]')];
+    assert.equal(oralControls.length,5);
+    for(const control of oralControls){
+      control.focus();control.click();
+      const dialog=doc.getElementById('oral-'+control.dataset.oralOpen);
+      assert.equal(dialog.open,true);
+      assert.equal(dialog.querySelector('details').open,false);
+      assert.equal(app.canNavigateByKeyboard({target:dialog.querySelector('summary')}),false);
+      dialog.querySelector('[data-dialog-close]').click();
+      assert.equal(doc.activeElement,control);
+    }
+    const content=doc.querySelector('[data-materials-content]');
+    assert.equal(content.closest('#expo-deck'),null);
+    const ref=doc.querySelector('#freemartinismo a[href^="#ref-"]');
+    ref.click();
+    const dialog=doc.querySelector('#expo-materials');
+    assert.equal(dialog.open,true);
+    assert.equal(doc.querySelector('[data-progress]').textContent,progress);
+    assert.equal(win.location.hash,'#freemartinismo');
+    const firstAnswer=content.querySelector('details');
+    const secondAnswer=content.querySelectorAll('details')[1];
+    firstAnswer.open=true;
+    // Real close events may be queued. Printing must restore nodes synchronously.
+    dialog.close=function(){this.open=false;};
+    win.dispatchEvent(new win.Event('beforeprint'));
+    assert.equal(content.parentElement.className,'gen-materials-home expo-study-only');
+    assert.ok([...content.querySelectorAll('details')].every(answer=>answer.open));
+    win.dispatchEvent(new win.Event('afterprint'));
+    assert.equal(firstAnswer.open,true);
+    assert.equal(secondAnswer.open,false);
+    dialog.dispatchEvent(new win.Event('close'));
+    const control=doc.querySelector('[data-materials-open]');
+    const modified=new win.MouseEvent('click',{ctrlKey:true,bubbles:true,cancelable:true});
+    control.dispatchEvent(modified);
+    assert.equal(modified.defaultPrevented,false);
+    assert.equal(dialog.open,false);
+    const ids=[...doc.querySelectorAll('[id]')].map(node=>node.id);
+    assert.equal(ids.length,new Set(ids).size);
+  } finally {await env.close();}
 });
 
 test('DOM: merged genetics anchors resolve and enlarged SVG keeps theme inheritance without duplicate IDs', async () => {
@@ -382,9 +439,9 @@ test('DOM: merged genetics anchors resolve and enlarged SVG keeps theme inherita
     // Study mode can retain the inbound fragment while its navigation resolves
     // the merged destination; sharing either fragment must keep working.
     assert.equal(win.location.hash, '#gonada-bipotencial');
-    assert.equal(doc.querySelector('[data-progress]').textContent, '2 / 14');
-    assert.equal(new URL(doc.querySelector('[data-view-mode="presentar"]').href).hash, '#niveles-del-desarrollo');
-    const aliases = {'cromosomas-y-gametos':'cruces-cromosomicos','via-ovarica':'via-testicular','sistema-xx-x0':'comparacion-de-sistemas'};
+    assert.equal(doc.querySelector('[data-progress]').textContent, '7 / 16');
+    assert.equal(new URL(doc.querySelector('[data-view-mode="presentar"]').href).hash, '#via-testicular');
+    const aliases = {'cromosomas-y-gametos':'caracteristicas-cromosomas','via-ovarica':'desarrollo-femenino','sistema-xx-x0':'comparacion-de-sistemas'};
     for (const [alias, target] of Object.entries(aliases)) {
       win.location.hash = alias;
       await tick();

@@ -10,6 +10,10 @@ let deck;
 let currentScene = scenes[0];
 let qrcodePromise;
 const dialogOpeners = new WeakMap();
+const materialsContent = document.querySelector('[data-materials-content]');
+const materialsHome = materialsContent?.parentElement;
+const materialsDialog = document.querySelector('#expo-materials');
+const initialFragment = location.hash;
 let stopStudy = () => {};
 let changingMode = false;
 
@@ -100,6 +104,36 @@ document.querySelectorAll('[data-dialog-close]').forEach((button) => {
 });
 document.querySelector('[data-index-open]')?.addEventListener('click', (event) => {
   openDialog(document.querySelector('#expo-index'), event.currentTarget);
+});
+
+function openMaterials(target = materialsContent, opener) {
+  if (!materialsContent || !materialsDialog) return;
+  materialsDialog.querySelector('[data-materials-slot]').append(materialsContent);
+  openDialog(materialsDialog, opener);
+  target?.scrollIntoView({ behavior: 'auto', block: 'start' });
+}
+materialsDialog?.addEventListener('close', () => materialsHome?.append(materialsContent));
+document.querySelectorAll('[data-materials-open]').forEach((control) => {
+  control.addEventListener('click', (event) => {
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button) return;
+    event.preventDefault();
+    openMaterials(materialsContent, control);
+  });
+});
+document.querySelectorAll('[data-oral-open]').forEach((control) => {
+  control.addEventListener('click', () => openDialog(document.getElementById(`oral-${control.dataset.oralOpen}`), control));
+});
+let printClosedOralAnswers = [];
+addEventListener('beforeprint', () => {
+  // Return the same nodes to the reading page so print includes sources and answers.
+  if (materialsContent) materialsHome?.append(materialsContent);
+  if (materialsDialog?.open) materialsDialog.close();
+  printClosedOralAnswers = [...(materialsContent?.querySelectorAll('details:not([open])') || [])];
+  printClosedOralAnswers.forEach((answer) => { answer.open = true; });
+});
+addEventListener('afterprint', () => {
+  printClosedOralAnswers.forEach((answer) => { answer.open = false; });
+  printClosedOralAnswers = [];
 });
 
 function loadQrcode() {
@@ -313,7 +347,7 @@ function navigateTo(scene, focus = false) {
 
 export function canNavigateByKeyboard(event) {
   if (document.querySelector('dialog[open]') || window.getSelection()?.toString()) return false;
-  const blocked = 'input, textarea, select, button, a, form, [contenteditable]:not([contenteditable="false"]), [role="slider"]';
+  const blocked = 'input, textarea, select, button, a, summary, form, [contenteditable]:not([contenteditable="false"]), [role="slider"]';
   return !event.target?.closest?.(blocked) && !document.activeElement?.closest?.(blocked);
 }
 
@@ -421,7 +455,10 @@ function initializeStudy() {
   initialFrame = requestAnimationFrame(() => {
     initialFrame = null;
     if (!studyActive || mode !== 'estudiar') return;
-    if (location.hash && initialScene) initialScene.scrollIntoView({ behavior: 'auto', block: 'start' });
+    let fragment;
+    try { fragment = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch { /* Invalid hash keeps the selected scene. */ }
+    if (fragment?.closest('[data-materials-content]')) fragment.scrollIntoView({ behavior: 'auto', block: 'start' });
+    else if (location.hash && initialScene) initialScene.scrollIntoView({ behavior: 'auto', block: 'start' });
     if (deckElement) deckElement.dataset.ready = 'true';
   });
 }
@@ -484,8 +521,14 @@ if (scenes.length) {
   document.querySelector('[data-next]')?.addEventListener('click', () => navigateTo(scenes[scenes.indexOf(currentScene) + 1]));
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener('click', (event) => {
+      if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button) return;
       const id = link.hash.slice(1);
       const target = document.getElementById(id);
+      if (target?.closest('[data-materials-content]') && mode === 'presentar') {
+        event.preventDefault();
+        openMaterials(target, link);
+        return;
+      }
       const scene = scenes.includes(target) ? target : target?.closest('.expo-scene');
       if (!scene) return;
       event.preventDefault();
@@ -495,7 +538,12 @@ if (scenes.length) {
       if (mode === 'estudiar' && target !== scene) target.scrollIntoView({ behavior: 'auto', block: 'start' });
     });
   });
-  addEventListener('hashchange', () => navigateTo(sceneFromHash()));
+  addEventListener('hashchange', () => {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch { return; }
+    if (mode === 'presentar' && target?.closest('[data-materials-content]')) openMaterials(target);
+    else navigateTo(sceneFromHash());
+  });
   document.querySelector('[data-speaker]')?.addEventListener('click', openSpeaker);
   const fullscreen = document.querySelector('[data-fullscreen]');
   if (fullscreen) {
@@ -535,6 +583,11 @@ if (scenes.length) {
       document.querySelector('#expo-toolbar')?.after(status);
     }
   } else initializeStudy();
+  if (mode === 'presentar' && initialFragment) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(initialFragment.slice(1))); } catch { /* Invalid fragment is ignored. */ }
+    if (target?.closest('[data-materials-content]')) openMaterials(target);
+  }
 }
 
 if (document.querySelector('[data-hero]')) {

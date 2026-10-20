@@ -127,7 +127,9 @@ export function initGeneticsLabs(root = document) {
       listeners.push(() => target.removeEventListener(type, listener));
     };
     const kind = lab.dataset.geneticsLab;
-    if (kind === 'development') initializeSelection(lab, on, 'level', ['cromosomas', 'gonada', 'fenotipo'], 'cromosomas', true);
+    if (kind === 'development') initializeSelection(lab, on, 'level', ['cromosomas', 'gonada', 'hormonas', 'fenotipo'], 'cromosomas', true);
+    else if (kind === 'chromosomes') initializeSelection(lab, on, 'chromosome', ['x', 'y', 'z', 'w'], 'x', true);
+    else if (kind === 'freemartin') initializeSelection(lab, on, 'freemartin', ['gemelos', 'conexion', 'intercambio'], 'gemelos', true);
     else if (kind === 'haplodiploidy') initializeSelection(lab, on, 'csd', ['haploide', 'heterocigoto', 'homocigoto'], 'haploide', true);
     else if (kind === 'punnett') initializePunnett(lab, on);
     else if (kind === 'network') initializeSelection(lab, on, 'route', ['testicular', 'ovarica'], lab.dataset.genDefault || 'testicular');

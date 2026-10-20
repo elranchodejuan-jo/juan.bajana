@@ -4,7 +4,7 @@
 def genetics_hero_visual():
     """Three manually selectable perspectives over a semantic SVG and text fallback."""
     return '''<div class="genetics-hero" data-genetics-hero data-stage="0" role="group" aria-labelledby="genetics-hero-title">
-<div class="genetics-hero-top"><span id="genetics-hero-title">Una pregunta, tres perspectivas</span><span class="genetics-hero-tag" aria-hidden="true">GENÉTICA</span></div>
+<div class="genetics-hero-top"><span id="genetics-hero-title">Tres preguntas del tema</span><span class="genetics-hero-tag" aria-hidden="true">GENÉTICA</span></div>
 <div class="genetics-hero-stage" data-genetics-stage>
 <svg class="genetics-hero-svg" viewBox="0 0 900 390" role="img" aria-labelledby="genetics-svg-title genetics-svg-desc">
 <title id="genetics-svg-title">Cromosomas, desarrollo y diversidad sexual animal</title>
@@ -31,19 +31,18 @@ def genetics_hero_visual():
 <text class="genetics-svg-detail" x="450" y="358" text-anchor="middle">Redes activas y señales hacia tejidos: modelo mamífero resumido.</text>
 </g>
 <g data-genetics-layer="2" class="genetics-hero-layer" aria-hidden="true">
-<path class="genetics-hero-link" d="M450 190L220 95M450 190L680 95M450 190L182 258M450 190L450 310M450 190L718 258"/>
-<circle class="genetics-hero-panel" cx="450" cy="190" r="75"/><text class="genetics-svg-heading" x="450" y="185" text-anchor="middle">Diversidad</text><text class="genetics-svg-label" x="450" y="215" text-anchor="middle">animal</text>
+<path class="genetics-hero-link" d="M450 190L220 95M450 190L680 95M450 190L182 258M450 190L718 258"/>
+<circle class="genetics-hero-panel" cx="450" cy="190" r="75"/><text class="genetics-svg-heading" x="450" y="185" text-anchor="middle">Sistemas</text><text class="genetics-svg-label" x="450" y="215" text-anchor="middle">sexuales</text>
 <rect class="genetics-hero-panel" x="125" y="55" width="190" height="74" rx="15"/><text class="genetics-svg-symbol" x="220" y="91" text-anchor="middle">XX / XY</text><text class="genetics-svg-detail" x="220" y="115" text-anchor="middle">Mamíferos</text>
 <rect class="genetics-hero-panel" x="585" y="55" width="190" height="74" rx="15"/><text class="genetics-svg-symbol" x="680" y="91" text-anchor="middle">ZZ / ZW</text><text class="genetics-svg-detail" x="680" y="115" text-anchor="middle">Aves</text>
-<rect class="genetics-hero-panel" x="65" y="227" width="235" height="74" rx="15"/><text class="genetics-svg-symbol" x="182" y="262" text-anchor="middle">XX / X0</text><text class="genetics-svg-detail" x="182" y="286" text-anchor="middle">Algunos insectos</text>
-<rect class="genetics-hero-panel genetics-hero-panel-alt" x="335" y="295" width="230" height="74" rx="15"/><text class="genetics-svg-heading" x="450" y="328" text-anchor="middle">Haplodiploidía</text><text class="genetics-svg-detail" x="450" y="352" text-anchor="middle">Abeja melífera · csd</text>
+<rect class="genetics-hero-panel genetics-hero-panel-alt" x="65" y="227" width="235" height="74" rx="15"/><text class="genetics-svg-heading" x="182" y="262" text-anchor="middle">Haplodiploidía</text><text class="genetics-svg-detail" x="182" y="286" text-anchor="middle">Abeja melífera · csd</text>
 <rect class="genetics-hero-panel genetics-hero-panel-alt" x="600" y="227" width="235" height="74" rx="15"/><text class="genetics-svg-heading" x="718" y="262" text-anchor="middle">Temperatura</text><text class="genetics-svg-detail" x="718" y="286" text-anchor="middle">Determinados reptiles</text>
 </g></svg>
 <canvas class="genetics-hero-canvas" data-genetics-canvas aria-hidden="true"></canvas>
 </div>
-<div class="genetics-hero-controls"><div class="genetics-hero-choices" role="group" aria-label="Perspectiva de genética animal"><button type="button" data-genetics-step="0" aria-pressed="true">Cromosomas</button><button type="button" data-genetics-step="1" aria-pressed="false">Desarrollo</button><button type="button" data-genetics-step="2" aria-pressed="false">Diversidad</button></div><button type="button" class="genetics-hero-motion" data-genetics-motion aria-pressed="false" aria-label="Pausar movimiento decorativo de la portada">Pausar</button></div>
+<div class="genetics-hero-controls"><div class="genetics-hero-choices" role="group" aria-label="Perspectiva de genética animal"><button type="button" data-genetics-step="0" aria-pressed="true">Cromosomas</button><button type="button" data-genetics-step="1" aria-pressed="false">Desarrollo</button><button type="button" data-genetics-step="2" aria-pressed="false">Sistemas</button></div><button type="button" class="genetics-hero-motion" data-genetics-motion aria-pressed="false" aria-label="Pausar movimiento decorativo de la portada">Pausar</button></div>
 <p class="genetics-hero-caption" data-genetics-caption>XX/XY y ZZ/ZW son modelos distintos de constitución cromosómica.</p>
 <p class="genetics-hero-disclaimer">Elaboración propia · símbolos conceptuales, sin escala ni forma cromosómica real.</p>
-<noscript><p class="genetics-hero-caption">Desarrollo: la gónada bipotencial presenta vías testicular y ovárica activas. Diversidad: los sistemas cromosómicos, la haplodiploidía y las señales ambientales difieren entre grupos animales.</p></noscript>
+<noscript><p class="genetics-hero-caption">Desarrollo: la gónada bipotencial presenta vías testicular y ovárica activas. Sistemas: los mecanismos cromosómicos, la haplodiploidía y las señales ambientales difieren entre grupos animales.</p></noscript>
 <p class="expo-visually-hidden" data-genetics-status role="status" aria-live="polite"></p>
 </div>'''

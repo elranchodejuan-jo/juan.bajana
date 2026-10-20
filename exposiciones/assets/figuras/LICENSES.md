@@ -59,7 +59,8 @@ proyecto indicados arriba, sin introducir una licencia adicional.
 | `freemartinismo-bovino.svg` | Conexión vascular fetal, intercambio y posible quimerismo; el antecedente no confirma por sí solo el síndrome. | `corredor-freemartin-2009`. |
 
 Las claves corresponden a las entradas completas, con DOI o URL y alcance,
-de `exposiciones/content/genetica--cromosomas-y-determinacion-sexual.json`.
+del JSON en la incorporación inicial. Las referencias de peces se retiraron
+del guion actual; su procedencia se conserva en el historial y en este inventario.
 La numeración Vancouver de la web se genera según su propio orden, que puede
 diferir del informe descargable.
 
@@ -74,12 +75,13 @@ diagramas semánticos de `scripts/expo_genetics.py` también son originales. Sus
 estados de Canvas son exclusivamente decorativos; SVG, HTML y texto expresan
 la información científica.
 
-Este registro cubre los recursos originales de la web. El Word y PowerPoint
-son copias sin cambios de los materiales académicos entregados; conservan sus
-propias figuras, atribuciones y bibliografía. No se extrajeron de ellos las
-ilustraciones de UNAM para publicarlas como SVG de la web. La procedencia y
-los hashes de ambos documentos figuran en
-`docs/exposiciones-verificacion-determinacion-sexual.md`.
+Este registro cubre los recursos originales de la web. En la incorporación
+inicial, el Word y PowerPoint eran copias sin cambios de los materiales
+académicos entregados, con sus propias figuras, atribuciones y bibliografía.
+No se extrajeron de ellos las ilustraciones de UNAM para publicarlas como SVG
+de la web. La procedencia y los hashes de aquella entrega figuran en
+`docs/exposiciones-verificacion-determinacion-sexual.md`. La actualización
+del equipo renueva ambos descargables según el apartado siguiente.
 
 ### Revisión de integración del 18 de octubre de 2026
 
@@ -94,3 +96,33 @@ Se revisaron renders estáticos de las siete figuras en claro y oscuro;
 la verificación visual de su composición dentro del navegador sigue
 pendiente por el bloqueo de permisos registrado en
 `docs/exposiciones-verificacion-genetica-visual.md`.
+
+### Actualización del equipo del 19 de octubre de 2026
+
+El guion actual corresponde al Grupo 4 de Quinto A: Juan José Bajaña Chuno,
+Britney Gissel Cujilema Montero, Joselyn María Pambi Gaona, Guillermo Ramiro
+Ramírez Medina y Dennisse Carolina Silva Del Rosario. Su estructura contiene
+16 escenas, con portada y 15 de contenido, tres bloques temáticos, nueve
+exploradores y cinco preguntas orales. Las fuentes, la autoevaluación y los
+materiales se consultan fuera del recorrido de diapositivas.
+
+El selector X/Y/Z/W, el esquema actualizado de cuatro niveles y el recorrido
+de freemartinismo por pasos son composiciones originales del proyecto. Las
+etiquetas y los símbolos representan relaciones didácticas; no son cariotipos,
+anatomía a escala ni mediciones del equipo. Los recursos originales de
+versiones previas se conservan sin atribuirles usos que ya no tienen: el
+esquema antiguo de tres niveles y la figura de peces no forman parte del
+recorrido actual.
+
+Las imágenes de los materiales de consulta del equipo no se incorporan a la
+web como ilustraciones de autoría propia. Las fuentes científicas respaldan
+el contenido y no implican permiso para redistribuir sus figuras. La
+atribución de los iconos Lucide locales se conserva en el repositorio.
+
+La actualización incluye nuevos archivos Word y PowerPoint. Su procedencia,
+fuentes de imágenes, revisión visual y hashes constan en
+`docs/exposiciones-verificacion-genetica-equipo.md`. Las tres figuras del
+informe son originales; los diagramas y tablas del PowerPoint son editables.
+Se inspeccionaron las 11 páginas y las 16 diapositivas renderizadas.
+La revisión del HTML en navegador sigue pendiente por el bloqueo
+de permisos previamente documentado; no se han intentado rutas alternativas.

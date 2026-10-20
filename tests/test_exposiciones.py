@@ -5,6 +5,7 @@ import math
 import re
 import tempfile
 import unittest
+import zipfile
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit, unquote, urljoin
@@ -214,8 +215,12 @@ class ExposicionesTests(unittest.TestCase):
     def test_genetics_content_citations_scope_and_downloads(self):
         data=json.loads((ROOT/'exposiciones/content/genetica--cromosomas-y-determinacion-sexual.json').read_text())
         builder.validate(data,published=True)
-        self.assertEqual(len(data['scenes']),14)
-        self.assertEqual(data['authors'],['Juan José Bajaña Chuno'])
+        self.assertEqual(len(data['scenes']),16)
+        self.assertEqual(len(data['authors']),5)
+        self.assertIn('Juan José Bajaña Chuno',data['authors'])
+        self.assertEqual(data['scenes'][1]['id'],'cromosomas-sexuales')
+        self.assertEqual(sum(bool(s.get('oralQuestion')) for s in data['scenes']),5)
+        self.assertFalse(any(s['layout'] in ('references','quiz','closing') for s in data['scenes']))
         first=[]
         for scene in data['scenes']:
             self.assertTrue(scene.get('notes'),scene['id'])
@@ -224,8 +229,8 @@ class ExposicionesTests(unittest.TestCase):
         self.assertEqual(first,list(range(1,len(data['references'])+1)))
         self.assertEqual(len({r['key'] for r in data['references']}),len(data['references']))
         source=(ROOT/'exposiciones/genetica/cromosomas-y-determinacion-sexual/index.html').read_text()
-        self.assertEqual(source.count('<section'),14)
-        self.assertEqual(source.count('data-genetics-lab="'),7)
+        self.assertEqual(source.count('<section'),16)
+        self.assertEqual(source.count('data-genetics-lab="'),9)
         self.assertEqual(source.count('<h1>'),1)
         for acid_only in ['data-simulator','data-visual-lab=','data-hero ','Henderson','HCO₃']:
             self.assertNotIn(acid_only,source)
@@ -239,15 +244,19 @@ class ExposicionesTests(unittest.TestCase):
             self.assertTrue(question['feedback'])
         parsed=Links();parsed.feed(source)
         self.assertEqual(len(parsed.downloads),2)
-        expected_hashes={
-            'informe-determinacion-sexual-animal.docx':'52605524ebd3db1ddf3dc1461ac74b8008e8577b7c9b7d41a3efb79bb628cb9f',
-            'presentacion-determinacion-sexual-animal.pptx':'670b86c56a6af47891374190328f0e7631f86d6968196642773e4c825b7f3d2b',
-        }
         for link in parsed.downloads:
             path=urlsplit(link['href']).path
-            digest=hashlib.sha256((ROOT/path.lstrip('/')).read_bytes()).hexdigest()
-            self.assertEqual(digest,expected_hashes[Path(path).name])
+            resource=ROOT/path.lstrip('/')
+            digest=hashlib.sha256(resource.read_bytes()).hexdigest()
             self.assertEqual(link['href'],path+'?v='+digest[:16])
+            with zipfile.ZipFile(resource) as archive:
+                self.assertIsNone(archive.testzip())
+                if resource.suffix=='.pptx':
+                    slides=[n for n in archive.namelist() if re.fullmatch(r'ppt/slides/slide\d+\.xml',n)]
+                    self.assertEqual(len(slides),16,'The download must match the new 16-slide script.')
+                else:
+                    document=' '.join(builder.ET.fromstring(archive.read('word/document.xml')).itertext())
+                    for author in data['authors']:self.assertIn(author,document)
 
     def test_genetics_renderer_is_scoped_to_its_lesson(self):
         data=json.loads((ROOT/'exposiciones/content/genetica--cromosomas-y-determinacion-sexual.json').read_text())
@@ -259,10 +268,11 @@ class ExposicionesTests(unittest.TestCase):
     def test_genetics_widget_sources_are_numbered_and_cannot_be_orphaned(self):
         data=json.loads((ROOT/'exposiciones/content/genetica--cromosomas-y-determinacion-sexual.json').read_text())
         scene=next(s for s in data['scenes'] if s['id']=='via-testicular')
-        markup='<a class="gen-source" href="'+data['references'][2]['url']+'">Ridnik et al.</a>'
+        ref=next(r for r in data['references'] if r['key']=='ridnik-regulacion-2021')
+        markup='<a class="gen-source" href="'+ref['url']+'">Ridnik et al.</a>'
         resolved=builder.numbered_visual_sources(markup,data,scene)
-        self.assertIn('href="#ref-3"',resolved)
-        self.assertIn('>[3]</a>',resolved)
+        self.assertIn(f'href="#ref-{ref["id"]}"',resolved)
+        self.assertIn(f'>[{ref["id"]}]</a>',resolved)
         with self.assertRaises(ValueError):
             builder.numbered_visual_sources(markup,data,dict(scene,references=[]))
         with self.assertRaises(ValueError):
@@ -274,8 +284,9 @@ class ExposicionesTests(unittest.TestCase):
 
     def test_genetics_aliases_are_unique_and_preserve_merged_scene_links(self):
         data=json.loads((ROOT/'exposiciones/content/genetica--cromosomas-y-determinacion-sexual.json').read_text())
-        expected={'gonada-bipotencial':'niveles-del-desarrollo','cromosomas-y-gametos':'cruces-cromosomicos',
-                  'via-ovarica':'via-testicular','sistema-xx-x0':'comparacion-de-sistemas'}
+        expected={'gonada-bipotencial':'via-testicular','cromosomas-y-gametos':'caracteristicas-cromosomas',
+                  'via-ovarica':'desarrollo-femenino','sistema-xx-x0':'comparacion-de-sistemas',
+                  'desarrollo-sexual-canino':'niveles-del-desarrollo','diversidad-en-peces':'sistemas-determinacion'}
         self.assertEqual({alias:scene['id'] for scene in data['scenes'] for alias in scene.get('aliases',[])},expected)
         for bad_alias in ['inicio','../ruta','via-ovarica']:
             invalid=json.loads(json.dumps(data))
