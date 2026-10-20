@@ -20,21 +20,21 @@ def _buffer():
         ('baseline', 'Equilibrio'), ('acid', 'Añadir H⁺'), ('co2', 'Añadir CO₂'), ('remove', 'Retirar CO₂')])
     scripts = {
         'baseline': [
-            ('Un sistema reversible', 'H⁺ + HCO₃⁻ ⇌ H₂CO₃ ⇌ CO₂ + H₂O. Las flechas representan interconversión, no cantidades.'),
+            ('Un sistema reversible', 'H⁺ + HCO₃⁻ ⇌ H₂CO₃ ⇌ CO₂ + H₂O. Las sustancias se interconvierten en ambos sentidos.'),
             ('Amortiguar', 'El bicarbonato puede aceptar H⁺; la reacción limita el cambio de pH, sin eliminar la causa.'),
-            ('Conectar órganos', 'La ventilación elimina CO₂ y el riñón conserva o repone bicarbonato. Aquí no se simulan sus velocidades.')],
+            ('Conectar órganos', 'La ventilación elimina CO₂ y el riñón conserva o repone bicarbonato: ambos contribuyen al equilibrio ácido-base.')],
         'acid': [
             ('Carga de H⁺', 'Al añadir H⁺ se favorece su unión al HCO₃⁻: el sentido mostrado es hacia CO₂ y agua.'),
-            ('Usar el amortiguador', 'La amortiguación consume bicarbonato. No equivale a neutralizar una cantidad ilimitada de ácido.'),
+            ('Usar el amortiguador', 'H⁺ y bicarbonato forman ácido carbónico, que se transforma en CO₂ y agua; así disminuye el H⁺ libre.'),
             ('Eliminar la carga', 'El CO₂ formado puede eliminarse por ventilación. El riñón puede reponer bicarbonato mediante excreción neta de ácido.')],
         'co2': [
-            ('Carga de CO₂', 'Al aumentar CO₂ se favorece la formación de ácido carbónico y su disociación: el sentido mostrado es hacia H⁺ y HCO₃⁻.'),
-            ('Tendencia acidificante', 'La liberación de H⁺ tiende a reducir el pH. El bicarbonato no permanece exactamente fijo en un organismo real.'),
-            ('Reconocer el límite', 'Este esquema cualitativo no calcula compensación, concentraciones ni un diagnóstico.')],
+            ('Carga de CO₂', 'Al acumularse CO₂ aumenta su disponibilidad para reaccionar con agua y formar ácido carbónico.'),
+            ('Liberar H⁺', 'El ácido carbónico se disocia en H⁺ y HCO₃⁻: se favorece el sentido hacia la izquierda del esquema.'),
+            ('El pH tiende a descender', 'El aumento de H⁺ tiene un efecto acidificante; los demás amortiguadores moderan el cambio de pH.')],
         'remove': [
-            ('Retirar CO₂', 'La eliminación de CO₂ favorece la reacción hacia CO₂ y agua; se consumen H⁺ en ese sentido.'),
-            ('Tendencia alcalinizante', 'Una menor disponibilidad de H⁺ tiende a elevar el pH, si se considera este sistema aislado.'),
-            ('Reconocer el límite', 'La respuesta real depende de otros amortiguadores y del estado renal. Las flechas no predicen su magnitud.')],
+            ('Retirar CO₂', 'La ventilación elimina CO₂ y reduce su disponibilidad en el sistema bicarbonato–CO₂.'),
+            ('Consumir H⁺', 'Se favorece la unión de H⁺ y HCO₃⁻ para formar ácido carbónico y luego CO₂ y agua: el sentido es hacia la derecha.'),
+            ('El pH tiende a subir', 'Al consumirse H⁺ disminuye su concentración libre y el equilibrio se desplaza hacia un pH mayor.')],
     }
     panels = ''.join(f'<div class="expo-lab-copy" data-buffer-panel="{key}" data-buffer-step="{index}"{" hidden" if key != "baseline" or index else ""}><h3 class="expo-lab-title">{escape(title)}</h3><p>{escape(text)}</p></div>' for key, steps in scripts.items() for index, (title, text) in enumerate(steps))
     return f'''<div class="expo-lab expo-visual-lab" data-visual-lab="buffer" data-direction="reversible" aria-label="Laboratorio cualitativo bicarbonato y CO₂">
@@ -45,8 +45,10 @@ def _buffer():
 <text class="lab-label" x="121" y="106" text-anchor="middle">H⁺ + HCO₃⁻</text><text class="lab-label" x="359" y="106" text-anchor="middle">H₂CO₃</text><text class="lab-label" x="598" y="106" text-anchor="middle">CO₂ + H₂O</text>
 <g class="lab-line lab-buffer-forward" fill="none" stroke="currentColor" stroke-width="3"><path d="M235 82H265m-8-7 8 7-8 7M451 82H481m-8-7 8 7-8 7"/></g>
 <g class="lab-line lab-buffer-reverse" fill="none" stroke="currentColor" stroke-width="3"><path d="M265 118H235m8-7-8 7 8 7M481 118H451m8-7-8 7 8 7"/></g>
-<text class="lab-muted" x="360" y="190" text-anchor="middle" data-buffer-direction>Reacción reversible · sin magnitudes asignadas</text></svg></div>
+<text class="lab-muted" x="360" y="190" text-anchor="middle" data-buffer-direction>Reacción reversible</text></svg></div>
+<p class="expo-lab-legend" data-buffer-model-note>El esquema muestra la dirección de la reacción; no calcula su magnitud.</p>
 <div aria-live="polite" aria-atomic="true">{panels}</div><div class="expo-lab-controls expo-actions">{_button('Paso anterior', 'data-buffer-prev disabled')}<span class="expo-lab-legend" data-buffer-position>Paso 1 de 3</span>{_button('Siguiente paso', 'data-buffer-next')}{_button('Reiniciar', 'data-buffer-reset')}</div>
+<details class="expo-study-only"><summary>Alcance del esquema</summary><p>No calcula concentraciones, velocidades ni compensación. En el organismo participan otros amortiguadores, la ventilación y la función renal; el bicarbonato no permanece exactamente fijo cuando cambia el CO₂. La capacidad de amortiguación es limitada.</p></details>
 <noscript><p class="expo-lab-note">Añadir H⁺ favorece el sentido hacia CO₂; añadir CO₂ favorece el sentido hacia H⁺. El esquema es cualitativo; las interacciones requieren JavaScript.</p></noscript></div>'''
 
 

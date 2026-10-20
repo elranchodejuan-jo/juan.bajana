@@ -1,6 +1,6 @@
 # VETJB · Exposiciones
 
-Biblioteca estática en español. Cada exposición contiene en un mismo HTML los modos **Página** (lectura vertical) y **Diapositivas**: equilibrio ácido-base tiene 15 escenas y determinación sexual animal, 16 (portada y 15 de contenido). No requiere cuentas, servicios de pago, CDNs ni un cambio de despliegue. `CNAME` y la portada conservan la publicación existente.
+Biblioteca estática en español. Cada exposición contiene en un mismo HTML los modos **Página** (lectura vertical) y **Diapositivas**: equilibrio ácido-base tiene 14 escenas y determinación sexual animal, 16 (portada y 15 de contenido). No requiere cuentas, servicios de pago, CDNs ni un cambio de despliegue. `CNAME` y la portada conservan la publicación existente.
 
 ## Abrir en Windows
 
@@ -47,7 +47,11 @@ El gráfico del simulador une PCO₂ y HCO₃⁻ con líneas de igual pH. El pun
 
 Henderson–Hasselbalch se aproxima como `pH = 6.1 + log10(HCO3 / (0.03 * PCO2))`, a 37 °C, con HCO₃⁻ en mmol/L y PCO₂ en mmHg. El modelo no corrige temperatura ni diferencias entre especies, proteínas u otros iones. El punto 24/40 es matemático; no representa un intervalo veterinario universal. No hay compensación automática ni diagnóstico a partir de dos números.
 
-Los dos casos son construidos, con datos coherentes: ternero con diarrea y perro con hipoventilación reciente. Las respuestas y límites están explicados; no prescriben tratamientos. La autoevaluación es individual y local, sin nombres, correos ni sincronización entre dispositivos.
+La apertura diferencia pH/acidemia/alcalemia de los procesos de acidosis/alcalosis y presenta los tres sistemas reguladores antes de bicarbonato. La aclaración del alcance del esquema se muestra bajo la reacción, fuera de sus pasos fisiológicos.
+
+Los dos casos construidos —ternero con diarrea y perro con hipoventilación reciente— son las preguntas 4 y 5 de **Preguntas para el grupo**, que conserva cinco preguntas. En Diapositivas se plantea una pregunta cada vez; Página muestra las cinco. Cada respuesta se comprueba por separado; los casos conservan historia, tipo de muestra, datos completos y razonamiento ampliado después de comprobar. Cambiar de formato mantiene la pregunta y las respuestas. Los enlaces antiguos de ambos casos seleccionan su pregunta. El cierre reúne referencias y tres descargables; `#conclusiones` conserva ese destino.
+
+Las ilustraciones de los casos se generaron para este material y no corresponden a pacientes reales. Los datos son didácticos y no proceden de las imágenes. No se prescriben tratamientos. La autoevaluación es individual y local, sin nombres, correos ni sincronización entre dispositivos.
 
 ## Genética: cromosomas y determinación sexual
 
@@ -119,8 +123,8 @@ Las pruebas jsdom comprueban lógica y DOM; no sustituyen un navegador real ni v
 
 ## Respaldo e impresión
 
-Fisiopatología ofrece el informe académico actualizado en Word, su versión PDF y una presentación PowerPoint de 15 diapositivas. Los tres archivos comparten las referencias y los dos casos didácticos de esa exposición. La actualización de Genética incluye un informe Word y un PowerPoint de 16 diapositivas alineado con las 16 escenas web. Las notas y el recurso de fuentes conservan la bibliografía sin añadir diapositivas al recorrido. El estado de generación, revisión y sustitución de los archivos consta en el registro de la actualización del equipo. Las animaciones y los controles interactivos se exploran en la web. Solo se muestran descargas para archivos existentes y sus enlaces incluyen una versión basada en el contenido para evitar archivos antiguos en caché.
+Fisiopatología ofrece el informe académico actualizado de 15 páginas en Word, su versión PDF y una presentación PowerPoint de 15 diapositivas. La revisión del 20 de octubre se documenta en [el registro de ajustes académicos](../docs/exposiciones-revision-acido-base-20oct.md). Los tres archivos comparten las referencias y los dos casos didácticos de esa exposición. La actualización de Genética incluye un informe Word y un PowerPoint de 16 diapositivas alineado con las 16 escenas web. Las notas y el recurso de fuentes conservan la bibliografía sin añadir diapositivas al recorrido. El estado de generación, revisión y sustitución de los archivos consta en el registro de la actualización del equipo. Las animaciones y los controles interactivos se exploran en la web. Solo se muestran descargas para archivos existentes y sus enlaces incluyen una versión basada en el contenido para evitar archivos antiguos en caché.
 
 La hoja de impresión está preparada para mostrar las escenas y las soluciones. Para un PDF desde el navegador, utiliza Estudiar, Ctrl+P, destino «Guardar como PDF» y revisa la vista previa. La salida puede variar; la impresión web de Genética sigue pendiente de inspección real. El PDF descargable de respaldo corresponde únicamente a Fisiopatología. No se instala un service worker.
 
-Para comprobar offline en tu equipo: abre un perfil de navegador nuevo, inicia el servidor local, desconecta internet y prueba navegación, figuras, casos y simulador. Las fuentes bibliográficas externas sí necesitan conexión. La comprobación actual en navegador está bloqueada por una política de permisos guardados de acceso a vetjb.com; no se intentan rutas alternativas para eludirla. La inspección estática y los renders de SVG no validan la maquetación ni el funcionamiento offline real. El bloqueo de vista previa del registro inicial corresponde a aquella entrega, no a esta revisión.
+Para comprobar offline en tu equipo: abre un perfil de navegador nuevo, inicia el servidor local, desconecta internet y prueba navegación, figuras, casos y simulador. Las fuentes bibliográficas externas sí necesitan conexión. La comprobación en navegador de las entregas anteriores de Genética estuvo bloqueada por una política de permisos guardados de acceso a vetjb.com; ese bloqueo quedó registrado sin intentar rutas alternativas. La inspección estática y los renders de SVG no validan la maquetación ni el funcionamiento offline real. El bloqueo de vista previa del registro inicial corresponde a aquella entrega, no a esta revisión.

@@ -201,15 +201,34 @@ def case_component(case):
     static = ''.join(f'<p><strong>{esc(s["title"])}</strong> {esc(s["text"])}</p>' for s in case['steps'])
     return f'''<form data-case class="expo-case" data-correct-index="{case['correct']}"><div class="expo-scene-grid"><div><p class="expo-study-only">{esc(case['history'])}</p><p class="expo-present-only">{esc(case.get('short_history',case['history']))}</p><p class="expo-small">{esc(case['sample'])} · Escenario didáctico construido.</p><table class="expo-case-data"><caption>Datos para interpretar</caption><tbody>{rows}</tbody></table></div><div><fieldset><legend>{esc(case['question'])}</legend><div class="expo-choices">{choices}</div></fieldset><div class="expo-actions">{button('Comprobar', 'data-case-check', True)}{button('Paso anterior', 'data-case-prev')}{button('Revelar siguiente paso', 'data-case-next')}<button type="reset" class="expo-button">Reiniciar caso</button></div><div class="expo-case-steps" data-case-steps aria-live="polite">{steps}</div></div></div></form><details class="expo-study-only"><summary>Lectura del razonamiento completo</summary>{static}</details>'''
 
+def quiz_case_context(case):
+    media = case.get('media')
+    picture = ''
+    if media:
+        picture = f'<figure class="expo-quiz-case-media"><img src="{esc(media["src"])}" alt="{esc(media["alt"])}" width="320" height="240" loading="lazy"><figcaption>{esc(media.get("caption", "Ilustración del escenario didáctico."))}</figcaption></figure>'
+    rows = ''.join(f'<tr><th scope="row">{esc(k)}</th><td>{esc(v)}</td></tr>' for k,v in case['values'].items())
+    return f'''<div class="expo-quiz-case-context">{picture}<p class="expo-quiz-case-history expo-study-only"><strong>{esc(case['species'])} · {esc(case['age'])}.</strong> {esc(case['history'])}</p><p class="expo-quiz-case-history expo-present-only"><strong>{esc(case['species'])} · {esc(case['age'])}.</strong> {esc(case.get('short_history',case['history']))}</p><p class="expo-small">{esc(case['sample'])}</p><table class="expo-case-data"><caption>Datos sintéticos del caso</caption><tbody>{rows}</tbody></table></div>'''
+
 def quiz_component(questions, individual=False):
     items = []
     for i, q in enumerate(questions):
         choices = ''.join(f'<label><input type="radio" name="quiz-{i}" value="{j}"><span>{esc(c)}</span></label>' for j, c in enumerate(q['options']))
         check_attrs = f'data-question-check aria-controls="respuesta-{i+1}" aria-label="Comprobar respuesta de la pregunta {i+1}"'
-        check = '<div class="expo-actions">' + button('Comprobar respuesta', check_attrs, True) + '</div>' if individual else ''
+        case = q.get('case')
+        change = button('Cambiar respuesta', 'data-question-change hidden') if case else ''
+        check = '<div class="expo-actions">' + button('Comprobar respuesta', check_attrs, True) + change + '</div>' if individual else ''
         feedback_attrs = f' id="respuesta-{i+1}" role="status" aria-live="polite" aria-atomic="true"' if individual else ''
-        items.append(f'<fieldset data-question data-answer="{q["correct"]}" id="pregunta-{i+1}"><legend>{i+1}. {esc(q["question"])}</legend><div class="expo-choices">{choices}</div>{check}<p class="expo-feedback" data-feedback{feedback_attrs} hidden>{esc(q["feedback"])}</p></fieldset>')
+        answer = f'<div class="expo-choices">{choices}</div>{check}<p class="expo-feedback" data-feedback{feedback_attrs} hidden>{esc(q["feedback"])}</p>'
+        question_id = case['id'] if case else f'pregunta-{i+1}'
+        case_attr = f' data-quiz-case="{esc(case["id"])}"' if case else ''
+        if case:
+            reasoning = ''.join(f'<p><strong>{esc(s["title"])}.</strong> {esc(s["text"])}</p>' for s in case.get('steps', []))
+            alternatives = ''.join(f'<p><strong>{esc(o["label"])}</strong> {esc(o["feedback"])}</p>' for o in case.get('options', []))
+            details = f'<details class="expo-quiz-case-reasoning expo-study-only" data-question-reasoning hidden><summary>Lectura del razonamiento completo</summary>{paragraphs(case.get("criterion"))}{reasoning}{alternatives}</details>'
+            answer = f'<div class="expo-quiz-case-grid">{quiz_case_context(case)}<div class="expo-quiz-answer">{answer}{details}</div></div>'
+        items.append(f'<fieldset data-question{case_attr} data-answer="{q["correct"]}" id="{esc(question_id)}"><legend>{i+1}. {esc(q["question"])}</legend>{answer}</fieldset>')
     mode_attr = ' data-quiz-individual' if individual else ''
+    if any(q.get('case') for q in questions):mode_attr += ' data-quiz-cases'
     check_all = '' if individual else button('Evaluar respuestas', 'data-quiz-check', True)
     return f'<form data-quiz{mode_attr} class="expo-quiz">{"".join(items)}<div class="expo-actions expo-present-only">{button("Pregunta anterior", "data-quiz-prev")}<span data-quiz-position></span>{button("Pregunta siguiente", "data-quiz-next")}</div><div class="expo-actions">{check_all}<button type="reset" class="expo-button">Reiniciar preguntas</button><output data-quiz-score aria-live="polite"></output></div></form><p class="expo-small">Resultado individual en este navegador. No se solicitan ni envían datos.</p><noscript><details><summary>Respuestas razonadas</summary>{"".join(paragraphs(q["feedback"]) for q in questions)}</details></noscript>'
 
@@ -247,7 +266,7 @@ def scene_html(scene, data, i):
     elif layout == 'case':
         body = case_component(scene['case'])
     elif layout == 'quiz':
-        body = quiz_component(data['quiz'])
+        body = quiz_component(data['quiz'], individual=acid_base_visuals)
     elif layout == 'references':
         mode_control = ' data-view-mode="estudiar"' if genetics else ''
         body = f'<div class="expo-present-only"><p class="expo-lead">Fuentes universitarias, artículos veterinarios y bibliografía trazable.</p><p>Las citas numeradas acompañan cada apartado.</p><a class="expo-button expo-button-primary" href="?modo=estudiar#{esc(scene["id"])}"{mode_control}>Abrir las {len(data["references"])} referencias completas</a></div><ol class="expo-references expo-study-only">' + ''.join(f'<li id="ref-{r["id"]}" value="{r["id"]}"><p>{esc(r["citation"])}</p><a href="{esc(r["url"])}" target="_blank" rel="noopener noreferrer">{esc(r["url"])}</a><p class="expo-small">{esc(r.get("scope", ""))}</p></li>' for r in data['references']) + '</ol>'

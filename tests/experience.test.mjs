@@ -41,6 +41,7 @@ async function environment(path, suffix = '', options = {}) {
   const originals = new Map();
   const intervals = new Set();
   const nativeInterval = globalThis.setInterval;
+  const scrolled = [];
   const animationFrames = options.manualAnimationFrames ? animationFrameQueue() : null;
   const globals = {
     window: win, document: win.document, location: win.location,
@@ -56,7 +57,7 @@ async function environment(path, suffix = '', options = {}) {
     originals.set(key, Object.getOwnPropertyDescriptor(globalThis, key));
     Object.defineProperty(globalThis, key, { value, writable: true, configurable: true });
   }
-  win.HTMLElement.prototype.scrollIntoView = function () {};
+  win.HTMLElement.prototype.scrollIntoView = function () { scrolled.push(this); };
   win.HTMLDialogElement.prototype.showModal = function () { this.open = true; };
   win.HTMLDialogElement.prototype.close = function () {
     this.open = false;
@@ -65,7 +66,7 @@ async function environment(path, suffix = '', options = {}) {
   const app = await import(`${moduleURL.href}?dom-test=${++importNumber}`);
   await tick();
   return {
-    win, document: win.document, app, animationFrames,
+    win, document: win.document, app, animationFrames, scrolled,
     async close() {
       await tick();
       win.close();
@@ -173,34 +174,49 @@ test('DOM: simulator synchronizes paired controls, clears invalid results and re
   } finally { await env.close(); }
 });
 
-test('DOM: both cases require a choice, explain alternatives, reveal and reset reasoning', async () => {
+test('DOM: physiology embeds two complete cases in five individually checked questions without revealing answers early', async () => {
   const env = await environment(expoPath);
   try {
-    const doc = env.document;
-    const cases = [...doc.querySelectorAll('form[data-case]')];
+    const { document: doc, win } = env;
+    const form = doc.querySelector('form[data-quiz-cases][data-quiz-individual]');
+    const cases = [...form.querySelectorAll('[data-quiz-case]')];
+    assert.equal(form.querySelectorAll('[data-question]').length, 5);
     assert.equal(cases.length, 2);
-    for (const form of cases) {
-      const next = form.querySelector('[data-case-next]');
-      assert.equal(next.disabled, true);
-      form.querySelector('[data-case-check]').click();
-      assert.match(form.querySelector('[data-case-status]').textContent, /Selecciona/);
-      const correct = form.querySelector(`input[value="${form.dataset.correctIndex}"]`);
+    assert.equal(doc.querySelector('form[data-case]'), null);
+    assert.equal(form.querySelector('[data-quiz-check]'), null);
+    const data = JSON.parse(await readFile(new URL('exposiciones/content/fisiopatologia--equilibrio-acido-base.json', root), 'utf8'));
+    for (const question of cases) {
+      const fixture = data.quiz.find((item) => item.case?.id === question.id).case;
+      assert.equal(question.querySelectorAll('tbody tr').length, 6);
+      for (const [label, value] of Object.entries(fixture.values)) {
+        assert.ok([...question.querySelectorAll('tbody tr')].some((row) => row.querySelector('th').textContent === label && row.querySelector('td').textContent === value));
+      }
+      assert.ok(question.textContent.includes(fixture.history));
+      assert.ok(question.textContent.includes(fixture.sample));
+      assert.ok(question.querySelector('img[alt]'));
+      const feedback = question.querySelector('[data-feedback]');
+      const reasoning = question.querySelector('[data-question-reasoning]');
+      assert.equal(feedback.hidden, true);
+      assert.equal(reasoning.hidden, true);
+      question.querySelector('[data-question-check]').click();
+      assert.equal(feedback.textContent, 'Selecciona una respuesta antes de comprobar.');
+      assert.equal(reasoning.hidden, true);
+      const correct = question.querySelector(`input[value="${question.dataset.answer}"]`);
       correct.click();
-      form.querySelector('[data-case-check]').click();
-      assert.match(form.querySelector('[data-case-status]').textContent, /correcta/);
-      assert.equal(next.disabled, false);
-      assert.ok([...form.querySelectorAll('[data-option-feedback]')].every((feedback) => !feedback.hidden));
-      next.click(); next.click();
-      assert.equal([...form.querySelectorAll('[data-step]')].filter((step) => !step.hidden).length, 2);
-      const previous = form.querySelector('[data-case-prev]');
-      assert.ok(previous);
-      previous.click();
-      assert.equal([...form.querySelectorAll('[data-step]')].filter((step) => !step.hidden).length, 1);
-      form.reset(); await tick();
-      assert.equal(form.querySelector('input:checked'), null);
-      assert.equal(next.disabled, true);
-      assert.ok([...form.querySelectorAll('[data-step], [data-option-feedback]')].every((element) => element.hidden));
+      assert.equal(feedback.hidden, true);
+      question.querySelector('[data-question-check]').click();
+      assert.match(feedback.textContent, /^Correcta\./);
+      assert.equal(reasoning.hidden, false);
+      assert.ok([...question.querySelectorAll('.expo-choices label')].every((label) => !label.hidden));
     }
+    assert.match(form.querySelector('[data-quiz-score]').textContent, /2 de 2 respuestas correctas\. 2 de 5 preguntas comprobadas/);
+    assert.ok([...form.querySelectorAll('[data-question]:not([data-quiz-case]) [data-feedback]')].every((feedback) => feedback.hidden));
+    win.dispatchEvent(new win.Event('beforeprint'));
+    assert.ok([...form.querySelectorAll('[data-question]:not([data-quiz-case]) [data-feedback]')].every((feedback) => feedback.hidden), 'Printing must not reveal unchecked physiology answers.');
+    win.dispatchEvent(new win.Event('afterprint'));
+    form.reset(); await tick();
+    assert.equal(form.querySelector('input:checked'), null);
+    assert.ok([...form.querySelectorAll('[data-feedback], [data-question-reasoning]')].every((element) => element.hidden));
   } finally { await env.close(); }
 });
 
@@ -212,17 +228,85 @@ test('DOM: quiz computes an individual score from answers and resets all feedbac
     const questions = [...form.querySelectorAll('[data-question]')];
     assert.equal(questions.length, 5);
     assert.ok(questions.every((question) => !question.hidden));
-    for (const question of questions) question.querySelector(`input[value="${question.dataset.answer}"]`).click();
-    form.querySelector('[data-quiz-check]').click();
+    for (const question of questions) {
+      question.querySelector(`input[value="${question.dataset.answer}"]`).click();
+      question.querySelector('[data-question-check]').click();
+    }
     assert.match(form.querySelector('[data-quiz-score]').textContent, /5 de 5 respuestas correctas/);
     assert.ok(questions.every((question) => !question.querySelector('[data-feedback]').hidden));
     questions[0].querySelector(`input:not([value="${questions[0].dataset.answer}"])`).click();
-    form.querySelector('[data-quiz-check]').click();
+    assert.match(form.querySelector('[data-quiz-score]').textContent, /4 de 4 respuestas correctas/);
+    questions[0].querySelector('[data-question-check]').click();
     assert.match(form.querySelector('[data-quiz-score]').textContent, /4 de 5 respuestas correctas/);
     form.reset(); await tick();
     assert.equal(form.querySelector('input:checked'), null);
     assert.equal(form.querySelector('[data-quiz-score]').textContent, '');
     assert.ok(questions.every((question) => question.querySelector('[data-feedback]').hidden));
+  } finally { await env.close(); }
+});
+
+test('DOM: legacy case links select their quiz question and preserve checks, sharing and mode round trips', async () => {
+  const env = await environment(expoPath, '?modo=estudiar#ternero-diarrea');
+  try {
+    const { win, document: doc, app } = env;
+    const form = doc.querySelector('form[data-quiz-cases]');
+    const calf = doc.getElementById('ternero-diarrea');
+    const dog = doc.getElementById('perro-hipoventilacion');
+    assert.equal(calf.closest('.expo-scene').id, 'autoevaluacion');
+    assert.equal(form.dataset.activeQuestion, calf.id);
+    assert.equal(win.location.hash, '#ternero-diarrea');
+    assert.equal(new URL(doc.querySelector('[data-view-mode="presentar"]').href).hash, '#ternero-diarrea');
+    const transition = app.switchMode('presentar');
+    doc.querySelector('[data-reveal-style]').dispatchEvent(new win.Event('load'));
+    await transition;
+    assert.equal(doc.querySelector('.expo-scene.present').id, 'autoevaluacion');
+    assert.equal(form.querySelector('[data-question]:not([hidden])'), calf);
+    assert.equal(form.querySelector('[data-quiz-position]').textContent, 'Pregunta 4 de 5');
+    const answer = calf.querySelector(`input[value="${calf.dataset.answer}"]`);
+    answer.click(); calf.querySelector('[data-question-check]').click();
+    assert.equal(calf.querySelectorAll('.expo-choices label:not([hidden])').length, 1);
+    assert.equal(calf.querySelector('[data-question-change]').hidden, false);
+    const explanation = calf.querySelector('[data-feedback]').textContent;
+    form.querySelector('[data-quiz-prev]').click();
+    assert.equal(win.location.hash, '#pregunta-3');
+    form.querySelector('[data-quiz-next]').click();
+    assert.equal(answer.checked, true);
+    assert.equal(calf.querySelector('[data-feedback]').textContent, explanation);
+    assert.equal(calf.querySelector('[data-feedback]').hidden, false);
+
+    win.location.hash = '#perro-hipoventilacion';
+    await tick();
+    assert.equal(form.querySelector('[data-question]:not([hidden])'), dog);
+    const wrong = dog.querySelector(`input:not([value="${dog.dataset.answer}"])`);
+    wrong.click(); dog.querySelector('[data-question-check]').click();
+    assert.match(form.querySelector('[data-quiz-score]').textContent, /1 de 2 respuestas correctas\. 2 de 5 preguntas comprobadas/);
+    doc.querySelector('[data-share-open]').click();
+    assert.equal(new URL(doc.querySelector('#expo-share-url').value).hash, '#perro-hipoventilacion');
+    doc.querySelector('#expo-share [data-dialog-close]').click();
+    win.dispatchEvent(new win.Event('beforeprint'));
+    assert.ok([...form.querySelectorAll('[data-question]')].every((question) => !question.hidden));
+    assert.equal(dog.querySelectorAll('.expo-choices label:not([hidden])').length, 3);
+    win.dispatchEvent(new win.Event('afterprint'));
+    assert.equal(form.querySelector('[data-question]:not([hidden])'), dog);
+    assert.equal(dog.querySelectorAll('.expo-choices label:not([hidden])').length, 1);
+
+    await app.switchMode('estudiar');
+    assert.equal(win.location.hash, '#perro-hipoventilacion');
+    assert.equal(env.scrolled.at(-1), dog, 'Returning to the page must scroll to the selected case, not the first quiz question.');
+    assert.ok([...form.querySelectorAll('[data-question]')].every((question) => !question.hidden));
+    assert.equal(calf.querySelectorAll('.expo-choices label:not([hidden])').length, 3);
+    assert.equal(answer.checked, true);
+    assert.equal(wrong.checked, true);
+    assert.equal(calf.querySelector('[data-feedback]').textContent, explanation);
+    dog.querySelector(`input[value="${dog.dataset.answer}"]`).click();
+    assert.equal(dog.querySelector('[data-feedback]').hidden, true);
+    assert.equal(dog.querySelector('[data-question-reasoning]').hidden, true);
+    assert.equal(calf.querySelector('[data-feedback]').hidden, false);
+    assert.match(form.querySelector('[data-quiz-score]').textContent, /1 de 1 respuestas correctas/);
+    win.location.hash = '#conclusiones';
+    await tick();
+    assert.equal(win.location.hash, '#referencias');
+    assert.match(doc.querySelector('[data-progress]').textContent, /^14\s*\/\s*14/);
   } finally { await env.close(); }
 });
 
@@ -464,7 +548,7 @@ test('DOM: mode round trip uses local reveal engine and preserves entered state'
     doc.querySelector('[data-reveal-style]').dispatchEvent(new win.Event('load'));
     await transition;
     assert.equal(doc.body.dataset.mode, 'presentar');
-    assert.equal(doc.querySelectorAll('#expo-deck .slides section').length, 15);
+    assert.equal(doc.querySelectorAll('#expo-deck .slides section').length, 14);
     assert.equal(doc.querySelectorAll('#expo-deck .stack').length, 0);
     assert.equal(doc.querySelector('[data-view-mode="presentar"]').getAttribute('aria-current'), 'true');
     assert.equal(doc.querySelector('#hco3-number').value, '18');
