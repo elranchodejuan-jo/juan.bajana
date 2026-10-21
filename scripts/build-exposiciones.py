@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from expo_visuals import visual_for, simulator_visual
+from expo_visuals import visual_for, simulator_visual, laboratory_visual
 from expo_hero import hero_visual
 from expo_genetics import genetics_visual
 from expo_genetics_hero import genetics_hero_visual
@@ -20,7 +20,7 @@ BASE = ROOT / 'exposiciones'
 CONTENT = BASE / 'content'
 SUBJECTS = json.loads((BASE/'subjects.json').read_text(encoding='utf8'))
 SLUG = re.compile(r'^[a-z0-9]+(?:-[a-z0-9]+)*$')
-LAYOUTS = {'cover', 'figure', 'compare', 'steps', 'simulator', 'case', 'quiz', 'closing', 'references', 'default'}
+LAYOUTS = {'cover', 'figure', 'compare', 'steps', 'simulator', 'case', 'case-study', 'labs', 'quiz', 'closing', 'references', 'default'}
 
 def esc(value):
     return html.escape(str(value), quote=True)
@@ -71,6 +71,22 @@ def validate(data, *, published=False):
             raise ValueError('Cita sin referencia.')
         if scene.get('figure') and not local_path(scene['figure']).is_file():
             raise ValueError('Figura inexistente.')
+        if scene.get('layout') == 'labs':
+            for panel_id in ('bicarbonato-co2', 'regulacion-pulmonar', 'regulacion-renal'):
+                if panel_id in ids:
+                    raise ValueError('El panel del laboratorio duplica un identificador de escena.')
+                ids.add(panel_id)
+        if scene.get('layout') == 'case-study':
+            table = scene.get('table')
+            if table:
+                rows = table.get('rows', [])
+                columns = len(table.get('headers') or (rows[0] if rows else []))
+                if not rows or columns not in (2, 3) or any(not isinstance(row, list) or len(row) != columns for row in rows):
+                    raise ValueError('La tabla del caso necesita filas coherentes de dos o tres columnas.')
+            if scene.get('media'):
+                media = scene['media']
+                if not local_path(media['src']).is_file() or not all(isinstance(media.get(key), str) and media[key].strip() for key in ('alt', 'caption')):
+                    raise ValueError('La imagen del caso necesita archivo local, descripción y procedencia.')
         if scene.get('illustration'):
             illustration = scene['illustration']
             path = local_path(illustration['src'])
@@ -209,6 +225,23 @@ def quiz_case_context(case):
     rows = ''.join(f'<tr><th scope="row">{esc(k)}</th><td>{esc(v)}</td></tr>' for k,v in case['values'].items())
     return f'''<div class="expo-quiz-case-context">{picture}<p class="expo-quiz-case-history expo-study-only"><strong>{esc(case['species'])} · {esc(case['age'])}.</strong> {esc(case['history'])}</p><p class="expo-quiz-case-history expo-present-only"><strong>{esc(case['species'])} · {esc(case['age'])}.</strong> {esc(case.get('short_history',case['history']))}</p><p class="expo-small">{esc(case['sample'])}</p><table class="expo-case-data"><caption>Datos sintéticos del caso</caption><tbody>{rows}</tbody></table></div>'''
 
+def clinical_scene(scene, copy):
+    table = scene.get('table')
+    data_table = ''
+    if table:
+        headings = '<thead><tr>' + ''.join(f'<th scope="col">{esc(label)}</th>' for label in table.get('headers', [])) + '</tr></thead>' if table.get('headers') else ''
+        rows = ''.join('<tr>' + ''.join(f'<th scope="row">{esc(value)}</th>' if i == 0 else f'<td>{esc(value)}</td>' for i, value in enumerate(row)) + '</tr>' for row in table['rows'])
+        data_table = f'<table class="expo-clinical-table"><caption>{esc(table.get("caption", "Datos del caso"))}</caption>{headings}<tbody>{rows}</tbody></table>'
+    media = scene.get('media')
+    picture = ''
+    if media:
+        src = esc(asset_url(media['src']))
+        alt = esc(media['alt'])
+        caption = esc(media['caption'])
+        width = int(media.get('width', 720)); height = int(media.get('height', 480))
+        picture = f'<figure class="expo-clinical-media"><img src="{src}" alt="{alt}" width="{width}" height="{height}" loading="lazy" decoding="async">{button("Ampliar imagen", f"data-enlarge data-src=\"{src}\" data-alt=\"{alt}\" data-caption=\"{caption}\"")}<figcaption>{caption}</figcaption></figure>'
+    return f'<div class="expo-clinical-grid" data-has-media="{str(bool(media)).lower()}"><div class="expo-clinical-copy">{copy}{data_table}</div>{picture}</div>'
+
 def quiz_component(questions, individual=False):
     items = []
     for i, q in enumerate(questions):
@@ -265,6 +298,10 @@ def scene_html(scene, data, i):
         body = '<div class="expo-simulator-stage">' + simulator() + simulator_visual() + '</div>'
     elif layout == 'case':
         body = case_component(scene['case'])
+    elif layout == 'case-study':
+        body = clinical_scene(scene, copy)
+    elif layout == 'labs' and acid_base_visuals:
+        body = laboratory_visual()
     elif layout == 'quiz':
         body = quiz_component(data['quiz'], individual=acid_base_visuals)
     elif layout == 'references':

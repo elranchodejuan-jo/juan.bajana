@@ -84,14 +84,16 @@ export function initializeAmbient(root = document) {
   }
   function setScene(id) {
     element.dataset.scene = id || '';
-    element.dataset.emphasis = id === 'inicio' ? 'hero' : id === 'regulacion-pulmonar' ? 'breathing' : 'quiet';
+    const activeLab = doc.getElementById(id)?.querySelector('[data-lab-suite]')?.dataset.activeLab;
+    element.dataset.emphasis = id === 'inicio' ? 'hero' : id === 'regulacion-pulmonar' || activeLab === 'regulacion-pulmonar' ? 'breathing' : 'quiet';
   }
   function sceneFromPage() {
     const present = deck.querySelector('.expo-scene.present');
     if (present) return present.id;
     let id = '';
     try { id = decodeURIComponent(doc.location.hash.replace(/^#\/?/, '')); } catch { /* Invalid hashes use the first scene. */ }
-    return [...deck.querySelectorAll('.expo-scene')].find((scene) => scene.id === id)?.id || deck.querySelector('.expo-scene')?.id || '';
+    const scene = doc.getElementById(id)?.closest('.expo-scene');
+    return scene && deck.contains(scene) ? scene.id : deck.querySelector('.expo-scene')?.id || '';
   }
   function measure() {
     needsMeasure = false;

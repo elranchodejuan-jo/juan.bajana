@@ -8,9 +8,9 @@ Elaboración técnica: diagramas SVG originales realizados con asistencia de IA 
 
 | Archivo | Contenido | Base científica |
 | --- | --- | --- |
-| `bicarbonato.svg` | Equilibrio químico reversible y relación bicarbonato/CO₂ disuelto. | Referencias 1, 2 y 3 del informe. |
-| `pulmon.svg` | Transporte de CO₂, eliminación pulmonar y dirección de PCO₂ al variar ventilación alveolar, manteniendo constante la producción de CO₂. | Referencias 1, 3 y 5 del informe. |
-| `renal.svg` | Separación entre recuperación del bicarbonato filtrado y excreción neta de ácido, asociada a bicarbonato nuevo. | Referencia 6 del informe. |
+| `bicarbonato.svg` | Equilibrio químico reversible y relación bicarbonato/CO₂ disuelto. | Referencias 2, 6 y 7 del informe revisado el 21 de octubre. |
+| `pulmon.svg` | Transporte de CO₂, eliminación pulmonar y dirección de PCO₂ al variar ventilación alveolar, manteniendo constante la producción de CO₂. | Referencias 2, 7 y 8 del informe revisado el 21 de octubre. |
+| `renal.svg` | Separación entre recuperación del bicarbonato filtrado y excreción neta de ácido, asociada a bicarbonato nuevo. | Referencia 9 del informe revisado el 21 de octubre. |
 
 Son esquemas funcionales. No reproducen la anatomía de una especie ni representan mediciones de un paciente. La relación química no sustituye una interpretación clínica completa. El esquema pulmonar mantiene explícitamente constante la producción de CO₂. En el renal, «ácido titulable» describe el ácido urinario tamponado, principalmente por fosfato.
 
@@ -134,3 +134,8 @@ de permisos previamente documentado; no se han intentado rutas alternativas.
 `ternero-contexto-acido-base.webp` y `perro-contexto-acido-base.webp` se generaron con OpenAI ImageGen para esta revisión. Son ilustraciones sintéticas de escenarios ficticios, no fotografías documentales de pacientes ni pruebas de los mecanismos explicados. Se integran con una leyenda explícita en web, informe y presentación. Los datos clínicos del ejercicio se conservan por separado; las imágenes no documentan un protocolo de anestesia, diagnóstico ni tratamiento.
 
 Indicaciones de generación: escena horizontal de un ternero joven blanco y negro sobre paja limpia, observado por un veterinario; escena horizontal de un perro adulto de pelaje marrón recostado en una mesa acolchada y observado por una veterinaria. Sin texto, logotipos, procedimientos invasivos ni señales clínicas rotuladas. Los originales PNG se reutilizaron en los documentos y se convirtieron a WebP para la página. No se copiaron fotografías de los repositorios de referencia.
+## Fotografía del caso Mafe · 21 de octubre de 2026
+
+`mafe-poveda-2023.jpg` reproduce la figura 1 de la página 9 del PDF aportado por el usuario: Poveda Martínez JD. *Acidosis ruminal aguda en novilla Holstein de 2 años atendida en la Clínica de Grandes Animales U.D.C.A*. Bogotá: U.D.C.A; 2023. El original la identifica como archivo personal. Se extrajeron los bytes de la imagen del PDF, conservando su resolución original (153 × 272 píxeles), para el análisis académico del caso.
+
+Fuente: https://repository.udca.edu.co/entities/publication/36ea3750-eed1-4525-9b83-466e9c8fc1b1 . La fotografía no fue tomada por VETJB ni generada por IA. No se le atribuye una licencia libre ni se extienden a ella las licencias de los gráficos originales de este proyecto.

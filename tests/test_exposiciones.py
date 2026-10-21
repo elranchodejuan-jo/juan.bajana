@@ -67,11 +67,51 @@ class ExposicionesTests(unittest.TestCase):
 
     def test_other_subjects_do_not_receive_acid_base_visuals(self):
         data=dict(self.content,subject='genetica',slug='tema-real-futuro')
-        cover=builder.scene_html(data['scenes'][0],data,0)
+        cover=builder.scene_html(dict(data['scenes'][0],figure=data['cover']),data,0)
         self.assertNotIn('data-hero',cover)
         self.assertIn('expo-figure',cover)
-        pulmonary=next(s for s in data['scenes'] if s['id']=='regulacion-pulmonar')
-        self.assertNotIn('data-visual-lab',builder.scene_html(pulmonary,data,3))
+        laboratory=next(s for s in data['scenes'] if s['layout']=='labs')
+        self.assertNotIn('data-visual-lab',builder.scene_html(laboratory,data,3))
+
+    def test_clinical_case_tables_keep_source_values_and_image_provenance(self):
+        scenes=[s for s in self.content['scenes'] if s['layout']=='case-study']
+        self.assertEqual([s['id'] for s in scenes],['caso-mafe','estudios-mafe','manejo-evolucion'])
+        for scene in scenes:
+            rendered=builder.scene_html(scene,self.content,0)
+            table=scene['table']
+            self.assertEqual(rendered.count('<th scope="col">'),len(table['headers']))
+            self.assertEqual(rendered.count('<th scope="row">'),len(table['rows']))
+            self.assertEqual(rendered.count('<td>'),len(table['rows'])*(len(table['headers'])-1))
+            for row in table['rows']:
+                for value in row:self.assertIn(builder.esc(value),rendered)
+            self.assertIn(builder.esc(table['caption']),rendered)
+            self.assertNotIn('Datos sintéticos',rendered)
+            if 'media' in scene:
+                parsed=Links();parsed.feed(rendered)
+                self.assertEqual(parsed.images[0]['src'],builder.asset_url(scene['media']['src']))
+                self.assertEqual(parsed.images[0]['alt'],scene['media']['alt'])
+                self.assertIn(builder.esc(scene['media']['caption']),rendered)
+                self.assertNotIn('Ilustración generada con IA',rendered)
+            else:self.assertIn('data-has-media="false"',rendered)
+
+    def test_case_table_shape_and_laboratory_fragment_collisions_are_rejected(self):
+        table=next(s['table'] for s in self.content['scenes'] if s['id']=='estudios-mafe')
+        table['rows'][0].append('Columna extra')
+        with self.assertRaisesRegex(ValueError,'filas coherentes'):builder.validate(self.content)
+        table['rows'][0].pop()
+        lab=next(s for s in self.content['scenes'] if s['layout']=='labs')
+        lab['aliases']=['regulacion-pulmonar']
+        with self.assertRaisesRegex(ValueError,'duplica un identificador'):builder.validate(self.content)
+
+    def test_three_laboratory_models_are_one_slide_with_existing_fragment_targets(self):
+        lab=next(s for s in self.content['scenes'] if s['layout']=='labs')
+        rendered=builder.scene_html(lab,self.content,0)
+        self.assertEqual(rendered.count('<section '),1)
+        self.assertEqual(rendered.count('role="tabpanel"'),3)
+        parsed=Links();parsed.feed(rendered)
+        for identifier in ('bicarbonato-co2','regulacion-pulmonar','regulacion-renal'):
+            self.assertEqual(parsed.ids.count(identifier),1)
+        self.assertEqual(len(self.content['scenes']),14)
 
     def test_asset_hash_changes_for_css_and_transitive_dependency(self):
         with tempfile.TemporaryDirectory() as td:

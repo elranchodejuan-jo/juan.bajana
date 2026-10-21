@@ -128,3 +128,11 @@ def simulator_visual():
 def visual_for(scene_id):
     """Return an original visual or an empty string for scenes without a lab."""
     return {'bicarbonato-co2': _buffer, 'regulacion-pulmonar': _pulmonary, 'regulacion-renal': _renal}.get(scene_id, lambda: '')()
+
+
+def laboratory_visual():
+    """Keep the three original laboratories in one slide, readable without JS."""
+    labs = [('bicarbonato-co2', 'Bicarbonato–CO₂'), ('regulacion-pulmonar', 'Ventilación'), ('regulacion-renal', 'Función renal')]
+    tabs = ''.join(f'<button type="button" class="expo-button" role="tab" id="tab-{key}" aria-controls="{key}" aria-selected="{str(i == 0).lower()}" tabindex="{0 if i == 0 else -1}" data-lab-tab="{key}">{escape(label)}</button>' for i, (key, label) in enumerate(labs))
+    panels = ''.join(f'<div class="expo-lab-panel" role="tabpanel" id="{key}" aria-labelledby="tab-{key}" tabindex="0" data-lab-panel="{key}"><h3 class="expo-lab-panel-title">{escape(label)}</h3>{visual_for(key)}</div>' for key, label in labs)
+    return f'<div class="expo-lab-suite" data-lab-suite><div class="expo-lab-selector" role="tablist" aria-label="Modelos del equilibrio ácido-base" hidden>{tabs}</div>{panels}</div>'

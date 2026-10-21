@@ -1,8 +1,59 @@
 import { bufferDirection, phasePoint, ventilationModel } from './visual-models.mjs';
 
 const initialized = new WeakSet();
+const initializedSuites = new WeakSet();
 const decimal = new Intl.NumberFormat('es', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const phDecimal = new Intl.NumberFormat('es', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+function laboratoryTabs(suite, on, doc, win, initialFragment) {
+  const tabs = [...suite.querySelectorAll('[data-lab-tab]')];
+  const panels = [...suite.querySelectorAll('[data-lab-panel]')];
+  const tablist = suite.querySelector('[role="tablist"]');
+  let initialId;
+  try { initialId = decodeURIComponent((initialFragment || doc.location.hash).replace(/^#\/?/, '')); } catch { /* Invalid fragments open the first model. */ }
+  let selected = Math.max(0, panels.findIndex((panel) => panel.id === initialId));
+  let printing = false;
+  function render(announce = true) {
+    tabs.forEach((tab, index) => {
+      tab.setAttribute('aria-selected', String(index === selected));
+      tab.tabIndex = index === selected ? 0 : -1;
+    });
+    panels.forEach((panel, index) => { panel.hidden = !printing && index !== selected; });
+    suite.dataset.activeLab = panels[selected].id;
+    if (announce) doc.dispatchEvent(new win.CustomEvent('expo:labchange', { detail: { id: panels[selected].id, sceneId: suite.closest('.expo-scene')?.id } }));
+  }
+  function select(index, focus = false) {
+    if (index < 0 || index >= tabs.length) return;
+    selected = index;
+    render();
+    if (focus) tabs[selected].focus({ preventScroll: true });
+  }
+  tabs.forEach((tab, index) => on(tab, 'click', () => select(index)));
+  on(tablist, 'keydown', (event) => {
+    if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return;
+    const index = tabs.indexOf(event.target.closest('[data-lab-tab]'));
+    if (index < 0) return;
+    const target = { ArrowRight: (index + 1) % tabs.length, ArrowLeft: (index + tabs.length - 1) % tabs.length, Home: 0, End: tabs.length - 1 }[event.key];
+    if (target === undefined) return;
+    event.preventDefault();
+    select(target, true);
+  });
+  on(suite, 'expo:labtarget', (event) => {
+    const index = panels.findIndex((panel) => panel.id === event.detail?.id);
+    if (index >= 0) select(index);
+  });
+  on(win, 'beforeprint', () => { printing = true; render(false); });
+  on(win, 'afterprint', () => { printing = false; render(false); });
+  suite.dataset.ready = 'true';
+  tablist.hidden = false;
+  render();
+  return () => {
+    panels.forEach((panel) => { panel.hidden = false; });
+    tablist.hidden = true;
+    delete suite.dataset.ready;
+    delete suite.dataset.activeLab;
+  };
+}
 
 function bufferLab(lab, on) {
   const choices = [...lab.querySelectorAll('input[name="buffer-load"]')];
@@ -70,7 +121,7 @@ function pulmonaryLab(lab, on, doc, win) {
 
   function updateMotion() {
     const scene = lab.closest('.expo-scene');
-    const inactive = mode === 'presentar' && scene && scene.id !== activeScene;
+    const inactive = (mode === 'presentar' && scene && scene.id !== activeScene) || lab.closest('[data-lab-panel]')?.hidden;
     const blocked = globalPaused || Boolean(reducedMotion?.matches);
     const paused = blocked || localPaused || printing || doc.hidden || !valid || inactive;
     lab.dataset.motion = paused ? 'paused' : 'running';
@@ -109,6 +160,7 @@ function pulmonaryLab(lab, on, doc, win) {
   on(doc, 'expo:motion', (event) => { globalPaused = event.detail?.paused === true; updateMotion(); });
   on(doc, 'expo:modechange', (event) => { mode = event.detail?.mode || mode; updateMotion(); });
   on(doc, 'expo:scenechange', (event) => { activeScene = event.detail?.id || ''; updateMotion(); });
+  on(doc, 'expo:labchange', updateMotion);
   on(doc, 'visibilitychange', updateMotion);
   on(win, 'beforeprint', () => { printing = true; updateMotion(); });
   on(win, 'afterprint', () => { printing = false; updateMotion(); });
@@ -147,13 +199,26 @@ function phaseLab(lab, on, doc) {
 /** Idempotent, DOM-scoped initialization. No network access or animation timer.
  * Returns a cleanup function for mounting the same fragment again if needed.
  */
-export function initializeVisualLabs(root = document) {
+export function initializeVisualLabs(root = document, { initialFragment } = {}) {
   const doc = root.nodeType === 9 ? root : root.ownerDocument;
   const win = doc?.defaultView;
   if (!win) return () => {};
   const labs = [...root.querySelectorAll('[data-visual-lab]')];
   if (root.matches?.('[data-visual-lab]')) labs.unshift(root);
   const cleanups = [];
+  const suites = [...root.querySelectorAll('[data-lab-suite]')];
+  if (root.matches?.('[data-lab-suite]')) suites.unshift(root);
+  for (const suite of suites) {
+    if (initializedSuites.has(suite)) continue;
+    const listeners = [];
+    const on = (target, name, handler) => {
+      target?.addEventListener(name, handler);
+      listeners.push(() => target?.removeEventListener(name, handler));
+    };
+    const restore = laboratoryTabs(suite, on, doc, win, initialFragment);
+    initializedSuites.add(suite);
+    cleanups.push(() => { listeners.forEach((cleanup) => cleanup()); restore(); initializedSuites.delete(suite); });
+  }
   for (const lab of labs) {
     if (initialized.has(lab)) continue;
     const listeners = [];

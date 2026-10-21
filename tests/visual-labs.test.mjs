@@ -11,7 +11,7 @@ import { initializeSimulator } from '../exposiciones/shared/simulator.mjs';
 const close = (actual, expected, tolerance = 1e-9) => assert.ok(Math.abs(actual - expected) <= tolerance, `${actual} ≠ ${expected} ± ${tolerance}`);
 const root = fileURLToPath(new URL('../', import.meta.url));
 const snippets = JSON.parse(execFileSync(process.env.PYTHON || 'python3', ['-c',
-  "import json,sys;sys.path.insert(0,'scripts');from expo_visuals import visual_for,simulator_visual;print(json.dumps({'buffer':visual_for('bicarbonato-co2'),'pulmonary':visual_for('regulacion-pulmonar'),'renal':visual_for('regulacion-renal'),'phase':simulator_visual(),'unknown':visual_for('sin-laboratorio')}))",
+  "import json,sys;sys.path.insert(0,'scripts');from expo_visuals import visual_for,simulator_visual,laboratory_visual;print(json.dumps({'buffer':visual_for('bicarbonato-co2'),'pulmonary':visual_for('regulacion-pulmonar'),'renal':visual_for('regulacion-renal'),'phase':simulator_visual(),'unknown':visual_for('sin-laboratorio'),'suite':laboratory_visual()}))",
 ], { cwd: root, encoding: 'utf8' }));
 
 function environment(fragment, reduced = false) {
@@ -93,7 +93,7 @@ test('every iso-pH segment fits axes and satisfies HH using an independent inver
 });
 
 test('SSR SVG lines agree with numerical model; all diagrams have accessible descriptions without JS', () => {
-  const { dom, doc } = environment(Object.values(snippets).join(''));
+  const { dom, doc } = environment(['buffer', 'pulmonary', 'renal', 'phase', 'unknown'].map((key) => snippets[key]).join(''));
   try {
     assert.equal(snippets.unknown, '');
     assert.equal(doc.querySelectorAll('svg').length, 4);
@@ -111,6 +111,93 @@ test('SSR SVG lines agree with numerical model; all diagrams have accessible des
     assert.match(doc.querySelector('[data-phase-readout]').textContent, /20,0 : 1/);
     assert.match(doc.querySelector('[data-visual-lab="renal"]').textContent, /no añade bicarbonato nuevo/);
   } finally { dom.window.close(); }
+});
+
+test('SSR laboratory includes all three readable models and valid tab relationships in one scene', () => {
+  const { dom, doc } = environment(snippets.suite);
+  try {
+    const panels = [...doc.querySelectorAll('[data-lab-panel]')];
+    const tabs = [...doc.querySelectorAll('[role="tab"]')];
+    assert.equal(panels.length, 3);
+    assert.equal(doc.querySelectorAll('[data-visual-lab]').length, 3);
+    assert.equal(doc.querySelectorAll('section').length, 0, 'Models must not become extra Reveal slides.');
+    assert.ok(panels.every((panel) => !panel.hidden));
+    assert.equal(doc.querySelector('[role="tablist"]').hidden, true, 'Inactive controls are not exposed without JavaScript.');
+    for (const [index, tab] of tabs.entries()) {
+      assert.equal(doc.getElementById(tab.getAttribute('aria-controls')), panels[index]);
+      assert.equal(panels[index].getAttribute('aria-labelledby'), tab.id);
+      assert.ok(panels[index].querySelector('h3').textContent);
+    }
+    const ids = [...doc.querySelectorAll('[id]')].map((node) => node.id);
+    assert.equal(ids.length, new Set(ids).size);
+  } finally { dom.window.close(); }
+});
+
+test('DOM laboratory tabs preserve experiments, support keyboard selection, pause hidden models and print all panels', () => {
+  const { dom, doc, win } = environment(`<section class="expo-scene" id="laboratorio">${snippets.suite}</section>`);
+  let dispose;
+  try {
+    dispose = initializeVisualLabs(doc, { initialFragment: '#regulacion-pulmonar' });
+    initializeVisualLabs(doc);
+    const suite = doc.querySelector('[data-lab-suite]');
+    const tabs = [...doc.querySelectorAll('[data-lab-tab]')];
+    const pulmonary = doc.querySelector('[data-visual-lab="pulmonary"]');
+    const active = () => [...doc.querySelectorAll('[data-lab-panel]:not([hidden])')].map((panel) => panel.id);
+    const key = (tab, value) => {
+      const event = new win.KeyboardEvent('keydown', { key: value, bubbles: true, cancelable: true });
+      tab.dispatchEvent(event);
+      assert.equal(event.defaultPrevented, true);
+    };
+    assert.deepEqual(active(), ['regulacion-pulmonar']);
+    assert.equal(suite.dataset.activeLab, 'regulacion-pulmonar');
+    assert.equal(pulmonary.dataset.motion, 'running');
+    const ventilation = doc.querySelector('[data-ventilation]');
+    ventilation.value = '150'; emit(win, ventilation, 'input');
+    assert.equal(doc.querySelector('[data-vent-pco2]').textContent, '26,7 mmHg');
+    const sliderKey = new win.KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true, cancelable: true });
+    ventilation.dispatchEvent(sliderKey);
+    assert.equal(sliderKey.defaultPrevented, false, 'Tabs must not intercept a model input.');
+
+    key(tabs[1], 'Home');
+    assert.deepEqual(active(), ['bicarbonato-co2']);
+    assert.equal(doc.activeElement, tabs[0]);
+    assert.equal(pulmonary.dataset.motion, 'paused');
+    doc.querySelector('input[name="buffer-load"][value="co2"]').click();
+    doc.querySelector('[data-buffer-next]').click();
+    doc.querySelector('[data-buffer-next]').click();
+    key(tabs[0], 'ArrowLeft');
+    assert.deepEqual(active(), ['regulacion-renal']);
+    doc.querySelector('input[name="renal-function"][value="2"]').click();
+    key(tabs[2], 'ArrowRight');
+    assert.equal(doc.querySelector('[data-buffer-position]').textContent, 'Paso 3 de 3');
+    assert.equal(doc.querySelector('input[name="buffer-load"][value="co2"]').checked, true);
+    key(tabs[0], 'End');
+    assert.equal(doc.querySelector('[data-visual-lab="renal"]').dataset.renalState, '2');
+    tabs[1].click();
+    assert.equal(ventilation.value, '150');
+    assert.equal(pulmonary.dataset.motion, 'running');
+    assert.equal(tabs.filter((tab) => tab.getAttribute('aria-selected') === 'true').length, 1);
+    assert.equal(tabs[1].tabIndex, 0);
+
+    emit(win, doc, 'expo:motion', { paused: true });
+    tabs[0].click(); tabs[1].click();
+    assert.equal(pulmonary.dataset.motion, 'paused');
+    emit(win, doc, 'expo:motion', { paused: false });
+    win.dispatchEvent(new win.Event('beforeprint'));
+    assert.equal(active().length, 3);
+    assert.equal(pulmonary.dataset.motion, 'paused');
+    win.dispatchEvent(new win.Event('afterprint'));
+    assert.deepEqual(active(), ['regulacion-pulmonar']);
+    assert.equal(pulmonary.dataset.motion, 'running');
+
+    dispose(); dispose = undefined;
+    assert.equal(active().length, 3);
+    assert.equal(doc.querySelector('[role="tablist"]').hidden, true);
+    tabs[0].click();
+    assert.equal(active().length, 3, 'Cleanup removes the tab handlers.');
+    dispose = initializeVisualLabs(doc, { initialFragment: '#regulacion-renal' });
+    assert.deepEqual(active(), ['regulacion-renal']);
+  } finally { dispose?.(); dom.window.close(); }
 });
 
 test('DOM buffer steps, load changes and reset remain functional after idempotent initialization', () => {

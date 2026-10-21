@@ -4,15 +4,24 @@
   "subject": "fisiopatologia",
   "slug": "equilibrio-acido-base",
   "title": "Fisiopatología del equilibrio ácido-base",
-  "summary": "Una lectura veterinaria del pH: mecanismos, gasometría y dos casos para razonar.",
+  "summary": "Del cambio alimentario al desequilibrio ácido-base: el caso publicado de Mafe, una novilla Holstein.",
   "language": "es",
   "audience": "Estudiantes de Medicina Veterinaria",
-  "reviewedOn": "2026-10-20",
-  "provenance": "Adaptación del informe académico de este proyecto y consulta de las fuentes enumeradas. Los casos y valores del simulador son construcciones didácticas, no datos de pacientes.",
-  "scope": "Fundamentos fisiopatológicos e interpretación educativa; sin prescripción, dosificación ni protocolos de tratamiento.",
+  "reviewedOn": "2026-10-21",
+  "provenance": "Caso real publicado por Poveda Martínez (U.D.C.A, 2023), ocurrido en septiembre de 2022. El ternero, el perro y los valores del simulador son ejercicios sintéticos independientes; no corresponden a Mafe.",
+  "scope": "Exposición académica breve centrada en la fisiopatología de un caso publicado. El manejo se describe como antecedente del reporte, sin constituir un protocolo terapéutico.",
   "references": [
     {
       "id": 1,
+      "citation": "Poveda Martínez JD. Acidosis ruminal aguda en novilla Holstein de 2 años atendida en la Clínica de Grandes Animales U.D.C.A [reporte de caso clínico]. Bogotá: Universidad de Ciencias Aplicadas y Ambientales U.D.C.A; 2023.",
+      "url": "https://repository.udca.edu.co/entities/publication/36ea3750-eed1-4525-9b83-466e9c8fc1b1",
+      "consultedUrl": "https://repository.udca.edu.co/bitstreams/779114d7-18cc-428a-8dd9-d33e051dc961/download",
+      "accessed": "2026-10-21",
+      "type": "Reporte clínico institucional en español",
+      "scope": "Fuente primaria del caso Mafe: anamnesis, hallazgos, tablas, manejo y evolución; pp. 8–15. No informa gasometría sanguínea."
+    },
+    {
+      "id": 2,
       "citation": "Cornell University. Overview [Internet]. eClinPath; [citado 17 oct 2026].",
       "url": "https://eclinpath.com/chemistry/acid-base/overview/",
       "accessed": "2026-10-17",
@@ -20,7 +29,32 @@
       "scope": "Definiciones de pH, acidemia, alcalemia, acidosis y alcalosis."
     },
     {
-      "id": 2,
+      "id": 3,
+      "citation": "Cornell University. Types of disturbances [Internet]. eClinPath; [citado 17 oct 2026].",
+      "url": "https://eclinpath.com/chemistry/acid-base/types-of-disturbances/",
+      "accessed": "2026-10-17",
+      "type": "Recurso universitario veterinario",
+      "scope": "Clasificación de trastornos metabólicos, respiratorios y mixtos."
+    },
+    {
+      "id": 4,
+      "citation": "Constable PD. Sobrecarga de grano en rumiantes [Internet]. Manual MSD de Veterinaria; 2022 [actualizado sept 2024; citado 21 oct 2026].",
+      "url": "https://www.msdvetmanual.com/es/aparato-digestivo/enfermedades-de-los-preest%C3%B3magos-de-los-rumiantes/sobrecarga-de-grano-en-rumiantes",
+      "accessed": "2026-10-21",
+      "type": "Manual veterinario especializado en español",
+      "scope": "Etiología, fermentación, desplazamiento osmótico de agua y posible compromiso sistémico. Los mecanismos generales no equivalen a resultados medidos en Mafe."
+    },
+    {
+      "id": 5,
+      "citation": "Golder HM, Lean IJ. Invited review: Ruminal acidosis and its definition—A critical review. J Dairy Sci. 2024;107(12):10066-10098. doi:10.3168/jds.2024-24817.",
+      "doi": "10.3168/jds.2024-24817",
+      "url": "https://doi.org/10.3168/jds.2024-24817",
+      "accessed": "2026-10-21",
+      "type": "Revisión científica crítica",
+      "scope": "La acidosis ruminal es dinámica: el pH aislado no sustituye la integración de dieta, evolución, ácidos y microbiota."
+    },
+    {
+      "id": 6,
       "citation": "Baquero-Parrado JR. Consideraciones clínicas y regulación del equilibrio ácido-base en ganado bovino. Rev UDCA Actual Divulg Cient. 2008;11(2):85-100.",
       "doi": "10.31910/rudca.v11.n2.2008.626",
       "url": "https://doi.org/10.31910/rudca.v11.n2.2008.626",
@@ -30,7 +64,7 @@
       "scope": "Fundamentos tradicionales, Henderson–Hasselbalch y enfoque de iones fuertes en bovinos. No se utiliza como guía terapéutica actual."
     },
     {
-      "id": 3,
+      "id": 7,
       "citation": "Cornell University. Response to disturbances [Internet]. eClinPath; [citado 17 oct 2026].",
       "url": "https://eclinpath.com/chemistry/acid-base/compensation/",
       "accessed": "2026-10-17",
@@ -38,15 +72,7 @@
       "scope": "Amortiguación, compensación, tiempo de respuesta y limitaciones entre especies."
     },
     {
-      "id": 4,
-      "citation": "Cornell University. Types of disturbances [Internet]. eClinPath; [citado 17 oct 2026].",
-      "url": "https://eclinpath.com/chemistry/acid-base/types-of-disturbances/",
-      "accessed": "2026-10-17",
-      "type": "Recurso universitario veterinario",
-      "scope": "Clasificación de trastornos metabólicos, respiratorios y mixtos."
-    },
-    {
-      "id": 5,
+      "id": 8,
       "citation": "Abnormal ventilation, abnormal gas exchange [material docente en Internet]. Columbia University; [sin fecha] [citado 18 oct 2026]. p. 6.",
       "url": "https://www.columbia.edu/itc/hs/medical/pathophys/pulmonary/2008/abnormalColor.pdf",
       "accessed": "2026-10-18",
@@ -54,7 +80,7 @@
       "scope": "Ecuación de ventilación alveolar y relación inversa entre PCO₂ y ventilación alveolar con producción de CO₂ constante. Sustenta el modelo matemático, no intervalos ni respuestas clínicas por especie. El PDF no identifica autor personal ni fecha de publicación."
     },
     {
-      "id": 6,
+      "id": 9,
       "citation": "Cornell University. Physiology [Internet]. eClinPath; [citado 17 oct 2026].",
       "url": "https://eclinpath.com/chemistry/kidney/physiology/",
       "accessed": "2026-10-17",
@@ -62,7 +88,7 @@
       "scope": "Recuperación renal de bicarbonato, amoniogénesis y excreción neta de ácido."
     },
     {
-      "id": 7,
+      "id": 10,
       "citation": "Cornell University. Bicarbonate [Internet]. eClinPath; [citado 17 oct 2026].",
       "url": "https://eclinpath.com/chemistry/acid-base/chemistry-tests/bicarbonate/",
       "accessed": "2026-10-17",
@@ -70,25 +96,7 @@
       "scope": "Interpretación de HCO₃⁻ y mecanismos de alteraciones metabólicas."
     },
     {
-      "id": 8,
-      "citation": "Braun U, Nuss K, Reif S, Hilbe M, Gerspach C. Left and right displaced abomasum and abomasal volvulus: comparison of clinical, laboratory and ultrasonographic findings in 1982 dairy cows. Acta Vet Scand. 2022;64:40.",
-      "doi": "10.1186/s13028-022-00656-9",
-      "url": "https://doi.org/10.1186/s13028-022-00656-9",
-      "consultedUrl": "https://link.springer.com/article/10.1186/s13028-022-00656-9",
-      "accessed": "2026-10-17",
-      "type": "Estudio retrospectivo original",
-      "scope": "Alteraciones abomasales y coexistencia de mecanismos acidificantes y alcalinizantes; datos clínicos de 1988–2016."
-    },
-    {
-      "id": 9,
-      "citation": "Cornell University. Laboratory detection [Internet]. eClinPath; [citado 17 oct 2026].",
-      "url": "https://eclinpath.com/chemistry/acid-base/laboratory-detection/",
-      "accessed": "2026-10-17",
-      "type": "Recurso universitario veterinario",
-      "scope": "Muestra, medición, gasometría e interpretación contextual."
-    },
-    {
-      "id": 10,
+      "id": 11,
       "citation": "Cornell University. Anion gap [Internet]. eClinPath; [citado 17 oct 2026].",
       "url": "https://eclinpath.com/chemistry/acid-base/chemistry-tests/anion-gap/",
       "accessed": "2026-10-17",
@@ -96,7 +104,7 @@
       "scope": "Fórmula, aniones no medidos, efecto de albúmina y limitaciones de la brecha aniónica."
     },
     {
-      "id": 11,
+      "id": 12,
       "citation": "Jung Y, Ku JY, Kim B, Kim Y, Park KM, Baek J, et al. Determining lactate concentrations in Korean indigenous calves and evaluating its role as a predictor for acidemia in calf diarrhea. BMC Vet Res. 2024;20:373.",
       "doi": "10.1186/s12917-024-04235-0",
       "url": "https://doi.org/10.1186/s12917-024-04235-0",
@@ -106,7 +114,7 @@
       "scope": "L- y D-lactato en terneros Hanwoo; clasificación de acidemia venosa y límites de la inferencia clínica."
     },
     {
-      "id": 12,
+      "id": 13,
       "citation": "Burgos RA, Manosalva C, Alarcón P, Navarro M, Quiroga J, Morán G, et al. The D-lactate enigma: exploring the inflammatory influence of D-lactate in cattle. Front Vet Sci. 2024;11:1509399.",
       "doi": "10.3389/fvets.2024.1509399",
       "url": "https://doi.org/10.3389/fvets.2024.1509399",
@@ -114,307 +122,407 @@
       "accessed": "2026-10-17",
       "type": "Revisión científica",
       "scope": "Fermentación, D-lactato y mecanismos en bovinos; evidencia mecanística que no demuestra por sí sola una etiología individual."
+    },
+    {
+      "id": 14,
+      "citation": "Cornell University. Laboratory detection [Internet]. eClinPath; [citado 17 oct 2026].",
+      "url": "https://eclinpath.com/chemistry/acid-base/laboratory-detection/",
+      "accessed": "2026-10-17",
+      "type": "Recurso universitario veterinario",
+      "scope": "Muestra, medición, gasometría e interpretación contextual."
     }
   ],
   "scenes": [
     {
       "id": "inicio",
       "title": "Fisiopatología del equilibrio ácido-base",
-      "summary": "Relaciona mecanismos ácido-base con resultados y contexto veterinario.",
-      "bullets": [
-        "¿Un pH dentro del intervalo descarta un trastorno?",
-        "Explora los mecanismos. Interpreta los resultados."
-      ],
-      "notes": "Abrir con la pregunta clínica y recoger hipótesis. Al finalizar se volverá a ella mediante la autoevaluación.",
+      "summary": "El caso de Mafe: del cambio de dieta a la alteración ruminal.",
       "layout": "cover",
-      "explanation": "La concentración de H⁺ influye en la función celular. El pH resume un resultado; para explicar su causa hay que conectar metabolismo, pulmones y riñones.",
       "references": [
         1
       ],
-      "figure": "/exposiciones/assets/figuras/bicarbonato.svg",
-      "figure_alt": "Relación bicarbonato CO₂",
-      "caption": "Una relación entre base, ventilación y función renal."
+      "bullets": [
+        "Una novilla Holstein. Un cambio alimentario accidental.",
+        "¿Cómo puede un problema del rumen alterar el equilibrio ácido-base?"
+      ],
+      "notes": "Presentar el caso publicado por Poveda Martínez en 2023, ocurrido en septiembre de 2022. La exposición dedica dos diapositivas a conceptos y después explica el caso. Los laboratorios y las dos gasometrías finales son apoyos didácticos independientes.",
+      "explanation": "Se analiza un reporte clínico de la U.D.C.A, no una práctica realizada por el autor de esta exposición. La secuencia conecta antecedentes, signos, pruebas, mecanismo y evolución, y distingue los datos observados de las inferencias."
     },
     {
       "id": "ph-y-procesos",
       "title": "pH, acidemia y alcalemia",
-      "summary": "El pH describe el estado ácido-base de la muestra.",
-      "bullets": [],
+      "summary": "Primero: ¿qué estado describe una muestra de sangre?",
+      "layout": "compare",
+      "references": [
+        2
+      ],
       "comparison": [
         {
           "title": "pH",
-          "text": "Expresa la acidez de la muestra: más H⁺ corresponde a menor pH."
+          "text": "Más H⁺ corresponde a menor pH: expresa el grado de acidez."
         },
         {
           "title": "Acidemia",
-          "text": "El pH está por debajo del intervalo de referencia aplicable."
+          "text": "pH sanguíneo por debajo del intervalo aplicable."
         },
         {
           "title": "Alcalemia",
-          "text": "El pH está por encima del intervalo de referencia aplicable."
+          "text": "pH sanguíneo por encima del intervalo aplicable."
         }
       ],
-      "notes": "Definir primero el resultado medido. Comparar con el intervalo de la especie, la edad, el tipo de muestra y el laboratorio. No usar un intervalo humano como referencia universal. Los procesos que producen el cambio se presentan en el apartado siguiente.",
-      "layout": "compare",
-      "explanation": "El pH se relaciona inversamente con la actividad de los hidrogeniones. Acidemia y alcalemia nombran estados de la muestra respecto del intervalo pertinente. No identifican por sí solas el mecanismo ni la causa.",
-      "references": [
-        1
-      ]
+      "notes": "Explicar en menos de un minuto. Elegir el intervalo por especie, edad, muestra y laboratorio. El pH ruminal mide otro compartimento: no se compara con el intervalo de sangre.",
+      "explanation": "Acidemia y alcalemia nombran estados sanguíneos, no enfermedades. Un pH dentro del intervalo no excluye procesos opuestos que se contrarrestan."
     },
     {
       "id": "acidosis-y-alcalosis",
-      "layout": "compare",
       "title": "Acidosis y alcalosis: los procesos",
-      "summary": "Un proceso puede estar presente aunque el pH final quede dentro del intervalo.",
-      "comparison": [
-        {
-          "title": "Acidosis",
-          "text": "Proceso que tiende a disminuir el pH: acumulación de ácido, pérdida de base o retención de CO₂."
-        },
-        {
-          "title": "Alcalosis",
-          "text": "Proceso que tiende a aumentar el pH: pérdida de ácido, aumento de base o eliminación excesiva de CO₂ respecto de su producción."
-        }
-      ],
-      "equation": "Estado de la muestra ≠ proceso que lo origina",
-      "explanation": "Acidosis y alcalosis pueden coexistir. Sus efectos y las respuestas del organismo se integran en el pH medido; por ello, un pH dentro del intervalo no descarta un trastorno ácido-base.",
-      "notes": "Contrastar cada proceso con el estado: acidosis no es sinónimo de acidemia y alcalosis no es sinónimo de alcalemia. Usar la pregunta: qué se mide y qué mecanismo puede explicarlo. Evitar convertir un valor aislado en un diagnóstico.",
-      "references": [
-        1
-      ]
-    },
-    {
-      "id": "sistemas-reguladores",
+      "summary": "Acidosis tiende a bajar el pH; alcalosis tiende a subirlo.",
       "layout": "compare",
-      "title": "Sistemas reguladores del pH",
-      "summary": "Amortiguadores, pulmones y riñones actúan de forma integrada.",
-      "comparison": [
-        {
-          "title": "Amortiguadores químicos",
-          "text": "Captan o liberan H⁺ y limitan cambios inmediatos. Incluyen bicarbonato, proteínas y fosfatos."
-        },
-        {
-          "title": "Regulación pulmonar",
-          "text": "La ventilación alveolar modifica la eliminación de CO₂ y su componente acidificante."
-        },
-        {
-          "title": "Regulación renal",
-          "text": "Conserva bicarbonato y participa en la excreción neta de ácido y la reposición de base."
-        }
-      ],
-      "explanation": "La amortiguación química comienza de inmediato; la regulación respiratoria responde rápidamente y la adaptación renal se desarrolla durante horas a días. Son mecanismos que se complementan, no tres etapas obligatorias de una secuencia. El sistema bicarbonato–CO₂ conecta la amortiguación con la ventilación y el balance renal de base.",
-      "notes": "Presentar el panorama antes de entrar al bicarbonato. No reducir la regulación a un único tampón ni presentar las tres funciones como periodos sucesivos. La diapositiva siguiente desarrolla el sistema bicarbonato–CO₂ como vínculo entre estos mecanismos.",
-      "references": [
-        1
-      ]
-    },
-    {
-      "id": "bicarbonato-co2",
-      "title": "Bicarbonato y CO₂: una relación",
-      "figureId": "sistema-bicarbonato",
-      "summary": "El sistema bicarbonato–CO₂ conecta la amortiguación química con pulmones y riñones.",
-      "bullets": [
-        "HCO₃⁻ / CO₂ disuelto determina el pH del modelo.",
-        "Amortiguar limita el cambio; no elimina toda la carga."
-      ],
-      "equation": "CO₂ + H₂O ⇌ H₂CO₃ ⇌ H⁺ + HCO₃⁻",
-      "notes": "Seguir las flechas reversibles y explicar el mecanismo en cada paso. La relación didáctica 20:1 corresponde a HCO₃⁻ frente a CO₂ disuelto, no frente a PCO₂. Los controles resaltan componentes de una misma reacción reversible. La aclaración sobre el alcance del esquema se presenta aparte, bajo el gráfico: no es un paso fisiológico. No representa velocidades, concentraciones ni una escala temporal real.",
-      "layout": "figure",
-      "explanation": "Henderson–Hasselbalch relaciona pH, bicarbonato y CO₂. La hemoglobina, las proteínas y los fosfatos también participan en la amortiguación; sus efectos no están representados de forma independiente en el simulador.",
       "references": [
         2,
         3
-      ],
-      "figure": "/exposiciones/assets/figuras/bicarbonato.svg",
-      "figure_alt": "Una relación entre base y CO₂",
-      "caption": "El esquema muestra la dirección de la reacción; no calcula su magnitud."
-    },
-    {
-      "id": "regulacion-pulmonar",
-      "title": "La ventilación regula la PCO₂",
-      "figureId": "regulacion-pulmonar",
-      "summary": "La PCO₂ depende de la ventilación alveolar y de la producción de CO₂.",
-      "bullets": [
-        "Menor ventilación alveolar: mayor PCO₂.",
-        "Mayor ventilación alveolar: menor PCO₂.",
-        "Comparación con producción de CO₂ constante."
-      ],
-      "notes": "Aclarar la condición del esquema: producción de CO₂ comparable. Evitar concluir que una respiración rápida garantiza PCO₂ baja. El control del ejercicio expresa ventilación alveolar relativa de 50 a 150 %. Su referencia didáctica es 100 % y PCO₂ de 40 mmHg: PCO₂ = 40 / (ventilación relativa / 100). Comparar estados estacionarios con producción de CO₂ constante. El porcentaje no representa un intervalo fisiológico ni la frecuencia respiratoria. El movimiento pulmonar ilustra ventilación; su ritmo no simula la evolución temporal de la PCO₂. La ecuación alveolar de la fuente 5 sustenta la relación inversa; el valor 40 mmHg es una referencia elegida para este ejercicio. Se asume CO₂ inspirado despreciable y se aproxima PCO₂ alveolar a arterial. No se modelan espacio muerto ni desigualdad ventilación/perfusión. Si se muestra pH con HCO₃⁻ fijo en 24 mmol/L, es una comparación matemática que excluye tanto la amortiguación inicial como la adaptación renal.",
-      "layout": "figure",
-      "explanation": "Si se mantiene la producción de CO₂, una caída de ventilación alveolar eleva la PCO₂. La frecuencia respiratoria aislada no describe el volumen útil ventilado; por eso debe interpretarse con la gasometría.",
-      "references": [
-        4,
-        5
-      ],
-      "figure": "/exposiciones/assets/figuras/pulmon.svg",
-      "figure_alt": "Ventilar modifica la PCO₂",
-      "caption": "Esquema funcional. Producción de CO₂ constante y comparación entre estados estacionarios."
-    },
-    {
-      "id": "regulacion-renal",
-      "title": "El riñón conserva base y elimina ácido",
-      "figureId": "regulacion-renal",
-      "summary": "Recuperar HCO₃⁻ filtrado y generar HCO₃⁻ nuevo son funciones distintas.",
-      "bullets": [
-        "Reabsorber conserva HCO₃⁻ existente.",
-        "Excretar ácido neto permite reponer HCO₃⁻.",
-        "La respuesta depende del tiempo y de la función renal."
-      ],
-      "notes": "Separar conservación de una base ya filtrada de reposición de base. El dibujo representa funciones, no una anatomía renal exacta de una especie. Recorrer los tres pasos para distinguir recuperación de HCO₃⁻, excreción neta de ácido como NH₄⁺ y ácido titulable, y reposición de bicarbonato en sangre. Son una organización didáctica, no tres periodos sucesivos ni una nefrona anatómica. La secreción de H⁺ ligada a recuperar bicarbonato filtrado no equivale por sí sola a generar base neta.",
-      "layout": "figure",
-      "explanation": "La amoniogénesis renal utiliza glutamina. El amonio y los tampones urinarios permiten excretar ácido; esta eliminación neta repone bicarbonato en sangre. En la alcalosis también puede aumentar la excreción renal de bicarbonato, si las condiciones de volumen y electrolitos lo permiten.",
-      "references": [
-        6
-      ],
-      "figure": "/exposiciones/assets/figuras/renal.svg",
-      "figure_alt": "El riñón conserva base y elimina ácido",
-      "caption": "Esquema funcional original. Relaciones fisiológicas simplificadas."
-    },
-    {
-      "id": "trastornos-metabolicos",
-      "title": "Trastornos metabólicos",
-      "summary": "Ganar ácido o perder base acidifica; perder ácido o ganar base alcaliniza.",
-      "bullets": [
-        "Acidosis metabólica: tendencia a HCO₃⁻ bajo.",
-        "Alcalosis metabólica: tendencia a HCO₃⁻ alto.",
-        "Interpretar siempre con pH, PCO₂ y contexto."
       ],
       "comparison": [
         {
           "title": "Acidosis metabólica",
-          "text": "Acumulación de ácidos, pérdida de base o menor excreción renal."
+          "text": "Acumulación de ácidos o pérdida de base; tendencia a HCO₃⁻ bajo."
         },
         {
           "title": "Alcalosis metabólica",
-          "text": "Pérdida o secuestro de HCl; ciertos aportes de base."
-        }
-      ],
-      "notes": "Contrastar diarrea y enfermedad abomasal. Identificar el material perdido o secuestrado antes de asociar una etiqueta con el síntoma. Las tendencias de HCO₃⁻ describen el patrón tradicional; un valor aislado no establece que el proceso sea primario.",
-      "layout": "compare",
-      "explanation": "Un HCO₃⁻ bajo también puede acompañar la adaptación a una alcalosis respiratoria. En bovinos, el secuestro de contenido abomasal favorece alcalosis hipoclorémica; si se altera la perfusión puede añadirse acidosis. No todo vómito ni toda diarrea producen un patrón único.",
-      "references": [
-        7,
-        8
-      ]
-    },
-    {
-      "id": "trastornos-respiratorios",
-      "title": "Trastornos respiratorios",
-      "summary": "Un cambio primario de PCO₂ puede acidificar o alcalinizar.",
-      "bullets": [
-        "PCO₂ alta: favorece un pH menor.",
-        "PCO₂ baja: favorece un pH mayor."
-      ],
-      "comparison": [
+          "text": "Pérdida de ácido o ganancia de base; tendencia a HCO₃⁻ alto."
+        },
         {
           "title": "Acidosis respiratoria",
-          "text": "Ejemplo: hipoventilación por depresión respiratoria u obstrucción."
+          "text": "Retención primaria de CO₂ por ventilación insuficiente respecto a su producción."
         },
         {
           "title": "Alcalosis respiratoria",
-          "text": "Ejemplo: hiperventilación por dolor, excitación o hipoxemia."
+          "text": "Eliminación primaria de CO₂ excesiva respecto a su producción."
         }
       ],
-      "notes": "Presentar los ejemplos como posibilidades. En el caso canino se conoce una secuencia temporal que ayuda a interpretar los números. Retener o eliminar CO₂ se interpreta respecto de su producción. Una PCO₂ aislada no distingue un proceso primario de una respuesta secundaria.",
-      "layout": "compare",
-      "explanation": "La misma PCO₂ puede representar un proceso primario o una respuesta secundaria. Para decidirlo hay que observar bicarbonato, pH e historia; el nombre de una enfermedad respiratoria no sustituye esa evaluación.",
-      "references": [
-        4
-      ]
+      "equation": "Proceso (acidosis) ≠ resultado sanguíneo (acidemia)",
+      "notes": "Esta es la segunda y última diapositiva de teoría antes del caso. Las tendencias de HCO₃⁻ y PCO₂ no bastan por separado para identificar el proceso primario.",
+      "aliases": [
+        "trastornos-metabolicos",
+        "trastornos-respiratorios",
+        "compensacion-mixtos"
+      ],
+      "explanation": "Los procesos pueden coexistir y activar respuestas compensadoras. La clasificación sistémica se basa en pH, PCO₂, HCO₃⁻ y contexto, no en el nombre de una enfermedad digestiva."
     },
     {
-      "id": "compensacion-mixtos",
-      "title": "Compensación y trastornos mixtos",
-      "summary": "La compensación atenúa el cambio; los procesos mixtos se combinan.",
-      "bullets": [
-        "Trastorno metabólico: respuesta ventilatoria.",
-        "Trastorno respiratorio: amortiguación y respuesta renal.",
-        "La respuesta esperada depende de especie y duración."
+      "id": "caso-mafe",
+      "title": "Mafe: antecedentes y anamnesis",
+      "summary": "13 de septiembre de 2022 · Clínica de Grandes Animales U.D.C.A.",
+      "layout": "case-study",
+      "references": [
+        1
+      ],
+      "media": {
+        "src": "/exposiciones/assets/figuras/mafe-poveda-2023.jpg",
+        "alt": "Mafe, novilla Holstein, en la fotografía original del reporte clínico de Poveda Martínez.",
+        "caption": "Mafe. Poveda Martínez, 2023, figura 1, p. 9. Fotografía del reporte original; resolución conservada.",
+        "width": 153,
+        "height": 272
+      },
+      "table": {
+        "caption": "Datos del caso publicado, pp. 8–9.",
+        "headers": [
+          "Dato",
+          "Antecedente"
+        ],
+        "rows": [
+          [
+            "Paciente",
+            "Novilla Holstein · 2 años · 560 kg"
+          ],
+          [
+            "Motivo de consulta",
+            "Inapetencia, depresión y edema submandibular"
+          ],
+          [
+            "Cambio alimentario",
+            "Ingestión accidental de ≈2 kg de concentrado de prelactancia"
+          ],
+          [
+            "Alimentación habitual",
+            "2 kg de mezcla, heno Pangola, minerales y agua"
+          ]
+        ]
+      },
+      "notes": "No estaba acostumbrada a ese concentrado. Su mezcla habitual contenía harina de maíz, torta de palmiste, semilla de algodón y melaza. La cifra de 2 kg es una estimación de anamnesis, no un umbral tóxico universal.",
+      "explanation": "El reporte no registra enfermedades ni tratamientos previos. El riesgo depende de composición, cantidad total ingerida, adaptación de la microbiota y manejo alimentario; no puede atribuirse a una dosis universal de concentrado."
+    },
+    {
+      "id": "signos-mafe",
+      "title": "¿Qué se observó en Mafe?",
+      "summary": "Los hallazgos orientan al aparato digestivo; algunos son inespecíficos.",
+      "layout": "compare",
+      "references": [
+        1
       ],
       "comparison": [
         {
-          "title": "Respuesta compensadora",
-          "text": "Reduce el efecto de una alteración primaria sobre el pH."
+          "title": "Estado general",
+          "text": "Depresión, inapetencia, sialorrea y condición corporal 2,5/5."
         },
         {
-          "title": "Trastorno mixto",
-          "text": "Dos o más procesos primarios; pueden sumar u oponer efectos."
+          "title": "Exploración digestiva",
+          "text": "Dolor en el flanco izquierdo, hipermotilidad ruminal e intestinal y un episodio de heces líquidas."
+        },
+        {
+          "title": "Otros hallazgos",
+          "text": "Taquicardia, taquipnea y edema submandibular; sin frecuencias numéricas publicadas."
         }
       ],
-      "notes": "Comparar cuadros recientes y persistentes sin convertir horas concretas en reglas universales. Un pH cercano al basal tampoco prueba curación. En los cuadros respiratorios, distinguir amortiguación inicial de adaptación renal posterior; la animación no debe hacerlas parecer instantáneas.",
-      "layout": "compare",
-      "explanation": "La respuesta ventilatoria comienza antes que la adaptación renal completa. En una acidosis respiratoria reciente, un pequeño aumento de HCO₃⁻ puede proceder de amortiguación: no prueba adaptación renal crónica. Las ecuaciones de compensación caninas no se trasladan automáticamente a terneros.",
-      "references": [
-        3
-      ]
+      "notes": "Conservar la hipermotilidad que describe este caso aunque cuadros de sobrecarga grave suelen cursar con hipomotilidad o atonía. No agregar deshidratación porcentual, fiebre ni cifras de frecuencia cardíaca o respiratoria.",
+      "explanation": "El dolor y las alteraciones digestivas son compatibles con disfunción ruminal. Taquipnea no demuestra una compensación respiratoria: también puede acompañar dolor u otras alteraciones. El edema requiere una interpretación adicional y no identifica por sí solo la causa."
     },
     {
-      "id": "lectura-gasometria",
-      "title": "Gasometría: cuatro pasos",
-      "summary": "De la muestra y el contexto a una interpretación integrada.",
-      "bullets": [
-        "Identifica especie, muestra y condiciones de obtención.",
-        "Compara el pH con el criterio aplicable.",
-        "Relaciona PCO₂ y HCO₃⁻ con el cambio de pH.",
-        "Integra respuesta, electrolitos e historia."
-      ],
-      "steps": [
-        "Identifica especie, muestra y condiciones de obtención.",
-        "Compara el pH con el criterio aplicable.",
-        "Relaciona PCO₂ y HCO₃⁻ con el cambio de pH.",
-        "Integra respuesta, electrolitos e historia."
-      ],
-      "notes": "Distinguir medidas de cálculos. No usar un valor de brecha aniónica como diagnóstico de acidosis láctica. Precisar si la muestra es arterial o venosa y revisar las condiciones de obtención. En el último paso, considerar explicaciones alternativas además de la historia clínica.",
+      "id": "etiopatogenia",
+      "title": "Del alimento al trastorno ruminal",
+      "summary": "La fermentación supera la capacidad de utilizar y retirar los ácidos.",
       "layout": "steps",
-      "explanation": "El gasómetro mide pH y PCO₂; suele calcular bicarbonato. El aire y la demora pueden alterar resultados. La PO₂ venosa no sustituye a la arterial para evaluar oxigenación pulmonar. La brecha aniónica se calcula aquí como (Na⁺ + K⁺) − (Cl⁻ + HCO₃⁻). Se compara con el intervalo del laboratorio para esa fórmula. Una elevación orienta a aniones no medidos, sin identificar cuál; la albúmina baja puede enmascararla.",
       "references": [
+        1,
+        4,
+        5
+      ],
+      "bullets": [
+        "Cambio brusco de alimento fermentable → mayor sustrato para la microbiota.",
+        "Producción y acumulación de ácidos → descenso del pH ruminal.",
+        "El ambiente ácido modifica la microbiota y perjudica la función ruminal.",
+        "Aumentan los solutos: el agua puede desplazarse hacia el rumen."
+      ],
+      "notes": "En la forma aguda clásica puede predominar lactato; las formas subagudas y los estadios intermedios no se distinguen con un único valor. En Mafe no se cuantificaron lactato ni ácidos grasos volátiles. La tinción de Gram no identifica especies bacterianas.",
+      "explanation": "La anamnesis y el cambio de microbiota son compatibles con una alteración fermentativa. La secuencia es el mecanismo general de la enfermedad; no significa que cada componente haya sido medido en la paciente."
+    },
+    {
+      "id": "rumen-y-sangre",
+      "title": "¿Cómo puede afectar al equilibrio ácido-base?",
+      "summary": "Conectar dos compartimentos sin confundir sus mediciones.",
+      "layout": "compare",
+      "references": [
+        1,
+        4,
+        5
+      ],
+      "comparison": [
+        {
+          "title": "En el rumen",
+          "text": "Acumulación de ácidos, cambios microbianos y posible lesión de la barrera."
+        },
+        {
+          "title": "En el organismo",
+          "text": "La absorción de ácidos y una perfusión comprometida pueden favorecer acidosis metabólica."
+        },
+        {
+          "title": "En Mafe",
+          "text": "Se documentó pH ruminal 5,5. No se publicó pH sanguíneo, PCO₂, HCO₃⁻ ni lactato."
+        }
+      ],
+      "equation": "pH ruminal 5,5 ≠ demostración de acidemia sanguínea",
+      "notes": "Explicar el vínculo como posibilidad fisiopatológica. La carga ácida puede consumir capacidad amortiguadora; la ventilación y la función renal participan en la respuesta. No afirmar que Mafe tuvo un trastorno mixto, una brecha aniónica alta o compensación adecuada.",
+      "explanation": "La distribución osmótica de agua puede comprometer el volumen circulante y la perfusión en cuadros intensos. Para establecer el estado ácido-base sistémico de esta paciente habría sido necesaria una gasometría y su integración clínica."
+    },
+    {
+      "id": "estudios-mafe",
+      "title": "Las pruebas que sí tenemos",
+      "summary": "Ingreso: líquido ruminal, hemograma y bioquímica.",
+      "layout": "case-study",
+      "references": [
+        1
+      ],
+      "table": {
+        "caption": "Selección de resultados originales; pp. 10–12.",
+        "headers": [
+          "Prueba",
+          "Resultado",
+          "Lectura contextual"
+        ],
+        "rows": [
+          [
+            "pH ruminal",
+            "5,5",
+            "Sondaje nasorruminal y tira reactiva"
+          ],
+          [
+            "Microbiota",
+            "Cocos Gram positivos predominantes",
+            "Describe morfología; no identifica especies"
+          ],
+          [
+            "Protozoos",
+            "73.000/mL",
+            "Bajos frente al intervalo citado en el reporte"
+          ],
+          [
+            "Albúmina",
+            "2,2 g/dL",
+            "Baja; puede contribuir al edema"
+          ],
+          [
+            "Creatinina",
+            "1,4 mg/dL",
+            "Elevada respecto al intervalo del reporte"
+          ],
+          [
+            "GGT",
+            "73,4 U/L",
+            "Elevada; no confirma hepatitis por sí sola"
+          ]
+        ]
+      },
+      "notes": "Hematocrito inicial 29%, dentro del intervalo reportado: no afirmar hemoconcentración. La albúmina baja puede reducir la presión oncótica, pero no demuestra que el edema se origine solo por el episodio agudo. Creatinina aislada no confirma lesión renal aguda.",
+      "aliases": [
+        "lectura-gasometria"
+      ],
+      "explanation": "La toma por sonda puede introducir contaminación salival; el autor describe medidas para reducirla. Un pH aislado depende del momento y del método. No se informan electrolitos sanguíneos necesarios para calcular una brecha aniónica."
+    },
+    {
+      "id": "diagnostico-mafe",
+      "title": "Diagnóstico e interpretación del caso",
+      "summary": "Poveda informa acidosis ruminal aguda como diagnóstico final.",
+      "layout": "compare",
+      "references": [
+        1,
+        4,
+        5
+      ],
+      "comparison": [
+        {
+          "title": "Lo que lo apoya",
+          "text": "Cambio alimentario, signos digestivos, pH ruminal y alteración de la microbiota."
+        },
+        {
+          "title": "Diferenciales del reporte",
+          "text": "Indigestión simple e indigestión vagal, consideradas al inicio."
+        },
+        {
+          "title": "Límite de la evidencia",
+          "text": "El valor 5,5 aislado no define gravedad ni confirma acidosis láctica sistémica."
+        }
+      ],
+      "notes": "Distinguir el diagnóstico comunicado por el autor de lo que puede verificarse. La clasificación de acidosis ruminal es dinámica. No cambiar el diagnóstico por SARA usando solamente pH 5,5: tampoco se dispone de duración diaria bajo un umbral.",
+      "explanation": "Para caracterizar mejor el cuadro se integrarían evolución alimentaria, exploración seriada, método y tiempo de muestreo, actividad microbiana y mediciones de ácidos. La gasometría permitiría estudiar el componente sistémico, que no quedó documentado."
+    },
+    {
+      "id": "manejo-evolucion",
+      "title": "Manejo descrito y evolución",
+      "summary": "La recuperación clínica se acompañó de cambios en los resultados.",
+      "layout": "case-study",
+      "references": [
+        1
+      ],
+      "bullets": [
+        "Se retiraron concentrado y mezcla; se ofreció forraje.",
+        "El reporte describe bicarbonato intrarruminal, fármacos de apoyo y posterior transfaunación."
+      ],
+      "table": {
+        "caption": "Ingreso → control del 23 de septiembre de 2022.",
+        "headers": [
+          "Variable",
+          "Ingreso",
+          "Control"
+        ],
+        "rows": [
+          [
+            "pH ruminal",
+            "5,5",
+            "7,0"
+          ],
+          [
+            "Protozoos/mL",
+            "73.000",
+            "90.000"
+          ],
+          [
+            "Creatinina (mg/dL)",
+            "1,4",
+            "0,8"
+          ],
+          [
+            "GGT (U/L)",
+            "73,4",
+            "17,3"
+          ]
+        ]
+      },
+      "notes": "Los fármacos relatados fueron flunixin, ceftiofur y difenhidramina; la transfaunación utilizó líquido de un donante sano. Es la descripción de un manejo publicado, no una recomendación general. No atribuir la mejoría a una intervención aislada. Alta clínica el 26 de septiembre de 2022.",
+      "explanation": "El caso describe evolución clínica favorable y alta el 26/09/2022. El control aún registra protozoos bajos y proteínas totales de 6,0 g/dL, por debajo del intervalo informado. La tabla de proteínas presenta inconsistencias internas; por eso no se afirma normalización de todos los análisis."
+    },
+    {
+      "id": "laboratorio",
+      "title": "Explora los mecanismos de respuesta",
+      "summary": "Un apoyo práctico: amortiguadores, ventilación y función renal.",
+      "layout": "labs",
+      "references": [
+        6,
+        7,
+        8,
         9,
         10
       ],
-      "equation": "AG = (Na⁺ + K⁺) − (Cl⁻ + HCO₃⁻)"
+      "notes": "Elegir un mecanismo según el tiempo disponible. Los tres laboratorios se conservan en esta única diapositiva. El bicarbonato ilustra una reacción reversible; la ventilación usa estados estacionarios y producción de CO₂ constante; el riñón diferencia recuperar base filtrada y reponer base mediante excreción neta de ácido. No representan mediciones de Mafe.",
+      "aliases": [
+        "sistemas-reguladores"
+      ],
+      "explanation": "Amortiguar limita el cambio inmediato; ventilar modifica CO₂ y la función renal participa en el balance de base y ácido. Un HCO₃⁻ bajo requiere interpretación conjunta: puede reflejar un proceso metabólico o una respuesta a un trastorno respiratorio."
     },
     {
       "id": "simulador",
-      "title": "Dos entradas, un pH calculado",
-      "summary": "Modifica HCO₃⁻ o PCO₂ y observa el pH del modelo.",
-      "bullets": [
-        "Con PCO₂ fija: más HCO₃⁻ eleva el pH.",
-        "Con HCO₃⁻ fijo: más PCO₂ reduce el pH."
-      ],
-      "notes": "Modificar una entrada cada vez. Después mantener la proporción de ambas: un pH parecido puede coexistir con valores alejados del punto inicial. En la gráfica, localizar el punto calculado y observar cómo cambia al variar una sola entrada. La curva muestra una relación matemática; recorrerla no representa el paso del tiempo ni una trayectoria de compensación. El pH es la salida, no un tercer control independiente.",
+      "title": "Prueba la relación HCO₃⁻ / CO₂",
+      "summary": "Valores hipotéticos: este simulador no contiene una gasometría de Mafe.",
       "layout": "simulator",
-      "explanation": "El modelo usa pH = 6,1 + log₁₀[HCO₃⁻/(0,03 × PCO₂)]. Son constantes aproximadas a 37 °C: pK aparente 6,1 y solubilidad de CO₂ 0,03 mmol·L⁻¹·mmHg⁻¹. No corrige temperatura, diferencias de especie, proteínas ni otros iones. Con 24 mmol/L y 40 mmHg se obtiene 7,401. Este punto es una referencia matemática, no un intervalo veterinario. Una gasometría real opera de modo distinto: mide pH y PCO₂ y habitualmente calcula HCO₃⁻.",
       "references": [
-        2,
-        9
-      ]
+        6
+      ],
+      "notes": "Mostrar un único cambio: con PCO₂ fija, reducir bicarbonato baja el pH calculado. Después restaurar valores. Constantes didácticas a 37 °C: pK 6,1 y solubilidad 0,03. No simula compensación, volumen, electrolitos ni la cronología de la enfermedad.",
+      "explanation": "pH = 6,1 + log₁₀[HCO₃⁻/(0,03 × PCO₂)]. Es una relación matemática simplificada para aprender; no estima el pH sanguíneo a partir de un pH ruminal ni permite decidir tratamientos."
     },
     {
       "id": "autoevaluacion",
-      "title": "Preguntas para el grupo",
-      "summary": "Cinco preguntas: tres conceptos y dos casos para aplicar lo aprendido.",
-      "bullets": [],
-      "notes": "Plantear cada pregunta al grupo y comprobarla individualmente después de escuchar una explicación. Las preguntas 4 y 5 contienen los casos bovino y canino; leer antecedentes, muestra y valores antes de elegir. Las respuestas y el razonamiento se revelan al comprobar.",
+      "title": "Cinco preguntas para el grupo",
+      "summary": "Tres preguntas del caso y dos ejemplos prácticos que ya conocemos.",
       "layout": "quiz",
-      "explanation": "Las tres primeras preguntas recuperan los conceptos. Las dos últimas aplican el razonamiento a escenarios didácticos de ternero con diarrea y perro con hipoventilación. Cada respuesta se comprueba de manera individual y mantiene su estado al cambiar de pregunta. Los resultados se calculan únicamente en este navegador.",
       "references": [
-        3,
+        1,
+        2,
+        4,
         7,
         10,
         11,
-        12
-      ]
+        12,
+        13,
+        14
+      ],
+      "notes": "Resolver cada pregunta antes de revelar la respuesta. Las primeras tres integran el caso Mafe. Las últimas dos son escenarios sintéticos independientes: ternero con diarrea y perro con hipoventilación; sus gasometrías no pertenecen a Mafe.",
+      "explanation": "La exposición se centra en un caso publicado y conserva dos ejercicios para transferir el razonamiento a situaciones distintas. Separar siempre los hallazgos medidos, los mecanismos compatibles y la información que falta."
     },
     {
       "id": "referencias",
-      "title": "Referencias y materiales",
-      "summary": "12 fuentes y los materiales académicos de la exposición.",
+      "title": "Conclusión y materiales",
+      "summary": "El cambio alimentario explica el problema ruminal; la gasometría habría permitido caracterizar su repercusión sistémica.",
       "layout": "references",
-      "notes": "Las citas de cada apartado enlazan a estas referencias y sus fuentes originales.",
-      "references": [],
+      "references": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
       "aliases": [
         "conclusiones"
-      ]
+      ],
+      "notes": "Cerrar con tres ideas: interpretar la dieta y la microbiota, diferenciar rumen de sangre y verificar los mecanismos con datos apropiados. Descargar el informe y la presentación actualizados desde esta misma sección."
     }
   ],
   "simulator": {
@@ -529,8 +637,8 @@
       "displayAbsolute": 0.005
     },
     "references": [
-      2,
-      9
+      6,
+      14
     ]
   },
   "cases": [
@@ -610,7 +718,7 @@
           "title": "1. Resultado del pH",
           "text": "7,15 cumple el criterio de acidemia seleccionado para el ejercicio.",
           "references": [
-            11
+            12
           ]
         },
         {
@@ -618,8 +726,8 @@
           "title": "2. Componente principal",
           "text": "HCO₃⁻ de 10 mmol/L, acidemia y diarrea apoyan acidosis metabólica.",
           "references": [
-            7,
-            11
+            10,
+            12
           ]
         },
         {
@@ -627,7 +735,7 @@
           "title": "3. Dirección de la respuesta",
           "text": "Una disminución de PCO₂ atenúa el descenso del pH. No se usa una ecuación canina para decidir si 30 mmHg es una compensación bovina adecuada.",
           "references": [
-            3
+            7
           ]
         },
         {
@@ -635,7 +743,7 @@
           "title": "4. Cálculo y límite",
           "text": "AG = (135 + 4,8) − (102 + 10) = 27,8 mmol/L. Hace falta el intervalo del laboratorio y el contexto proteico para clasificarla; no demuestra lactacidemia.",
           "references": [
-            10
+            11
           ]
         },
         {
@@ -643,8 +751,8 @@
           "title": "5. Lo que falta",
           "text": "Considerar pérdidas digestivas, perfusión y fermentación. Diferenciar L-lactato de D-lactato y no inferir el agente causal a partir de la gasometría.",
           "references": [
-            11,
-            12
+            12,
+            13
           ]
         }
       ],
@@ -655,11 +763,11 @@
         "anionExpression": "(135 + 4,8) − (102 + 10)"
       },
       "references": [
-        3,
         7,
         10,
         11,
-        12
+        12,
+        13
       ],
       "media": {
         "src": "/exposiciones/assets/figuras/ternero-contexto-acido-base.webp",
@@ -744,7 +852,7 @@
           "title": "1. Cambio del pH",
           "text": "El pH pasó de 7,40 a 7,28: la dirección del cambio es acidificante.",
           "references": [
-            1
+            2
           ]
         },
         {
@@ -752,7 +860,7 @@
           "title": "2. Cambio primario compatible",
           "text": "PCO₂ de 40 a 60 mmHg junto a hipoventilación: retención de CO₂, compatible con acidosis respiratoria.",
           "references": [
-            4
+            3
           ]
         },
         {
@@ -760,7 +868,7 @@
           "title": "3. Respuesta reciente",
           "text": "El HCO₃⁻ discretamente mayor es compatible con amortiguación inicial. No debe llamarse compensación renal completa.",
           "references": [
-            3
+            7
           ]
         },
         {
@@ -768,7 +876,7 @@
           "title": "4. Límites de la conclusión",
           "text": "Los datos no identifican por sí solos la causa de hipoventilación ni cuantifican la oxigenación; no se proporcionó PaO₂.",
           "references": [
-            9
+            14
           ]
         }
       ],
@@ -778,10 +886,10 @@
         "hhExpression": "6,1 + log₁₀[27/(0,03 × 60)]"
       },
       "references": [
-        1,
+        2,
+        7,
         3,
-        4,
-        9
+        14
       ],
       "media": {
         "src": "/exposiciones/assets/figuras/perro-contexto-acido-base.webp",
@@ -792,47 +900,51 @@
   ],
   "quiz": [
     {
-      "question": "Un pH dentro del intervalo de referencia significa que…",
+      "id": "pregunta-1",
+      "question": "¿Qué demuestra el pH 5,5 publicado en el caso de Mafe?",
       "options": [
-        "No puede existir ningún trastorno ácido-base.",
-        "Hay que revisar PCO₂, HCO₃⁻ y el contexto.",
-        "El paciente está completamente compensado y recuperado."
+        "El estado ácido del líquido ruminal analizado.",
+        "Una acidemia sanguínea confirmada.",
+        "Una compensación renal completa."
       ],
-      "correct": 1,
-      "feedback": "Los efectos de procesos opuestos pueden contrarrestarse. El pH es el resultado conjunto, no una prueba de ausencia de procesos. La recuperación no se demuestra con el pH aislado.",
+      "correct": 0,
+      "feedback": "Es una medición del rumen. No se informó gasometría sanguínea; por tanto, no demuestra acidemia sistémica ni permite evaluar compensación.",
       "references": [
         1,
-        4
-      ],
-      "id": "pregunta-1"
-    },
-    {
-      "question": "En el simulador, si HCO₃⁻ permanece fijo y aumenta PCO₂, ¿qué ocurre con el pH?",
-      "options": [
-        "Aumenta.",
-        "Disminuye.",
-        "No cambia."
-      ],
-      "correct": 1,
-      "feedback": "Aumenta el denominador y disminuye la relación de la ecuación. Con bicarbonato fijo, más CO₂ disuelto reduce el pH calculado. Para conservar el pH debe conservarse la proporción, no solo una entrada.",
-      "references": [
         2
-      ],
-      "id": "pregunta-2"
+      ]
     },
     {
-      "question": "¿Qué distingue recuperar bicarbonato de generar bicarbonato nuevo?",
+      "id": "pregunta-2",
+      "question": "¿Qué mecanismo conecta el cambio alimentario con la alteración ruminal?",
       "options": [
-        "Son dos nombres de exactamente el mismo balance.",
-        "La excreción neta de ácido permite reponer bicarbonato.",
-        "Todo bicarbonato nuevo procede de los pulmones."
+        "La eliminación excesiva de CO₂ por los pulmones.",
+        "Mayor fermentación y acumulación de ácidos en el rumen.",
+        "Una alcalosis metabólica demostrada por el edema."
       ],
       "correct": 1,
-      "feedback": "Recuperar lo filtrado conserva base; excretar ácido neto repone base. Es diferente de evitar la pérdida urinaria del bicarbonato que ya existía. La ventilación controla CO₂; la función renal participa en el balance de base.",
+      "feedback": "El alimento fermentable puede aumentar la producción de ácidos y modificar la microbiota cuando supera la capacidad de utilización y retiro. En Mafe, lactato y ácidos grasos volátiles no fueron cuantificados.",
       "references": [
-        6
+        1,
+        4,
+        5
+      ]
+    },
+    {
+      "id": "pregunta-3",
+      "question": "¿Qué estudio faltó para caracterizar el equilibrio ácido-base sistémico de Mafe?",
+      "options": [
+        "Repetir únicamente la fotografía del edema.",
+        "Identificar especies bacterianas solo con una tinción de Gram.",
+        "Gasometría con pH, PCO₂ y HCO₃⁻, integrada al contexto clínico."
       ],
-      "id": "pregunta-3"
+      "correct": 2,
+      "feedback": "La gasometría permite estudiar el compartimento sanguíneo. Se complementa con electrolitos, lactato y evaluación de perfusión según el problema; el pH ruminal no reemplaza estas mediciones.",
+      "references": [
+        1,
+        2,
+        6
+      ]
     },
     {
       "id": "ternero-diarrea",
@@ -845,11 +957,11 @@
       "correct": 0,
       "feedback": "El pH bajo y el HCO₃⁻ reducido apoyan un proceso metabólico acidificante. La causa exacta y la adecuación de la respuesta requieren más información. La PCO₂ menor atenúa el descenso del pH, pero no demuestra una compensación bovina adecuada. AG = 27,8 mmol/L; sin el intervalo del laboratorio no se clasifica ni se atribuye a D-lactato.",
       "references": [
-        3,
         7,
         10,
         11,
-        12
+        12,
+        13
       ],
       "case": {
         "id": "ternero-diarrea",
@@ -913,11 +1025,11 @@
           "anionExpression": "(135 + 4,8) − (102 + 10)"
         },
         "references": [
-          3,
           7,
           10,
           11,
-          12
+          12,
+          13
         ],
         "correct": 0,
         "short_history": "Diarrea, menor ingestión de leche y debilidad.",
@@ -939,10 +1051,10 @@
       "correct": 0,
       "feedback": "La PCO₂ aumentó mientras cayó el pH y se documentó menor ventilación alveolar. La secuencia apoya el mecanismo respiratorio. El pequeño aumento de HCO₃⁻ puede acompañar la amortiguación inicial. Veinte minutos no demuestran compensación renal crónica; sin PaO₂ no se cuantifica la oxigenación.",
       "references": [
-        1,
+        2,
+        7,
         3,
-        4,
-        9
+        14
       ],
       "case": {
         "id": "perro-hipoventilacion",
@@ -1021,10 +1133,10 @@
           "hhExpression": "6,1 + log₁₀[27/(0,03 × 60)]"
         },
         "references": [
-          1,
+          2,
+          7,
           3,
-          4,
-          9
+          14
         ],
         "correct": 0,
         "short_history": "Hipoventilación durante anestesia. Cambio en 20 minutos.",
@@ -1058,6 +1170,41 @@
   ],
   "downloadsAt": "referencias",
   "credits": [
-    "Las dos imágenes de contexto son ilustraciones didácticas sintéticas. No documentan pacientes, hallazgos ni procedimientos reales. Los datos y las respuestas de los casos se sustentan en los valores del ejercicio y en las referencias citadas, no en las imágenes."
-  ]
+    "La fotografía de Mafe procede de la imagen incrustada de la figura 1 (p. 9) del reporte de Poveda Martínez, U.D.C.A, 2023; se conserva su resolución original.",
+    "Las imágenes del ternero y del perro son ilustraciones sintéticas de contextos didácticos. No representan a Mafe ni documentan pacientes o procedimientos reales.",
+    "Los gráficos interactivos son modelos educativos. Los datos sintéticos del simulador y de los dos ejercicios no completan las mediciones ausentes del caso real."
+  ],
+  "clinicalCase": {
+    "name": "Mafe",
+    "sourceReference": 1,
+    "species": "Bovino",
+    "breed": "Holstein",
+    "ageYears": 2,
+    "weightKg": 560,
+    "admissionDate": "2022-09-13",
+    "controlDate": "2022-09-23",
+    "dischargeDate": "2022-09-26",
+    "reportedDiagnosis": "Acidosis ruminal aguda",
+    "systemicAcidBaseStatus": "No caracterizado: no se publicó gasometría sanguínea.",
+    "media": {
+      "src": "/exposiciones/assets/figuras/mafe-poveda-2023.jpg",
+      "alt": "Mafe, novilla Holstein, en la fotografía original del reporte clínico de Poveda Martínez.",
+      "caption": "Mafe. Poveda Martínez, 2023, figura 1, p. 9. Fotografía del reporte original; resolución conservada.",
+      "width": 153,
+      "height": 272
+    },
+    "measuredRumenPH": {
+      "admission": 5.5,
+      "control": 7.0,
+      "method": "Sondaje nasorruminal y tira reactiva"
+    },
+    "missingMeasurements": [
+      "pH sanguíneo",
+      "PCO₂",
+      "HCO₃⁻",
+      "lactato sanguíneo",
+      "electrolitos sanguíneos"
+    ],
+    "provenance": "Reporte de Poveda Martínez, 2023, pp. 8–15. No corresponde a una práctica propia."
+  }
 }

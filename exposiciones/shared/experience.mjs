@@ -306,6 +306,11 @@ if (catalog) {
   filterCatalog();
 }
 
+function sceneFragment(scene) {
+  return scene.querySelector('form[data-quiz-cases]')?.dataset.activeQuestion
+    || scene.querySelector('[data-lab-suite]')?.dataset.activeLab || scene.id;
+}
+
 function updateNavigation(scene, updateHash = true) {
   if (!scene) return;
   currentScene = scene;
@@ -322,7 +327,7 @@ function updateNavigation(scene, updateHash = true) {
   const next = document.querySelector('[data-next]');
   if (previous) previous.disabled = index <= 0;
   if (next) next.disabled = index >= scenes.length - 1;
-  const fragment = scene.querySelector('form[data-quiz-cases]')?.dataset.activeQuestion || scene.id;
+  const fragment = sceneFragment(scene);
   if (updateHash) {
     const url = new URL(location.href);
     url.hash = fragment;
@@ -352,9 +357,13 @@ function selectQuizTarget(target) {
   const question = target?.closest('[data-question]');
   const form = question?.closest('form[data-quiz-cases]');
   if (form) form.dispatchEvent(new window.CustomEvent('expo:questiontarget', { detail: { id: question.id } }));
+  const panel = target?.closest('[data-lab-panel]');
+  panel?.closest('[data-lab-suite]')?.dispatchEvent(new window.CustomEvent('expo:labtarget', { detail: { id: panel.id } }));
 }
 
 function studyScrollTarget(scene) {
+  const suite = scene?.querySelector('[data-lab-suite]');
+  if (suite) return suite;
   const form = scene?.querySelector('form[data-quiz-cases]');
   if (!form) return scene;
   let id = form.dataset.activeQuestion;
@@ -503,7 +512,7 @@ export async function switchMode(nextMode) {
   document.querySelectorAll('[data-view-mode]').forEach((control) => control.setAttribute('aria-disabled', 'true'));
   const url = new URL(location.href);
   url.searchParams.set('modo', nextMode);
-  url.hash = scene.querySelector('form[data-quiz-cases]')?.dataset.activeQuestion || scene.id;
+  url.hash = sceneFragment(scene);
   history.replaceState(null, '', url);
   try {
     if (nextMode === 'presentar') await initializePresentation(scene);
@@ -549,6 +558,9 @@ document.querySelectorAll('[data-view-mode]').forEach((control) => {
 });
 
 if (scenes.length) {
+  document.addEventListener('expo:labchange', (event) => {
+    if (currentScene?.id === event.detail?.sceneId) updateNavigation(currentScene);
+  });
   document.querySelector('[data-prev]')?.addEventListener('click', () => navigateTo(scenes[scenes.indexOf(currentScene) - 1]));
   document.querySelector('[data-next]')?.addEventListener('click', () => navigateTo(scenes[scenes.indexOf(currentScene) + 1]));
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
@@ -568,7 +580,7 @@ if (scenes.length) {
       const dialog = link.closest('dialog');
       dialog?.close();
       navigateTo(scene, !dialog);
-      if (mode === 'estudiar' && target !== scene) target.scrollIntoView({ behavior: 'auto', block: 'start' });
+      if (mode === 'estudiar' && target !== scene) (target.closest('[data-lab-suite]') || target).scrollIntoView({ behavior: 'auto', block: 'start' });
     });
   });
   addEventListener('hashchange', () => {
@@ -633,7 +645,7 @@ if (document.querySelector('[data-hero]')) {
 }
 if (document.querySelector('[data-visual-lab]')) {
   const { initializeVisualLabs } = await import('./visual-labs.mjs');
-  initializeVisualLabs(document);
+  initializeVisualLabs(document, { initialFragment });
 }
 if (document.querySelector('[data-genetics-hero]')) {
   const { initializeGeneticsHero } = await import('./genetics-hero.mjs');

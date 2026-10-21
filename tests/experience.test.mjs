@@ -755,7 +755,7 @@ test('DOM regression: stale study animation frames cannot change the slide durin
     const { win, document: doc, app, animationFrames } = env;
     change(win, doc.querySelector('#hco3-number'), '18');
     const scenes = [...doc.querySelectorAll('.expo-scene')];
-    const gasometry = scenes.findIndex((scene) => scene.id === 'lectura-gasometria');
+    const gasometry = scenes.findIndex((scene) => scene.id === 'estudios-mafe');
     assert.ok(gasometry >= 0);
     // Simulate the intermediate geometry produced when reveal.css loads while
     // the page still has the study-mode layout. It must not become navigation.
@@ -789,6 +789,57 @@ test('DOM regression: stale study animation frames cannot change the slide durin
     const beforeScroll = new Set(animationFrames.pending.keys());
     win.dispatchEvent(new win.Event('scroll'));
     animationFrames.run([...animationFrames.pending.keys()].filter((id) => !beforeScroll.has(id)));
-    assert.equal(win.location.hash, '#lectura-gasometria', 'The current study lifecycle must still respond to actual scrolling.');
+    assert.equal(win.location.hash, '#estudios-mafe', 'The current study lifecycle must still respond to actual scrolling.');
+  } finally { await env.close(); }
+});
+
+test('DOM: legacy laboratory links select the model and preserve experiments through study/presentation round trips', async () => {
+  const env = await environment(expoPath, '?modo=estudiar#regulacion-pulmonar');
+  try {
+    const { win, document: doc, app, scrolled } = env;
+    const suite = doc.querySelector('[data-lab-suite]');
+    const visible = () => [...suite.querySelectorAll('[data-lab-panel]:not([hidden])')].map((panel) => panel.id);
+    assert.deepEqual(visible(), ['regulacion-pulmonar']);
+    assert.equal(win.location.hash, '#regulacion-pulmonar');
+    assert.match(doc.querySelector('[data-progress]').textContent, /^11\s*\/\s*14/);
+    change(win, suite.querySelector('[data-ventilation]'), '150');
+    const transition = app.switchMode('presentar');
+    assert.equal(win.location.hash, '#regulacion-pulmonar', 'The pending mode transition must not drop the active model fragment.');
+    doc.querySelector('[data-reveal-style]').dispatchEvent(new win.Event('load'));
+    await transition;
+    assert.equal(doc.querySelector('.expo-scene.present')?.id, 'laboratorio');
+    assert.equal(doc.querySelectorAll('#expo-deck > .slides > .expo-scene').length, 14);
+    assert.equal(doc.querySelectorAll('#expo-deck > .slides > .expo-scene section').length, 0);
+    assert.deepEqual(visible(), ['regulacion-pulmonar']);
+    assert.equal(suite.querySelector('[data-vent-pco2]').textContent, '26,7 mmHg');
+
+    suite.querySelector('[data-lab-tab="regulacion-renal"]').click();
+    suite.querySelector('input[name="renal-function"][value="2"]').click();
+    assert.equal(win.location.hash, '#regulacion-renal');
+    assert.equal(new URL(doc.querySelector('[data-view-mode="estudiar"]').href).hash, '#regulacion-renal');
+    doc.querySelector('[data-share-open]').click();
+    assert.equal(new URL(doc.querySelector('#expo-share-url').value).hash, '#regulacion-renal');
+    doc.querySelector('#expo-share [data-dialog-close]').click();
+    await app.switchMode('estudiar');
+    await tick();
+    assert.equal(scrolled.at(-1), suite, 'Study mode must expose the tab selector along with the active model.');
+    assert.deepEqual(visible(), ['regulacion-renal']);
+    assert.equal(suite.querySelector('[data-visual-lab="renal"]').dataset.renalState, '2');
+
+    win.location.hash = '#bicarbonato-co2'; await tick();
+    assert.deepEqual(visible(), ['bicarbonato-co2']);
+    suite.querySelector('input[name="buffer-load"][value="co2"]').click();
+    suite.querySelector('[data-buffer-next]').click();
+    win.location.hash = '#regulacion-pulmonar'; await tick();
+    assert.deepEqual(visible(), ['regulacion-pulmonar']);
+    assert.equal(suite.querySelector('[data-ventilation]').value, '150');
+    win.location.hash = '#bicarbonato-co2'; await tick();
+    assert.equal(suite.querySelector('[data-buffer-position]').textContent, 'Paso 2 de 3');
+    const secondTransition = app.switchMode('presentar');
+    doc.querySelector('[data-reveal-style]').dispatchEvent(new win.Event('load'));
+    await secondTransition;
+    assert.equal(doc.querySelector('.expo-scene.present')?.id, 'laboratorio');
+    assert.equal(win.location.hash, '#bicarbonato-co2');
+    assert.equal(suite.querySelector('input[name="buffer-load"][value="co2"]').checked, true);
   } finally { await env.close(); }
 });
