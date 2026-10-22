@@ -141,6 +141,14 @@ def paragraphs(value):
         value = [value]
     return ''.join(f'<p>{esc(p)}</p>' for p in value or [])
 
+def evidence_table(data):
+    headers = ''.join(f'<th scope="col">{esc(value)}</th>' for value in data['headers'])
+    rows = []
+    for row in data['rows']:
+        cells = f'<th scope="row">{esc(row[0])}</th>' + ''.join(f'<td>{esc(value)}</td>' for value in row[1:])
+        rows.append(f'<tr>{cells}</tr>')
+    return f'<table class="expo-case-data expo-evidence-table"><caption>{esc(data["caption"])}</caption><thead><tr>{headers}</tr></thead><tbody>{"".join(rows)}</tbody></table>'
+
 def inline_genetics_svg(path, prefix):
     """Embed our reviewed local SVGs so their colors inherit the active theme."""
     if not path.startswith('/exposiciones/assets/figuras/genetica/determinacion-sexual/'):
@@ -263,6 +271,9 @@ def scene_html(scene, data, i):
         body = copy
     elif layout == 'simulator':
         body = '<div class="expo-simulator-stage">' + simulator() + simulator_visual() + '</div>'
+        if acid_base_visuals and scene.get('supplementalLabs'):
+            labels = {'bicarbonato-co2': 'Amortiguación química', 'regulacion-pulmonar': 'Ventilación alveolar', 'regulacion-renal': 'Conservación de base y excreción de ácido'}
+            body += '<div class="expo-study-only expo-supplemental-labs">' + ''.join(f'<details id="{esc(key)}"><summary>Repaso interactivo: {labels[key]}</summary>{visual_for(key)}</details>' for key in scene['supplementalLabs']) + '</div>'
     elif layout == 'case':
         body = case_component(scene['case'])
     elif layout == 'quiz':
@@ -272,6 +283,8 @@ def scene_html(scene, data, i):
         body = f'<div class="expo-present-only"><p class="expo-lead">Fuentes universitarias, artículos veterinarios y bibliografía trazable.</p><p>Las citas numeradas acompañan cada apartado.</p><a class="expo-button expo-button-primary" href="?modo=estudiar#{esc(scene["id"])}"{mode_control}>Abrir las {len(data["references"])} referencias completas</a></div><ol class="expo-references expo-study-only">' + ''.join(f'<li id="ref-{r["id"]}" value="{r["id"]}"><p>{esc(r["citation"])}</p><a href="{esc(r["url"])}" target="_blank" rel="noopener noreferrer">{esc(r["url"])}</a><p class="expo-small">{esc(r.get("scope", ""))}</p></li>' for r in data['references']) + '</ol>'
     elif lab:
         body = lab + f'<div class="expo-study-only expo-lab-context">{copy}{figure(scene) if scene.get("figure") else ""}</div>'
+    elif scene.get('table'):
+        body = copy + evidence_table(scene['table'])
     elif layout == 'compare':
         body = '<div class="expo-comparison">' + ''.join(f'<article><h3>{esc(c["title"])}</h3>{paragraphs(c["text"])}</article>' for c in scene.get('comparison', [])) + '</div>' + equation
     elif layout == 'steps':

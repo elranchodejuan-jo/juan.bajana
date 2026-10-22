@@ -752,3 +752,12 @@ body.expo-app[data-receiver="true"] .expo-ambient { display: none !important; }
 @media print {
   body.expo-app .expo-ambient { display: none !important; }
 }
+
+/* Published Mafe case: concise evidence within the existing lesson layout. */
+body.expo-app[data-exposition="equilibrio-acido-base"] .expo-evidence-table td { font-family: var(--expo-body-font); }
+body.expo-app[data-exposition="equilibrio-acido-base"] #mafe-anamnesis .expo-figure img { width: 153px; height: 272px; margin: 0 auto; object-fit: contain; }
+body.expo-app[data-exposition="equilibrio-acido-base"] .expo-supplemental-labs details { margin-top: 24px; }
+body.expo-app[data-exposition="equilibrio-acido-base"] .expo-supplemental-labs summary { cursor: pointer; font-weight: 600; }
+body.expo-app[data-exposition="equilibrio-acido-base"] .expo-supplemental-labs .expo-lab { margin-top: 18px; }
+body.expo-app[data-exposition="equilibrio-acido-base"][data-mode="presentar"] .expo-evidence-table { font-size: 25px; line-height: 1.25; }
+body.expo-app[data-exposition="equilibrio-acido-base"][data-mode="presentar"] .expo-evidence-table :where(th, td) { padding: 8px 12px; }

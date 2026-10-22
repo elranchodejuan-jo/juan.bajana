@@ -318,7 +318,7 @@ test('DOM: legacy case links select their quiz question and preserve checks, sha
     win.location.hash = '#conclusiones';
     await tick();
     assert.equal(win.location.hash, '#referencias');
-    assert.match(doc.querySelector('[data-progress]').textContent, /^14\s*\/\s*14/);
+    assert.match(doc.querySelector('[data-progress]').textContent, /^12\s*\/\s*12/);
   } finally { await env.close(); }
 });
 
@@ -560,7 +560,7 @@ test('DOM: mode round trip uses local reveal engine and preserves entered state'
     doc.querySelector('[data-reveal-style]').dispatchEvent(new win.Event('load'));
     await transition;
     assert.equal(doc.body.dataset.mode, 'presentar');
-    assert.equal(doc.querySelectorAll('#expo-deck .slides section').length, 14);
+    assert.equal(doc.querySelectorAll('#expo-deck .slides section').length, 12);
     assert.equal(doc.querySelectorAll('#expo-deck .stack').length, 0);
     assert.equal(doc.querySelector('[data-view-mode="presentar"]').getAttribute('aria-current'), 'true');
     assert.equal(doc.querySelector('#hco3-number').value, '18');
@@ -755,7 +755,7 @@ test('DOM regression: stale study animation frames cannot change the slide durin
     const { win, document: doc, app, animationFrames } = env;
     change(win, doc.querySelector('#hco3-number'), '18');
     const scenes = [...doc.querySelectorAll('.expo-scene')];
-    const gasometry = scenes.findIndex((scene) => scene.id === 'lectura-gasometria');
+    const gasometry = scenes.findIndex((scene) => scene.id === 'mafe-diagnostico');
     assert.ok(gasometry >= 0);
     // Simulate the intermediate geometry produced when reveal.css loads while
     // the page still has the study-mode layout. It must not become navigation.
@@ -789,6 +789,6 @@ test('DOM regression: stale study animation frames cannot change the slide durin
     const beforeScroll = new Set(animationFrames.pending.keys());
     win.dispatchEvent(new win.Event('scroll'));
     animationFrames.run([...animationFrames.pending.keys()].filter((id) => !beforeScroll.has(id)));
-    assert.equal(win.location.hash, '#lectura-gasometria', 'The current study lifecycle must still respond to actual scrolling.');
+    assert.equal(win.location.hash, '#mafe-diagnostico', 'The current study lifecycle must still respond to actual scrolling.');
   } finally { await env.close(); }
 });

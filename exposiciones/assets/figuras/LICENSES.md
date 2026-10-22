@@ -134,3 +134,10 @@ de permisos previamente documentado; no se han intentado rutas alternativas.
 `ternero-contexto-acido-base.webp` y `perro-contexto-acido-base.webp` se generaron con OpenAI ImageGen para esta revisión. Son ilustraciones sintéticas de escenarios ficticios, no fotografías documentales de pacientes ni pruebas de los mecanismos explicados. Se integran con una leyenda explícita en web, informe y presentación. Los datos clínicos del ejercicio se conservan por separado; las imágenes no documentan un protocolo de anestesia, diagnóstico ni tratamiento.
 
 Indicaciones de generación: escena horizontal de un ternero joven blanco y negro sobre paja limpia, observado por un veterinario; escena horizontal de un perro adulto de pelaje marrón recostado en una mesa acolchada y observado por una veterinaria. Sin texto, logotipos, procedimientos invasivos ni señales clínicas rotuladas. Los originales PNG se reutilizaron en los documentos y se convirtieron a WebP para la página. No se copiaron fotografías de los repositorios de referencia.
+
+## Fotografía del caso de Mafe
+
+- Archivo: `mafe-caso-poveda.jpeg` (153 × 272 px, resolución original).
+- Procedencia: Poveda Martínez JD. *Acidosis ruminal aguda en novilla Holstein de 2 años atendida en la Clínica de Grandes Animales U.D.C.A*. 2023. Figura 1, página 9 del PDF aportado para el análisis académico. La fuente la identifica como archivo personal.
+- Registro: https://repository.udca.edu.co/handle/11158/5398
+- Extraída sin modificación del archivo fuente para acompañar el análisis educativo del caso. No se afirma una licencia abierta ni autoría del equipo de VETJB. No es una imagen generada ni una paciente atendida por el equipo expositor.
