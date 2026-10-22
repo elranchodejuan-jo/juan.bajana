@@ -25,6 +25,8 @@ ap.add_argument('--font-dir',type=Path,default=Path('/usr/share/fonts/truetype/d
 ap.add_argument('--workdir',type=Path,default=None)
 args=ap.parse_args()
 d=json.loads(args.source.read_text())
+if any(scene['id'] == 'mafe-anamnesis' for scene in d['scenes']):
+ raise SystemExit('El PDF vigente del caso Mafe se exporta desde informe-equilibrio-acido-base.docx. Este exportador conserva únicamente la maqueta teórica anterior y no debe sobrescribir el informe actualizado. Consulte docs/exposiciones-remake-mafe-21oct.md.')
 # Normalize the canonical web representation without adding a second content file.
 d['authors']=[{'name':a} if isinstance(a,str) else a for a in d['authors']]
 if isinstance(d['quiz'],list):

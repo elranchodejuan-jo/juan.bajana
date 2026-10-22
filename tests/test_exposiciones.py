@@ -70,7 +70,7 @@ class ExposicionesTests(unittest.TestCase):
         cover=builder.scene_html(data['scenes'][0],data,0)
         self.assertNotIn('data-hero',cover)
         self.assertIn('expo-figure',cover)
-        pulmonary=next(s for s in data['scenes'] if s['id']=='regulacion-pulmonar')
+        pulmonary={'id':'regulacion-pulmonar','title':'Ventilación','layout':'figure'}
         self.assertNotIn('data-visual-lab',builder.scene_html(pulmonary,data,3))
 
     def test_asset_hash_changes_for_css_and_transitive_dependency(self):
@@ -203,9 +203,9 @@ class ExposicionesTests(unittest.TestCase):
             self.assertIn(builder.esc(scene['title']),source)
             self.assertIn(f'id="{scene["id"]}"',source)
         self.assertIn('<noscript>',source)
-        self.assertEqual(len(self.content['scenes']),14)
-        self.assertEqual(source.count('class="expo-scene"'),14)
-        self.assertEqual(source.count('<section'),14, 'Nested sections become unintended vertical slides in reveal.js')
+        self.assertEqual(len(self.content['scenes']),12)
+        self.assertEqual(source.count('class="expo-scene"'),12)
+        self.assertEqual(source.count('<section'),12, 'Nested sections become unintended vertical slides in reveal.js')
         self.assertIn('data-quiz-individual data-quiz-cases',source)
         self.assertIn('id="conclusiones" class="expo-scene-alias"',source)
         self.assertIn('data-view-mode="estudiar"',source)
@@ -217,6 +217,21 @@ class ExposicionesTests(unittest.TestCase):
         self.assertEqual(genetics.count('data-expo-card'),1)
         self.assertIn('/exposiciones/genetica/cromosomas-y-determinacion-sexual/?modo=presentar',genetics)
         self.assertIn('/exposiciones/genetica/cromosomas-y-determinacion-sexual/?modo=estudiar',genetics)
+
+    def test_mafe_case_separates_recorded_ruminal_data_from_systemic_inference(self):
+        scenes={s['id']:s for s in self.content['scenes']}
+        self.assertEqual([s['id'] for s in self.content['scenes'][1:3]], ['ph-y-procesos','acidosis-y-alcalosis'])
+        self.assertEqual(len([key for key in scenes if key.startswith('mafe-')]),6)
+        source=(ROOT/'exposiciones/fisiopatologia/equilibrio-acido-base/index.html').read_text()
+        for text in ['Holstein de 2 años y 560 kg','Hipermotilidad ruminal e intestinal','73.000/mL','Gasometría y lactato no reportados','Diagnóstico informado por el autor']:
+            self.assertIn(text,source)
+        self.assertIn('no aporta pH sanguíneo, PCO₂ ni HCO₃⁻',scenes['mafe-repercusion']['equation'])
+        self.assertEqual(scenes['mafe-evolucion']['table']['rows'][1],['Protozoos/mL','73.000','90.000'])
+        self.assertIn('200.000–2.000.000/mL',' '.join(scenes['mafe-evolucion']['explanation']))
+        self.assertIn('6,0 g/dL',' '.join(scenes['mafe-evolucion']['explanation']))
+        self.assertEqual(self.content['quiz'][0]['correct'],0)
+        self.assertEqual(self.content['quiz'][2]['correct'],2)
+        self.assertEqual(scenes['simulador']['supplementalLabs'],['bicarbonato-co2','regulacion-pulmonar','regulacion-renal'])
 
     def test_genetics_content_citations_scope_and_downloads(self):
         data=json.loads((ROOT/'exposiciones/content/genetica--cromosomas-y-determinacion-sexual.json').read_text())
