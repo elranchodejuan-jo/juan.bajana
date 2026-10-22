@@ -16,6 +16,8 @@ EXPECTED_PAGES = {
     'exposiciones/genetica/index.html',
     'exposiciones/fisiopatologia/equilibrio-acido-base/index.html',
     'exposiciones/genetica/cromosomas-y-determinacion-sexual/index.html',
+    'exposiciones/farmacologia-ii/index.html',
+    'exposiciones/farmacologia-ii/caso-ares/index.html',
 }
 spec = importlib.util.spec_from_file_location('builder', ROOT/'scripts/build-exposiciones.py')
 builder = importlib.util.module_from_spec(spec)
@@ -110,6 +112,8 @@ class ExposicionesTests(unittest.TestCase):
             if 'cromosomas-y-determinacion-sexual' in page.parts:
                 expected_styles += [builder.asset_url('/exposiciones/shared/'+name) for name in
                                     ['genetics.css','genetics-ambient.css','genetics-layout.css']]
+            if 'caso-ares' in page.parts:
+                expected_styles += [builder.asset_url('/exposiciones/shared/pharmacology.css')]
             self.assertEqual(parsed.styles,expected_styles,str(page))
             self.assertEqual(parsed.import_maps,[{'imports':expected}],str(page))
             self.assertEqual([s.get('type') for s in parsed.scripts],['importmap','module'],str(page))

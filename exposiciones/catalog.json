@@ -1,5 +1,22 @@
 [
   {
+    "id": "farmacologia-ii-caso-ares",
+    "subject": "farmacologia-ii",
+    "slug": "caso-ares",
+    "title": "Caso Ares y terapéutica racional",
+    "summary": "Seis principios activos, imágenes reales y cálculos de una pauta reportada. Una exposición para interpretar evidencia y reconocer sus límites.",
+    "authors": [
+      "Robinson Macas",
+      "Kristhel Procel",
+      "Carolina Cajamarca",
+      "Samira Yunga",
+      "Tiffany Machuca",
+      "Jhon Balcázar"
+    ],
+    "status": "published",
+    "cover": "/exposiciones/assets/imagenes/ares/ares-actual.webp"
+  },
+  {
     "id": "fisiopatologia-equilibrio-acido-base",
     "subject": "fisiopatologia",
     "slug": "equilibrio-acido-base",

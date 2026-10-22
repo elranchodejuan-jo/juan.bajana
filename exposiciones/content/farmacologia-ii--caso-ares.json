@@ -1,0 +1,593 @@
+{
+  "schemaVersion": 1,
+  "id": "farmacologia-ii-caso-ares",
+  "subject": "farmacologia-ii",
+  "slug": "caso-ares",
+  "title": "Caso Ares y terapéutica racional",
+  "summary": "Seis principios activos, imágenes reales y cálculos de una pauta reportada. Una exposición para interpretar evidencia y reconocer sus límites.",
+  "authors": [
+    "Robinson Macas",
+    "Kristhel Procel",
+    "Carolina Cajamarca",
+    "Samira Yunga",
+    "Tiffany Machuca",
+    "Jhon Balcázar"
+  ],
+  "coordinator": "Juan José Bajaña Chuno",
+  "status": "published",
+  "cover": "/exposiciones/assets/imagenes/ares/ares-actual.webp",
+  "cover_alt": "Ares en una fotografía actual aportada por su tutor",
+  "reviewedOn": "2026-10-21",
+  "scenes": [
+    {
+      "id": "inicio",
+      "title": "Ares y la terapéutica racional",
+      "summary": "Un caso real de Farmacología II: del hallazgo clínico al análisis de seis principios activos.",
+      "layout": "cover",
+      "references": [],
+      "figure": "/exposiciones/assets/imagenes/ares/ares-actual.webp",
+      "figure_alt": "Ares sentado y alerta en el automóvil en la fotografía actual aportada por su tutor",
+      "caption": "Fotografía real posterior al tratamiento, según el tutor. No constituye por sí sola una valoración clínica.",
+      "bullets": [
+        "Canino mestizo, macho, 9 meses al estudio inicial.",
+        "Caso documental con datos clínicos, cálculos y lectura crítica."
+      ],
+      "notes": "Presentar al equipo y el objetivo: interpretar los datos disponibles y justificar el papel de cada principio activo sin atribuir a la fotografía ni a la mejoría subjetiva un diagnóstico de curación."
+    },
+    {
+      "id": "paciente-y-objetivo",
+      "title": "Paciente y motivo de consulta",
+      "summary": "Ares presentó alteraciones digestivas durante aproximadamente tres semanas.",
+      "layout": "default",
+      "references": [],
+      "figure": "/exposiciones/assets/imagenes/ares/ares-examen.webp",
+      "figure_alt": "Ares durante una evaluación física con estudiantes",
+      "caption": "Examen físico documentado en fotografía; fecha no confirmada.",
+      "bullets": [
+        "Historia: diarrea, hematochezia y melena referidas.",
+        "Peso basal del laboratorio: 21,60 kg.",
+        "Objetivo: interpretar hallazgos y reconstruir la pauta reportada."
+      ],
+      "explanation": "La historia aportada menciona alimentación con croquetas y comida casera, cambios de dieta y una desparasitación previa consignada en marzo de 2026. Los antecedentes orientan preguntas clínicas, pero no confirman una etiología. Las fechas de los análisis y las del tratamiento se mantienen separadas.",
+      "notes": "No convertir el peso de laboratorio en un pesaje del inicio del tratamiento. Tampoco mezclar las constantes de esta historia con la práctica posterior de Semiología."
+    },
+    {
+      "id": "heces-antes",
+      "title": "Tres aspectos fecales antes del tratamiento",
+      "summary": "Las tres fotografías corresponden al periodo previo. Su orden temporal no está confirmado.",
+      "layout": "default",
+      "references": [],
+      "pharmacologyLab": {
+        "kind": "photos",
+        "photos": [
+          {
+            "src": "/exposiciones/assets/imagenes/ares/heces-a.webp",
+            "width": 1280,
+            "height": 984,
+            "alt": "Heces oscuras brillantes y blandas parcialmente formadas",
+            "caption": "A. Material oscuro, brillante y blando, parcialmente formado."
+          },
+          {
+            "src": "/exposiciones/assets/imagenes/ares/heces-b.webp",
+            "width": 1179,
+            "height": 1146,
+            "alt": "Material fecal líquido mucoide amarillento a marrón con zonas rojizas",
+            "caption": "B. Material líquido o mucoide, amarillento a marrón, con zonas rojizas."
+          },
+          {
+            "src": "/exposiciones/assets/imagenes/ares/heces-c.webp",
+            "width": 1136,
+            "height": 1280,
+            "alt": "Fragmentos fecales más formados marrones y marrón oscuro",
+            "caption": "C. Fragmentos más formados, de marrón a marrón oscuro."
+          }
+        ]
+      },
+      "explanation": "Las diferencias de iluminación y superficie limitan la interpretación del color. Estas fotografías no identifican parásitos, bacterias ni localización del sangrado. El antecedente de melena o hematochezia proviene de la historia clínica, no de una prueba confirmatoria derivada de las imágenes.",
+      "notes": "No presentar las imágenes como antes, durante y después. Las tres son anteriores al tratamiento y sus letras no expresan una secuencia de mejoría."
+    },
+    {
+      "id": "laboratorio",
+      "title": "Hallazgos que requieren interpretación",
+      "summary": "Muestra recibida el 24 de septiembre; informe emitido el 25 de septiembre de 2026.",
+      "layout": "default",
+      "references": [
+        1
+      ],
+      "table": {
+        "caption": "Datos del informe 028675; intervalos del propio laboratorio",
+        "headers": [
+          "Parámetro",
+          "Ares",
+          "Referencia"
+        ],
+        "rows": [
+          [
+            "Leucocitos (10⁹/L)",
+            "21,25",
+            "6–18"
+          ],
+          [
+            "Bandas (10⁹/L)",
+            "7,65",
+            "0–0,30"
+          ],
+          [
+            "Segmentados (10⁹/L)",
+            "4,25",
+            "3–11,50"
+          ],
+          [
+            "Eosinófilos (10⁹/L)",
+            "2,76",
+            "0,10–1,25"
+          ],
+          [
+            "Hematocrito (%)",
+            "38",
+            "37–55"
+          ],
+          [
+            "Hb / CHCM (g/L)",
+            "113 / 297,37",
+            "120–180 / 320–360"
+          ]
+        ]
+      },
+      "explanation": "El informe describe leucocitosis, desviación a la izquierda degenerativa y eosinofilia. También registra anisocitosis marcada e hipocromasia. La bioquímica aportada muestra urea, creatinina, proteínas totales séricas, AST y ALT dentro de los intervalos del laboratorio. El hemograma no identifica por sí solo un microorganismo ni demuestra deficiencia de hierro.",
+      "notes": "Dar prioridad al recuento absoluto. Hay más bandas que neutrófilos segmentados, coherente con la interpretación de desviación degenerativa del laboratorio. El hematocrito está dentro del intervalo; no llamar anemia grave a estos resultados."
+    },
+    {
+      "id": "interpretacion",
+      "title": "Diagnóstico y límites de la evidencia",
+      "summary": "La evidencia permite describir un síndrome digestivo y una respuesta inflamatoria; la causa específica permanece sin confirmar.",
+      "layout": "compare",
+      "references": [
+        2,
+        3,
+        4
+      ],
+      "comparison": [
+        {
+          "title": "Documentado",
+          "text": "Alteración digestiva; leucocitosis, bandas elevadas y eosinofilia."
+        },
+        {
+          "title": "Hipótesis",
+          "text": "Procesos parasitarios, infecciosos, alimentarios o inflamatorios requieren pruebas dirigidas."
+        },
+        {
+          "title": "No demostrado",
+          "text": "Agente causal, ferropenia y una infección urinaria confirmada por cultivo."
+        }
+      ],
+      "explanation": "El uroanálisis informa leucocitos de 5–20 por campo y bacterias en campo completo. Sin método de recolección, signos urinarios y cultivo, la contaminación no puede excluirse. La eosinofilia es compatible con diferentes procesos y no equivale a un diagnóstico coproparasitológico. Una respuesta al manejo tampoco identifica retrospectivamente la causa.",
+      "notes": "Diferenciar sospecha terapéutica y confirmación etiológica. No utilizar el término infección bacteriana confirmada si solo se dispone del hemograma y de este uroanálisis."
+    },
+    {
+      "id": "pauta-reportada",
+      "title": "Qué pauta fue comunicada",
+      "summary": "Se conserva el calendario reportado; no acredita que todas las dosis se administraron.",
+      "layout": "default",
+      "references": [],
+      "table": {
+        "caption": "Transcripción del seguimiento comunicado por Juan",
+        "headers": [
+          "Producto",
+          "Pauta comunicada",
+          "Periodo de 2026"
+        ],
+        "rows": [
+          [
+            "Relámpago",
+            "VO; volumen real no confirmado",
+            "2 octubre"
+          ],
+          [
+            "Bactrivet",
+            "3 mL VO, mañana y noche, 14 días",
+            "3–16 octubre"
+          ],
+          [
+            "Metronidazol",
+            "1 tableta VO cada 24 h, 7 días",
+            "3–9 octubre"
+          ],
+          [
+            "Apetomax",
+            "7 mL VO cada 24 h, 5 días",
+            "3–7 octubre"
+          ]
+        ]
+      },
+      "explanation": "Las fichas académicas calculan 3,24 mL de Bactrivet, 4,32 mL de Relámpago y 7,20 mL de Apetomax. Estos cálculos no sustituyen los volúmenes realmente comunicados. Carolina identifica Amibac de 500 mg, pero falta la fotografía del envase y existe una discrepancia de frecuencia entre su ficha y la pauta referida.",
+      "notes": "Usar Apetomax en toda la exposición. Los dos principios de Bactrivet pertenecen a una misma administración; sucede lo mismo con pirantel y praziquantel en Relámpago."
+    },
+    {
+      "id": "sulfametoxazol-y-trimetoprim",
+      "title": "Dos bloqueos en la síntesis de folato",
+      "summary": "Sulfametoxazol: Robinson Macas. Trimetoprim: Kristhel Procel.",
+      "layout": "default",
+      "references": [
+        5,
+        6,
+        7
+      ],
+      "pharmacologyLab": {
+        "kind": "mechanism",
+        "steps": [
+          {
+            "label": "Ruta bacteriana",
+            "flow": "PABA → dihidrofolato → tetrahidrofolato",
+            "title": "Una vía necesaria para sintetizar nucleótidos",
+            "text": "El folato reducido participa en la síntesis de componentes del ADN. El esquema representa una ruta bacteriana simplificada."
+          },
+          {
+            "label": "Sulfametoxazol",
+            "flow": "Sulfametoxazol ⊣ dihidropteroato sintasa",
+            "title": "Primer bloqueo",
+            "text": "La sulfonamida compite con PABA e interfiere en la síntesis de folato. La selección del antimicrobiano depende de sensibilidad y foco clínico."
+          },
+          {
+            "label": "Trimetoprim",
+            "flow": "Trimetoprim ⊣ dihidrofolato reductasa",
+            "title": "Bloqueo secuencial",
+            "text": "El trimetoprim dificulta la formación de tetrahidrofolato. La combinación puede potenciar la actividad; no demuestra eficacia en un caso individual."
+          }
+        ]
+      },
+      "explanation": "La formulación de Bactrivet contiene sulfametoxazol y trimetoprim en proporción 5:1 en masa. La actividad conjunta no justifica usarla ante cualquier diarrea. Reacciones de hipersensibilidad y otros efectos adversos deben considerarse durante la vigilancia.",
+      "notes": "Asignar la explicación del primer bloqueo a Robinson y la del segundo a Kristhel, manteniendo ambos dentro del mismo producto."
+    },
+    {
+      "id": "calculo-bactrivet",
+      "title": "De mL a mg y de mg a mg por kg",
+      "summary": "Bactrivet: 80 mg/mL de sulfametoxazol y 16 mg/mL de trimetoprim.",
+      "layout": "default",
+      "references": [
+        6
+      ],
+      "pharmacologyLab": {
+        "kind": "dose",
+        "names": [
+          "Sulfametoxazol",
+          "Trimetoprim"
+        ],
+        "concentrations": [
+          80,
+          16
+        ],
+        "volume": 3
+      },
+      "explanation": "Con el peso basal de 21,60 kg, 3 mL representan 240 mg de sulfametoxazol y 48 mg de trimetoprim: 288 mg de combinación o 13,33 mg/kg por administración. La ficha del producto expresa 1,5 mL/10 kg para su indicación bacteriana; esa proporción equivale a 3,24 mL en este peso. Su indicación nominal de 15 mg/kg no coincide exactamente con los 14,4 mg/kg calculados a partir de 96 mg/mL y 1,5 mL/10 kg. Se expone la discrepancia sin corregir retrospectivamente la pauta del paciente.",
+      "notes": "La dosis de la combinación no se suma otra vez a la dosis de cada componente. Cambiar a 22 kg permite observar el efecto del denominador: el volumen histórico permanece 3 mL."
+    },
+    {
+      "id": "metronidazol",
+      "title": "Metronidazol y conciliación de la pauta",
+      "summary": "Carolina Cajamarca · Amibac de 500 mg declarado en su ficha.",
+      "layout": "compare",
+      "references": [
+        5,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "comparison": [
+        {
+          "title": "Mecanismo",
+          "text": "La activación reductiva genera intermediarios que lesionan el ADN de organismos susceptibles."
+        },
+        {
+          "title": "Cálculo condicional",
+          "text": "Si la tableta era de 500 mg: 500 ÷ 21,60 = 23,15 mg/kg por administración."
+        },
+        {
+          "title": "Frecuencia real reportada",
+          "text": "Una tableta cada 24 h durante 7 días. La ficha académica registra cada 12 h."
+        }
+      ],
+      "explanation": "La presentación comercial necesita confirmación mediante el envase. El PDF de Metroz-Vet corresponde a una suspensión y no demuestra la concentración de la tableta utilizada. Metronidazol puede tener actividad frente a anaerobios y ciertos protozoos; la diarrea aislada no establece esa indicación. La evidencia en diarrea aguda es heterogénea y su alcance no debe trasladarse sin matices a un cuadro de tres semanas. Deben vigilarse efectos gastrointestinales y neurológicos. La desviación izquierda degenerativa de Ares exige consideración individual; no corresponde descartar retrospectivamente los antimicrobianos solo por tratarse de diarrea.",
+      "notes": "No corregir la pauta a cada 12 horas. La reconstrucción de 23,15 mg/kg es condicional a la tableta declarada de 500 mg. No afirmar giardiasis sin diagnóstico."
+    },
+    {
+      "id": "pirantel-y-praziquantel",
+      "title": "Un producto con dos blancos parasitarios",
+      "summary": "Pamoato de pirantel: Samira Yunga. Praziquantel: Tiffany Machuca.",
+      "layout": "compare",
+      "references": [
+        13,
+        5,
+        3,
+        14,
+        15
+      ],
+      "comparison": [
+        {
+          "title": "Pirantel",
+          "text": "Bloqueo neuromuscular despolarizante de nematodos susceptibles. Relámpago declara 100 mg/mL de pamoato."
+        },
+        {
+          "title": "Praziquantel",
+          "text": "Altera la homeostasis del calcio y el tegumento de cestodos susceptibles. Relámpago declara 35 mg/mL."
+        },
+        {
+          "title": "Cálculo de etiqueta",
+          "text": "1 mL/5 kg → 4,32 mL para 21,60 kg. El volumen administrado el 2 de octubre no está confirmado."
+        }
+      ],
+      "explanation": "El ejercicio equivale a 432 mg de pamoato de pirantel y 151,2 mg de praziquantel. No se debe comparar una dosis expresada como sal de pamoato con una dosis expresada como pirantel base sin conversión. La etiqueta menciona una repetición a los 21 días; no existe confirmación de que se haya realizado. La prevención de reinfección y el control de pulgas son relevantes cuando se consideran cestodos transmitidos por hospedadores intermediarios.",
+      "notes": "Separar la función de cada integrante y de cada principio, pero no presentar dos desparasitaciones: se trata de los componentes del mismo producto."
+    },
+    {
+      "id": "sulfato-ferroso-y-apetomax",
+      "title": "Sulfato ferroso dentro de Apetomax",
+      "summary": "Jhon Balcázar · una formulación de apoyo, no hierro aislado.",
+      "layout": "compare",
+      "references": [
+        16,
+        4
+      ],
+      "comparison": [
+        {
+          "title": "Producto revisado",
+          "text": "Apetomax contiene sulfato ferroso, buclizina y otros componentes. No es intercambiable con Apetovit."
+        },
+        {
+          "title": "Pauta comunicada",
+          "text": "7 mL VO al día durante 5 días. Con 0,45 mg/mL: 3,15 mg/día de sulfato ferroso."
+        },
+        {
+          "title": "Límite clínico",
+          "text": "La cantidad de sal no equivale a hierro elemental. Hipocromasia no demuestra por sí sola ferropenia."
+        }
+      ],
+      "explanation": "La ficha de Apetomax expresa 1 mL por cada 3 kg; en 21,60 kg el cálculo académico es 7,20 mL. La pauta comunicada fue 7 mL. La presencia de buclizina y nutrientes impide atribuir una eventual mejoría a un solo componente. Para diagnosticar deficiencia de hierro deben integrarse la hematología, el contexto y pruebas específicas; el hematocrito basal de Ares está dentro del intervalo informado.",
+      "notes": "Aclarar qué se mide: mg de sulfato ferroso, no mg de hierro elemental. No afirmar corrección de anemia porque no hay hemograma posterior."
+    },
+    {
+      "id": "seguridad",
+      "title": "Eficacia y seguridad necesitan seguimiento",
+      "summary": "El análisis farmacológico debe incluir reacciones adversas, interacciones y una indicación justificada.",
+      "layout": "default",
+      "references": [
+        7,
+        12,
+        9,
+        17
+      ],
+      "table": {
+        "caption": "Vigilancia propuesta para comprender el caso, no resultados observados",
+        "headers": [
+          "Grupo",
+          "Qué se debe vigilar"
+        ],
+        "rows": [
+          [
+            "Sulfametoxazol y trimetoprim",
+            "Signos de hipersensibilidad, trastornos digestivos y alteraciones hematológicas o hepáticas."
+          ],
+          [
+            "Metronidazol",
+            "Vómito, pérdida de apetito, ataxia, temblores u otros signos neurológicos."
+          ],
+          [
+            "Antiparasitarios",
+            "Tolerancia digestiva, peso para el cálculo y riesgo de reinfección."
+          ],
+          [
+            "Apetomax",
+            "Tolerancia al producto y efectos de sus componentes; evaluar la causa de hiporexia."
+          ]
+        ]
+      },
+      "explanation": "La pauta se analiza retrospectivamente; no se propone continuar, repetir ni cambiar medicamentos. ENOVAT trata diarrea aguda y contempla la desviación izquierda degenerativa como una excepción que exige valoración antimicrobiana individual. Ares presenta ese patrón, por lo que no debe tratarse como una diarrea leve inespecífica. Esto tampoco demuestra que la pauta concreta fuera óptima. Su historia de unas tres semanas limita además la extrapolación directa de la guía. El metronidazol puede alterar la microbiota, y no existe un umbral universal que garantice ausencia de neurotoxicidad. El caso no aporta ensayos que permitan atribuir la recuperación a un fármaco específico.",
+      "notes": "Distinguir ausencia de un efecto adverso registrado y ausencia demostrada de efectos adversos. Las tablas con valores de ejemplo no constituyen observaciones válidas para esta conclusión."
+    },
+    {
+      "id": "evolucion",
+      "title": "Qué sabemos de la evolución",
+      "summary": "Peso final comunicado: 22 kg. El tutor describe mejoría completa de su estado general.",
+      "layout": "default",
+      "references": [],
+      "pharmacologyLab": {
+        "kind": "weight"
+      },
+      "explanation": "El aumento de 0,40 kg equivale aproximadamente a 1,85 % del peso basal. La fecha y las condiciones exactas del pesaje final no están documentadas. La expresión “mejoró un 100 %” se conserva como apreciación subjetiva de recuperación completa, no como una medición de eficacia. Las tablas aportadas mezclan datos reales y ejemplos sin identificar cada celda; sus valores seriados se excluyen de los resultados.",
+      "notes": "No trazar curvas de temperatura, apetito o peso a partir de la tabla mixta. No afirmar normalización del hemograma, erradicación parasitaria o alta veterinaria."
+    },
+    {
+      "id": "conclusiones",
+      "title": "Conclusiones y evidencia que falta integrar",
+      "summary": "La recuperación reportada es favorable; la interpretación conserva los límites de los datos.",
+      "layout": "compare",
+      "references": [],
+      "comparison": [
+        {
+          "title": "Aprendizaje",
+          "text": "Una misma combinación requiere separar concentración, masa del principio activo y mg/kg."
+        },
+        {
+          "title": "Conclusión clínica",
+          "text": "Hay mejoría subjetiva y un cambio ponderal pequeño. No puede asignarse causalidad a un fármaco aislado."
+        },
+        {
+          "title": "Para completar",
+          "text": "Envase de metronidazol, volumen real de Relámpago, registros auténticos identificados y controles disponibles."
+        }
+      ],
+      "explanation": "También permitirían fortalecer la tesina el resultado coproparasitológico si existe, la información de recolección de orina, la validación de las discrepancias por la veterinaria y la fecha del pesaje final. La ausencia de estos datos no se reemplaza por estimaciones ni por valores de ejemplo.",
+      "notes": "Cerrar respondiendo al objetivo: se interpretó la evidencia, se respetó el reparto y se reconstruyeron cálculos sin inventar evolución."
+    },
+    {
+      "id": "preguntas",
+      "title": "Preguntas para el grupo",
+      "summary": "Selecciona una respuesta y compruébala antes de pasar a la siguiente.",
+      "layout": "quiz",
+      "references": [],
+      "notes": "Resolver las preguntas individualmente. Pedir al grupo que explique unidades, frecuencia y límites de la conclusión antes de revelar la respuesta."
+    },
+    {
+      "id": "fuentes-y-materiales",
+      "title": "Fuentes y materiales",
+      "summary": "Referencias Vancouver con enlaces y archivos de la primera versión.",
+      "layout": "references",
+      "references": [],
+      "notes": "Las fuentes completas y los archivos descargables se consultan también en modo Página. Las imágenes corresponden al caso real y se han incorporado con la procedencia indicada."
+    }
+  ],
+  "references": [
+    {
+      "id": 1,
+      "citation": "Cornell University College of Veterinary Medicine. Left shift. En: eClinpath [Internet]. Ithaca (NY): Cornell University [citado 21 oct 2026].",
+      "url": "https://eclinpath.com/hematology/morphologic-features/white-blood-cells/left-shift/",
+      "scope": "Interpretación de desviación izquierda degenerativa."
+    },
+    {
+      "id": 2,
+      "citation": "Weese JS, Blondeau J, Boothe D, Guardabassi LG, Gumley N, Papich M, et al. International Society for Companion Animal Infectious Diseases (ISCAID) guidelines for the diagnosis and management of bacterial urinary tract infections in dogs and cats. Vet J. 2019;247:8–25. doi:10.1016/j.tvjl.2019.02.008.",
+      "url": "https://doi.org/10.1016/j.tvjl.2019.02.008",
+      "scope": "Correlación clínica, recogida y cultivo de orina."
+    },
+    {
+      "id": 3,
+      "citation": "European Scientific Counsel Companion Animal Parasites. Control de vermes en perros y gatos. Guía ESCCAP 01. 6.ª ed. Malvern: ESCCAP; 2021 [citado 21 oct 2026].",
+      "url": "https://www.esccap.es/wp-content/uploads/2022/03/ESCCAP-1-6ed.pdf",
+      "scope": "Control de helmintos en español"
+    },
+    {
+      "id": 4,
+      "citation": "Cornell University College of Veterinary Medicine. Iron panels. En: eClinpath [Internet]. Ithaca (NY): Cornell University [citado 21 oct 2026].",
+      "url": "https://eclinpath.com/chemistry/iron-metabolism/iron-panel-summary/",
+      "scope": "Interpretación del hierro"
+    },
+    {
+      "id": 5,
+      "citation": "Plumb DC. Plumb's veterinary drug handbook. 6th ed. Stockholm (WI): PharmaVet; 2008.",
+      "url": "https://search.worldcat.org/es/title/Plumb%27s-veterinary-drug-handbook/oclc/440588470",
+      "scope": "Manual fundacional aportado"
+    },
+    {
+      "id": 6,
+      "citation": "Farbiopharma. Bactrivet Farbiovet: antibiótico suspensión oral [Internet]. Quito: Farbiopharma; s. f. [citado 21 oct 2026].",
+      "url": "https://farbiopharma.com/wp-content/uploads/2023/01/F.T.-BACTRIVET-FARBIOVET-V0..pdf",
+      "scope": "Identidad, composición y presentación comercial."
+    },
+    {
+      "id": 7,
+      "citation": "Ekstrand C, Hedlund M, Pelander L, Scahill K. Adverse events of trimetroprim-sulphonamide treatment of cats and dogs: a systematic review. Vet Res Commun. 2026;50:224. doi:10.1007/s11259-026-11143-1.",
+      "url": "https://doi.org/10.1007/s11259-026-11143-1",
+      "scope": "Seguridad de sulfonamidas potenciadas"
+    },
+    {
+      "id": 8,
+      "citation": "Aranda Pets. Amibac: metronidazol tabletas [Internet]. Experiencia Veterinaria; s. f. [citado 21 oct 2026].",
+      "url": "https://www.experiencia.vet/Detail?id=4",
+      "scope": "Identidad, composición y presentación comercial."
+    },
+    {
+      "id": 9,
+      "citation": "Jessen LR, Werner M, Singleton D, Prior C, Foroutan F, Ferran AA, et al. European Network for Optimization of Veterinary Antimicrobial Therapy (ENOVAT) guidelines for antimicrobial use in canine acute diarrhoea. Vet J. 2024;307:106208. doi:10.1016/j.tvjl.2024.106208.",
+      "url": "https://doi.org/10.1016/j.tvjl.2024.106208",
+      "scope": "Antimicrobianos y diarrea aguda"
+    },
+    {
+      "id": 10,
+      "citation": "Langlois DK, Koenigshof AM, Mani R. Metronidazole treatment of acute diarrhea in dogs: a randomized double blinded placebo-controlled clinical trial. J Vet Intern Med. 2020;34(1):98–104. doi:10.1111/jvim.15664.",
+      "url": "https://doi.org/10.1111/jvim.15664",
+      "scope": "Ensayo de metronidazol con beneficio limitado"
+    },
+    {
+      "id": 11,
+      "citation": "Shmalberg J, Montalbano C, Morelli G, Buckley GJ. A randomized double blinded placebo-controlled clinical trial of a probiotic or metronidazole for acute canine diarrhea. Front Vet Sci. 2019;6:163. doi:10.3389/fvets.2019.00163.",
+      "url": "https://doi.org/10.3389/fvets.2019.00163",
+      "scope": "Ensayo sin diferencia significativa"
+    },
+    {
+      "id": 12,
+      "citation": "Tauro A, Beltran E, Cherubini GB, Coelho AT, Wessmann A, Driver CJ, et al. Metronidazole-induced neurotoxicity in 26 dogs. Aust Vet J. 2018;96(12):495–501. doi:10.1111/avj.12772.",
+      "url": "https://doi.org/10.1111/avj.12772",
+      "scope": "Neurotoxicidad y ausencia de un umbral universal de seguridad."
+    },
+    {
+      "id": 13,
+      "citation": "James Brown Pharma. Relámpago: antiparasitario interno [Internet]. Quito: James Brown Pharma; s. f. [citado 21 oct 2026].",
+      "url": "https://jamesbrownpharma.com/producto/relampago/",
+      "scope": "Identidad, composición y presentación comercial."
+    },
+    {
+      "id": 14,
+      "citation": "Companion Animal Parasite Council. Hookworms [Internet]. CAPC; 2025 [actualizado 28 feb 2025; citado 21 oct 2026].",
+      "url": "https://capcvet.org/guidelines/hookworms/",
+      "scope": "Nematodos y pirantel"
+    },
+    {
+      "id": 15,
+      "citation": "Companion Animal Parasite Council. Cestodes [Internet]. CAPC; 2016 [actualizado 1 nov 2016; citado 21 oct 2026].",
+      "url": "https://capcvet.org/guidelines/cestodes/",
+      "scope": "Cestodos y prevención de reinfección"
+    },
+    {
+      "id": 16,
+      "citation": "Favetex. Apetomax: estimulante de apetito [Internet]. Guayaquil: Favetex; s. f. [citado 21 oct 2026].",
+      "url": "https://favetex.com/wp-content/uploads/2026/04/Apetomax.pdf",
+      "scope": "Identidad, composición y presentación comercial."
+    },
+    {
+      "id": 17,
+      "citation": "Pilla R, Gaschen FP, Barr JW, Olson E, Honneffer J, Guard BC, et al. Effects of metronidazole on the fecal microbiome and metabolome in healthy dogs. J Vet Intern Med. 2020;34(5):1853–1866. doi:10.1111/jvim.15871.",
+      "url": "https://doi.org/10.1111/jvim.15871",
+      "scope": "Microbiota y metronidazol"
+    }
+  ],
+  "resources": [
+    {
+      "label": "Descargar tesina Word",
+      "path": "/exposiciones/assets/descargas/tesina-ares-farmacologia-ii-v1.docx"
+    },
+    {
+      "label": "Descargar PowerPoint",
+      "path": "/exposiciones/assets/descargas/presentacion-ares-farmacologia-ii-v1.pptx"
+    }
+  ],
+  "downloadsAt": "fuentes-y-materiales",
+  "credits": [
+    "Fotografías reales de Ares y de sus heces aportadas por su tutor. Las imágenes fecales son anteriores al tratamiento y no tienen orden temporal confirmado.",
+    "Datos clínicos transcritos del informe 028675, historia clínica, seis aportes individuales y pauta reportada. Los documentos públicos excluyen el nombre y contacto del tutor.",
+    "Coordinación académica: Juan José Bajaña Chuno. Primera versión documental: 21 de octubre de 2026."
+  ],
+  "quiz": [
+    {
+      "question": "¿Cuántos mg de combinación aporta una toma de 3 mL de Bactrivet?",
+      "options": [
+        "96 mg",
+        "240 mg",
+        "288 mg"
+      ],
+      "correct": 2,
+      "feedback": "288 mg: 3 mL × (80 + 16) mg/mL = 240 mg de sulfametoxazol + 48 mg de trimetoprim. Los 96 mg corresponden a un mL."
+    },
+    {
+      "question": "¿3,15 mg de sulfato ferroso equivalen a 3,15 mg de hierro elemental?",
+      "options": [
+        "Sí, son dos nombres de la misma masa",
+        "No, la sal incluye componentes distintos del hierro",
+        "Sí, siempre que se administren por vía oral"
+      ],
+      "correct": 1,
+      "feedback": "No. La masa de la sal no es igual a la del hierro elemental. La ficha no especifica aquí la forma de hidratación necesaria para convertir esa cantidad con precisión."
+    },
+    {
+      "question": "¿Qué acredita la expresión “mejoró un 100 %” en este caso?",
+      "options": [
+        "La percepción de recuperación completa del tutor",
+        "La normalización del hemograma",
+        "La erradicación parasitaria confirmada"
+      ],
+      "correct": 0,
+      "feedback": "Expresa la percepción del tutor. Sin una escala validada y controles posteriores no demuestra normalización analítica ni erradicación de una causa."
+    }
+  ]
+}

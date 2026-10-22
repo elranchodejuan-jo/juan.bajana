@@ -1,0 +1,46 @@
+body.expo-app[data-subject="farmacologia-ii"] { --expo-accent: #82e6bb; --expo-accent-soft: #183d35; }
+body.expo-app[data-subject="farmacologia-ii"][data-theme="light"] { --expo-accent: #176b50; --expo-accent-soft: #e4f2eb; }
+body[data-exposition="caso-ares"] .expo-cover-layout { display:grid; grid-template-columns: 1.1fr .9fr; gap:32px; align-items:center; }
+body[data-exposition="caso-ares"] .expo-cover-layout .expo-figure img { max-height:400px; object-fit:contain; }
+body[data-exposition="caso-ares"] .expo-author { font-size:16px; }
+.pharma-dose, .pharma-mechanism, .pharma-weight { padding:24px; border:1px solid var(--expo-border); border-radius:20px; background:var(--expo-surface); }
+.pharma-dose-control { display:flex; flex-wrap:wrap; gap:12px 22px; align-items:center; }
+.pharma-dose-control select { font:inherit; color:var(--expo-text); background:var(--expo-bg); border:1px solid var(--expo-border); padding:12px; border-radius:10px; }
+.pharma-dose-control p { flex-basis:100%; }
+.pharma-dose-cards { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.pharma-dose-cards article { padding:18px; border-radius:14px; background:var(--expo-accent-soft); }
+.pharma-dose-cards h3 { margin:0; }
+.pharma-dose-cards strong, .pharma-dose output { color:var(--expo-accent); font-size:1.5em; }
+.pharma-dose-equation { margin:18px 0 4px; }
+.pharma-dose output { display:block; font-weight:700; font-size:1.2em; }
+.pharma-mechanism-stage { padding-top:20px; min-height:190px; }
+.pharma-mechanism-flow { border-left:4px solid var(--expo-accent); padding:14px 18px; background:var(--expo-accent-soft); font-size:1.25em; font-weight:700; }
+.pharma-mechanism [aria-pressed="true"] { background:var(--expo-accent); color:var(--expo-bg); }
+.pharma-photos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; }
+.pharma-photos figure { margin:0; padding:12px; border:1px solid var(--expo-border); border-radius:16px; }
+.pharma-photos img { display:block; width:100%; height:230px; object-fit:contain; border-radius:10px; background:#f3f1ed; }
+.pharma-photos figcaption { font-size:16px; line-height:1.4; margin-top:12px; }
+.pharma-photos button { margin-top:10px; }
+.pharma-weight > div { display:grid; grid-template-columns:1fr auto; gap:8px; margin-bottom:24px; }
+.pharma-weight-bar { grid-column:1 / -1; height:22px; width:var(--bar); background:var(--expo-accent); border-radius:4px; }
+.pharma-weight-scale { font-size:16px; }
+.pharma-weight-delta { font-size:36px; font-weight:700; color:var(--expo-accent); }
+.pharma-weight-delta span { font-size:22px; display:block; }
+body[data-exposition="caso-ares"][data-mode="presentar"] .expo-scene-heading h2 { font-size:44px; }
+body[data-exposition="caso-ares"][data-mode="presentar"] .expo-lead { font-size:25px; }
+body[data-exposition="caso-ares"][data-mode="presentar"] .expo-points { font-size:26px; }
+body[data-exposition="caso-ares"][data-mode="presentar"] .expo-case-data { font-size:23px; }
+body[data-exposition="caso-ares"][data-mode="presentar"] .pharma-dose { font-size:22px; padding:18px; }
+body[data-exposition="caso-ares"][data-mode="presentar"] .pharma-dose-cards article { padding:14px; }
+body[data-exposition="caso-ares"][data-mode="presentar"] .pharma-dose-cards p { margin:10px 0; }
+body[data-exposition="caso-ares"][data-mode="presentar"] .pharma-mechanism { font-size:25px; }
+body[data-exposition="caso-ares"][data-mode="presentar"] .pharma-photos img { height:245px; }
+body[data-exposition="caso-ares"][data-mode="presentar"] .pharma-weight { font-size:24px; }
+body[data-exposition="caso-ares"][data-mode="presentar"] .expo-comparison p { font-size:25px; }
+body[data-exposition="caso-ares"][data-mode="presentar"] .expo-comparison h3 { font-size:29px; }
+body.expo-app[data-exposition="caso-ares"][data-mode="presentar"] .expo-scene[data-layout="cover"] .expo-figure img { max-height:340px; height:340px; }
+body.expo-app[data-exposition="caso-ares"][data-mode="presentar"] .expo-quiz legend {font-size:27px;line-height:1.3;}
+body.expo-app[data-exposition="caso-ares"][data-mode="presentar"] .expo-choices label {font-size:23px;padding:9px 14px;}
+body.expo-app[data-exposition="caso-ares"][data-mode="presentar"] .expo-feedback {font-size:21px;line-height:1.35;}
+@media(max-width:700px) { body[data-exposition="caso-ares"] .expo-cover-layout, .pharma-photos, .pharma-dose-cards {grid-template-columns:1fr;} }
+@media print { .pharma-mechanism [data-pharma-step][hidden] {display:block!important;} .pharma-mechanism .expo-actions {display:none;} .pharma-photos img {height:160px;} }

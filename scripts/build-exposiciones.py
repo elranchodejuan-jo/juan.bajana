@@ -14,6 +14,7 @@ from expo_visuals import visual_for, simulator_visual
 from expo_hero import hero_visual
 from expo_genetics import genetics_visual
 from expo_genetics_hero import genetics_hero_visual
+from expo_pharmacology import pharmacology_visual
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / 'exposiciones'
@@ -71,6 +72,18 @@ def validate(data, *, published=False):
             raise ValueError('Cita sin referencia.')
         if scene.get('figure') and not local_path(scene['figure']).is_file():
             raise ValueError('Figura inexistente.')
+        pharma = scene.get('pharmacologyLab')
+        if pharma:
+            if data['subject'] != 'farmacologia-ii' or data['slug'] != 'caso-ares' or pharma.get('kind') not in ('dose', 'mechanism', 'photos', 'weight'):
+                raise ValueError('Laboratorio farmacológico fuera de su exposición.')
+            if pharma['kind'] == 'dose':
+                values = pharma.get('concentrations', [])
+                if not values or len(values) != len(pharma.get('names', [])) or any(type(v) not in (int, float) or not 0 < v < 10000 for v in values) or not 0 < pharma.get('volume', 0) < 1000:
+                    raise ValueError('Datos de cálculo farmacológico no válidos.')
+            if pharma['kind'] == 'photos':
+                for photo in pharma.get('photos', []):
+                    if not local_path(photo['src']).is_file() or not photo.get('alt') or not photo.get('caption'):
+                        raise ValueError('Fotografía clínica sin recurso, descripción o procedencia.')
         if scene.get('illustration'):
             illustration = scene['illustration']
             path = local_path(illustration['src'])
@@ -251,6 +264,7 @@ def scene_html(scene, data, i):
     layout = scene.get('layout', 'default')
     acid_base_visuals = data['subject'] == 'fisiopatologia' and data['slug'] == 'equilibrio-acido-base'
     genetics = data['subject'] == 'genetica' and data['slug'] == 'cromosomas-y-determinacion-sexual'
+    pharmacology = data['subject'] == 'farmacologia-ii' and data['slug'] == 'caso-ares'
     title_tag = 'h1' if genetics and layout == 'cover' else 'h2'
     heading_icon = ''
     if genetics:
@@ -264,7 +278,7 @@ def scene_html(scene, data, i):
     bullets = '<ul class="expo-points">' + ''.join(f'<li>{esc(p)}</li>' for p in scene.get('bullets', [])) + '</ul>' if scene.get('bullets') else ''
     equation = f'<p class="expo-equation">{esc(scene["equation"])}</p>' if scene.get('equation') else ''
     copy = f'<div class="expo-scene-copy">{bullets}{equation}</div>'
-    lab = visual_for(scene['id']) if acid_base_visuals else genetics_visual(scene['id']) if genetics else ''
+    lab = visual_for(scene['id']) if acid_base_visuals else genetics_visual(scene['id']) if genetics else pharmacology_visual(scene) if pharmacology else ''
     if genetics and lab:
         lab = numbered_visual_sources(lab, data, scene)
     if layout == 'cover':
@@ -277,9 +291,9 @@ def scene_html(scene, data, i):
     elif layout == 'case':
         body = case_component(scene['case'])
     elif layout == 'quiz':
-        body = quiz_component(data['quiz'], individual=acid_base_visuals)
+        body = quiz_component(data['quiz'], individual=acid_base_visuals or pharmacology)
     elif layout == 'references':
-        mode_control = ' data-view-mode="estudiar"' if genetics else ''
+        mode_control = ' data-view-mode="estudiar"' if genetics or pharmacology else ''
         body = f'<div class="expo-present-only"><p class="expo-lead">Fuentes universitarias, artículos veterinarios y bibliografía trazable.</p><p>Las citas numeradas acompañan cada apartado.</p><a class="expo-button expo-button-primary" href="?modo=estudiar#{esc(scene["id"])}"{mode_control}>Abrir las {len(data["references"])} referencias completas</a></div><ol class="expo-references expo-study-only">' + ''.join(f'<li id="ref-{r["id"]}" value="{r["id"]}"><p>{esc(r["citation"])}</p><a href="{esc(r["url"])}" target="_blank" rel="noopener noreferrer">{esc(r["url"])}</a><p class="expo-small">{esc(r.get("scope", ""))}</p></li>' for r in data['references']) + '</ol>'
     elif lab:
         body = lab + f'<div class="expo-study-only expo-lab-context">{copy}{figure(scene) if scene.get("figure") else ""}</div>'
@@ -296,7 +310,7 @@ def scene_html(scene, data, i):
     if layout == 'cover':
         body = '<div class="expo-cover-layout"><div class="expo-cover-copy">' + body
         authors = '<br>'.join(esc(author) for author in data['authors']) if genetics else esc(', '.join(data['authors']))
-        affiliation = 'Grupo 4 · Quinto A · Medicina Veterinaria · UTMACH' if genetics else 'Estudiante de Medicina Veterinaria · UTMACH'
+        affiliation = 'Grupo 4 · Quinto A · Medicina Veterinaria · UTMACH' if genetics else 'Quinto A · Medicina Veterinaria · UTMACH' if pharmacology else 'Estudiante de Medicina Veterinaria · UTMACH'
         body += f'<p class="expo-author">{authors}<br><span>{affiliation}</span></p><a class="expo-button expo-button-primary" href="#{esc(data["scenes"][1]["id"])}">Comenzar a explorar {icon("chevron-right")}</a>'
         cover_art = hero_visual() if acid_base_visuals else genetics_hero_visual() if genetics else figure(scene) if scene.get('figure') else ''
         body += '</div>' + cover_art + '</div>'
@@ -337,12 +351,17 @@ def dialogs(data):
 def build_expo(data):
     url = route(data)
     extra_styles = ['/exposiciones/shared/genetics.css', '/exposiciones/shared/genetics-ambient.css', '/exposiciones/shared/genetics-layout.css'] if data['subject'] == 'genetica' and data['slug'] == 'cromosomas-y-determinacion-sexual' else []
+    pharmacology = data['subject'] == 'farmacologia-ii' and data['slug'] == 'caso-ares'
+    if pharmacology:
+        extra_styles = ['/exposiciones/shared/pharmacology.css']
     toolbar = f'''<div id="expo-toolbar" class="expo-toolbar" aria-label="Herramientas de la exposición"><a href="/exposiciones/" class="expo-back">{icon('chevron-left')} Biblioteca</a><div class="expo-actions"><nav class="expo-mode-switch" aria-label="Formato de la exposición"><a class="expo-button" href="?modo=estudiar" data-view-mode="estudiar" aria-current="true">Página</a><a class="expo-button" href="?modo=presentar" data-view-mode="presentar">Diapositivas</a></nav>{button('Tema claro', 'data-theme-toggle')}{button('Pausar movimiento', 'data-motion-toggle')}{button('Índice', 'data-index-open')}{button('Compartir', 'data-share-open')}<span class="expo-present-only">{button('Notas', 'data-speaker')}{button('Pantalla completa', 'data-fullscreen')}</span></div></div>'''
     nav = f'<nav class="expo-navigation expo-present-only" aria-label="Controles de presentación">{button("Anterior", "data-prev")}<span data-progress aria-live="polite"></span>{button("Siguiente", "data-next")}</nav>'
     toc = '<details class="expo-study-only expo-study-index"><summary>Índice de lectura</summary><ol>' + ''.join(f'<li><a href="#{esc(s["id"])}">{esc(s["title"])}</a></li>' for s in data['scenes']) + '</ol></details>'
-    supplemental = genetics_materials(data) if extra_styles else ''
-    if extra_styles:
+    supplemental = genetics_materials(data) if extra_styles and not pharmacology else ''
+    if extra_styles and not pharmacology:
         toolbar = toolbar.replace(button('Compartir', 'data-share-open'), '<a class="expo-button" href="#referencias-y-materiales" data-materials-open>Materiales</a>' + button('Compartir', 'data-share-open'))
+    if pharmacology:
+        toolbar = toolbar.replace(button('Pausar movimiento', 'data-motion-toggle'), '')
     body = head(data['title'], data['summary'], data['subject'], extra_styles=extra_styles, exposition=data['slug']) + site_header(data['subject']) + toolbar + '<main id="contenido">' + toc + '<div id="expo-deck" class="reveal"><div class="slides">' + ''.join(scene_html(s, data, i) for i,s in enumerate(data['scenes'])) + '</div></div>' + supplemental + '</main>' + nav + dialogs(data) + scripts()
     path = ROOT / url.lstrip('/') / 'index.html'
     path.parent.mkdir(parents=True, exist_ok=True)

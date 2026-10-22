@@ -8,5 +8,10 @@
     "title": "Genética",
     "accent": "violet",
     "summary": "Un espacio para explorar herencia y variación."
+  },
+  "farmacologia-ii": {
+    "title": "Farmacología II",
+    "accent": "green",
+    "summary": "Interpretar la evidencia clínica y explicar la terapéutica racional."
   }
 }
