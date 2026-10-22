@@ -310,7 +310,7 @@ def scene_html(scene, data, i):
     if layout == 'cover':
         body = '<div class="expo-cover-layout"><div class="expo-cover-copy">' + body
         authors = '<br>'.join(esc(author) for author in data['authors']) if genetics else esc(', '.join(data['authors']))
-        affiliation = 'Grupo 4 · Quinto A · Medicina Veterinaria · UTMACH' if genetics else 'Quinto A · Medicina Veterinaria · UTMACH' if pharmacology else 'Estudiante de Medicina Veterinaria · UTMACH'
+        affiliation = 'Grupo 4 · Quinto A · Medicina Veterinaria · UTMACH' if genetics else 'Quinto A · Medicina Veterinaria · UTMACH' if pharmacology else 'Estudiantes de Medicina Veterinaria · UTMACH' if len(data['authors']) > 1 else 'Estudiante de Medicina Veterinaria · UTMACH'
         body += f'<p class="expo-author">{authors}<br><span>{affiliation}</span></p><a class="expo-button expo-button-primary" href="#{esc(data["scenes"][1]["id"])}">Comenzar a explorar {icon("chevron-right")}</a>'
         cover_art = hero_visual() if acid_base_visuals else genetics_hero_visual() if genetics else figure(scene) if scene.get('figure') else ''
         body += '</div>' + cover_art + '</div>'
