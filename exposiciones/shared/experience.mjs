@@ -643,6 +643,10 @@ if (body.dataset.exposition === 'cromosomas-y-determinacion-sexual') {
   const { initGeneticsLabs } = await import('./genetics-labs.mjs');
   initGeneticsLabs(document, window);
 }
+if (body.dataset.exposition === 'caso-ares') {
+  const { initializePharmacologyLabs } = await import('./pharmacology-labs.mjs');
+  initializePharmacologyLabs(document);
+}
 // The atmosphere is decorative: a renderer failure must not affect the lesson.
 if (scenes.length && !isReceiver) {
   try {

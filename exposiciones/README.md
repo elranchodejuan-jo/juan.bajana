@@ -21,6 +21,15 @@ Rutas:
 - `/exposiciones/genetica/`
 - `/exposiciones/genetica/cromosomas-y-determinacion-sexual/?modo=presentar`
 - `/exposiciones/genetica/cromosomas-y-determinacion-sexual/?modo=estudiar`
+- `/exposiciones/farmacologia-ii/`
+- `/exposiciones/farmacologia-ii/caso-ares/?modo=presentar`
+- `/exposiciones/farmacologia-ii/caso-ares/?modo=estudiar`
+
+## Farmacología II caso Ares
+
+El caso Ares recorre 16 escenas con fotografías reales, seis principios activos, reconstrucción de dosis, lectura crítica de los hallazgos y tres preguntas individuales. Se distingue la pauta comunicada de los cálculos académicos y la mejoría del tutor de una medición clínica. Solo se grafican los dos pesos conocidos; las tablas que mezclan datos de ejemplo se excluyen de resultados. La documentación, límites y verificación constan en `docs/exposiciones-ares-v1-21oct.md`.
+
+Para generar una copia autónoma de Ares, ejecutar primero el generador y luego `python3 scripts/export-ares-standalone.py Exposicion_Ares_Farmacologia_II_v1.html`. Ese archivo abre directamente sin servidor, con imágenes y controles incrustados. Las referencias externas requieren internet y los archivos Word y PowerPoint deben acompañarlo para abrirlos sin conexión.
 
 La rama no se publica en vetjb.com hasta aprobar y fusionar el pull request. Los enlaces locales requieren el servidor local; un QR de `127.0.0.1` no sirve para otro teléfono.
 
