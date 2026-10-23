@@ -17,7 +17,7 @@
   "status": "published",
   "cover": "/exposiciones/assets/imagenes/ares/ares-actual.webp",
   "cover_alt": "Ares en una fotografía actual aportada por su tutor",
-  "reviewedOn": "2026-10-21",
+  "reviewedOn": "2026-10-22",
   "scenes": [
     {
       "id": "inicio",
@@ -39,17 +39,49 @@
       "title": "Paciente y motivo de consulta",
       "summary": "Ares presentó alteraciones digestivas durante aproximadamente tres semanas.",
       "layout": "default",
-      "references": [],
+      "references": [
+        1
+      ],
       "figure": "/exposiciones/assets/imagenes/ares/ares-examen.webp",
       "figure_alt": "Ares durante una evaluación física con estudiantes",
       "caption": "Examen físico documentado en fotografía; fecha no confirmada.",
       "bullets": [
         "Historia: diarrea, hematochezia y melena referidas.",
-        "Peso basal del laboratorio: 21,60 kg.",
-        "Objetivo: interpretar hallazgos y reconstruir la pauta reportada."
+        "Peso de referencia: 21,60 kg. Alimentación: Avant y Nutra Pro.",
+        "Objetivo: integrar hallazgos, dosis y evolución para analizar la terapéutica racional."
       ],
-      "explanation": "La historia aportada menciona alimentación con croquetas y comida casera, cambios de dieta y una desparasitación previa consignada en marzo de 2026. Los antecedentes orientan preguntas clínicas, pero no confirman una etiología. Las fechas de los análisis y las del tratamiento se mantienen separadas.",
+      "explanation": "La valoración de los signos digestivos integra anamnesis, características fecales y pruebas complementarias. La alimentación vigente, corregida por el tutor, se basa en balanceados Avant y Nutra Pro; no constan variedades, cantidades ni una transición dietética documentada. La historia consigna una desparasitación previa en marzo de 2026. Los antecedentes orientan la interpretación, pero no confirman por sí mismos una etiología.",
       "notes": "No convertir el peso de laboratorio en un pesaje del inicio del tratamiento. Tampoco mezclar las constantes de esta historia con la práctica posterior de Semiología."
+    },
+    {
+      "id": "objetivos",
+      "title": "Objetivo general y tres objetivos específicos",
+      "summary": "Analizar el manejo farmacológico de Ares integrando hallazgos, productos, dosis y evolución reportada, con énfasis en terapéutica racional y seguridad.",
+      "layout": "compare",
+      "references": [],
+      "comparison": [
+        {
+          "title": "1 · Interpretar",
+          "text": "Relacionar los hallazgos digestivos, hematológicos y urinarios con los problemas clínicos y sus diferenciales."
+        },
+        {
+          "title": "2 · Explicar y verificar",
+          "text": "Explicar mecanismos y riesgos de los seis principios activos; comprobar los cálculos frente a las pautas comunicadas."
+        },
+        {
+          "title": "3 · Evaluar",
+          "text": "Evaluar la evolución disponible y formular conclusiones y recomendaciones de seguimiento."
+        }
+      ],
+      "explanation": [
+        "Objetivo general: analizar el manejo farmacológico de Ares mediante la integración de los hallazgos clínicos y de laboratorio, la composición y dosificación de los productos administrados y la evolución reportada, con énfasis en la terapéutica racional y la seguridad.",
+        "Objetivo específico 1: interpretar los hallazgos gastrointestinales, hematológicos y urinarios para establecer problemas clínicos y diagnósticos diferenciales con su grado de confirmación.",
+        "Objetivo específico 2: explicar los mecanismos de acción y los riesgos de los seis principios activos, y verificar sus cálculos para 21,60 kg frente a las pautas realmente comunicadas.",
+        "Objetivo específico 3: evaluar la evolución disponible y formular conclusiones y recomendaciones de seguimiento que distingan mejoría clínica, seguridad y resolución analítica.",
+        "Materiales y métodos: análisis documental retrospectivo de un caso clínico. Se contrastaron la historia aportada, el informe de laboratorio 028675, seis fichas individuales, fotografías, fichas comerciales y el relato de administración y evolución. Se verificaron unidades, concentraciones y cálculos usando 21,60 kg como peso de referencia. Las observaciones del tutor se distinguieron de los resultados documentados y de las hipótesis; las tablas que mezclaban observaciones con ejemplos no se utilizaron como series clínicas. La revisión bibliográfica reúne fuentes veterinarias fundacionales y actuales con citas Vancouver.",
+        "La tesina descargable desarrolla una introducción de 520 palabras, estos objetivos, revisión de la literatura, materiales y métodos, presentación del caso, resultados, discusión, conclusión y recomendaciones."
+      ],
+      "notes": "Presentar un objetivo general y exactamente tres objetivos específicos. La tesina desarrolla introducción de 520 palabras, revisión de la literatura, materiales y métodos, resultados, discusión, conclusión y recomendaciones."
     },
     {
       "id": "heces-antes",
@@ -84,7 +116,8 @@
         ]
       },
       "explanation": "Las diferencias de iluminación y superficie limitan la interpretación del color. Estas fotografías no identifican parásitos, bacterias ni localización del sangrado. El antecedente de melena o hematochezia proviene de la historia clínica, no de una prueba confirmatoria derivada de las imágenes.",
-      "notes": "No presentar las imágenes como antes, durante y después. Las tres son anteriores al tratamiento y sus letras no expresan una secuencia de mejoría."
+      "notes": "No presentar las imágenes como antes, durante y después. Las tres son anteriores al tratamiento y sus letras no expresan una secuencia de mejoría.",
+      "caption": "A. Material oscuro, brillante y blando, parcialmente formado."
     },
     {
       "id": "laboratorio",
@@ -92,7 +125,7 @@
       "summary": "Muestra recibida el 24 de septiembre; informe emitido el 25 de septiembre de 2026.",
       "layout": "default",
       "references": [
-        1
+        2
       ],
       "table": {
         "caption": "Datos del informe 028675; intervalos del propio laboratorio",
@@ -138,36 +171,56 @@
       "notes": "Dar prioridad al recuento absoluto. Hay más bandas que neutrófilos segmentados, coherente con la interpretación de desviación degenerativa del laboratorio. El hematocrito está dentro del intervalo; no llamar anemia grave a estos resultados."
     },
     {
+      "id": "coproparasitario",
+      "title": "Qué se reportó en el coproparasitario",
+      "summary": "Se comunicó la observación de protozoarios móviles con flagelo, sin identificación taxonómica documentada.",
+      "layout": "default",
+      "references": [
+        3
+      ],
+      "explanation": "La captura fue aportada para contextualizar el hallazgo coproparasitario referido; no permite acreditar por sí sola que corresponda a una muestra de Ares. La movilidad descrita procede del relato del examen, no de esta imagen fija. Esta captura y una semejanza visual con una ilustración genérica no establecen una identificación taxonómica. Giardia puede considerarse como diferencial, sin registrarla como infección confirmada. No constan fecha, técnica, magnificación ni carga parasitaria del examen, por lo que no se reconstruyen esos datos. La elección de microscopía, concentración, detección de antígeno u otras pruebas depende de la sospecha y del criterio de la veterinaria responsable.",
+      "notes": "Distinguir observación coproparasitológica reportada, sospecha diagnóstica y confirmación. No afirmar que el flagelo observado confirma Giardia ni convertir una ilustración de internet en una muestra del paciente.",
+      "bullets": [
+        "Observación referida: organismos pequeños, móviles y con flagelo.",
+        "Orientación diagnóstica: investigar protozoarios intestinales.",
+        "No se documentó identificación de género ni especie."
+      ],
+      "figure": "/exposiciones/assets/imagenes/ares/microscopia-referida.jpg",
+      "figure_alt": "Captura microscópica aportada para contextualizar la observación coproparasitaria referida, sin identificación taxonómica documentada",
+      "caption": "Captura microscópica proporcionada para contextualizar el hallazgo referido. La movilidad procede del relato del examen."
+    },
+    {
       "id": "interpretacion",
       "title": "Diagnóstico y límites de la evidencia",
-      "summary": "La evidencia permite describir un síndrome digestivo y una respuesta inflamatoria; la causa específica permanece sin confirmar.",
+      "summary": "Síndrome gastrointestinal con respuesta inflamatoria y sospecha de protozoosis intestinal a partir de la observación coproparasitológica referida.",
       "layout": "compare",
       "references": [
-        2,
         3,
-        4
+        4,
+        5,
+        6
       ],
       "comparison": [
         {
-          "title": "Documentado",
-          "text": "Alteración digestiva; leucocitosis, bandas elevadas y eosinofilia."
+          "title": "Hallazgos",
+          "text": "Diarrea, bandas elevadas y eosinofilia. En el copro se reportan organismos pequeños, móviles y flagelados."
         },
         {
-          "title": "Hipótesis",
-          "text": "Procesos parasitarios, infecciosos, alimentarios o inflamatorios requieren pruebas dirigidas."
+          "title": "Diagnóstico presuntivo",
+          "text": "Protozoosis intestinal. Giardia es un diferencial; forma y movimiento no confirman género ni especie."
         },
         {
-          "title": "No demostrado",
-          "text": "Agente causal, ferropenia y una infección urinaria confirmada por cultivo."
+          "title": "Interpretación clínica",
+          "text": "Integrar pruebas fecales dirigidas. El hemograma no confirma una bacteria ni la hipocromasia una ferropenia."
         }
       ],
-      "explanation": "El uroanálisis informa leucocitos de 5–20 por campo y bacterias en campo completo. Sin método de recolección, signos urinarios y cultivo, la contaminación no puede excluirse. La eosinofilia es compatible con diferentes procesos y no equivale a un diagnóstico coproparasitológico. Una respuesta al manejo tampoco identifica retrospectivamente la causa.",
-      "notes": "Diferenciar sospecha terapéutica y confirmación etiológica. No utilizar el término infección bacteriana confirmada si solo se dispone del hemograma y de este uroanálisis."
+      "explanation": "El tutor describe organismos pequeños con aspecto de bastón y flagelo en movimiento durante el examen coprológico. Se incorpora como observación referida compatible con protozoarios flagelados y sustenta un diagnóstico presuntivo de protozoosis intestinal. La identificación exige correlación con una muestra adecuada y pruebas dirigidas; no se dispone de una identificación taxonómica documentada ni de una prueba específica que confirme Giardia. El uroanálisis informa leucocitos de 5–20 por campo y bacterias en campo completo. Sin método de recolección, signos urinarios y cultivo, no puede excluirse contaminación ni confirmarse infección urinaria.",
+      "notes": "Explicar que la observación coproparasitológica fue comunicada por el tutor. Separar protozoosis presuntiva de giardiasis confirmada. Las fotografías fecales macroscópicas no sustituyen la identificación microscópica. La desviación izquierda degenerativa requiere interpretación clínica individual."
     },
     {
       "id": "pauta-reportada",
-      "title": "Qué pauta fue comunicada",
-      "summary": "Se conserva el calendario reportado; no acredita que todas las dosis se administraron.",
+      "title": "Productos y administraciones reportadas",
+      "summary": "Cuatro productos reúnen los seis principios activos estudiados; las cantidades corresponden a la pauta comunicada.",
       "layout": "default",
       "references": [],
       "table": {
@@ -180,12 +233,12 @@
         "rows": [
           [
             "Relámpago",
-            "VO; volumen real no confirmado",
+            "4,32 mL VO, una administración reportada",
             "2 octubre"
           ],
           [
             "Bactrivet",
-            "3 mL VO, mañana y noche, 14 días",
+            "3 mL VO cada 12 h, 14 días",
             "3–16 octubre"
           ],
           [
@@ -200,8 +253,8 @@
           ]
         ]
       },
-      "explanation": "Las fichas académicas calculan 3,24 mL de Bactrivet, 4,32 mL de Relámpago y 7,20 mL de Apetomax. Estos cálculos no sustituyen los volúmenes realmente comunicados. Carolina identifica Amibac de 500 mg, pero falta la fotografía del envase y existe una discrepancia de frecuencia entre su ficha y la pauta referida.",
-      "notes": "Usar Apetomax en toda la exposición. Los dos principios de Bactrivet pertenecen a una misma administración; sucede lo mismo con pirantel y praziquantel en Relámpago."
+      "explanation": "El tutor confirmó 4,32 mL de Relámpago como volumen realmente administrado. Los 3,24 mL de Bactrivet y los 7,20 mL de Apetomax son cálculos de etiqueta para 21,60 kg; las cantidades comunicadas fueron 3 mL y 7 mL. Metronidazol se administró en tabletas, una diaria, y no como la suspensión del PDF Metroz-Vet. El calendario de 14 días iniciado el 3 de octubre se extiende hasta el 16; el pesaje del 15 de octubre se registra como control final referido, sin afirmar que ese día se completaron las 28 tomas.",
+      "notes": "No duplicar administraciones por principio activo: Bactrivet reúne sulfametoxazol y trimetoprim; Relámpago, pirantel y praziquantel. Respetar el metronidazol cada 24 horas y el Apetomax a 7 mL. La fecha del control final no acredita la última toma de Bactrivet."
     },
     {
       "id": "sulfametoxazol-y-trimetoprim",
@@ -209,9 +262,9 @@
       "summary": "Sulfametoxazol: Robinson Macas. Trimetoprim: Kristhel Procel.",
       "layout": "default",
       "references": [
-        5,
-        6,
-        7
+        7,
+        8,
+        9
       ],
       "pharmacologyLab": {
         "kind": "mechanism",
@@ -245,7 +298,7 @@
       "summary": "Bactrivet: 80 mg/mL de sulfametoxazol y 16 mg/mL de trimetoprim.",
       "layout": "default",
       "references": [
-        6
+        8
       ],
       "pharmacologyLab": {
         "kind": "dose",
@@ -264,33 +317,33 @@
     },
     {
       "id": "metronidazol",
-      "title": "Metronidazol y conciliación de la pauta",
-      "summary": "Carolina Cajamarca · Amibac de 500 mg declarado en su ficha.",
+      "title": "Metronidazol y frecuencia administrada",
+      "summary": "Carolina Cajamarca · una tableta oral cada 24 horas durante siete días.",
       "layout": "compare",
       "references": [
-        5,
-        8,
-        9,
+        7,
         10,
         11,
-        12
+        12,
+        13,
+        14
       ],
       "comparison": [
         {
           "title": "Mecanismo",
-          "text": "La activación reductiva genera intermediarios que lesionan el ADN de organismos susceptibles."
+          "text": "La activación reductiva genera intermediarios que lesionan el ADN de microorganismos susceptibles."
         },
         {
-          "title": "Cálculo condicional",
-          "text": "Si la tableta era de 500 mg: 500 ÷ 21,60 = 23,15 mg/kg por administración."
+          "title": "Frecuencia comunicada",
+          "text": "Se reportó una tableta cada 24 h al tratar el caso como leve. La ficha del fabricante expresa intervalos de 12–24 h."
         },
         {
-          "title": "Frecuencia real reportada",
-          "text": "Una tableta cada 24 h durante 7 días. La ficha académica registra cada 12 h."
+          "title": "Reconstrucción de dosis",
+          "text": "La ficha individual identifica Amibac 500 mg. Si fue esa presentación: 500 ÷ 21,60 = 23,15 mg/kg por toma."
         }
       ],
-      "explanation": "La presentación comercial necesita confirmación mediante el envase. El PDF de Metroz-Vet corresponde a una suspensión y no demuestra la concentración de la tableta utilizada. Metronidazol puede tener actividad frente a anaerobios y ciertos protozoos; la diarrea aislada no establece esa indicación. La evidencia en diarrea aguda es heterogénea y su alcance no debe trasladarse sin matices a un cuadro de tres semanas. Deben vigilarse efectos gastrointestinales y neurológicos. La desviación izquierda degenerativa de Ares exige consideración individual; no corresponde descartar retrospectivamente los antimicrobianos solo por tratarse de diarrea.",
-      "notes": "No corregir la pauta a cada 12 horas. La reconstrucción de 23,15 mg/kg es condicional a la tableta declarada de 500 mg. No afirmar giardiasis sin diagnóstico."
+      "explanation": "La ficha del fabricante de Amibac indica una tableta por cada 20–30 kg cada 12–24 horas durante 5–7 días, por recomendación veterinaria. La asociación de cada 24 horas con un manejo leve y cada 12 horas con uno grave corresponde a la explicación comunicada por el tutor; el fabricante no formula esa equivalencia como regla literal. En Ares se administró una tableta cada 24 horas durante siete días. Esta aclaración resuelve la frecuencia histórica y no clasifica como leve todo el proceso frente al leucograma inflamatorio. La ficha de Carolina identifica Amibac de 500 mg; el cálculo de 23,15 mg/kg por toma y por día queda condicionado a esa presentación. El PDF Metroz-Vet de 50 mg/mL describe una suspensión y no acredita la concentración de la tableta. La ficha de Amibac advierte contra el uso en alteraciones sanguíneas o de médula ósea; los cambios hematológicos de Ares requieren valoración de esa advertencia por la veterinaria responsable. Metronidazol actúa frente a anaerobios y determinados protozoos, pero la sospecha coproparasitológica no confirma Giardia. La evidencia en diarrea aguda es heterogénea y su extrapolación a este cuadro de unas tres semanas es limitada. Deben vigilarse intolerancia digestiva, alteraciones de microbiota y signos neurológicos.",
+      "notes": "Cada 24 horas es la pauta reportada. La ficha comercial establece 12–24 horas; la distinción leve o grave fue la interpretación relatada por el tutor. No reclasificar por ello el leucograma como leve. Si la tableta fue de 500 mg, la exposición diaria equivale a 23,15 mg/kg; cada 12 horas duplicaría esa exposición y no describe el tratamiento recibido. Mencionar la advertencia del fabricante sobre alteraciones sanguíneas o medulares y su valoración por la veterinaria."
     },
     {
       "id": "pirantel-y-praziquantel",
@@ -298,11 +351,11 @@
       "summary": "Pamoato de pirantel: Samira Yunga. Praziquantel: Tiffany Machuca.",
       "layout": "compare",
       "references": [
-        13,
+        15,
+        7,
         5,
-        3,
-        14,
-        15
+        16,
+        17
       ],
       "comparison": [
         {
@@ -314,11 +367,11 @@
           "text": "Altera la homeostasis del calcio y el tegumento de cestodos susceptibles. Relámpago declara 35 mg/mL."
         },
         {
-          "title": "Cálculo de etiqueta",
-          "text": "1 mL/5 kg → 4,32 mL para 21,60 kg. El volumen administrado el 2 de octubre no está confirmado."
+          "title": "Volumen administrado",
+          "text": "4,32 mL VO el 2 de octubre. Coincide con 1 mL/5 kg para el peso de referencia de 21,60 kg."
         }
       ],
-      "explanation": "El ejercicio equivale a 432 mg de pamoato de pirantel y 151,2 mg de praziquantel. No se debe comparar una dosis expresada como sal de pamoato con una dosis expresada como pirantel base sin conversión. La etiqueta menciona una repetición a los 21 días; no existe confirmación de que se haya realizado. La prevención de reinfección y el control de pulgas son relevantes cuando se consideran cestodos transmitidos por hospedadores intermediarios.",
+      "explanation": "Los 4,32 mL administrados aportan 432 mg de pamoato de pirantel y 151,2 mg de praziquantel: 20 mg/kg de la sal de pamoato y 7 mg/kg de praziquantel. Ambos principios estaban incluidos en una sola administración del producto. La dosis de la sal no es igual a la dosis de pirantel base. El espectro frente a nematodos y cestodos no demuestra actividad del producto frente al protozoo sospechado. La etiqueta menciona repetición a los 21 días, pero esta no consta como administración realizada. La higiene y el control de pulgas ayudan a prevenir reinfecciones según el parásito implicado.",
       "notes": "Separar la función de cada integrante y de cada principio, pero no presentar dos desparasitaciones: se trata de los componentes del mismo producto."
     },
     {
@@ -327,13 +380,13 @@
       "summary": "Jhon Balcázar · una formulación de apoyo, no hierro aislado.",
       "layout": "compare",
       "references": [
-        16,
-        4
+        18,
+        6
       ],
       "comparison": [
         {
-          "title": "Producto revisado",
-          "text": "Apetomax contiene sulfato ferroso, buclizina y otros componentes. No es intercambiable con Apetovit."
+          "title": "Producto administrado",
+          "text": "Apetomax contiene sulfato ferroso, buclizina y componentes del complejo B. Es un coadyuvante multicomponente."
         },
         {
           "title": "Pauta comunicada",
@@ -353,10 +406,10 @@
       "summary": "El análisis farmacológico debe incluir reacciones adversas, interacciones y una indicación justificada.",
       "layout": "default",
       "references": [
-        7,
-        12,
         9,
-        17
+        14,
+        11,
+        19
       ],
       "table": {
         "caption": "Vigilancia propuesta para comprender el caso, no resultados observados",
@@ -383,43 +436,43 @@
           ]
         ]
       },
-      "explanation": "La pauta se analiza retrospectivamente; no se propone continuar, repetir ni cambiar medicamentos. ENOVAT trata diarrea aguda y contempla la desviación izquierda degenerativa como una excepción que exige valoración antimicrobiana individual. Ares presenta ese patrón, por lo que no debe tratarse como una diarrea leve inespecífica. Esto tampoco demuestra que la pauta concreta fuera óptima. Su historia de unas tres semanas limita además la extrapolación directa de la guía. El metronidazol puede alterar la microbiota, y no existe un umbral universal que garantice ausencia de neurotoxicidad. El caso no aporta ensayos que permitan atribuir la recuperación a un fármaco específico.",
+      "explanation": "El análisis es retrospectivo. ENOVAT aborda diarrea aguda y considera la desviación izquierda degenerativa una excepción que exige valoración antimicrobiana individual. Ares presenta ese patrón, por lo que la elección comunicada de metronidazol cada 24 horas para un manejo leve no convierte el proceso completo en una diarrea leve inespecífica. La historia de unas tres semanas también limita la extrapolación directa de la guía. La recuperación reportada no acredita por sí sola la elección óptima de cada medicamento. El metronidazol puede alterar la microbiota y provocar signos neurológicos; las sulfonamidas potenciadas requieren vigilancia de hipersensibilidad y otros efectos adversos. No hay controles que permitan atribuir la mejoría a un fármaco aislado.",
       "notes": "Distinguir ausencia de un efecto adverso registrado y ausencia demostrada de efectos adversos. Las tablas con valores de ejemplo no constituyen observaciones válidas para esta conclusión."
     },
     {
       "id": "evolucion",
-      "title": "Qué sabemos de la evolución",
-      "summary": "Peso final comunicado: 22 kg. El tutor describe mejoría completa de su estado general.",
+      "title": "Evolución y control final referido",
+      "summary": "Pesaje comunicado del 15 de octubre de 2026: 22,00 kg. El tutor describe recuperación del estado general.",
       "layout": "default",
       "references": [],
       "pharmacologyLab": {
         "kind": "weight"
       },
-      "explanation": "El aumento de 0,40 kg equivale aproximadamente a 1,85 % del peso basal. La fecha y las condiciones exactas del pesaje final no están documentadas. La expresión “mejoró un 100 %” se conserva como apreciación subjetiva de recuperación completa, no como una medición de eficacia. Las tablas aportadas mezclan datos reales y ejemplos sin identificar cada celda; sus valores seriados se excluyen de los resultados.",
-      "notes": "No trazar curvas de temperatura, apetito o peso a partir de la tabla mixta. No afirmar normalización del hemograma, erradicación parasitaria o alta veterinaria."
+      "explanation": "El peso pasó de 21,60 a 22,00 kg: un aumento de 0,40 kg, equivalente a 1,85 %. El tutor confirmó el 15 de octubre de 2026 como fecha del pesaje final. No se conocen las condiciones exactas de ambas mediciones y no se atribuye este cambio a un producto específico. La expresión de recuperación completa se interpreta como apreciación del tutor. El pesaje se conserva como control final referido; el calendario comunicado de Bactrivet, iniciado el 3 de octubre durante 14 días, llega al 16 de octubre. Las tablas que mezclan observaciones y ejemplos no se convierten en series clínicas auténticas. No se dispone de hemograma ni coproparasitológico de control que acredite resolución analítica o parasitaria.",
+      "notes": "Presentar únicamente los dos pesos conocidos, con escala desde cero. El 15 de octubre es la fecha confirmada del pesaje; no afirmar que acredita por sí misma la última dosis ni el alta veterinaria. La mejoría clínica referida es favorable, pero su magnitud no equivale a eficacia farmacológica del 100 %."
     },
     {
       "id": "conclusiones",
-      "title": "Conclusiones y evidencia que falta integrar",
-      "summary": "La recuperación reportada es favorable; la interpretación conserva los límites de los datos.",
+      "title": "Conclusiones y recomendaciones",
+      "summary": "La evolución referida fue favorable y el análisis integra dosis reales, sospechas diagnósticas y seguimiento.",
       "layout": "compare",
       "references": [],
       "comparison": [
         {
-          "title": "Aprendizaje",
-          "text": "Una misma combinación requiere separar concentración, masa del principio activo y mg/kg."
+          "title": "Hallazgos clínicos",
+          "text": "Síndrome gastrointestinal con inflamación y protozoosis presuntiva. El agente específico no está confirmado."
         },
         {
-          "title": "Conclusión clínica",
-          "text": "Hay mejoría subjetiva y un cambio ponderal pequeño. No puede asignarse causalidad a un fármaco aislado."
+          "title": "Análisis farmacológico",
+          "text": "Se reconstruyeron las dosis de seis principios activos con el peso de 21,60 kg y se distinguieron de los cálculos de etiqueta."
         },
         {
-          "title": "Para completar",
-          "text": "Envase de metronidazol, volumen real de Relámpago, registros auténticos identificados y controles disponibles."
+          "title": "Seguimiento",
+          "text": "Registrar signos y administraciones, mantener higiene y dieta estable, y valorar controles fecales y hematológicos con la veterinaria."
         }
       ],
-      "explanation": "También permitirían fortalecer la tesina el resultado coproparasitológico si existe, la información de recolección de orina, la validación de las discrepancias por la veterinaria y la fecha del pesaje final. La ausencia de estos datos no se reemplaza por estimaciones ni por valores de ejemplo.",
-      "notes": "Cerrar respondiendo al objetivo: se interpretó la evidencia, se respetó el reparto y se reconstruyeron cálculos sin inventar evolución."
+      "explanation": "La tesina integra la observación coproparasitológica referida, los hallazgos del informe 028675, las cantidades y frecuencias comunicadas y el pesaje final del 15 de octubre. La mejoría reportada por el tutor y el aumento de 0,40 kg sostienen una evolución clínica referida favorable, sin demostrar erradicación parasitaria, normalización hematológica ni eficacia de un fármaco aislado. Las recomendaciones son conservar un registro auténtico de administración y signos, confirmar la presentación de la tableta mediante el envase, mantener medidas de higiene y prevención de reinfección, y acordar controles dirigidos con la veterinaria responsable según la evolución.",
+      "notes": "Relacionar el cierre con los tres objetivos: interpretar los hallazgos, explicar mecanismos y dosis, y evaluar la evolución. Presentar las recomendaciones como seguimiento clínico; no como una nueva prescripción ni una repetición automática de tratamientos."
     },
     {
       "id": "preguntas",
@@ -432,7 +485,7 @@
     {
       "id": "fuentes-y-materiales",
       "title": "Fuentes y materiales",
-      "summary": "Referencias Vancouver con enlaces y archivos de la primera versión.",
+      "summary": "Referencias Vancouver con enlaces y materiales revisados el 22 de octubre de 2026.",
       "layout": "references",
       "references": [],
       "notes": "Las fuentes completas y los archivos descargables se consultan también en modo Página. Las imágenes corresponden al caso real y se han incorporado con la procedencia indicada."
@@ -441,122 +494,116 @@
   "references": [
     {
       "id": 1,
-      "citation": "Cornell University College of Veterinary Medicine. Left shift. En: eClinpath [Internet]. Ithaca (NY): Cornell University [citado 21 oct 2026].",
-      "url": "https://eclinpath.com/hematology/morphologic-features/white-blood-cells/left-shift/",
-      "scope": "Interpretación de desviación izquierda degenerativa."
+      "citation": "Gallagher A. El aparato digestivo en animales. Manual de veterinaria de Merck [Internet]. Rahway (NJ): Merck & Co.; 2025 [actualizado abr 2026; citado 22 oct 2026].",
+      "url": "https://www.merckvetmanual.com/es-us/aparato-digestivo/introducción-al-aparato-digestivo/el-aparato-digestivo-en-animales"
     },
     {
       "id": 2,
-      "citation": "Weese JS, Blondeau J, Boothe D, Guardabassi LG, Gumley N, Papich M, et al. International Society for Companion Animal Infectious Diseases (ISCAID) guidelines for the diagnosis and management of bacterial urinary tract infections in dogs and cats. Vet J. 2019;247:8–25. doi:10.1016/j.tvjl.2019.02.008.",
-      "url": "https://doi.org/10.1016/j.tvjl.2019.02.008",
-      "scope": "Correlación clínica, recogida y cultivo de orina."
+      "citation": "Cornell University College of Veterinary Medicine. Left shift. En: eClinpath [Internet]. Ithaca (NY): Cornell University [citado 22 oct 2026].",
+      "url": "https://eclinpath.com/hematology/morphologic-features/white-blood-cells/left-shift/"
     },
     {
       "id": 3,
-      "citation": "European Scientific Counsel Companion Animal Parasites. Control de vermes en perros y gatos. Guía ESCCAP 01. 6.ª ed. Malvern: ESCCAP; 2021 [citado 21 oct 2026].",
-      "url": "https://www.esccap.es/wp-content/uploads/2022/03/ESCCAP-1-6ed.pdf",
-      "scope": "Control de helmintos en español"
+      "citation": "Companion Animal Parasite Council. Giardia [Internet]. CAPC; 2026 [actualizado 3 ago 2026; citado 22 oct 2026].",
+      "url": "https://capcvet.org/guidelines/giardia/"
     },
     {
       "id": 4,
-      "citation": "Cornell University College of Veterinary Medicine. Iron panels. En: eClinpath [Internet]. Ithaca (NY): Cornell University [citado 21 oct 2026].",
-      "url": "https://eclinpath.com/chemistry/iron-metabolism/iron-panel-summary/",
-      "scope": "Interpretación del hierro"
+      "citation": "Weese JS, Blondeau J, Boothe D, Guardabassi LG, Gumley N, Papich M, et al. International Society for Companion Animal Infectious Diseases (ISCAID) guidelines for the diagnosis and management of bacterial urinary tract infections in dogs and cats. Vet J. 2019;247:8–25. doi:10.1016/j.tvjl.2019.02.008.",
+      "url": "https://doi.org/10.1016/j.tvjl.2019.02.008"
     },
     {
       "id": 5,
-      "citation": "Plumb DC. Plumb's veterinary drug handbook. 6th ed. Stockholm (WI): PharmaVet; 2008.",
-      "url": "https://search.worldcat.org/es/title/Plumb%27s-veterinary-drug-handbook/oclc/440588470",
-      "scope": "Manual fundacional aportado"
+      "citation": "European Scientific Counsel Companion Animal Parasites. Control de vermes en perros y gatos. Guía ESCCAP 01. 6.ª ed. Malvern: ESCCAP; 2021 [citado 22 oct 2026].",
+      "url": "https://www.esccap.org/uploads/docs/bfljvkls_1272_ESCCAP_GL1__Spanish_v3_1p.pdf"
     },
     {
       "id": 6,
-      "citation": "Farbiopharma. Bactrivet Farbiovet: antibiótico suspensión oral [Internet]. Quito: Farbiopharma; s. f. [citado 21 oct 2026].",
-      "url": "https://farbiopharma.com/wp-content/uploads/2023/01/F.T.-BACTRIVET-FARBIOVET-V0..pdf",
-      "scope": "Identidad, composición y presentación comercial."
+      "citation": "Cornell University College of Veterinary Medicine. Iron panels. En: eClinpath [Internet]. Ithaca (NY): Cornell University [citado 22 oct 2026].",
+      "url": "https://eclinpath.com/chemistry/iron-metabolism/iron-panel-summary/"
     },
     {
       "id": 7,
-      "citation": "Ekstrand C, Hedlund M, Pelander L, Scahill K. Adverse events of trimetroprim-sulphonamide treatment of cats and dogs: a systematic review. Vet Res Commun. 2026;50:224. doi:10.1007/s11259-026-11143-1.",
-      "url": "https://doi.org/10.1007/s11259-026-11143-1",
-      "scope": "Seguridad de sulfonamidas potenciadas"
+      "citation": "Plumb DC. Plumb's veterinary drug handbook. 6th ed. Stockholm (WI): PharmaVet; 2008.",
+      "url": "https://search.worldcat.org/es/title/Plumb%27s-veterinary-drug-handbook/oclc/440588470"
     },
     {
       "id": 8,
-      "citation": "Aranda Pets. Amibac: metronidazol tabletas [Internet]. Experiencia Veterinaria; s. f. [citado 21 oct 2026].",
-      "url": "https://www.experiencia.vet/Detail?id=4",
-      "scope": "Identidad, composición y presentación comercial."
+      "citation": "Farbiopharma. Bactrivet Farbiovet: antibiótico suspensión oral [Internet]. Quito: Farbiopharma; s. f. [citado 22 oct 2026].",
+      "url": "https://farbiopharma.com/wp-content/uploads/2023/01/F.T.-BACTRIVET-FARBIOVET-V0..pdf"
     },
     {
       "id": 9,
-      "citation": "Jessen LR, Werner M, Singleton D, Prior C, Foroutan F, Ferran AA, et al. European Network for Optimization of Veterinary Antimicrobial Therapy (ENOVAT) guidelines for antimicrobial use in canine acute diarrhoea. Vet J. 2024;307:106208. doi:10.1016/j.tvjl.2024.106208.",
-      "url": "https://doi.org/10.1016/j.tvjl.2024.106208",
-      "scope": "Antimicrobianos y diarrea aguda"
+      "citation": "Ekstrand C, Hedlund M, Pelander L, Scahill K. Adverse events of trimetroprim-sulphonamide treatment of cats and dogs: a systematic review. Vet Res Commun. 2026;50(3):224. doi:10.1007/s11259-026-11143-1.",
+      "url": "https://doi.org/10.1007/s11259-026-11143-1"
     },
     {
       "id": 10,
-      "citation": "Langlois DK, Koenigshof AM, Mani R. Metronidazole treatment of acute diarrhea in dogs: a randomized double blinded placebo-controlled clinical trial. J Vet Intern Med. 2020;34(1):98–104. doi:10.1111/jvim.15664.",
-      "url": "https://doi.org/10.1111/jvim.15664",
-      "scope": "Ensayo de metronidazol con beneficio limitado"
+      "citation": "Aranda Pets. Amibac: metronidazol tabletas [Internet]. Experiencia Veterinaria; s. f. [citado 22 oct 2026].",
+      "url": "https://www.experiencia.vet/Detail?id=4"
     },
     {
       "id": 11,
-      "citation": "Shmalberg J, Montalbano C, Morelli G, Buckley GJ. A randomized double blinded placebo-controlled clinical trial of a probiotic or metronidazole for acute canine diarrhea. Front Vet Sci. 2019;6:163. doi:10.3389/fvets.2019.00163.",
-      "url": "https://doi.org/10.3389/fvets.2019.00163",
-      "scope": "Ensayo sin diferencia significativa"
+      "citation": "Jessen LR, Werner M, Singleton D, Prior C, Foroutan F, Ferran AA, et al. European Network for Optimization of Veterinary Antimicrobial Therapy (ENOVAT) guidelines for antimicrobial use in canine acute diarrhoea. Vet J. 2024;307:106208. doi:10.1016/j.tvjl.2024.106208.",
+      "url": "https://doi.org/10.1016/j.tvjl.2024.106208"
     },
     {
       "id": 12,
-      "citation": "Tauro A, Beltran E, Cherubini GB, Coelho AT, Wessmann A, Driver CJ, et al. Metronidazole-induced neurotoxicity in 26 dogs. Aust Vet J. 2018;96(12):495–501. doi:10.1111/avj.12772.",
-      "url": "https://doi.org/10.1111/avj.12772",
-      "scope": "Neurotoxicidad y ausencia de un umbral universal de seguridad."
+      "citation": "Langlois DK, Koenigshof AM, Mani R. Metronidazole treatment of acute diarrhea in dogs: a randomized double blinded placebo-controlled clinical trial. J Vet Intern Med. 2020;34(1):98–104. doi:10.1111/jvim.15664.",
+      "url": "https://doi.org/10.1111/jvim.15664"
     },
     {
       "id": 13,
-      "citation": "James Brown Pharma. Relámpago: antiparasitario interno [Internet]. Quito: James Brown Pharma; s. f. [citado 21 oct 2026].",
-      "url": "https://jamesbrownpharma.com/producto/relampago/",
-      "scope": "Identidad, composición y presentación comercial."
+      "citation": "Shmalberg J, Montalbano C, Morelli G, Buckley GJ. A randomized double blinded placebo-controlled clinical trial of a probiotic or metronidazole for acute canine diarrhea. Front Vet Sci. 2019;6:163. doi:10.3389/fvets.2019.00163.",
+      "url": "https://doi.org/10.3389/fvets.2019.00163"
     },
     {
       "id": 14,
-      "citation": "Companion Animal Parasite Council. Hookworms [Internet]. CAPC; 2025 [actualizado 28 feb 2025; citado 21 oct 2026].",
-      "url": "https://capcvet.org/guidelines/hookworms/",
-      "scope": "Nematodos y pirantel"
+      "citation": "Tauro A, Beltran E, Cherubini GB, Coelho AT, Wessmann A, Driver CJ, et al. Metronidazole-induced neurotoxicity in 26 dogs. Aust Vet J. 2018;96(12):495–501. doi:10.1111/avj.12772.",
+      "url": "https://doi.org/10.1111/avj.12772"
     },
     {
       "id": 15,
-      "citation": "Companion Animal Parasite Council. Cestodes [Internet]. CAPC; 2016 [actualizado 1 nov 2016; citado 21 oct 2026].",
-      "url": "https://capcvet.org/guidelines/cestodes/",
-      "scope": "Cestodos y prevención de reinfección"
+      "citation": "James Brown Pharma. Relámpago: antiparasitario interno [Internet]. Quito: James Brown Pharma; s. f. [citado 22 oct 2026].",
+      "url": "https://jamesbrownpharma.com/producto/relampago-2/"
     },
     {
       "id": 16,
-      "citation": "Favetex. Apetomax: estimulante de apetito [Internet]. Guayaquil: Favetex; s. f. [citado 21 oct 2026].",
-      "url": "https://favetex.com/wp-content/uploads/2026/04/Apetomax.pdf",
-      "scope": "Identidad, composición y presentación comercial."
+      "citation": "Companion Animal Parasite Council. Hookworms [Internet]. CAPC; 2025 [actualizado 28 feb 2025; citado 22 oct 2026].",
+      "url": "https://capcvet.org/guidelines/hookworms/"
     },
     {
       "id": 17,
+      "citation": "Companion Animal Parasite Council. Cestodes [Internet]. CAPC; 2016 [actualizado 1 nov 2016; citado 22 oct 2026].",
+      "url": "https://capcvet.org/guidelines/cestodes/"
+    },
+    {
+      "id": 18,
+      "citation": "Favetex. Apetomax: estimulante de apetito [Internet]. Guayaquil: Favetex; s. f. [citado 22 oct 2026].",
+      "url": "https://favetex.com/wp-content/uploads/2026/04/Apetomax.pdf"
+    },
+    {
+      "id": 19,
       "citation": "Pilla R, Gaschen FP, Barr JW, Olson E, Honneffer J, Guard BC, et al. Effects of metronidazole on the fecal microbiome and metabolome in healthy dogs. J Vet Intern Med. 2020;34(5):1853–1866. doi:10.1111/jvim.15871.",
-      "url": "https://doi.org/10.1111/jvim.15871",
-      "scope": "Microbiota y metronidazol"
+      "url": "https://doi.org/10.1111/jvim.15871"
     }
   ],
   "resources": [
     {
       "label": "Descargar tesina Word",
-      "path": "/exposiciones/assets/descargas/tesina-ares-farmacologia-ii-v1.docx"
+      "path": "/exposiciones/assets/descargas/tesina-ares-farmacologia-ii-final.docx"
     },
     {
       "label": "Descargar PowerPoint",
-      "path": "/exposiciones/assets/descargas/presentacion-ares-farmacologia-ii-v1.pptx"
+      "path": "/exposiciones/assets/descargas/presentacion-ares-farmacologia-ii-final.pptx"
     }
   ],
   "downloadsAt": "fuentes-y-materiales",
   "credits": [
     "Fotografías reales de Ares y de sus heces aportadas por su tutor. Las imágenes fecales son anteriores al tratamiento y no tienen orden temporal confirmado.",
+    "Captura microscópica aportada para contextualizar el hallazgo coproparasitario referido. Se conserva el archivo original; no se certifica mediante él la procedencia de la muestra, su movilidad ni un agente específico.",
     "Datos clínicos transcritos del informe 028675, historia clínica, seis aportes individuales y pauta reportada. Los documentos públicos excluyen el nombre y contacto del tutor.",
-    "Coordinación académica: Juan José Bajaña Chuno. Primera versión documental: 21 de octubre de 2026."
+    "Coordinación académica: Juan José Bajaña Chuno. Revisión documental: 22 de octubre de 2026."
   ],
   "quiz": [
     {
