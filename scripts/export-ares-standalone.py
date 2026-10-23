@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 def data_url(path):
-    types={'.webp':'image/webp','.png':'image/png','.svg':'image/svg+xml','.woff2':'font/woff2'}
+    types={'.webp':'image/webp','.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.svg':'image/svg+xml','.woff2':'font/woff2'}
     p=ROOT/path.lstrip('/')
     return 'data:'+types[p.suffix]+';base64,'+base64.b64encode(p.read_bytes()).decode()
 
@@ -22,11 +22,11 @@ def export(destination):
         styles.append(text)
     source=re.sub(r'<link rel="stylesheet"[^>]+>','',source)
     source=source.replace('</head>','<style>'+''.join(styles)+OVERRIDES+'</style></head>')
-    source=re.sub(r'(/exposiciones/assets/imagenes/ares/[a-z-]+\.webp)(?:\?v=[a-f0-9]+)?',lambda m:data_url(m[1]),source)
+    source=re.sub(r'(/exposiciones/assets/imagenes/ares/[a-z-]+\.(?:webp|jpe?g|png))(?:\?v=[a-f0-9]+)?',lambda m:data_url(m[1]),source)
     source=source.replace('/assets/favicon.png',data_url('/assets/favicon.png'))
     source=re.sub(r'<svg class="expo-icon".*?</svg>','',source)
-    source=source.replace('/exposiciones/assets/descargas/tesina-ares-farmacologia-ii-v1.docx','Tesina_Ares_Farmacologia_II_v1.docx').replace('/exposiciones/assets/descargas/presentacion-ares-farmacologia-ii-v1.pptx','Presentacion_Ares_Farmacologia_II_v1.pptx')
-    source=re.sub(r'((?:Tesina|Presentacion)_Ares_Farmacologia_II_v1\.(?:docx|pptx))\?v=[a-f0-9]+',r'\1',source)
+    source=source.replace('/exposiciones/assets/descargas/tesina-ares-farmacologia-ii-final.docx','Tesina_Ares_Farmacologia_II_final.docx').replace('/exposiciones/assets/descargas/presentacion-ares-farmacologia-ii-final.pptx','Presentacion_Ares_Farmacologia_II_final.pptx')
+    source=re.sub(r'((?:Tesina|Presentacion)_Ares_Farmacologia_II_final\.(?:docx|pptx))\?v=[a-f0-9]+',r'\1',source)
     source=re.sub(r'href="(/[^\"]*)"',r'href="https://vetjb.com\1"',source)
     source=re.sub(r'<button[^>]*data-share-open[^>]*>.*?</button>','',source)
     source=source.replace('<h2>Fuentes y materiales</h2>','<h2>Fuentes y materiales</h2>')

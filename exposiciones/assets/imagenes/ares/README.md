@@ -7,3 +7,7 @@ Fotografías reales aportadas por el tutor para la tesina, presentación y expos
 - `heces-a.webp`, `heces-b.webp`, `heces-c.webp`: tres fotografías anteriores al tratamiento. Las letras no indican un orden temporal. Las imágenes no confirman un agente causal ni sangrado por sí solas.
 
 No se incluyen documentos con contacto del tutor ni tablas que mezclan datos de ejemplo con registros reales sin identificación.
+
+## Captura microscópica incorporada en la revisión
+
+`microscopia-referida.jpg`: JPEG original de 201558 bytes aportado para contextualizar el hallazgo coproparasitario referido. La procedencia de la muestra no queda acreditada por la captura; el movimiento fue relatado y no se demuestra mediante la imagen estática. No se etiqueta como Giardia ni se reproduce la ilustración genérica de internet. El recorte de encuadre es únicamente de visualización CSS; los bytes originales se conservan.

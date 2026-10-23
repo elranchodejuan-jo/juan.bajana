@@ -3,6 +3,9 @@ body.expo-app[data-subject="farmacologia-ii"][data-theme="light"] { --expo-accen
 body[data-exposition="caso-ares"] .expo-cover-layout { display:grid; grid-template-columns: 1.1fr .9fr; gap:32px; align-items:center; }
 body[data-exposition="caso-ares"] .expo-cover-layout .expo-figure img { max-height:400px; object-fit:contain; }
 body[data-exposition="caso-ares"] .expo-author { font-size:16px; }
+body[data-exposition="caso-ares"] #coproparasitario .expo-figure img { display:block; width:280px; height:440px; max-width:100%; margin:auto; object-fit:cover; object-position:center; }
+body[data-exposition="caso-ares"][data-mode="presentar"] #coproparasitario .expo-figure img { width:220px; height:330px; }
+body[data-exposition="caso-ares"][data-mode="presentar"] #coproparasitario .expo-figure figcaption { font-size:17px; line-height:1.35; }
 .pharma-dose, .pharma-mechanism, .pharma-weight { padding:24px; border:1px solid var(--expo-border); border-radius:20px; background:var(--expo-surface); }
 .pharma-dose-control { display:flex; flex-wrap:wrap; gap:12px 22px; align-items:center; }
 .pharma-dose-control select { font:inherit; color:var(--expo-text); background:var(--expo-bg); border:1px solid var(--expo-border); padding:12px; border-radius:10px; }
